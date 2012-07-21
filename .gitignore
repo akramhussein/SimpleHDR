@@ -10,3 +10,10 @@
 *.lai
 *.la
 *.a
+
+# Image and video files
+*.ppm
+*.jp*g
+*.pvn
+*.mpeg
+*.avi
