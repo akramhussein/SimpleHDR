@@ -217,6 +217,8 @@
     //! Return FirewireFrame object. Data held by FirewireFrame is
     //! invalidated on return.
     void PutFrame(FirewireFrame& frame);
+        
+    // SHUTTER 
 
     //! return absolute shutter value
     float GetShutterTime() const;
@@ -227,8 +229,42 @@
     //! set auto shutter value
     void SetAutoShutterTime();
 
+    //! set manual shutter
     void SetShutterTimeManual();
 
+    //! return the quantised shutter time
+    int GetShutterTimeQuant() const;
+    
+    //! return quantised shutter value
+    void SetShutterTimeQuant(int shutter);
+        
+        
+    // EXPOSURE     
+
+    //! return absolute exposure value
+    float GetExposure() const;
+    
+    //! set absolute exposure value
+    void SetExposure(float val);
+    
+    //! set auto exposure
+    void SetAutoExposure();
+    
+    //! set manual exposure
+    void SetExposureManual();
+        
+    /*
+    //! set quantised exposure
+    void SetExposureQuant(int val);
+     
+    //! return quantised exposure
+    int GetExposureQuant();
+    
+    */
+        
+        
+    // GAIN
+        
     //! return the quantised gain
     int GetGainQuant() const;
 
@@ -243,7 +279,10 @@
 
     //! return absolute gamma value
     float GetGamma() const;
-
+      
+        
+    // WHITE BALANCE
+        
     //! set the white balance
     void SetWhiteBalance(unsigned int u_b_value, unsigned int v_r_value);
 
@@ -253,12 +292,9 @@
     //! set the white balance to single shot auto
     void SetSingleAutoWhiteBalance();
 
-    //! return the quantised shutter time
-    int GetShutterTimeQuant() const;
 
-    //! return quantised shutter value
-    void SetShutterTimeQuant(int shutter);
-
+    // TRIGGERS
+        
     //! set the trigger to internal, i.e. determined by video mode
     void SetInternalTrigger();
 
@@ -269,18 +305,111 @@
       dc1394trigger_source_t source=DC1394_TRIGGER_SOURCE_0
     );
         
+        
+    // REPORTING
+        
     //! Print full camera features and current settings report
     void PrintReport();
+        
+        
+    // CONVERTING
+        
+    dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
+        
+        
+    // SAVING
     
     //! Save frame to .ppm
-    bool SaveFrame(    int frame_number, 
-                   dc1394video_frame_t *frame,
-                   unsigned char* image, 
-                   bool wait
+    bool SaveFrame(     int frame_number, 
+                        dc1394video_frame_t *frame,
+                        unsigned char* image, 
+                        bool wait
                    ); 
     
-    dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
 
+    bool SaveOneShot(   int frame_number, 
+                        dc1394video_frame_t *frame,
+                        unsigned char* image,
+                        bool wait
+                     );
+     /* TO ADD
+      
+    GAMMA
+      //! set gamma value
+      void SetGamma(float val); 
+
+      
+    SATURATION
+      //! set saturation value
+      void SetSaturation(float val); 
+      
+      //! return saturation value
+      float GetSaturation(); 
+      
+      //! set quantised saturation value
+      void SetSaturationQuant(int val); 
+      
+      //! return quantised saturation value
+      int GetSaturationQuant(); 
+      
+    HUE
+      //! set hue value
+      void SetHue(float val); 
+
+      //! return hue value
+      float GetHue(); 
+      
+      //! set hue value
+      void SetHueQuant(int val); 
+      
+      //! return hue value
+      int GetHueQuant(); 
+      
+    FRAMERATE
+      //! set framerate auto
+      void SetFramerateAuto();
+      
+      //! set framerate value
+      void SetFramerate(float val);
+      
+      //! return framerate value
+      float GetFramerate();
+      
+      //! set quantised framerate 
+      void SetFramerateQuant(int val);
+      
+      //! return quantised framrate
+      int GetFramerateQuant();
+      
+    SHARPNESS
+      
+      //! set sharpness auto
+      void SetSharpnessAuto();
+      
+      //! set quantised sharpness value (abs doesn't exist)
+      void SetSharpnessQuant(int val);
+      
+      //! return quantised sharpness value (abs doesn't exist)
+      int GetSharpnessQuant();
+      
+      
+    BRIGHTNESS
+      
+      //! set brightness value
+      void SetBrightnessQuant(float val);
+      
+      //! return brightness value 
+      float GetBrightness();
+      
+      //! set quantised brightness value (abs doesn't exist)
+      void SetBrightnessQuant(int val);
+      
+      //! return quantised brightness value
+      float GetBrightnessQuant();
+      
+      
+      */
+        
     protected:
 
     void init_camera(
