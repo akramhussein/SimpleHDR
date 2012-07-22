@@ -62,37 +62,38 @@
 
     struct Guid
     {
-    Guid(uint64_t guid):guid(guid){}
-    uint64_t guid;
+        Guid(uint64_t guid):guid(guid){}
+        uint64_t guid;
     };
 
-    struct MetaData {
-    uint32_t flags;
-    unsigned int brightness;
-    unsigned int auto_exposure;
-    unsigned int whitebalance_u_b, whitebalance_v_r;
-    uint32_t timestamp, frame_count;
-    uint32_t shutterQuant, gain;
-    float shutterAbs;
+    struct MetaData 
+    {
+        uint32_t flags;
+        unsigned int brightness;
+        unsigned int auto_exposure;
+        unsigned int whitebalance_u_b, whitebalance_v_r;
+        uint32_t timestamp, frame_count;
+        uint32_t shutterQuant, gain;
+        float shutterAbs;
 
-    //TODO: Add strobe, GPIO and ROI functionality if needed.
-    uint32_t strobe, gpio, roi;
+        //TODO: Add strobe, GPIO and ROI functionality if needed.
+        uint32_t strobe, gpio, roi;
 
-    void copy_from( MetaData *in ) {
-        flags=in->flags;
-        brightness=in->brightness;
-        auto_exposure=in->auto_exposure;
-        whitebalance_u_b=in->whitebalance_u_b;
-        whitebalance_v_r=in->whitebalance_v_r;
-        timestamp=in->timestamp;
-        frame_count=in->frame_count;
-        shutterQuant=in->shutterQuant;
-        gain=in->gain;
-        shutterAbs=in->shutterAbs;
-        strobe = in->strobe;
-        gpio=in->gpio;
-        roi=in->roi;
-    }
+        void copy_from( MetaData *in ) {
+            flags=in->flags;
+            brightness=in->brightness;
+            auto_exposure=in->auto_exposure;
+            whitebalance_u_b=in->whitebalance_u_b;
+            whitebalance_v_r=in->whitebalance_v_r;
+            timestamp=in->timestamp;
+            frame_count=in->frame_count;
+            shutterQuant=in->shutterQuant;
+            gain=in->gain;
+            shutterAbs=in->shutterAbs;
+            strobe = in->strobe;
+            gpio=in->gpio;
+            roi=in->roi;
+        }
     };
 
     typedef enum {
@@ -193,13 +194,14 @@
      *-----------------------------------------------------------------------*/
         
     //! set the meta data flags to be included in image data
-    void SetMetaDataFlags(  int flags );
+    void SetMetaDataFlags(int flags);
     
     //! return the current meta data flags from camera
     uint32_t GetMetaDataFlags();
     
     //! read the meta data from an image according to meta flags
     void ReadMetaData( unsigned char *image, MetaData *metaData );
+        
     float ReadShutter( unsigned char *image );
     
     //! create lookup table to convert quantised shutter values to absolute values

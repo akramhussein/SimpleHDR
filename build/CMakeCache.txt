@@ -326,6 +326,12 @@ GLUT_cocoa_LIBRARY:STRING=-framework Cocoa
 //GLUT library for OSX
 GLUT_glut_LIBRARY:STRING=-framework GLUT
 
+//Path to a file.
+OPENCV2_INCLUDE_DIR:PATH=/usr/local/include
+
+//Path to a library.
+OPENCV2_LIBRARY:FILEPATH=OPENCV2_LIBRARY-NOTFOUND
+
 //Include for OpenGL on OSX
 OPENGL_INCLUDE_DIR:PATH=/System/Library/Frameworks/OpenGL.framework
 
@@ -340,6 +346,9 @@ OPENNI_INCLUDE_DIR:PATH=OPENNI_INCLUDE_DIR-NOTFOUND
 
 //Path to a library.
 OPENNI_LIBRARY:FILEPATH=OPENNI_LIBRARY-NOTFOUND
+
+//The directory containing a CMake configuration file for OpenCV2.
+OpenCV2_DIR:PATH=OpenCV2_DIR-NOTFOUND
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND

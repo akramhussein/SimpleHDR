@@ -1023,28 +1023,31 @@
     }
 
     /*-----------------------------------------------------------------------
-     *  LOOPUP TABLE & META DATA ETC
+     *  META DATA & LOOPUP TABLE ETC
      *-----------------------------------------------------------------------*/
         
-    void FirewireVideo::SetMetaDataFlags(  int flags ) {
-    meta_data_flags = 0x80000000 | flags;
+    void FirewireVideo::SetMetaDataFlags(  int flags ) 
+    {
+        meta_data_flags = 0x80000000 | flags;
 
-    dc1394error_t err = dc1394_set_control_register(camera, 0x12f8, meta_data_flags);
-    if (err < 0) {
-        throw VideoException("Could not set meta data flags");
-    }
+        dc1394error_t err = dc1394_set_control_register(camera, 0x12f8, meta_data_flags);
+        if (err < 0) {
+            throw VideoException("Could not set meta data flags");
+        }
     }
 
-    uint32_t FirewireVideo::GetMetaDataFlags() {
-    uint32_t value;
-    dc1394error_t err = dc1394_get_control_register(camera, 0x12f8, &value);
-    if (err < 0) {
-        throw VideoException("Could not get meta data flags");
-    }
-    return value;
+    uint32_t FirewireVideo::GetMetaDataFlags() 
+    {
+        uint32_t value;
+        dc1394error_t err = dc1394_get_control_register(camera, 0x12f8, &value);
+        if (err < 0) {
+            throw VideoException("Could not get meta data flags");
+        }
+        return value;
     }
 
     void FirewireVideo::ReadMetaData( unsigned char *image, MetaData *metaData ) {
+        
     uint8_t* data = (uint8_t*)image;
 
     int offset = 0;

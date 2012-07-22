@@ -18,33 +18,12 @@ int main( int argc, char* argv[] )
 {
 
     // Setup Video Source
-    // FirewireVideo video = FirewireVideo(); // generic constructor
-    
-    // For libdc1394 types - see http://damien.douxchamps.net/ieee1394/libdc1394/api/types/
     FirewireVideo video =  FirewireVideo();
-//                                            0,                               //device id
-//                                            DC1394_VIDEO_MODE_640x480_RGB8,  // video mode 
-//                                            DC1394_FRAMERATE_30,             // frame rate
-//                                            DC1394_ISO_SPEED_400,            // iso speed
-//                                            10                               // no. of dma buffers
-//                                         );
-    
-    video.SetAutoShutterTime();
-    video.SetAutoGain();
-        
-    VideoPixelFormat vid_fmt = VideoFormatFromString(video.PixFormat());
     //dc1394video_frame_t* empty_frame = NULL; // need to be here - perhaps in firewire
-    
+    VideoPixelFormat vid_fmt = VideoFormatFromString(video.PixFormat());
     const unsigned w = video.Width();
     const unsigned h = video.Height();
 
-    // Print out camera report
-    //video.PrintCameraReport();
-    
-    //video.SetAutoAll();
-    video.SetExposureManual();
-    //video.SetShutterManual();
-    
     // Create Glut window
     pangolin::CreateGlutWindowAndBind("Main",w,h);
 
@@ -57,25 +36,27 @@ int main( int argc, char* argv[] )
     unsigned char* img = new unsigned char[video.SizeBytes()];
     bool over_exposed = true;
     
+    video.SetMetaDataFlags(META_SHUTTER);
+    
+    uint32_t Current_MetaData;
+    Current_MetaData = video.GetMetaDataFlags();
+    
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-        // Grabs frame and also saves ppm
-        // video.SaveFrame(frame_number, empty_frame, img, true); 
-
         if (over_exposed){
             cout << "Over" << endl;
-            video.SetExposure(2.00);
+            video.SetShutterTimeQuant(1000);
 
             over_exposed = false;
-            cout << video.GetExposure() << endl;
+            //cout << video.GetExposure() << endl;
         }
         else {
             cout << "Under" << endl;
-            video.SetExposure(0.00);
+            video.SetShutterTimeQuant(100);
             over_exposed = true;
-            cout << video.GetExposure() << endl;
+            //cout << video.GetExposure() << endl;
         }
         
         // wait 1/30th of a second to sync change in settings and display
@@ -83,8 +64,11 @@ int main( int argc, char* argv[] )
         //sleep(1/30);
         
         // Grab frame without saving
-        //video.SaveOneShot(frame_number, empty_frame, img);
         video.GrabOneShot(img);
+        
+        cout << video.ReadShutter(img) << endl;
+        
+        //video.SaveOneShot(frame_number, empty_frame, img);
 
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
 
