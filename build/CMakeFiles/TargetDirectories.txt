@@ -1,0 +1,5 @@
+/Users/akram/Developer/pangolin-hdr/build/CMakeFiles/ALL_BUILD.dir
+/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/CMakeFiles/SimpleHDR.dir
+/Users/akram/Developer/pangolin-hdr/build/CMakeFiles/ZERO_CHECK.dir
+/Users/akram/Developer/pangolin-hdr/build/pangolin/CMakeFiles/pangolin.dir
+/Users/akram/Developer/pangolin-hdr/build/CMakeFiles/uninstall.dir

@@ -385,6 +385,20 @@
     }
     }
 
+    FirewireVideo::~FirewireVideo()
+    {
+        Stop();
+        
+        if(shutter_lookup_table) delete shutter_lookup_table;
+        
+        // Close camera
+        dc1394_video_set_transmission(camera, DC1394_OFF);
+        dc1394_capture_stop(camera);
+        dc1394_camera_free(camera);
+        dc1394_free (d);
+    }
+
+        
     std::string FirewireVideo::PixFormat() const
     {
     dc1394video_mode_t video_mode;
@@ -457,85 +471,7 @@
     }
     return false;
     }
-
-        bool FirewireVideo::SaveOneShot(    int frame_number, 
-                                            dc1394video_frame_t *frame,
-                                            unsigned char* image,
-                                            bool wait
-                                        ) 
-        {
-        
-            dc1394_video_set_one_shot(camera, DC1394_ON);
-        
-            FILE* imagefile;
-            unsigned int width, height;
-            //dc1394video_frame_t* new_frame = (dc1394video_frame_t *) malloc(sizeof(dc1394video_frame_t));
-            
-            const dc1394capture_policy_t policy =
-            wait ? DC1394_CAPTURE_POLICY_WAIT : DC1394_CAPTURE_POLICY_POLL;
-            
-            // acquire frame from camera 
-            dc1394_capture_dequeue(camera, policy, &frame);
-            
-            // convert bytes for pangolin -- REMOVE LATER
-            if( frame )
-            {
-                memcpy(image,frame->image,frame->image_bytes);
-                dc1394_capture_enqueue(camera,frame);
-                
-            }
-            
-            // convert the image from what ever format it is to its RGB8 
-            //new_frame->color_coding=DC1394_COLOR_CODING_RGB8;
-            //dc1394_convert_frames(frame, new_frame);
-            
-            dc1394_get_image_size_from_video_mode(camera, DC1394_VIDEO_MODE_640x480_RGB8, &width, &height);
-            
-            uint64_t numPixels = height*width;
-            
-            // save image as 'hdr00000000i.ppm' (create path + filename)
-            char filename[64];
-            sprintf( filename, "%s%d%s", "./hdr00000000", frame_number ,".ppm" ); 
-            
-            imagefile = fopen(filename, "wb");
-            
-            if( imagefile == NULL) {
-                perror( "Can't create output file");
-                return false;
-            }
-            
-            fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
-            fwrite(frame->image, 1, numPixels*3, imagefile);
-            fclose(imagefile);
-            printf("wrote: image%d.ppm (%d image bytes)\n", frame_number, height*width*3);
-            
-            return true;            
-        }
-
-        
-        
-    void FirewireVideo::PrintReport() 
-    {
-
-    dc1394featureset_t features;
-
-    // print unique id of camera(not node/slot on chipset)
-    cout << camera->guid << endl; 
-
-    // print camera details
-    dc1394_camera_print_info(camera,stdout); 
-
-    // print camera features
-    err=dc1394_feature_get_all(camera, &features);
-    if (err!=DC1394_SUCCESS) {
-        dc1394_log_warning("Could not get feature set");
-    }
-    else {
-        dc1394_feature_print_all(&features, stdout);
-    } 
-
-    }
-
+    
     void FirewireVideo::FlushDMABuffer()
     {
     dc1394video_frame_t *frame;
@@ -642,71 +578,10 @@
 
     }
         
-    dc1394video_frame_t* FirewireVideo::ConvertToRGB(dc1394video_frame_t *original_frame)
-    {
-        dc1394video_frame_t *new_frame = NULL;
-        new_frame->color_coding=DC1394_COLOR_CODING_RGB8; // should be abstracted
-        dc1394_convert_frames(original_frame, new_frame);
-        
-        return new_frame;
-            
-    }
-
-   bool FirewireVideo::SaveFrame(
-                                 int frame_number, 
-                                 dc1394video_frame_t *frame,
-                                 unsigned char* image, 
-                                 bool wait
-                                 
-                                 )
-        {
-            
-        FILE* imagefile;
-        unsigned int width, height;
-        //dc1394video_frame_t* new_frame = (dc1394video_frame_t *) malloc(sizeof(dc1394video_frame_t));
-
-        const dc1394capture_policy_t policy =
-        wait ? DC1394_CAPTURE_POLICY_WAIT : DC1394_CAPTURE_POLICY_POLL;
-
-        // acquire frame from camera 
-        dc1394_capture_dequeue(camera, policy, &frame);
-            
-        // convert bytes for pangolin -- REMOVE LATER
-        if( frame )
-        {
-            memcpy(image,frame->image,frame->image_bytes);
-            dc1394_capture_enqueue(camera,frame);
-
-        }
-        
-        // convert the image from what ever format it is to its RGB8 
-        //new_frame->color_coding=DC1394_COLOR_CODING_RGB8;
-        //dc1394_convert_frames(frame, new_frame);
-        
-        dc1394_get_image_size_from_video_mode(camera, DC1394_VIDEO_MODE_640x480_RGB8, &width, &height);
-        
-        uint64_t numPixels = height*width;
-                
-        // save image as 'hdr00000000i.ppm' (create path + filename)
-        char filename[64];
-        sprintf( filename, "%s%d%s", "./hdr00000000", frame_number ,".ppm" ); 
-        
-        imagefile = fopen(filename, "wb");
-        
-        if( imagefile == NULL) {
-            perror( "Can't create output file");
-            return false;
-        }
-        
-        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
-        fwrite(frame->image, 1, numPixels*3, imagefile);
-        fclose(imagefile);
-        //printf("wrote: image%d.ppm (%d image bytes)\n", frame_number, height*width*3);
-        
-        return true;
-
-    }
-        
+    /*-----------------------------------------------------------------------
+     *  FRAME GRAB
+     *-----------------------------------------------------------------------*/
+    
     bool FirewireVideo::GrabNext( unsigned char* image, bool wait )
     {
     const dc1394capture_policy_t policy =
@@ -793,34 +668,147 @@
         f.frame = 0;
     }
     }
+    
+    /*-----------------------------------------------------------------------
+     *  CONVENIENCE TOOLS
+     *-----------------------------------------------------------------------*/
+        
+    // Includes only Point Grey auto-capable functions 
+    // more might be available for your camera
+    void FirewireVideo::SetAutoAll(){
+        
+        // Exposure
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto exposure mode");
+        }
+        
+        // Shutter
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto shutter mode");
+        }
+        
+        // Sharpness
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto sharpness mode");
+        }
+        
+        // Gain
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto gain mode");
+        }
+        
+        // White Balance
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto white balance mode");
+        }
+        
+        // White Balance
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto white balance mode");
+        }
+        
+        // Saturation
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto saturation mode");
+        }
+        
+        // Frame rate
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto frame rate mode");
+        }
 
+        // Pan
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_PAN, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto pan mode");
+        }
+        
+        // Tilt
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_TILT, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto tilt mode");
+        }
+        
+    }
+        
+    /*-----------------------------------------------------------------------
+     *  SHUTTER
+     *-----------------------------------------------------------------------*/
+    
+    void FirewireVideo::SetAutoShutterTime()
+    {
+        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
+        if (err < 0) {
+            throw VideoException("Could not set auto shutter mode");
+        }
+    }
+        
     void FirewireVideo::SetShutterTimeManual()
     {
-    dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
-    if (err < 0) {
+        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
+        if (err < 0) {
             throw VideoException("Could not set manual shutter mode");
-
-    }
+            
+        }
     }
 
     void FirewireVideo::SetShutterTimeQuant(int shutter)
     {
-    dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
-    if (err < 0) {
+        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
+        if (err < 0) {
             throw VideoException("Could not set manual shutter mode");
-
+            
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHUTTER,shutter);
+        
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to set shutter");
     }
 
-    err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHUTTER,shutter);
-
-    if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to set shutter");
+    void FirewireVideo::SetShutterTime(float val){
+        
+        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
+        if (err < 0) {
+            throw VideoException("Could not set manual shutter mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON);
+        if (err < 0) {
+            throw VideoException("Could not set absolute control for shutter");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, val);
+        if (err < 0) {
+            throw VideoException("Could not set shutter value");
+        }
     }
+
+    float FirewireVideo::GetShutterTime() const
+    {
+        float shutter;
         
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
         
+        return shutter;
+    }
+
+
+
     int FirewireVideo::GetShutterTimeQuant() const
     {
         uint32_t shutter;
+        
         err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read shutter");
@@ -828,48 +816,20 @@
         return shutter;
     }
 
-    float FirewireVideo::GetGain() const
-    {
-    float gain;
-    err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAIN,&gain);
-    if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to read gain");
-
-    return gain;
-
-    }
-
-    int FirewireVideo::GetGainQuant() const
-    {
-    uint32_t shutter;
-    err = dc1394_feature_get_value(camera,DC1394_FEATURE_GAIN,&shutter);
-    if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to read shutter");
-
-    return shutter;
-    }
-
-    void FirewireVideo::SetAutoGain(){
-
+    /*-----------------------------------------------------------------------
+     * GAIN
+     *-----------------------------------------------------------------------*/
+    
+    void FirewireVideo::SetAutoGain()
+    {  
         dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_AUTO);
         if (err < 0) {
-                throw VideoException("Could not set auto gain mode");
+            throw VideoException("Could not set auto gain mode");
         }
     }
-
-
-    float FirewireVideo::GetShutterTime() const
-    {
-    float shutter;
-    err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
-    if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to read shutter");
-
-    return shutter;
-    }
-
-    void FirewireVideo::SetGain(float val){
-
+        
+    void FirewireVideo::SetGain(float val)
+        {
         dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_MANUAL);
         if (err < 0) {
                 throw VideoException("Could not set manual gain mode");
@@ -886,32 +846,32 @@
         }
     }
 
-    void FirewireVideo::SetAutoShutterTime(){
-
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto shutter mode");
-        }
+    float FirewireVideo::GetGain() const
+    {
+        float gain;
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAIN,&gain);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read gain");
+        
+        return gain;
+        
     }
-
-    void FirewireVideo::SetShutterTime(float val){
-
-    dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
-    if (err < 0) {
-        throw VideoException("Could not set manual shutter mode");
-    }
-
-    err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON);
-    if (err < 0) {
-          throw VideoException("Could not set absolute control for shutter");
-        }
-
-    err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, val);
-    if (err < 0) {
-        throw VideoException("Could not set shutter value");
-    }
+    
+    int FirewireVideo::GetGainQuant() const
+    {
+        uint32_t shutter;
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_GAIN,&shutter);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return shutter;
     }
         
+       
+    /*-----------------------------------------------------------------------
+     *  EXPOSURE
+     *-----------------------------------------------------------------------*/
+    
     void FirewireVideo::SetAutoExposure(){
         
         dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_AUTO);
@@ -920,19 +880,18 @@
         }
     }
 
-    float FirewireVideo::GetExposure() const {
-        
-        float exposure;
-        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_EXPOSURE,&exposure);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read exposure");
-        
-        return exposure;
-        
+    void FirewireVideo::SetExposureManual()
+    {
+        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
+        if (err < 0) {
+            throw VideoException("Could not set manual exposure mode");
+            
+        }
     }
         
-    void FirewireVideo::SetExposure(float val){
-        
+    void FirewireVideo::SetExposure(float val)
+    {
+
         dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
         if (err < 0) {
             throw VideoException("Could not set manual exposure mode");
@@ -948,15 +907,47 @@
             throw VideoException("Could not set exposure value");
         }
     }
-        
-    void FirewireVideo::SetExposureManual()
+    
+    void FirewireVideo::SetExposureQuant(int exposure)
     {
+
         dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
         if (err < 0) {
             throw VideoException("Could not set manual exposure mode");
             
         }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHUTTER, exposure);
+        
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to set exposure");
+        
     }
+            
+    float FirewireVideo::GetExposure() const {
+        
+        float exposure;
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_EXPOSURE,&exposure);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read exposure");
+        
+        return exposure;
+        
+    }
+     
+    int FirewireVideo::GetExposureQuant() const
+    {
+        uint32_t exposure;
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER,&exposure);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read exposure");
+        
+        return exposure;
+    }
+
+    /*-----------------------------------------------------------------------
+     *  WHITE BALANCE
+     *-----------------------------------------------------------------------*/
         
     void FirewireVideo::SetSingleAutoWhiteBalance(){
 
@@ -966,8 +957,6 @@
         }
     }
         
-    
-
     void FirewireVideo::SetWhiteBalance(unsigned int Blue_U_val, unsigned int Red_V_val){
 
     dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_MANUAL);
@@ -998,38 +987,45 @@
     return gamma;
     }
 
+    /*-----------------------------------------------------------------------
+     *  TRIGGERS
+     *-----------------------------------------------------------------------*/
+
     void FirewireVideo::SetInternalTrigger() 
     {
-    dc1394error_t err = dc1394_external_trigger_set_power(camera, DC1394_OFF);
-    if (err < 0) {
-        throw VideoException("Could not set internal trigger mode");
-    }
+        dc1394error_t err = dc1394_external_trigger_set_power(camera, DC1394_OFF);
+        if (err < 0) {
+            throw VideoException("Could not set internal trigger mode");
+        }
+        }
+
+        void FirewireVideo::SetExternalTrigger(dc1394trigger_mode_t mode, dc1394trigger_polarity_t polarity, dc1394trigger_source_t source)
+        {
+        dc1394error_t err = dc1394_external_trigger_set_polarity(camera, polarity);
+        if (err < 0) {
+            throw VideoException("Could not set external trigger polarity");
+        }
+
+        err = dc1394_external_trigger_set_mode(camera, mode);
+        if (err < 0) {
+            throw VideoException("Could not set external trigger mode");
+        }
+
+        err = dc1394_external_trigger_set_source(camera, source);
+        if (err < 0) {
+            throw VideoException("Could not set external trigger source");
+        }
+
+        err = dc1394_external_trigger_set_power(camera, DC1394_ON);
+        if (err < 0) {
+            throw VideoException("Could not set external trigger power");
+        }
     }
 
-    void FirewireVideo::SetExternalTrigger(dc1394trigger_mode_t mode, dc1394trigger_polarity_t polarity, dc1394trigger_source_t source)
-    {
-    dc1394error_t err = dc1394_external_trigger_set_polarity(camera, polarity);
-    if (err < 0) {
-        throw VideoException("Could not set external trigger polarity");
-    }
-
-    err = dc1394_external_trigger_set_mode(camera, mode);
-    if (err < 0) {
-        throw VideoException("Could not set external trigger mode");
-    }
-
-    err = dc1394_external_trigger_set_source(camera, source);
-    if (err < 0) {
-        throw VideoException("Could not set external trigger source");
-    }
-
-    err = dc1394_external_trigger_set_power(camera, DC1394_ON);
-    if (err < 0) {
-        throw VideoException("Could not set external trigger power");
-    }
-    }
-
-
+    /*-----------------------------------------------------------------------
+     *  LOOPUP TABLE & META DATA ETC
+     *-----------------------------------------------------------------------*/
+        
     void FirewireVideo::SetMetaDataFlags(  int flags ) {
     meta_data_flags = 0x80000000 | flags;
 
@@ -1131,20 +1127,166 @@
         cout << shutter_lookup_table[i] << endl;
     }
     }
-
-    FirewireVideo::~FirewireVideo()
+    
+    /*-----------------------------------------------------------------------
+     *  SAVING
+     *-----------------------------------------------------------------------*/
+    
+    /*
+     
+     TO DO
+     - pass filename prefix as argument, via reference
+     - set image mode in more elegant manner
+     - better printing statements
+     - save file name as time stamp?
+     
+     */
+    
+    bool FirewireVideo::SaveFrame(
+                                  int frame_number, 
+                                  dc1394video_frame_t *frame,
+                                  unsigned char* image, 
+                                  bool wait   
+                                  )
     {
-    Stop();
-
-    if(shutter_lookup_table) delete shutter_lookup_table;
-
-    // Close camera
-    dc1394_video_set_transmission(camera, DC1394_OFF);
-    dc1394_capture_stop(camera);
-    dc1394_camera_free(camera);
-    dc1394_free (d);
+        
+        FILE* imagefile;
+        unsigned int width, height;
+        char filename[64];
+        
+        const dc1394capture_policy_t policy =
+        wait ? DC1394_CAPTURE_POLICY_WAIT : DC1394_CAPTURE_POLICY_POLL;
+        
+        // acquire frame from camera 
+        dc1394_capture_dequeue(camera, policy, &frame);
+        
+        // convert bytes for pangolin -- REMOVE LATER
+        if( frame )
+        {
+            memcpy(image,frame->image,frame->image_bytes);
+            dc1394_capture_enqueue(camera,frame);
+            
+        }
+        
+        dc1394_get_image_size_from_video_mode(camera, DC1394_VIDEO_MODE_640x480_RGB8, &width, &height);
+        
+        uint64_t numPixels = height*width;
+        
+        // save image as 'hdr00000000i.ppm' (create path + filename)
+        sprintf( filename, "%s%d%s", "./hdr00000000", frame_number ,".ppm" ); 
+        
+        imagefile = fopen(filename, "wb");
+        
+        if( imagefile == NULL) {
+            perror( "Can't create output file");
+            return false;
+        }
+        
+        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
+        fwrite(frame->image, 1, numPixels*3, imagefile);
+        fclose(imagefile);
+        
+        printf("saved: hdr00000000%d.ppm )\n", frame_number);
+        
+        return true;
+        
+        
     }
 
+    bool FirewireVideo::SaveOneShot(    
+                                    int frame_number, 
+                                    dc1394video_frame_t *frame,
+                                    unsigned char* image
+                                    ) 
+    {
+        
+        
+        FILE* imagefile;
+        unsigned int width, height;
+        char filename[64];
+        
+        dc1394_video_set_one_shot( camera, DC1394_ON );
+        
+        // acquire frame from camera 
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
+        
+        // convert bytes for pangolin -- REMOVE LATER
+        if( frame ){
+            memcpy(image,frame->image,frame->image_bytes);
+            dc1394_capture_enqueue(camera,frame);
+            
+        }
+        
+        dc1394_get_image_size_from_video_mode(
+                                              camera, 
+                                              DC1394_VIDEO_MODE_640x480_RGB8, 
+                                              &width, 
+                                              &height
+                                              );
+        
+        uint64_t numPixels = height*width;
+        
+        // save image as 'hdr00000000i.ppm' (create path + filename)
+        
+        sprintf( filename, "%s%d%s", "./hdr00000000", frame_number ,".ppm" ); 
+        
+        imagefile = fopen(filename, "wb");
+        
+        if( imagefile == NULL) {
+            perror( "Can't create output file");
+            return false;
+        }
+        
+        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
+        fwrite(frame->image, 1, numPixels*3, imagefile);
+        fclose(imagefile);
+        
+        printf("saved: hdr00000000%d.ppm\n", frame_number);
+        
+        return true;            
+    }
+      
+    /*-----------------------------------------------------------------------
+     *  CONVERTING
+     *-----------------------------------------------------------------------*/    
+        
+    dc1394video_frame_t* FirewireVideo::ConvertToRGB(dc1394video_frame_t *original_frame)
+    {
+        dc1394video_frame_t *new_frame = NULL;
+        new_frame->color_coding=DC1394_COLOR_CODING_RGB8; // should be abstracted
+        dc1394_convert_frames(original_frame, new_frame);
+        
+        return new_frame;
+        
+    }
+    
+    /*-----------------------------------------------------------------------
+     *  REPORTING
+     *-----------------------------------------------------------------------*/
+    
+    void FirewireVideo::PrintCameraReport() 
+    {
+        
+        dc1394featureset_t features; // can add to class later
+        
+        // print unique id of camera(not node/slot on chipset)
+        cout << camera->guid << endl; 
+        
+        // print camera details
+        dc1394_camera_print_info(camera,stdout); 
+        
+        // print camera features
+        err=dc1394_feature_get_all(camera, &features);
+        
+        if (err!=DC1394_SUCCESS) {
+            dc1394_log_warning("Could not get feature set");
+        }
+        
+        else {
+            dc1394_feature_print_all(&features, stdout);
+        } 
+        
+    }
 
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
 

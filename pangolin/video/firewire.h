@@ -37,8 +37,6 @@
     #include <unistd.h>
     #endif
 
-
-
     namespace pangolin
     {
 
@@ -173,11 +171,16 @@
     //! Implement VideoSource::Stop()
     void Stop();
 
+    //! Clear the DMA buffer
+    void FlushDMABuffer();
+        
+    /*-----------------------------------------------------------------------
+     * ONE SHOT CONTROL
+     *-----------------------------------------------------------------------*/
+        
     //! Stop the video stream before using One-shot mode
     void StopForOneShot();
 
-    //! Clear the DMA buffer
-    void FlushDMABuffer();
 
     //! Grab one shot (iso-transmission must be off - call StopForOneShot first)
     bool GrabOneShot(unsigned char* image);
@@ -185,18 +188,26 @@
     //! Check to see if camera is one-shot capable
     bool CheckOneShotCapable();
 
+    /*-----------------------------------------------------------------------
+     * LOOPUP TABLE & META DATA ETC
+     *-----------------------------------------------------------------------*/
+        
     //! set the meta data flags to be included in image data
     void SetMetaDataFlags(  int flags );
-
+    
     //! return the current meta data flags from camera
     uint32_t GetMetaDataFlags();
-
+    
     //! read the meta data from an image according to meta flags
     void ReadMetaData( unsigned char *image, MetaData *metaData );
     float ReadShutter( unsigned char *image );
-
+    
     //! create lookup table to convert quantised shutter values to absolute values
     void CreateShutterLookupTable();
+    
+    /*-----------------------------------------------------------------------
+     *  FRAME GRAB
+     *-----------------------------------------------------------------------*/
 
     //! Implement VideoSource::GrabNext()
     bool GrabNext( unsigned char* image, bool wait = true );
@@ -218,13 +229,9 @@
     //! invalidated on return.
     void PutFrame(FirewireFrame& frame);
         
-    // SHUTTER 
-
-    //! return absolute shutter value
-    float GetShutterTime() const;
-
-    //! set absolute shutter value
-    void SetShutterTime(float val);
+    /*-----------------------------------------------------------------------
+     *  SHUTTER
+     *-----------------------------------------------------------------------*/
 
     //! set auto shutter value
     void SetAutoShutterTime();
@@ -232,69 +239,178 @@
     //! set manual shutter
     void SetShutterTimeManual();
 
+    //! set absolute shutter value
+    void SetShutterTime(float val);
+
+    //! return quantised shutter value
+    void SetShutterTimeQuant(int shutter);  
+
+    //! return absolute shutter value
+    float GetShutterTime() const;
+
     //! return the quantised shutter time
     int GetShutterTimeQuant() const;
     
-    //! return quantised shutter value
-    void SetShutterTimeQuant(int shutter);
-        
-        
-    // EXPOSURE     
-
-    //! return absolute exposure value
-    float GetExposure() const;
-    
-    //! set absolute exposure value
-    void SetExposure(float val);
-    
+    /*-----------------------------------------------------------------------
+     *  EXPOSURE
+     *-----------------------------------------------------------------------*/
+      
     //! set auto exposure
     void SetAutoExposure();
     
     //! set manual exposure
     void SetExposureManual();
         
-    /*
-    //! set quantised exposure
-    void SetExposureQuant(int val);
-     
-    //! return quantised exposure
-    int GetExposureQuant();
+    //! set absolute exposure value
+    void SetExposure(float val);
     
-    */
-        
-        
-    // GAIN
-        
-    //! return the quantised gain
-    int GetGainQuant() const;
+    //! set quantised exposure
+    void SetExposureQuant(int exposure);
+     
+    //! return absolute exposure value
+    float GetExposure() const;
+    
+    //! return quantised exposure
+    int GetExposureQuant() const;
 
-    //! return absolute gain value
-    float GetGain() const;
+    /*-----------------------------------------------------------------------
+     * GAIN
+     *-----------------------------------------------------------------------*/
+
+    //! set auto gain value
+    void SetAutoGain();
 
     //! set absolute shutter value
     void SetGain(float val);
 
-    //! set auto shutter value
-    void SetAutoGain();
+    //! return absolute gain value
+    float GetGain() const;
+        
+    //! return the quantised gain
+    int GetGainQuant() const;
+
+   /*-----------------------------------------------------------------------
+    *  GAMMA
+    *-----------------------------------------------------------------------*/
 
     //! return absolute gamma value
     float GetGamma() const;
-      
+
+    //! set gamma value
+    // void SetGamma(float val); 
         
-    // WHITE BALANCE
+    /*-----------------------------------------------------------------------
+     *  WHITE BALANCE
+     *-----------------------------------------------------------------------*/
+      
+    //! set the white balance to single shot auto
+    void SetSingleAutoWhiteBalance();
         
     //! set the white balance
     void SetWhiteBalance(unsigned int u_b_value, unsigned int v_r_value);
 
     //! get the white balance
     void GetWhiteBalance(unsigned int *Blue_U_val, unsigned int *Red_V_val);
-
-    //! set the white balance to single shot auto
-    void SetSingleAutoWhiteBalance();
-
-
-    // TRIGGERS
         
+    /*-----------------------------------------------------------------------
+     *  SATURATION
+     *-----------------------------------------------------------------------*/     
+    
+    /*
+    //! set saturation value
+    void SetSaturation(float val); 
+    
+    //! set quantised saturation value
+    void SetSaturationQuant(int val); 
+    
+    //! return saturation value
+    float GetSaturation() const; 
+     
+    //! return quantised saturation value
+    int GetSaturationQuant() const;
+    */
+    
+    /*-----------------------------------------------------------------------
+     *  HUE
+     *-----------------------------------------------------------------------*/     
+   
+    /*
+    //! set hue value
+    void SetHue(float val); 
+    
+    //! set hue value
+    void SetHueQuant(int val); 
+    
+    //! return hue value
+    float GetHue() const; 
+
+    //! return hue value
+    int GetHueQuant() const; 
+    */
+        
+    /*-----------------------------------------------------------------------
+     *  SHARPNESS
+     *-----------------------------------------------------------------------*/    
+     
+    /*
+    //! set sharpness auto
+    void SetSharpnessAuto();
+    
+    //! set quantised sharpness value (abs doesn't exist)
+    void SetSharpnessQuant(int val);
+    
+    //! return quantised sharpness value (abs doesn't exist)
+    int GetSharpnessQuant() const;
+    */
+        
+    /*-----------------------------------------------------------------------
+     *  BRIGHTNESS
+     *-----------------------------------------------------------------------*/   
+    
+    /*
+    //! set brightness value
+    void SetBrightnessQuant(float val);
+    
+    //! set quantised brightness value (abs doesn't exist)
+    void SetBrightnessQuant(int brightness);
+    
+    //! return brightness value 
+    float GetBrightness() const;
+    
+    //! return quantised brightness value
+    float GetBrightnessQuant() const;
+    */
+        
+    /*-----------------------------------------------------------------------
+     *  FRAME RATE
+     *-----------------------------------------------------------------------*/  
+       
+    /*
+     
+    //! set framerate auto
+    void SetFramerateAuto();
+    
+    //! set framerate auto
+    void SetFramerateManual();
+     
+    //! set framerate value
+    void SetFramerate(float val);
+     
+    //! set quantised framerate 
+    void SetFramerateQuant(int val);
+    
+    //! return framerate value
+    float GetFramerate() const;
+    
+    //! return quantised framerate
+    int GetFramerateQuant() const;
+      
+     */
+        
+    /*-----------------------------------------------------------------------
+     *  TRIGGERS
+     *-----------------------------------------------------------------------*/
+
     //! set the trigger to internal, i.e. determined by video mode
     void SetInternalTrigger();
 
@@ -303,113 +419,55 @@
       dc1394trigger_mode_t mode=DC1394_TRIGGER_MODE_0,
       dc1394trigger_polarity_t polarity=DC1394_TRIGGER_ACTIVE_HIGH,
       dc1394trigger_source_t source=DC1394_TRIGGER_SOURCE_0
-    );
-        
-        
-    // REPORTING
-        
-    //! Print full camera features and current settings report
-    void PrintReport();
-        
-        
-    // CONVERTING
-        
-    dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
-        
-        
-    // SAVING
+    );      
+    
+    /*-----------------------------------------------------------------------
+     *  SAVING
+     *-----------------------------------------------------------------------*/
     
     //! Save frame to .ppm
     bool SaveFrame(     int frame_number, 
-                        dc1394video_frame_t *frame,
-                        unsigned char* image, 
-                        bool wait
+                   dc1394video_frame_t *frame,
+                   unsigned char* image, 
+                   bool wait
                    ); 
     
-
+    //! Use one shot mode and save frame to .ppm
     bool SaveOneShot(   int frame_number, 
-                        dc1394video_frame_t *frame,
-                        unsigned char* image,
-                        bool wait
+                     dc1394video_frame_t *frame,
+                     unsigned char* image
                      );
-     /* TO ADD
-      
-    GAMMA
-      //! set gamma value
-      void SetGamma(float val); 
-
-      
-    SATURATION
-      //! set saturation value
-      void SetSaturation(float val); 
-      
-      //! return saturation value
-      float GetSaturation(); 
-      
-      //! set quantised saturation value
-      void SetSaturationQuant(int val); 
-      
-      //! return quantised saturation value
-      int GetSaturationQuant(); 
-      
-    HUE
-      //! set hue value
-      void SetHue(float val); 
-
-      //! return hue value
-      float GetHue(); 
-      
-      //! set hue value
-      void SetHueQuant(int val); 
-      
-      //! return hue value
-      int GetHueQuant(); 
-      
-    FRAMERATE
-      //! set framerate auto
-      void SetFramerateAuto();
-      
-      //! set framerate value
-      void SetFramerate(float val);
-      
-      //! return framerate value
-      float GetFramerate();
-      
-      //! set quantised framerate 
-      void SetFramerateQuant(int val);
-      
-      //! return quantised framrate
-      int GetFramerateQuant();
-      
-    SHARPNESS
-      
-      //! set sharpness auto
-      void SetSharpnessAuto();
-      
-      //! set quantised sharpness value (abs doesn't exist)
-      void SetSharpnessQuant(int val);
-      
-      //! return quantised sharpness value (abs doesn't exist)
-      int GetSharpnessQuant();
-      
-      
-    BRIGHTNESS
-      
-      //! set brightness value
-      void SetBrightnessQuant(float val);
-      
-      //! return brightness value 
-      float GetBrightness();
-      
-      //! set quantised brightness value (abs doesn't exist)
-      void SetBrightnessQuant(int val);
-      
-      //! return quantised brightness value
-      float GetBrightnessQuant();
-      
-      
-      */
+    
+    /*-----------------------------------------------------------------------
+     *  CONVERTING
+     *-----------------------------------------------------------------------*/
         
+    // HAVEN'T TESTED!
+    dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
+           
+    /*-----------------------------------------------------------------------
+     *  REPORTING
+     *-----------------------------------------------------------------------*/
+    
+    //! Print full camera features and current settings report
+    void PrintCameraReport();
+    
+        
+    /*
+      
+     //! Save direct to JPEG
+     void SaveJpeg();
+     
+     
+     */
+        
+    /*-----------------------------------------------------------------------
+     *  CONVENIENCE TOOLS
+     *-----------------------------------------------------------------------*/
+    
+    //! set all to auto mode for point grey flea
+    void SetAutoAll();
+    
     protected:
 
     void init_camera(
