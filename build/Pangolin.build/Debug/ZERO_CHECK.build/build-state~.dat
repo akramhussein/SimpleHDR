@@ -1,28 +1,0 @@
-TZERO_CHECK
-v5
-r1
-cCheck dependencies
-cPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh
-c00000000500C307B00000000000000AD
-t1342976123
-s173
-
-CCheck dependencies
-r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies473c91fb67bcb541^10759ffb67bcb541^---0#1#0#--18"Check dependencies36"98C5104D-168E-4D0C-86A5-E7DED5FA58C9-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh
-s364668923.623829
-e364668923.826257
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-omake[1]: `CMakeFiles/cmake.check_cache' is up to date.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'b64aa0fb67bcb541^ada2d3fb67bcb541^-143"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.makemake[1]: `CMakeFiles/cmake.check_cache' is up to date.3(21%IDEActivityLogMessage2@8"echo ""-364668923#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364668923#9#79#-0#-----2@55"make[1]: `CMakeFiles/cmake.check_cache' is up to date.-364668923#88#55#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh36"F98A03AC-0531-43A8-A6B0-8D7292A95018-
-

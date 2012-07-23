@@ -1,0 +1,57 @@
+HDR PROJECT
+===========
+
+TO DO
+=====
+
+Create PPM & JPG Directories
+----------------------------
+Use POSIX functions to check and create
+Also, delete before re-using?
+
+Extract shutter/exposure etc data from Camera
+---------------------------------------------
+See Jan's MetaData functions
+Need to save to Exif
+
+Write EXIF Data 
+---------------
+Need to extract EXIF data from camera per frame and write to JPG version.
+See http://libexif.sourcearchive.com/documentation/0.6.18-1/cam__features_8c-source.html
+
+Camera Response Function 
+------------------------
+Use Debevec technique
+Need to investigate more
+
+Extract Radiance Map
+------------------------
+See notes/Ask Jan
+
+Fix errors
+------------------------
+Xcode highlighting errors, fix them.
+
+OPTIMISATIONS
+=============
+
+Save to JPEG (optimisation)
+------------
+Currently: unsigned char * buffer -> PPM, PPM to ImageMagick object, ImageMagick -> JPEG
+Should be: unsigned char * buffer -> JPEG
+
+
+REFACTORING
+===========
+
+SaveFile
+--------
+Find appropriate place to save files and for better workflow
+
+
+NICE TO HAVES
+=============
+
+Better Error Handling for my functions
+--------------------------------------
+Currently have a mixed method to handle errors

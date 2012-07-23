@@ -1,356 +1,0 @@
-TZERO_CHECK
-v5
-r1
-cCheck dependencies
-cPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-E1AB30D56CE941EFA33DB482.sh
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-04E4D83D4FE24555B75B4E19.sh
-c00000000500DC72200000000000000AD
-t1343080226
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-261DD364B6C04563AC231308.sh
-c00000000500DC48A00000000000000AD
-t1343079562
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh
-c00000000500C307B00000000000000AD
-t1342976123
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-62BF103004C04C8C964AD276.sh
-c00000000500DC77300000000000000AD
-t1343080307
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-650E371370674CBE835592F0.sh
-c00000000500D9E2F00000000000000AD
-t1343069743
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-6DD83DF34D6E42E988565C23.sh
-c00000000500DC83900000000000000AD
-t1343080505
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9179CBE0912E440AA6F5F2C2.sh
-c00000000500D9F0100000000000000AD
-t1343069953
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9CFB3BD971E74F0C839BC784.sh
-c00000000500DC44700000000000000AD
-t1343079495
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-AB6BDF7F4D6B463ABE0D8893.sh
-c00000000500DC5C600000000000000AD
-t1343079878
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-B439718DC63941CA965F53B5.sh
-c00000000500DC7A600000000000000AD
-t1343080358
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-D66EE481A5854A7F8EB1143D.sh
-c00000000500C338B00000000000000AD
-t1342976907
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-E1AB30D56CE941EFA33DB482.sh
-c00000000500DC8C200000000000000AD
-t1343080642
-s173
-
-N/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-EF6D5A7E434F4B9287212070.sh
-c00000000500DC7F700000000000000AD
-t1343080439
-s173
-
-CCheck dependencies
-r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies0e2ef1e306beb541^9a23f7e306beb541^---0#1#0#--18"Check dependencies36"12A62373-7DFA-4BBC-8F3A-94F984EB168E-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-04E4D83D4FE24555B75B4E19.sh
-s364773026.513667
-e364773027.707393
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-04E4D83D4FE24555B75B4E19.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'd07e84a2febdb541^b916b5a3febdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364773026#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364773026#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364773026#88#132#-0#-----2@41"Build type not set (defaults to release)-364773026#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364773026#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364773026#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364773027#340#48#-0#-----2@26"-- Glut Found and Enabled-364773027#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364773027#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364773027#528#31#-0#-----2@20"-- Configuring done-364773027#559#20#-0#-----2@19"-- Generating done-364773027#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364773027#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-04E4D83D4FE24555B75B4E19.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-04E4D83D4FE24555B75B4E19.sh36"89545B13-92D8-4883-94F7-849056BB61C1-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-261DD364B6C04563AC231308.sh
-s364772629.206399
-e364772632.845287
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-261DD364B6C04563AC231308.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'93703515fdbdb541^ae63d818fdbdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364772629#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364772629#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364772629#88#132#-0#-----2@41"Build type not set (defaults to release)-364772630#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364772630#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364772630#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364772632#340#48#-0#-----2@26"-- Glut Found and Enabled-364772632#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364772632#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364772632#528#31#-0#-----2@20"-- Configuring done-364772632#559#20#-0#-----2@19"-- Generating done-364772632#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364772632#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-261DD364B6C04563AC231308.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-261DD364B6C04563AC231308.sh36"C4B9351E-975D-418C-9A0D-6D1776CCBF48-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh
-s364669503.721020
-e364669503.992306
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-omake[1]: `CMakeFiles/cmake.check_cache' is up to date.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'5051b93f6abcb541^520efe3f6abcb541^-143"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.makemake[1]: `CMakeFiles/cmake.check_cache' is up to date.3(21%IDEActivityLogMessage2@8"echo ""-364669503#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364669503#9#79#-0#-----2@55"make[1]: `CMakeFiles/cmake.check_cache' is up to date.-364669503#88#55#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-347FCB3696B54E46A5A1C8FB.sh36"A88BA90F-6F5A-4BF4-B80D-1FE48CDBB5C0-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-62BF103004C04C8C964AD276.sh
-s364773107.223798
-e364773109.814605
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-62BF103004C04C8C964AD276.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'8fe139f3febdb541^c688d0f5febdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364773107#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364773107#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364773107#88#132#-0#-----2@41"Build type not set (defaults to release)-364773107#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364773107#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364773107#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364773108#340#48#-0#-----2@26"-- Glut Found and Enabled-364773108#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364773108#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364773108#528#31#-0#-----2@20"-- Configuring done-364773109#559#20#-0#-----2@19"-- Generating done-364773109#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364773109#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-62BF103004C04C8C964AD276.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-62BF103004C04C8C964AD276.sh36"5F3A1E4A-4EBC-4E70-8D63-596C81AEC611-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-650E371370674CBE835592F0.sh
-s364762712.601786
-e364762716.698477
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-650E371370674CBE835592F0.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'cfbe9a58d6bdb541^9fcdb25cd6bdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364762712#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364762712#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364762712#88#132#-0#-----2@41"Build type not set (defaults to release)-364762714#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364762714#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364762714#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364762715#340#48#-0#-----2@26"-- Glut Found and Enabled-364762715#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364762715#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364762715#528#31#-0#-----2@20"-- Configuring done-364762716#559#20#-0#-----2@19"-- Generating done-364762716#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364762716#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-650E371370674CBE835592F0.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-650E371370674CBE835592F0.sh36"6CF166BE-CB5C-44AA-B2D2-88B192C92870-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-6DD83DF34D6E42E988565C23.sh
-s364773376.141112
-e364773380.563037
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-6DD83DF34D6E42E988565C23.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'dcf3240000beb541^4622900400beb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364773376#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364773376#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364773376#88#132#-0#-----2@41"Build type not set (defaults to release)-364773377#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364773377#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364773377#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364773380#340#48#-0#-----2@26"-- Glut Found and Enabled-364773380#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364773380#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364773380#528#31#-0#-----2@20"-- Configuring done-364773380#559#20#-0#-----2@19"-- Generating done-364773380#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364773380#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-6DD83DF34D6E42E988565C23.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-6DD83DF34D6E42E988565C23.sh36"1839427E-7DA6-4F8E-99FF-D23ED6763B69-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9179CBE0912E440AA6F5F2C2.sh
-s364772150.721836
-e364772157.483025
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9179CBE0912E440AA6F5F2C2.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'b3eabb36fbbdb541^eab37b3dfbbdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364772150#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364772150#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364772150#88#132#-0#-----2@41"Build type not set (defaults to release)-364772151#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364772151#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364772151#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364772156#340#48#-0#-----2@26"-- Glut Found and Enabled-364772156#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364772156#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364772156#528#31#-0#-----2@20"-- Configuring done-364772157#559#20#-0#-----2@19"-- Generating done-364772157#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364772157#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9179CBE0912E440AA6F5F2C2.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9179CBE0912E440AA6F5F2C2.sh36"11249871-0B6D-4DE0-9922-D64630B98993-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9CFB3BD971E74F0C839BC784.sh
-s364772295.169393
-e364772296.576851
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9CFB3BD971E74F0C839BC784.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'ac032cc7fbbdb541^43ab93c8fbbdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364772295#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364772295#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364772295#88#132#-0#-----2@41"Build type not set (defaults to release)-364772295#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364772295#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364772295#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364772295#340#48#-0#-----2@26"-- Glut Found and Enabled-364772295#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364772296#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364772296#528#31#-0#-----2@20"-- Configuring done-364772296#559#20#-0#-----2@19"-- Generating done-364772296#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364772296#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9CFB3BD971E74F0C839BC784.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-9CFB3BD971E74F0C839BC784.sh36"D045DA24-BCF3-4826-AE9E-13C1B53AF909-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-AB6BDF7F4D6B463ABE0D8893.sh
-s364772940.109431
-e364772941.097680
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-AB6BDF7F4D6B463ABE0D8893.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'419f1c4cfebdb541^d61b194dfebdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364772940#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364772940#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364772940#88#132#-0#-----2@41"Build type not set (defaults to release)-364772940#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364772940#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364772940#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364772940#340#48#-0#-----2@26"-- Glut Found and Enabled-364772940#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364772940#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364772940#528#31#-0#-----2@20"-- Configuring done-364772941#559#20#-0#-----2@19"-- Generating done-364772941#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364772941#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-AB6BDF7F4D6B463ABE0D8893.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-AB6BDF7F4D6B463ABE0D8893.sh36"F3D226FF-A521-4BD5-8A4B-E57A9643E2C3-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-B439718DC63941CA965F53B5.sh
-s364773201.139370
-e364773205.043341
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-B439718DC63941CA965F53B5.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'a54a2451ffbdb541^05170b55ffbdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364773201#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364773201#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364773201#88#132#-0#-----2@41"Build type not set (defaults to release)-364773201#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364773201#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364773202#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364773204#340#48#-0#-----2@26"-- Glut Found and Enabled-364773204#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364773204#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364773204#528#31#-0#-----2@20"-- Configuring done-364773204#559#20#-0#-----2@19"-- Generating done-364773204#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364773205#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-B439718DC63941CA965F53B5.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-B439718DC63941CA965F53B5.sh36"015D07C0-EFD7-4362-8FC6-9305ED376145-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-D66EE481A5854A7F8EB1143D.sh
-s364762413.033000
-e364762427.109265
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-D66EE481A5854A7F8EB1143D.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found ImageMagick: /usr/local/lib/libMagick++.dylib  
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Found PkgConfig: /usr/local/bin/pkg-config (found version "0.27") 
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'bd1a0c2dd5bdb541^e0f71b3bd5bdb541^-804"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found ImageMagick: /usr/local/lib/libMagick++.dylib  -- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Found PkgConfig: /usr/local/bin/pkg-config (found version "0.27") -- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build15(21%IDEActivityLogMessage2@8"echo ""-364762413#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364762413#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364762413#88#132#-0#-----2@41"Build type not set (defaults to release)-364762415#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364762415#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364762415#296#44#-0#-----2@57"-- Found ImageMagick: /usr/local/lib/libMagick++.dylib  -364762425#340#57#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364762426#397#48#-0#-----2@26"-- Glut Found and Enabled-364762426#445#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364762426#471#114#-0#-----2@31"-- libdc1394 Found and Enabled-364762426#585#31#-0#-----2@70"-- Found PkgConfig: /usr/local/bin/pkg-config (found version "0.27") -364762426#616#70#-0#-----2@20"-- Configuring done-364762426#686#20#-0#-----2@19"-- Generating done-364762426#706#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364762427#725#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-D66EE481A5854A7F8EB1143D.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-D66EE481A5854A7F8EB1143D.sh36"CA02B831-6C5F-4D37-A72A-D39F536F93E9-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-E1AB30D56CE941EFA33DB482.sh
-s364775139.982985
-e364775140.292802
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-E1AB30D56CE941EFA33DB482.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-omake[1]: `CMakeFiles/cmake.check_cache' is up to date.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'3e79fce306beb541^11014be406beb541^-143"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.makemake[1]: `CMakeFiles/cmake.check_cache' is up to date.3(21%IDEActivityLogMessage2@8"echo ""-364775140#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364775140#9#79#-0#-----2@55"make[1]: `CMakeFiles/cmake.check_cache' is up to date.-364775140#88#55#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-E1AB30D56CE941EFA33DB482.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-E1AB30D56CE941EFA33DB482.sh36"617741CF-4FC4-4045-B29A-55D2AF23000A-
-
-CPhaseScriptExecution "CMake Rules" /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-EF6D5A7E434F4B9287212070.sh
-s364773279.212118
-e364773281.793769
-r1
-xPhaseScriptExecution
-xCMake Rules
-x/Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-EF6D5A7E434F4B9287212070.sh
-oecho ""
-o
-omake -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make
-o/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build
-oBuild type not set (defaults to release)
-o-DCMAKE_BUILD_TYPE=Debug for debug
-o-- Found GLEW: /opt/local/lib/libGLEW.dylib
-o-- Found FREEGLUT: /opt/local/lib/libglut.dylib
-o-- Glut Found and Enabled
-o-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")
-o-- libdc1394 Found and Enabled
-o-- Configuring done
-o-- Generating done
-o-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Run custom shell script 'CMake Rules'0ff2369fffbdb541^d045cba1ffbdb541^-677"echo ""make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/buildBuild type not set (defaults to release)-DCMAKE_BUILD_TYPE=Debug for debug-- Found GLEW: /opt/local/lib/libGLEW.dylib-- Found FREEGLUT: /opt/local/lib/libglut.dylib-- Glut Found and Enabled-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-- libdc1394 Found and Enabled-- Configuring done-- Generating done-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build13(21%IDEActivityLogMessage2@8"echo ""-364773279#0#8#-0#-----2@79"make -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ReRunCMake.make-364773279#9#79#-0#-----2@132"/Applications/CMake\ 2.8-8.app/Contents/bin/cmake -H/Users/akram/Developer/pangolin-hdr -B/Users/akram/Developer/pangolin-hdr/build-364773279#88#132#-0#-----2@41"Build type not set (defaults to release)-364773279#220#41#-0#-----2@35"-DCMAKE_BUILD_TYPE=Debug for debug-364773279#261#35#-0#-----2@44"-- Found GLEW: /opt/local/lib/libGLEW.dylib-364773279#296#44#-0#-----2@48"-- Found FREEGLUT: /opt/local/lib/libglut.dylib-364773281#340#48#-0#-----2@26"-- Glut Found and Enabled-364773281#388#26#-0#-----2@114"-- Could NOT find Eigen3 (missing:  EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK) (Required is at least version "2.91.0")-364773281#414#114#-0#-----2@31"-- libdc1394 Found and Enabled-364773281#528#31#-0#-----2@20"-- Configuring done-364773281#559#20#-0#-----2@19"-- Generating done-364773281#579#19#-0#-----2@79"-- Build files have been written to: /Users/akram/Developer/pangolin-hdr/build-364773281#598#79#-0#-----0#0#0#--287"PhaseScriptExecution "CMake Rules" build/Pangolin.build/Debug/ZERO_CHECK.build/Script-EF6D5A7E434F4B9287212070.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/Pangolin.build/Debug/ZERO_CHECK.build/Script-EF6D5A7E434F4B9287212070.sh36"F46D04CA-2CB4-4D48-A68D-3576169A1A20-
-

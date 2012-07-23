@@ -17,3 +17,6 @@
 *.pvn
 *.mpeg
 *.avi
+
+# Build directory (inc images)
+build/
