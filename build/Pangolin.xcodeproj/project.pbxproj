@@ -1,1389 +1,1257 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
+       archiveVersion = 1;
+       classes = {
+       };
+       objectVersion = 46;
+       objects = {
 
 /* Begin PBXAggregateTarget section */
-		2423BB6EE793489094158A01 /* ZERO_CHECK */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 5CD008A8AE894E2EA7033A83 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
-			buildPhases = (
-				D66EE481A5854A7F8EB1143D /* CMake Rules */,
-			);
-			dependencies = (
-			);
-			name = ZERO_CHECK;
-			productName = ZERO_CHECK;
-		};
-		55CB0563E3FB4B02969D8145 /* install */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 04255F37A1E54897ADEF7A1C /* Build configuration list for PBXAggregateTarget "install" */;
-			buildPhases = (
-				48A4B848B58E4BC5B12573E8 /* CMake PostBuild Rules */,
-			);
-			dependencies = (
-				75D404D03C5540EF9CD93ED2 /* PBXTargetDependency */,
-			);
-			name = install;
-			productName = install;
-		};
-		580209C79B4944A59D342A1B /* ALL_BUILD */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 426919B96E83434489249523 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
-			buildPhases = (
-				B70C1AED92874690B6BB8C1E /* CMake Rules */,
-			);
-			dependencies = (
-				EDF7EB7CFD5D4406B60B5030 /* PBXTargetDependency */,
-				F70D2E56580740DA8EA4E71E /* PBXTargetDependency */,
-				548013DB525148DEBEC8CAB1 /* PBXTargetDependency */,
-			);
-			name = ALL_BUILD;
-			productName = ALL_BUILD;
-		};
-		5ADDDC78631543E7A3DDF957 /* uninstall */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 870EAAFD0C574088AD36D326 /* Build configuration list for PBXAggregateTarget "uninstall" */;
-			buildPhases = (
-				416486F3A65C43A498D1DF91 /* CMake Rules */,
-			);
-			dependencies = (
-				EDF7EB7CFD5D4406B60B5030 /* PBXTargetDependency */,
-			);
-			name = uninstall;
-			productName = uninstall;
-		};
+              580209C79B4944A59D342A1B /* ALL_BUILD */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 7DF826A606B94E2E906E004C /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildPhases = (
+                            7E3C9F03544B4C0C8A71A677 /* CMake Rules */,
+                     );
+                     dependencies = (
+                            871EC642DF274F76A625897A /* PBXTargetDependency */,
+                            96C9DED519C54241A6EBF5FD /* PBXTargetDependency */,
+                            BAA9F1582B194033BA68505B /* PBXTargetDependency */,
+                     );
+                     name = ALL_BUILD;
+                     productName = ALL_BUILD;
+              };
+              2423BB6EE793489094158A01 /* ZERO_CHECK */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = C0551DB1A26844829F437387 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildPhases = (
+                            9179CBE0912E440AA6F5F2C2 /* CMake Rules */,
+                     );
+                     dependencies = (
+                     );
+                     name = ZERO_CHECK;
+                     productName = ZERO_CHECK;
+              };
+              55CB0563E3FB4B02969D8145 /* install */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 07D847E32F1C4AE9ACF030DE /* Build configuration list for PBXAggregateTarget "install" */;
+                     buildPhases = (
+                            337D00BEDB024E49900085E9 /* CMake PostBuild Rules */,
+                     );
+                     dependencies = (
+                            D288C0A75564487C9CC21895 /* PBXTargetDependency */,
+                     );
+                     name = install;
+                     productName = install;
+              };
+              5ADDDC78631543E7A3DDF957 /* uninstall */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 690B094ED9CC4E16A23F18B9 /* Build configuration list for PBXAggregateTarget "uninstall" */;
+                     buildPhases = (
+                            3A652FCC2AC8488592248BE2 /* CMake Rules */,
+                     );
+                     dependencies = (
+                            871EC642DF274F76A625897A /* PBXTargetDependency */,
+                     );
+                     name = uninstall;
+                     productName = uninstall;
+              };
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		184EF1DB106248109ABF51DB /* vars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F0EDF89867E4299935E4CF3 /* vars.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		1AC9D2FEF463439CB6A2C37D /* plotter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C1AB26160AF48F29CF77256 /* plotter.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		31AC071288804ED08DF8164F /* pvn_video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE227694142943A8BDD716A5 /* pvn_video.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		3A81C0AA2DF34F06BA62E8E1 /* firewire.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 488A96C31CC44A13BE49C074 /* firewire.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		409C1F2E70CE46ADA8BC63F2 /* threadedfilebuf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A270C45EC0864494A9835417 /* threadedfilebuf.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		6633EB2B9A094BE884FB2791 /* input_record_repeat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCEDF91AA07848CC8DA2EE38 /* input_record_repeat.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		746594806C7F4B7F926DBE7E /* video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7CAA436F8B064911BFD7D506 /* video.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		94C2EA742C1B4174AB6B1664 /* video_recorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DAB1C50E24743DABB7A764A /* video_recorder.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		97A1294E7780411EBDD79546 /* video_record_repeat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7998358F2D204859B21190EE /* video_record_repeat.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		A77A0A8B948041389B9BA36B /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC45A1E4824CF9A15B6369 /* display.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		B21B4751626E4D82B9F63CA1 /* widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3DC81F0188F4EB59BE82A04 /* widgets.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		D390E7FE378245F2B67871C5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4412D37B40C64CBA95EE2538 /* main.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+A13B25DABBA44C52BD3D07C5 /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */ = {isa = PBXBuildFile; fileRef = CA7E415DEA8441498D37442F /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */; settings = { COMPILER_FLAGS = ""; }; };
+0C92B0A4770045579AACDF91 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */ = {isa = PBXBuildFile; fileRef = EA0562C95B4C4C73BE3419B7 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */; settings = { COMPILER_FLAGS = ""; }; };
+9865667A77DD4A8AA08B9199 /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */ = {isa = PBXBuildFile; fileRef = 38EB8B3D788D496B8FEE152C /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */; settings = { COMPILER_FLAGS = ""; }; };
+F5AD9B899BD64B9C9D0DB6FE /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */ = {isa = PBXBuildFile; fileRef = 4DE68BC18C194A7D839B28A9 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */; settings = { COMPILER_FLAGS = ""; }; };
+0F97886409544C29AF73E956 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */ = {isa = PBXBuildFile; fileRef = D801052AAB6B4F5E906B6247 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */; settings = { COMPILER_FLAGS = ""; }; };
+04522DC888B049BB96CBFA3E /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */ = {isa = PBXBuildFile; fileRef = BCCAD0CF167141CA9FFDC474 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+1BEEFBE6645B47EF819F07C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */ = {isa = PBXBuildFile; fileRef = 00C4AF2E1DF947F0970ECD29 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */; settings = { COMPILER_FLAGS = ""; }; };
+9AE365FBEC24460C8FCB8659 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */ = {isa = PBXBuildFile; fileRef = 636709DE756947DB99971A77 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+78B21EA44C504F2497A0C5D1 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */ = {isa = PBXBuildFile; fileRef = 9E41636E369E42F38981F7E4 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */; settings = { COMPILER_FLAGS = ""; }; };
+426036D3DF20422795FF13BB /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */ = {isa = PBXBuildFile; fileRef = 21BFAE29E4F8466588DA0B43 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */; settings = { COMPILER_FLAGS = ""; }; };
+478047D7FCF84EE78E98BC41 /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */ = {isa = PBXBuildFile; fileRef = 2DE02EFD9C6742199654AB9D /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */; settings = { COMPILER_FLAGS = ""; }; };
+EC5CEB9487CF4F31A561FCD3 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */ = {isa = PBXBuildFile; fileRef = 7AD57BC3B61A43EAA89C715E /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */; settings = { COMPILER_FLAGS = ""; }; };
+C0C5681252914231869869A2 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */ = {isa = PBXBuildFile; fileRef = A88FEFF67C224C46A6A13D65 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+F9F46A95544A497E82B3A834 /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */ = {isa = PBXBuildFile; fileRef = 1F65F6BF1FFE46D4BFA7123A /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */; settings = { COMPILER_FLAGS = ""; }; };
+7BA10CA5427642BD99104185 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */ = {isa = PBXBuildFile; fileRef = 8ED16A72F7704D0789F9995C /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */; settings = { COMPILER_FLAGS = ""; }; };
+0538201B429D4043B251ACE1 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */ = {isa = PBXBuildFile; fileRef = 11EE2A8800994BAF816AE421 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */; settings = { COMPILER_FLAGS = ""; }; };
+571722B6A0D14A099B038999 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */ = {isa = PBXBuildFile; fileRef = 461B9A7704664D30A1EF8664 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+3D1E078E9A47488C99DD20F6 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */ = {isa = PBXBuildFile; fileRef = F3A52A77BDD44385AA1C5D1D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */; settings = { COMPILER_FLAGS = ""; }; };
+0AA5DE1DDD1E4FA1BFA8F0C3 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */ = {isa = PBXBuildFile; fileRef = C1FF86193CE54D5CB2A74B41 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+51A1C7FCE8BF440E8C41F666 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */ = {isa = PBXBuildFile; fileRef = DC60C82D6DA54913AF8B09B0 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */; settings = { COMPILER_FLAGS = ""; }; };
+BA34C9EECC054654AF395B66 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */ = {isa = PBXBuildFile; fileRef = 3A3E9B9B704048CEA252E586 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+F2C486ECEF8345EAB5448582 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */ = {isa = PBXBuildFile; fileRef = 8FB728C6A8A84DE498B310AC /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */; settings = { COMPILER_FLAGS = ""; }; };
+B7AA5B107CB545DFA4EC2E93 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */ = {isa = PBXBuildFile; fileRef = D05842C71F49497A85D9799A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+ECC56914D61E423E8703906D /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */ = {isa = PBXBuildFile; fileRef = 8AF57F080F324652B0B1D9C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */; settings = { COMPILER_FLAGS = ""; }; };
+4C4F50004F53410E8472CDFF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */ = {isa = PBXBuildFile; fileRef = DE043F533F4B4A70BD3C4F3A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+034A86EDEB7B47EAA9E15462 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */ = {isa = PBXBuildFile; fileRef = 880BEFDFDEF14CBA881961DB /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */; settings = { COMPILER_FLAGS = ""; }; };
+8167DDACFE9545088C9872FF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */ = {isa = PBXBuildFile; fileRef = EC9D0A91EB204EB8B0D11487 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+0A9B0B7759354046A6C5327C /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */ = {isa = PBXBuildFile; fileRef = F0B77B5C62B748C89C875902 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */; settings = { COMPILER_FLAGS = ""; }; };
+C4D05EF7A0F14971810A0148 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */ = {isa = PBXBuildFile; fileRef = 4F29E254A5324D31B0B544AE /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+F53D47132C7A44D383FC9BB6 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */ = {isa = PBXBuildFile; fileRef = 68FD466D62DF4102A264FD8D /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */; settings = { COMPILER_FLAGS = ""; }; };
+4BC4886CE1E04EAD802295DF /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */ = {isa = PBXBuildFile; fileRef = 9DF5B71FF3CE441D9DD766F1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+421A9DDD2812476D8369742F /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 855BEE9639E34617AE63F313 /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+251CEFBE4C8842BEAEFB627E /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */ = {isa = PBXBuildFile; fileRef = B860DFC3C98548E38A82913C /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+4A87B90CCED6481286FE1F33 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 4A5BD0FF1ED047ACA41D352D /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildStyle section */
+              43CD6EC52FB24BFA97622EE0 /*  */ = {
+                     isa = PBXBuildStyle;
+              };
+              160BC861E60244DBA78ECDB5 /* Debug */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Debug;
+              };
+              9F6489D5A4B640DFBA47709A /* Release */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Release;
+              };
+              1CB58538DDCD4F27AE936BBC /* MinSizeRel */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = MinSizeRel;
+              };
+              93153D4D007340499418F95F /* RelWithDebInfo */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End PBXBuildStyle section */
+
 /* Begin PBXContainerItemProxy section */
-		4271FEAC3E72464BBE01C5A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC2AEE53C29F4DB8B132AD3B;
-			remoteInfo = SimpleHDR;
-		};
-		CC405920963840B6B01607C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 580209C79B4944A59D342A1B;
-			remoteInfo = ALL_BUILD;
-		};
-		DB33E6CBFB5C4DDEBDD74FAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 276580A46DBA4DA6B55831ED;
-			remoteInfo = pangolin;
-		};
-		F74B26185492481BAC2861F7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2423BB6EE793489094158A01;
-			remoteInfo = ZERO_CHECK;
-		};
+              90D4E1CCE5074B10BB83F154 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 2423BB6EE793489094158A01;
+                     remoteInfo = ZERO_CHECK;
+              };
+              8F258730F8E04AFD8B344A89 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = EC2AEE53C29F4DB8B132AD3B;
+                     remoteInfo = SimpleHDR;
+              };
+              354D2B05E4054DA6962B59CE /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 276580A46DBA4DA6B55831ED;
+                     remoteInfo = pangolin;
+              };
+              A6CDFC7592D949F8B79524F0 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 580209C79B4944A59D342A1B;
+                     remoteInfo = ALL_BUILD;
+              };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03A8EF2BB67E48BEBF944156 /* pvn_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pvn_video.h; path = pangolin/video/pvn_video.h; sourceTree = SOURCE_ROOT; };
-		0C843AED52F34028BBECEEF4 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = pangolin/platform.h; sourceTree = SOURCE_ROOT; };
-		0FC88814BAC84FFCAAE12F76 /* firewire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = firewire.h; path = pangolin/video/firewire.h; sourceTree = SOURCE_ROOT; };
-		0FEC45A1E4824CF9A15B6369 /* display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = display.cpp; path = pangolin/display.cpp; sourceTree = SOURCE_ROOT; };
-		1741338A3A934873B37E06C6 /* vars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vars.h; path = pangolin/vars.h; sourceTree = SOURCE_ROOT; };
-		21B5CB4AD64248E2A80E495A /* libpangolin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpangolin.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		24355ADE74C64F909A795B1A /* pangolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pangolin.h; path = pangolin/pangolin.h; sourceTree = SOURCE_ROOT; };
-		3158413A6A724F8EB528F1E4 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timer.h; path = pangolin/timer.h; sourceTree = SOURCE_ROOT; };
-		349DACF1E21B4FA4B15D88A1 /* threadedfilebuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = threadedfilebuf.h; path = pangolin/threadedfilebuf.h; sourceTree = SOURCE_ROOT; };
-		3CB14DB371BD4230BA7E711C /* glcuda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glcuda.h; path = pangolin/glcuda.h; sourceTree = SOURCE_ROOT; };
-		3FEF7995416F4C7CA4530362 /* simple_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = simple_math.h; path = pangolin/simple_math.h; sourceTree = SOURCE_ROOT; };
-		4412D37B40C64CBA95EE2538 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = SimpleHDR/main.cpp; sourceTree = SOURCE_ROOT; };
-		488A96C31CC44A13BE49C074 /* firewire.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = firewire.cpp; path = pangolin/video/firewire.cpp; sourceTree = SOURCE_ROOT; };
-		4C1AB26160AF48F29CF77256 /* plotter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plotter.cpp; path = pangolin/plotter.cpp; sourceTree = SOURCE_ROOT; };
-		4DAB1C50E24743DABB7A764A /* video_recorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = video_recorder.cpp; path = pangolin/video_recorder.cpp; sourceTree = SOURCE_ROOT; };
-		4FDA9CD829AE4B38995BF681 /* display_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = display_internal.h; path = pangolin/display_internal.h; sourceTree = SOURCE_ROOT; };
-		527338A0D6AB4AC3912B6591 /* plotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = plotter.h; path = pangolin/plotter.h; sourceTree = SOURCE_ROOT; };
-		558B4E431183479B8991DDBF /* SimpleHDR */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = SimpleHDR; sourceTree = BUILT_PRODUCTS_DIR; };
-		67A03866D96D42C68BC29E38 /* gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gl.h; path = pangolin/gl.h; sourceTree = SOURCE_ROOT; };
-		6D2CB03874E4474A9952C595 /* video_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = video_record_repeat.h; path = pangolin/video_record_repeat.h; sourceTree = SOURCE_ROOT; };
-		733578F11152498E8A78EB6E /* video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = video.h; path = pangolin/video.h; sourceTree = SOURCE_ROOT; };
-		7998358F2D204859B21190EE /* video_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = video_record_repeat.cpp; path = pangolin/video_record_repeat.cpp; sourceTree = SOURCE_ROOT; };
-		7CAA436F8B064911BFD7D506 /* video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = video.cpp; path = pangolin/video.cpp; sourceTree = SOURCE_ROOT; };
-		84137BC29B914B66A8F11CF5 /* display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = display.h; path = pangolin/display.h; sourceTree = SOURCE_ROOT; };
-		88EE48B9AB62435C9EC2D9DA /* cg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cg.h; path = pangolin/cg.h; sourceTree = SOURCE_ROOT; };
-		8A0FA802D7CC40C0B38AF68C /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		8F0EDF89867E4299935E4CF3 /* vars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vars.cpp; path = pangolin/vars.cpp; sourceTree = SOURCE_ROOT; };
-		9A408D33F5994E9792BC08A6 /* video_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = video_recorder.h; path = pangolin/video_recorder.h; sourceTree = SOURCE_ROOT; };
-		9E1052CE543042AA9124A28F /* vars_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vars_internal.h; path = pangolin/vars_internal.h; sourceTree = SOURCE_ROOT; };
-		A270C45EC0864494A9835417 /* threadedfilebuf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = threadedfilebuf.cpp; path = pangolin/threadedfilebuf.cpp; sourceTree = SOURCE_ROOT; };
-		ACA6C7212189450CAC19C8B7 /* input_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = input_record_repeat.h; path = pangolin/input_record_repeat.h; sourceTree = SOURCE_ROOT; };
-		B3DC81F0188F4EB59BE82A04 /* widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = widgets.cpp; path = pangolin/widgets.cpp; sourceTree = SOURCE_ROOT; };
-		CCEDF91AA07848CC8DA2EE38 /* input_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = input_record_repeat.cpp; path = pangolin/input_record_repeat.cpp; sourceTree = SOURCE_ROOT; };
-		CE227694142943A8BDD716A5 /* pvn_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pvn_video.cpp; path = pangolin/video/pvn_video.cpp; sourceTree = SOURCE_ROOT; };
-		E196C73695A44CD784A9AD02 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.text; name = CMakeLists.txt; path = pangolin/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		E4C1A87390374C26A51D012C /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.text; name = CMakeLists.txt; path = SimpleHDR/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		F96C38939BC14F4EB1500EFF /* widgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = widgets.h; path = pangolin/widgets.h; sourceTree = SOURCE_ROOT; };
+2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+CA7E415DEA8441498D37442F /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "pangolin.h"; path = "pangolin/pangolin.h"; sourceTree = SOURCE_ROOT; };
+EA0562C95B4C4C73BE3419B7 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "platform.h"; path = "pangolin/platform.h"; sourceTree = SOURCE_ROOT; };
+38EB8B3D788D496B8FEE152C /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "simple_math.h"; path = "pangolin/simple_math.h"; sourceTree = SOURCE_ROOT; };
+4DE68BC18C194A7D839B28A9 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "display.h"; path = "pangolin/display.h"; sourceTree = SOURCE_ROOT; };
+D801052AAB6B4F5E906B6247 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "display_internal.h"; path = "pangolin/display_internal.h"; sourceTree = SOURCE_ROOT; };
+BCCAD0CF167141CA9FFDC474 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "display.cpp"; path = "pangolin/display.cpp"; sourceTree = SOURCE_ROOT; };
+00C4AF2E1DF947F0970ECD29 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "plotter.h"; path = "pangolin/plotter.h"; sourceTree = SOURCE_ROOT; };
+636709DE756947DB99971A77 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "plotter.cpp"; path = "pangolin/plotter.cpp"; sourceTree = SOURCE_ROOT; };
+9E41636E369E42F38981F7E4 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "gl.h"; path = "pangolin/gl.h"; sourceTree = SOURCE_ROOT; };
+21BFAE29E4F8466588DA0B43 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "glcuda.h"; path = "pangolin/glcuda.h"; sourceTree = SOURCE_ROOT; };
+2DE02EFD9C6742199654AB9D /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "cg.h"; path = "pangolin/cg.h"; sourceTree = SOURCE_ROOT; };
+7AD57BC3B61A43EAA89C715E /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "threadedfilebuf.h"; path = "pangolin/threadedfilebuf.h"; sourceTree = SOURCE_ROOT; };
+A88FEFF67C224C46A6A13D65 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "threadedfilebuf.cpp"; path = "pangolin/threadedfilebuf.cpp"; sourceTree = SOURCE_ROOT; };
+1F65F6BF1FFE46D4BFA7123A /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "timer.h"; path = "pangolin/timer.h"; sourceTree = SOURCE_ROOT; };
+8ED16A72F7704D0789F9995C /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "vars.h"; path = "pangolin/vars.h"; sourceTree = SOURCE_ROOT; };
+11EE2A8800994BAF816AE421 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "vars_internal.h"; path = "pangolin/vars_internal.h"; sourceTree = SOURCE_ROOT; };
+461B9A7704664D30A1EF8664 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "vars.cpp"; path = "pangolin/vars.cpp"; sourceTree = SOURCE_ROOT; };
+F3A52A77BDD44385AA1C5D1D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "input_record_repeat.h"; path = "pangolin/input_record_repeat.h"; sourceTree = SOURCE_ROOT; };
+C1FF86193CE54D5CB2A74B41 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "input_record_repeat.cpp"; path = "pangolin/input_record_repeat.cpp"; sourceTree = SOURCE_ROOT; };
+DC60C82D6DA54913AF8B09B0 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "widgets.h"; path = "pangolin/widgets.h"; sourceTree = SOURCE_ROOT; };
+3A3E9B9B704048CEA252E586 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "widgets.cpp"; path = "pangolin/widgets.cpp"; sourceTree = SOURCE_ROOT; };
+8FB728C6A8A84DE498B310AC /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video.h"; path = "pangolin/video.h"; sourceTree = SOURCE_ROOT; };
+D05842C71F49497A85D9799A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video.cpp"; path = "pangolin/video.cpp"; sourceTree = SOURCE_ROOT; };
+8AF57F080F324652B0B1D9C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video_recorder.h"; path = "pangolin/video_recorder.h"; sourceTree = SOURCE_ROOT; };
+DE043F533F4B4A70BD3C4F3A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video_recorder.cpp"; path = "pangolin/video_recorder.cpp"; sourceTree = SOURCE_ROOT; };
+880BEFDFDEF14CBA881961DB /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video_record_repeat.h"; path = "pangolin/video_record_repeat.h"; sourceTree = SOURCE_ROOT; };
+EC9D0A91EB204EB8B0D11487 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video_record_repeat.cpp"; path = "pangolin/video_record_repeat.cpp"; sourceTree = SOURCE_ROOT; };
+F0B77B5C62B748C89C875902 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "pvn_video.h"; path = "pangolin/video/pvn_video.h"; sourceTree = SOURCE_ROOT; };
+4F29E254A5324D31B0B544AE /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "pvn_video.cpp"; path = "pangolin/video/pvn_video.cpp"; sourceTree = SOURCE_ROOT; };
+68FD466D62DF4102A264FD8D /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "firewire.h"; path = "pangolin/video/firewire.h"; sourceTree = SOURCE_ROOT; };
+9DF5B71FF3CE441D9DD766F1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "firewire.cpp"; path = "pangolin/video/firewire.cpp"; sourceTree = SOURCE_ROOT; };
+855BEE9639E34617AE63F313 /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "pangolin/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+913028366BE4490A81A06938 /* pangolin */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libpangolin.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+B860DFC3C98548E38A82913C /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "main.cpp"; path = "SimpleHDR/main.cpp"; sourceTree = SOURCE_ROOT; };
+4A5BD0FF1ED047ACA41D352D /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "SimpleHDR/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+CFF3424C80184780B6A43496 /* SimpleHDR */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = SimpleHDR; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		0C61E01D53864B28B6D7FFBE /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				4412D37B40C64CBA95EE2538 /* main.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		1CD278FAB7AC4A0EB222489C /* uninstall */ = {
-			isa = PBXGroup;
-			children = (
-				CA35B915A67A4F5E90E45B89 /* CMake Rules */,
-				8A0FA802D7CC40C0B38AF68C /* CMakeLists.txt */,
-			);
-			name = uninstall;
-			sourceTree = "<group>";
-		};
-		2677B1972FBF4E3C99503BC4 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				E07A1469350141A39C4A0049 /* ALL_BUILD */,
-				9D9EE989A24D43E087E9F694 /* ZERO_CHECK */,
-				1CD278FAB7AC4A0EB222489C /* uninstall */,
-				4C3053B9D0C4400C94727021 /* pangolin */,
-				678CCF091EA145C893F66306 /* SimpleHDR */,
-			);
-			name = Sources;
-			sourceTree = "<group>";
-		};
-		3730A6A446674E44BB797A7E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		46B5AE280AA64E5E802FD06D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				21B5CB4AD64248E2A80E495A /* libpangolin.a */,
-				558B4E431183479B8991DDBF /* SimpleHDR */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4C3053B9D0C4400C94727021 /* pangolin */ = {
-			isa = PBXGroup;
-			children = (
-				4DF3757787F84A65B1F53B8F /* Header Files */,
-				AF351F0FA384410D8207C304 /* Source Files */,
-				E196C73695A44CD784A9AD02 /* CMakeLists.txt */,
-			);
-			name = pangolin;
-			sourceTree = "<group>";
-		};
-		4DF3757787F84A65B1F53B8F /* Header Files */ = {
-			isa = PBXGroup;
-			children = (
-				24355ADE74C64F909A795B1A /* pangolin.h */,
-				0C843AED52F34028BBECEEF4 /* platform.h */,
-				3FEF7995416F4C7CA4530362 /* simple_math.h */,
-				84137BC29B914B66A8F11CF5 /* display.h */,
-				4FDA9CD829AE4B38995BF681 /* display_internal.h */,
-				527338A0D6AB4AC3912B6591 /* plotter.h */,
-				67A03866D96D42C68BC29E38 /* gl.h */,
-				3CB14DB371BD4230BA7E711C /* glcuda.h */,
-				88EE48B9AB62435C9EC2D9DA /* cg.h */,
-				349DACF1E21B4FA4B15D88A1 /* threadedfilebuf.h */,
-				3158413A6A724F8EB528F1E4 /* timer.h */,
-				1741338A3A934873B37E06C6 /* vars.h */,
-				9E1052CE543042AA9124A28F /* vars_internal.h */,
-				ACA6C7212189450CAC19C8B7 /* input_record_repeat.h */,
-				F96C38939BC14F4EB1500EFF /* widgets.h */,
-				733578F11152498E8A78EB6E /* video.h */,
-				9A408D33F5994E9792BC08A6 /* video_recorder.h */,
-				6D2CB03874E4474A9952C595 /* video_record_repeat.h */,
-				03A8EF2BB67E48BEBF944156 /* pvn_video.h */,
-				0FC88814BAC84FFCAAE12F76 /* firewire.h */,
-			);
-			name = "Header Files";
-			sourceTree = "<group>";
-		};
-		678CCF091EA145C893F66306 /* SimpleHDR */ = {
-			isa = PBXGroup;
-			children = (
-				0C61E01D53864B28B6D7FFBE /* Source Files */,
-				E4C1A87390374C26A51D012C /* CMakeLists.txt */,
-			);
-			name = SimpleHDR;
-			sourceTree = "<group>";
-		};
-		8383F97356BD4EC1817DCF31 = {
-			isa = PBXGroup;
-			children = (
-				2677B1972FBF4E3C99503BC4 /* Sources */,
-				3730A6A446674E44BB797A7E /* Resources */,
-				46B5AE280AA64E5E802FD06D /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		95929717CBD04190BD31066D /* CMake Rules */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "CMake Rules";
-			sourceTree = "<group>";
-		};
-		9D9EE989A24D43E087E9F694 /* ZERO_CHECK */ = {
-			isa = PBXGroup;
-			children = (
-				95929717CBD04190BD31066D /* CMake Rules */,
-				8A0FA802D7CC40C0B38AF68C /* CMakeLists.txt */,
-			);
-			name = ZERO_CHECK;
-			sourceTree = "<group>";
-		};
-		AF351F0FA384410D8207C304 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				0FEC45A1E4824CF9A15B6369 /* display.cpp */,
-				4C1AB26160AF48F29CF77256 /* plotter.cpp */,
-				A270C45EC0864494A9835417 /* threadedfilebuf.cpp */,
-				8F0EDF89867E4299935E4CF3 /* vars.cpp */,
-				CCEDF91AA07848CC8DA2EE38 /* input_record_repeat.cpp */,
-				B3DC81F0188F4EB59BE82A04 /* widgets.cpp */,
-				7CAA436F8B064911BFD7D506 /* video.cpp */,
-				4DAB1C50E24743DABB7A764A /* video_recorder.cpp */,
-				7998358F2D204859B21190EE /* video_record_repeat.cpp */,
-				CE227694142943A8BDD716A5 /* pvn_video.cpp */,
-				488A96C31CC44A13BE49C074 /* firewire.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		B46364B3B7B44BB980C40DC6 /* CMake Rules */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "CMake Rules";
-			sourceTree = "<group>";
-		};
-		CA35B915A67A4F5E90E45B89 /* CMake Rules */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "CMake Rules";
-			sourceTree = "<group>";
-		};
-		E07A1469350141A39C4A0049 /* ALL_BUILD */ = {
-			isa = PBXGroup;
-			children = (
-				B46364B3B7B44BB980C40DC6 /* CMake Rules */,
-				8A0FA802D7CC40C0B38AF68C /* CMakeLists.txt */,
-			);
-			name = ALL_BUILD;
-			sourceTree = "<group>";
-		};
+              300E4771D4664554B094FA18  = {
+                     isa = PBXGroup;
+                     children = (
+                            BD559C2D177B4BA1B3A375B9 /* Sources */,
+                            09FE04FC720A4C05A035B6E3 /* Resources */,
+                            F5E036938E744C27940AE4D1 /* Products */,
+                     );
+                     sourceTree = "<group>";
+              };
+              BD559C2D177B4BA1B3A375B9 /* Sources */ = {
+                     isa = PBXGroup;
+                     children = (
+                            89D492A6BCF4498E89C412C3 /* ALL_BUILD */,
+                            29FF6AED46E84552856B9348 /* ZERO_CHECK */,
+                            4F82BD3A0AD84871AE241A29 /* uninstall */,
+                            8E4732F701A44233B63CAAAE /* pangolin */,
+                            5100309B1D7249EFA85700FF /* SimpleHDR */,
+                     );
+                     name = Sources;
+                     sourceTree = "<group>";
+              };
+              09FE04FC720A4C05A035B6E3 /* Resources */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = Resources;
+                     sourceTree = "<group>";
+              };
+              89D492A6BCF4498E89C412C3 /* ALL_BUILD */ = {
+                     isa = PBXGroup;
+                     children = (
+                            3444068FD9A14EFABA438508 /* CMake Rules */,
+                            2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
+                     );
+                     name = ALL_BUILD;
+                     sourceTree = "<group>";
+              };
+              3444068FD9A14EFABA438508 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              29FF6AED46E84552856B9348 /* ZERO_CHECK */ = {
+                     isa = PBXGroup;
+                     children = (
+                            25CB546B9E2B43B6BADE30D0 /* CMake Rules */,
+                            2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
+                     );
+                     name = ZERO_CHECK;
+                     sourceTree = "<group>";
+              };
+              25CB546B9E2B43B6BADE30D0 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              4F82BD3A0AD84871AE241A29 /* uninstall */ = {
+                     isa = PBXGroup;
+                     children = (
+                            AC43D9E9119D463296B5C095 /* CMake Rules */,
+                            2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
+                     );
+                     name = uninstall;
+                     sourceTree = "<group>";
+              };
+              AC43D9E9119D463296B5C095 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              8E4732F701A44233B63CAAAE /* pangolin */ = {
+                     isa = PBXGroup;
+                     children = (
+                            E361BA5683104735A990B984 /* Header Files */,
+                            52CE35EA7E064AE79643BEC8 /* Source Files */,
+                            855BEE9639E34617AE63F313 /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */,
+                     );
+                     name = pangolin;
+                     sourceTree = "<group>";
+              };
+              E361BA5683104735A990B984 /* Header Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            CA7E415DEA8441498D37442F /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */,
+                            EA0562C95B4C4C73BE3419B7 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */,
+                            38EB8B3D788D496B8FEE152C /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */,
+                            4DE68BC18C194A7D839B28A9 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */,
+                            D801052AAB6B4F5E906B6247 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */,
+                            00C4AF2E1DF947F0970ECD29 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */,
+                            9E41636E369E42F38981F7E4 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */,
+                            21BFAE29E4F8466588DA0B43 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */,
+                            2DE02EFD9C6742199654AB9D /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */,
+                            7AD57BC3B61A43EAA89C715E /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */,
+                            1F65F6BF1FFE46D4BFA7123A /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */,
+                            8ED16A72F7704D0789F9995C /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */,
+                            11EE2A8800994BAF816AE421 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */,
+                            F3A52A77BDD44385AA1C5D1D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */,
+                            DC60C82D6DA54913AF8B09B0 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */,
+                            8FB728C6A8A84DE498B310AC /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */,
+                            8AF57F080F324652B0B1D9C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */,
+                            880BEFDFDEF14CBA881961DB /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */,
+                            F0B77B5C62B748C89C875902 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */,
+                            68FD466D62DF4102A264FD8D /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */,
+                     );
+                     name = "Header Files";
+                     sourceTree = "<group>";
+              };
+              52CE35EA7E064AE79643BEC8 /* Source Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            BCCAD0CF167141CA9FFDC474 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */,
+                            636709DE756947DB99971A77 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */,
+                            A88FEFF67C224C46A6A13D65 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */,
+                            461B9A7704664D30A1EF8664 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */,
+                            C1FF86193CE54D5CB2A74B41 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */,
+                            3A3E9B9B704048CEA252E586 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */,
+                            D05842C71F49497A85D9799A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */,
+                            DE043F533F4B4A70BD3C4F3A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */,
+                            EC9D0A91EB204EB8B0D11487 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */,
+                            4F29E254A5324D31B0B544AE /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */,
+                            9DF5B71FF3CE441D9DD766F1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */,
+                     );
+                     name = "Source Files";
+                     sourceTree = "<group>";
+              };
+              5100309B1D7249EFA85700FF /* SimpleHDR */ = {
+                     isa = PBXGroup;
+                     children = (
+                            F026EA7F16BF42B0926E12D9 /* Source Files */,
+                            4A5BD0FF1ED047ACA41D352D /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */,
+                     );
+                     name = SimpleHDR;
+                     sourceTree = "<group>";
+              };
+              F026EA7F16BF42B0926E12D9 /* Source Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            B860DFC3C98548E38A82913C /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */,
+                     );
+                     name = "Source Files";
+                     sourceTree = "<group>";
+              };
+              F5E036938E744C27940AE4D1 /* Products */ = {
+                     isa = PBXGroup;
+                     children = (
+                            913028366BE4490A81A06938 /* pangolin */,
+                            CFF3424C80184780B6A43496 /* SimpleHDR */,
+                     );
+                     name = Products;
+                     sourceTree = "<group>";
+              };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		276580A46DBA4DA6B55831ED /* pangolin */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0738A0B7F457414BB550926F /* Build configuration list for PBXNativeTarget "pangolin" */;
-			buildPhases = (
-				521F9BA61C3B4F6D9BC7D40F /* Sources */,
-				1B27239484604395971C15D4 /* CMake PostBuild Rules */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EDF7EB7CFD5D4406B60B5030 /* PBXTargetDependency */,
-			);
-			name = pangolin;
-			productName = pangolin;
-			productReference = 21B5CB4AD64248E2A80E495A /* libpangolin.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 96967D11A3AE47D1A78779E3 /* Build configuration list for PBXNativeTarget "SimpleHDR" */;
-			buildPhases = (
-				0E633376CAFA4FF18A76EF2F /* Sources */,
-				4A1CEFFC85B943EF8D78C9C7 /* CMake PostBuild Rules */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EDF7EB7CFD5D4406B60B5030 /* PBXTargetDependency */,
-				F70D2E56580740DA8EA4E71E /* PBXTargetDependency */,
-			);
-			name = SimpleHDR;
-			productName = SimpleHDR;
-			productReference = 558B4E431183479B8991DDBF /* SimpleHDR */;
-			productType = "com.apple.product-type.tool";
-		};
+              276580A46DBA4DA6B55831ED /* pangolin */ = {
+                     isa = PBXNativeTarget;
+                     buildConfigurationList = 93C809BE3C684419BDA20773 /* Build configuration list for PBXNativeTarget "pangolin" */;
+                     buildPhases = (
+                            5073066DFD2549269E9D9748 /* Sources */,
+                            DFE1C7550C7C44C9B6AAF40D /* CMake PostBuild Rules */,
+                     );
+                     buildRules = (
+                     );
+                     dependencies = (
+                            871EC642DF274F76A625897A /* PBXTargetDependency */,
+                     );
+                     name = pangolin;
+                     productName = pangolin;
+                     productReference = 913028366BE4490A81A06938 /* pangolin */;
+                     productType = "com.apple.product-type.library.static";
+              };
+              EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */ = {
+                     isa = PBXNativeTarget;
+                     buildConfigurationList = 05D2258B80CB4B80A4D0742C /* Build configuration list for PBXNativeTarget "SimpleHDR" */;
+                     buildPhases = (
+                            A72E9A475693423E8F5A7FAD /* Sources */,
+                            22052C6104A44538A45B6A7B /* CMake PostBuild Rules */,
+                     );
+                     buildRules = (
+                     );
+                     dependencies = (
+                            871EC642DF274F76A625897A /* PBXTargetDependency */,
+                            BAA9F1582B194033BA68505B /* PBXTargetDependency */,
+                     );
+                     name = SimpleHDR;
+                     productName = SimpleHDR;
+                     productReference = CFF3424C80184780B6A43496 /* SimpleHDR */;
+                     productType = "com.apple.product-type.tool";
+              };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		095039C5C0FB40E6893D23FA /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				BuildIndependentTargetsInParallel = YES;
-			};
-			buildConfigurationList = 1AF6B8B6F37E4BE2862446FC /* Build configuration list for PBXProject "Pangolin" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = 8383F97356BD4EC1817DCF31;
-			projectDirPath = ..;
-			projectRoot = "";
-			targets = (
-				580209C79B4944A59D342A1B /* ALL_BUILD */,
-				2423BB6EE793489094158A01 /* ZERO_CHECK */,
-				55CB0563E3FB4B02969D8145 /* install */,
-				5ADDDC78631543E7A3DDF957 /* uninstall */,
-				276580A46DBA4DA6B55831ED /* pangolin */,
-				EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */,
-			);
-		};
+              095039C5C0FB40E6893D23FA /* Project object */ = {
+                     isa = PBXProject;
+                     attributes = {
+                            BuildIndependentTargetsInParallel = YES;
+                     };
+                     buildConfigurationList = 3BF065F4750C4EEC9C253202 /* Build configuration list for PBXProject  "Pangolin" */;
+                     buildSettings = {
+                     };
+                     buildStyles = (
+                            160BC861E60244DBA78ECDB5 /* Debug */,
+                            9F6489D5A4B640DFBA47709A /* Release */,
+                            1CB58538DDCD4F27AE936BBC /* MinSizeRel */,
+                            93153D4D007340499418F95F /* RelWithDebInfo */,
+                     );
+                     compatibilityVersion = "Xcode 3.2";
+                     hasScannedForEncodings = 0;
+                     mainGroup = 300E4771D4664554B094FA18;
+                     projectDirPath = "..";
+                     projectRoot = "";
+                     targets = (
+                            580209C79B4944A59D342A1B /* ALL_BUILD */,
+                            2423BB6EE793489094158A01 /* ZERO_CHECK */,
+                            55CB0563E3FB4B02969D8145 /* install */,
+                            5ADDDC78631543E7A3DDF957 /* uninstall */,
+                            276580A46DBA4DA6B55831ED /* pangolin */,
+                            EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */,
+                     );
+              };
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B27239484604395971C15D4 /* CMake PostBuild Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake PostBuild Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build/pangolin -f /Users/akram/Developer/pangolin-hdr/build/pangolin/CMakeScripts/pangolin_postBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		416486F3A65C43A498D1DF91 /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/uninstall_cmakeRulesBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		48A4B848B58E4BC5B12573E8 /* CMake PostBuild Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake PostBuild Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		4A1CEFFC85B943EF8D78C9C7 /* CMake PostBuild Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake PostBuild Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build/SimpleHDR -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/CMakeScripts/SimpleHDR_postBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		B70C1AED92874690B6BB8C1E /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		D66EE481A5854A7F8EB1143D /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
+              AE6F3EEC9DAF49F18CD5570E /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              7E3C9F03544B4C0C8A71A677 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              F59DC07A9E4040378BFFCA54 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              9179CBE0912E440AA6F5F2C2 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              E128ECB6DE524ECAB10DF0C8 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              337D00BEDB024E49900085E9 /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              571D16FBAC0B438F93195283 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              3A652FCC2AC8488592248BE2 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/uninstall_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              DFE1C7550C7C44C9B6AAF40D /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build/pangolin -f /Users/akram/Developer/pangolin-hdr/build/pangolin/CMakeScripts/pangolin_postBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              22052C6104A44538A45B6A7B /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build/SimpleHDR -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/CMakeScripts/SimpleHDR_postBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0E633376CAFA4FF18A76EF2F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D390E7FE378245F2B67871C5 /* main.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		521F9BA61C3B4F6D9BC7D40F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A77A0A8B948041389B9BA36B /* display.cpp in Sources */,
-				1AC9D2FEF463439CB6A2C37D /* plotter.cpp in Sources */,
-				409C1F2E70CE46ADA8BC63F2 /* threadedfilebuf.cpp in Sources */,
-				184EF1DB106248109ABF51DB /* vars.cpp in Sources */,
-				6633EB2B9A094BE884FB2791 /* input_record_repeat.cpp in Sources */,
-				B21B4751626E4D82B9F63CA1 /* widgets.cpp in Sources */,
-				746594806C7F4B7F926DBE7E /* video.cpp in Sources */,
-				94C2EA742C1B4174AB6B1664 /* video_recorder.cpp in Sources */,
-				97A1294E7780411EBDD79546 /* video_record_repeat.cpp in Sources */,
-				31AC071288804ED08DF8164F /* pvn_video.cpp in Sources */,
-				3A81C0AA2DF34F06BA62E8E1 /* firewire.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+              5073066DFD2549269E9D9748 /* Sources */ = {
+                     isa = PBXSourcesBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                            04522DC888B049BB96CBFA3E /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */,
+                            9AE365FBEC24460C8FCB8659 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */,
+                            C0C5681252914231869869A2 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */,
+                            571722B6A0D14A099B038999 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */,
+                            0AA5DE1DDD1E4FA1BFA8F0C3 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */,
+                            BA34C9EECC054654AF395B66 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */,
+                            B7AA5B107CB545DFA4EC2E93 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */,
+                            4C4F50004F53410E8472CDFF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */,
+                            8167DDACFE9545088C9872FF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */,
+                            C4D05EF7A0F14971810A0148 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */,
+                            4BC4886CE1E04EAD802295DF /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */,
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+              };
+              A72E9A475693423E8F5A7FAD /* Sources */ = {
+                     isa = PBXSourcesBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                            251CEFBE4C8842BEAEFB627E /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */,
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+              };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		548013DB525148DEBEC8CAB1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */;
-			targetProxy = 4271FEAC3E72464BBE01C5A6 /* PBXContainerItemProxy */;
-		};
-		75D404D03C5540EF9CD93ED2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 580209C79B4944A59D342A1B /* ALL_BUILD */;
-			targetProxy = CC405920963840B6B01607C4 /* PBXContainerItemProxy */;
-		};
-		EDF7EB7CFD5D4406B60B5030 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2423BB6EE793489094158A01 /* ZERO_CHECK */;
-			targetProxy = F74B26185492481BAC2861F7 /* PBXContainerItemProxy */;
-		};
-		F70D2E56580740DA8EA4E71E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 276580A46DBA4DA6B55831ED /* pangolin */;
-			targetProxy = DB33E6CBFB5C4DDEBDD74FAC /* PBXContainerItemProxy */;
-		};
+              871EC642DF274F76A625897A /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 2423BB6EE793489094158A01 /* ZERO_CHECK */;
+                     targetProxy = 90D4E1CCE5074B10BB83F154 /* PBXContainerItemProxy */;
+              };
+              96C9DED519C54241A6EBF5FD /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */;
+                     targetProxy = 8F258730F8E04AFD8B344A89 /* PBXContainerItemProxy */;
+              };
+              BAA9F1582B194033BA68505B /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 276580A46DBA4DA6B55831ED /* pangolin */;
+                     targetProxy = 354D2B05E4054DA6962B59CE /* PBXContainerItemProxy */;
+              };
+              D288C0A75564487C9CC21895 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 580209C79B4944A59D342A1B /* ALL_BUILD */;
+                     targetProxy = A6CDFC7592D949F8B79524F0 /* PBXContainerItemProxy */;
+              };
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		15207989D4B343C187A4AFD3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = uninstall;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
-		24C67EEE73BE4A4B95477B1A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = (
-					"/usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					/usr/local/lib,
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin",
-				);
-				OTHER_CFLAGS = (
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a",
-					"-framework",
-					AGL,
-					"-framework",
-					OpenGL,
-					/opt/local/lib/libGLEW.dylib,
-					"/usr/local/lib/libboost_thread-mt.dylib",
-					/opt/local/lib/libglut.dylib,
-					/usr/local/lib/libdc1394.dylib,
-				);
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = SimpleHDR;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
-		};
-		2501E7681F6D47BF8206B475 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		30FEAA5E754C4304919A5D04 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = uninstall;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		3187A67C8786472FB3D42B12 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
-		433F5AE5DDF9422CBA38D9F6 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = uninstall;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = MinSizeRel;
-		};
-		4454A674F53C41F1AF3ADB56 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = MinSizeRel;
-		};
-		4EFE0C11EF0D4A818C743A25 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = (
-					"/usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					/usr/local/lib,
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin",
-				);
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNDEBUG",
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/Release/libpangolin.a",
-					"-framework",
-					AGL,
-					"-framework",
-					OpenGL,
-					/opt/local/lib/libGLEW.dylib,
-					"/usr/local/lib/libboost_thread-mt.dylib",
-					/opt/local/lib/libglut.dylib,
-					/usr/local/lib/libdc1394.dylib,
-				);
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = SimpleHDR;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
-		53BDBCF488FC447F992D95CC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk;
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
-			};
-			name = Release;
-		};
-		7052E3A9C8B347659B4B8B8D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
-		};
-		745EF493E9414E6A99746455 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
-		77370E58AEC745429258A608 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = uninstall;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
-		};
-		8FD309A003F643E7BAB96CF9 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		9A67C631642545689352FF5C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
-		};
-		A3C8150F8E944BDCB4C339F9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk;
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
-			};
-			name = Debug;
-		};
-		A64A81BE444448A496055EFE /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = MinSizeRel;
-		};
-		A8C36CDD14BD43FABAE06B47 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
-		AF80C96D242E4D5D905B5C54 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-Wall",
-					"-Wno-error=deprecated-declarations",
-					"-DNDEBUG",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = pangolin;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = MinSizeRel;
-		};
-		AFD2FA8B0FC04B4591C4925B /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 2;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = (
-					"/usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					/usr/local/lib,
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin",
-				);
-				OTHER_CFLAGS = (
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/RelWithDebInfo/libpangolin.a",
-					"-framework",
-					AGL,
-					"-framework",
-					OpenGL,
-					/opt/local/lib/libGLEW.dylib,
-					"/usr/local/lib/libboost_thread-mt.dylib",
-					/opt/local/lib/libglut.dylib,
-					/usr/local/lib/libdc1394.dylib,
-				);
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = SimpleHDR;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		B4BCF88ED8A04E32BDFF6F83 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk;
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
-			};
-			name = RelWithDebInfo;
-		};
-		B88F9D0BA5684A36A2C0450B /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = MinSizeRel;
-		};
-		BB3A624DDAF640CCA7C326DC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
-		};
-		CBBB7A76EB2C4FE396401EA6 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 2;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-Wall",
-					"-Wno-error=deprecated-declarations",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = pangolin;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		D2E2AC367D4E4A6AA967C3E3 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = (
-					"/usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					/usr/local/lib,
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin",
-				);
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNDEBUG",
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					"/Users/akram/Developer/pangolin-hdr/build/pangolin/MinSizeRel/libpangolin.a",
-					"-framework",
-					AGL,
-					"-framework",
-					OpenGL,
-					/opt/local/lib/libGLEW.dylib,
-					"/usr/local/lib/libboost_thread-mt.dylib",
-					/opt/local/lib/libglut.dylib,
-					/usr/local/lib/libdc1394.dylib,
-				);
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = SimpleHDR;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = MinSizeRel;
-		};
-		D71FD01178404F76B34AD3FA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-Wall",
-					"-Wno-error=deprecated-declarations",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = pangolin;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Debug;
-		};
-		ED438E8D67BB4FB18E25A0A0 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk;
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
-			};
-			name = MinSizeRel;
-		};
-		F4D1F8C2EE974A6690EFDFA4 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_CFLAGS = (
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		F6A2766FBA7E432B877546CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/Users/akram/Developer/pangolin-hdr/pangolin/..",
-					"/Users/akram/Developer/pangolin-hdr/build",
-					/opt/local/include,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = (
-					"-DNDEBUG",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-Wall",
-					"-Wno-error=deprecated-declarations",
-					"-DNDEBUG",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = pangolin;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Release;
-		};
+              21D15C169CC54E808886B5AC /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
+                     };
+                     name = Debug;
+              };
+              3E5F82A538DE4603BF4CA23C /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
+                     };
+                     name = Release;
+              };
+              EAE98C8696A84CC3A9765680 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
+                     };
+                     name = MinSizeRel;
+              };
+              1B9ED1188C7548FC8831483C /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/build";
+                     };
+                     name = RelWithDebInfo;
+              };
+              5B5F1885D0E4429F8EBC1DDD /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              70A684F4D403431BB7E0ABE0 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              77C280AD8A2C4A83B41E8161 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              A6059987748948D4AF39268F /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              8460E5FC8F704462B165A512 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              6181638D59D349BAB2CC628B /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              0251416AECC7495696BE7624 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              D86D5610F538402BBA9E78C3 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              7D2C07359F6142F8B8172BDA /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              5CDE978762BD4600A935D1F8 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              7871507AEF1A4AF4961E70D7 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              0DFBE30A40D24C59A6C046A8 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              547B7D0852BD4D66A0D2B8F3 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = uninstall;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              D9A73C7FCC094A43994C4045 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = uninstall;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              DBCAD81B29BB48A18B6E0EB3 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = uninstall;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              3F6C4E68408E472F9ABF2BCA /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = uninstall;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              ED9924ECBF38410CA1260D40 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = "    ";
+                            OTHER_CPLUSPLUSFLAGS = "-Wall -Wno-error=deprecated-declarations     ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = pangolin;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              EAE7EEE0F4CE4F4882305E79 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = "    -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = "-Wall -Wno-error=deprecated-declarations     -DNDEBUG  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = pangolin;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              62035408726043B5A7971A93 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = s;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = "    -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = "-Wall -Wno-error=deprecated-declarations     -DNDEBUG  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = pangolin;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              63335EC40BF6419C843B1200 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = "        ";
+                            OTHER_CPLUSPLUSFLAGS = "-Wall -Wno-error=deprecated-declarations         ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = pangolin;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              1BC66E5B5B66416DBA7BBA07 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = " /usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /usr/local/lib /Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            OTHER_CFLAGS = "    ";
+                            OTHER_CPLUSPLUSFLAGS = "    ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleHDR;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              CCF37D42306B483DA1584B68 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = " /usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /usr/local/lib /Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            OTHER_CFLAGS = "    -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/Release/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleHDR;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              00026CC1C7014F71B3EE54E2 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = s;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = " /usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /usr/local/lib /Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            OTHER_CFLAGS = "    -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/MinSizeRel/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleHDR;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              0FB8B11F4F4C4AF9A708B32F /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/include, /usr/local/include/ImageMagick, "/Users/akram/Developer/pangolin-hdr/pangolin/..", "/Users/akram/Developer/pangolin-hdr/build", /opt/local/include, );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = " /usr/local/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /usr/local/lib /Users/akram/Developer/pangolin-hdr/build/pangolin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) /Users/akram/Developer/pangolin-hdr/build/pangolin";
+                            OTHER_CFLAGS = "        ";
+                            OTHER_CPLUSPLUSFLAGS = "        ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/RelWithDebInfo/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleHDR;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/akram/Developer/pangolin-hdr/build/SimpleHDR";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04255F37A1E54897ADEF7A1C /* Build configuration list for PBXAggregateTarget "install" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7052E3A9C8B347659B4B8B8D /* Debug */,
-				3187A67C8786472FB3D42B12 /* Release */,
-				A64A81BE444448A496055EFE /* MinSizeRel */,
-				2501E7681F6D47BF8206B475 /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		0738A0B7F457414BB550926F /* Build configuration list for PBXNativeTarget "pangolin" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D71FD01178404F76B34AD3FA /* Debug */,
-				F6A2766FBA7E432B877546CB /* Release */,
-				AF80C96D242E4D5D905B5C54 /* MinSizeRel */,
-				CBBB7A76EB2C4FE396401EA6 /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		1AF6B8B6F37E4BE2862446FC /* Build configuration list for PBXProject "Pangolin" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A3C8150F8E944BDCB4C339F9 /* Debug */,
-				53BDBCF488FC447F992D95CC /* Release */,
-				ED438E8D67BB4FB18E25A0A0 /* MinSizeRel */,
-				B4BCF88ED8A04E32BDFF6F83 /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		426919B96E83434489249523 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A67C631642545689352FF5C /* Debug */,
-				745EF493E9414E6A99746455 /* Release */,
-				B88F9D0BA5684A36A2C0450B /* MinSizeRel */,
-				8FD309A003F643E7BAB96CF9 /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		5CD008A8AE894E2EA7033A83 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BB3A624DDAF640CCA7C326DC /* Debug */,
-				A8C36CDD14BD43FABAE06B47 /* Release */,
-				4454A674F53C41F1AF3ADB56 /* MinSizeRel */,
-				F4D1F8C2EE974A6690EFDFA4 /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		870EAAFD0C574088AD36D326 /* Build configuration list for PBXAggregateTarget "uninstall" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				77370E58AEC745429258A608 /* Debug */,
-				15207989D4B343C187A4AFD3 /* Release */,
-				433F5AE5DDF9422CBA38D9F6 /* MinSizeRel */,
-				30FEAA5E754C4304919A5D04 /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		96967D11A3AE47D1A78779E3 /* Build configuration list for PBXNativeTarget "SimpleHDR" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				24C67EEE73BE4A4B95477B1A /* Debug */,
-				4EFE0C11EF0D4A818C743A25 /* Release */,
-				D2E2AC367D4E4A6AA967C3E3 /* MinSizeRel */,
-				AFD2FA8B0FC04B4591C4925B /* RelWithDebInfo */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
+              3BF065F4750C4EEC9C253202 /* Build configuration list for PBXProject  "Pangolin" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            21D15C169CC54E808886B5AC /* Debug */,
+                            3E5F82A538DE4603BF4CA23C /* Release */,
+                            EAE98C8696A84CC3A9765680 /* MinSizeRel */,
+                            1B9ED1188C7548FC8831483C /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              7DF826A606B94E2E906E004C /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            5B5F1885D0E4429F8EBC1DDD /* Debug */,
+                            70A684F4D403431BB7E0ABE0 /* Release */,
+                            77C280AD8A2C4A83B41E8161 /* MinSizeRel */,
+                            A6059987748948D4AF39268F /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              C0551DB1A26844829F437387 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            8460E5FC8F704462B165A512 /* Debug */,
+                            6181638D59D349BAB2CC628B /* Release */,
+                            0251416AECC7495696BE7624 /* MinSizeRel */,
+                            D86D5610F538402BBA9E78C3 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              07D847E32F1C4AE9ACF030DE /* Build configuration list for PBXAggregateTarget "install" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            7D2C07359F6142F8B8172BDA /* Debug */,
+                            5CDE978762BD4600A935D1F8 /* Release */,
+                            7871507AEF1A4AF4961E70D7 /* MinSizeRel */,
+                            0DFBE30A40D24C59A6C046A8 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              690B094ED9CC4E16A23F18B9 /* Build configuration list for PBXAggregateTarget "uninstall" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            547B7D0852BD4D66A0D2B8F3 /* Debug */,
+                            D9A73C7FCC094A43994C4045 /* Release */,
+                            DBCAD81B29BB48A18B6E0EB3 /* MinSizeRel */,
+                            3F6C4E68408E472F9ABF2BCA /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              93C809BE3C684419BDA20773 /* Build configuration list for PBXNativeTarget "pangolin" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            ED9924ECBF38410CA1260D40 /* Debug */,
+                            EAE7EEE0F4CE4F4882305E79 /* Release */,
+                            62035408726043B5A7971A93 /* MinSizeRel */,
+                            63335EC40BF6419C843B1200 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              05D2258B80CB4B80A4D0742C /* Build configuration list for PBXNativeTarget "SimpleHDR" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            1BC66E5B5B66416DBA7BBA07 /* Debug */,
+                            CCF37D42306B483DA1584B68 /* Release */,
+                            00026CC1C7014F71B3EE54E2 /* MinSizeRel */,
+                            0FB8B11F4F4C4AF9A708B32F /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
 /* End XCConfigurationList section */
-	};
-	rootObject = 095039C5C0FB40E6893D23FA /* Project object */;
+       };
+       rootObject = 095039C5C0FB40E6893D23FA;
 }

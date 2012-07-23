@@ -517,32 +517,32 @@
     }
 
     FirewireVideo::FirewireVideo(
-    unsigned deviceid,
-    dc1394video_mode_t video_mode,
-    dc1394framerate_t framerate,
-    dc1394speed_t iso_speed,
-    int dma_buffers
-    ) :running(false),top(0),left(0)
-    {
-    d = dc1394_new ();
-    if (!d)
-        throw VideoException("Failed to get 1394 bus");
+                                    unsigned deviceid,
+                                    dc1394video_mode_t video_mode,
+                                    dc1394framerate_t framerate,
+                                    dc1394speed_t iso_speed,
+                                    int dma_buffers
+                                ) :running(false),top(0),left(0)
+        {
+        d = dc1394_new ();
+        if (!d)
+            throw VideoException("Failed to get 1394 bus");
 
-    err=dc1394_camera_enumerate (d, &list);
-    if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to enumerate cameras");
+        err=dc1394_camera_enumerate (d, &list);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to enumerate cameras");
 
-    if (list->num == 0)
-        throw VideoException("No cameras found");
+        if (list->num == 0)
+            throw VideoException("No cameras found");
 
-    if( deviceid >= list->num )
-        throw VideoException("Invalid camera index");
+        if( deviceid >= list->num )
+            throw VideoException("Invalid camera index");
 
-    const uint64_t guid = list->ids[deviceid].guid;
+        const uint64_t guid = list->ids[deviceid].guid;
 
-    dc1394_camera_free_list (list);
-    shutter_lookup_table = 0;
-    init_camera(guid,dma_buffers,iso_speed,video_mode,framerate);
+        dc1394_camera_free_list (list);
+        shutter_lookup_table = 0;
+        init_camera(guid,dma_buffers,iso_speed,video_mode,framerate);
 
     }
 
@@ -1147,7 +1147,6 @@
     
     bool FirewireVideo::SaveFrame(
                                   int frame_number, 
-                                  dc1394video_frame_t *frame,
                                   unsigned char* image, 
                                   bool wait   
                                   )
@@ -1155,69 +1154,20 @@
         
         FILE* imagefile;
         unsigned int width, height;
-        char filename[64];
+        char filenamePPM[128];
+        char filenameJPG[128];
+        dc1394video_frame_t *frame = NULL;
         
         const dc1394capture_policy_t policy =
         wait ? DC1394_CAPTURE_POLICY_WAIT : DC1394_CAPTURE_POLICY_POLL;
         
         // acquire frame from camera 
-        dc1394_capture_dequeue(camera, policy, &frame);
+        dc1394_capture_dequeue(camera, policy, &frame);  
         
-        // convert bytes for pangolin -- REMOVE LATER
-        if( frame )
-        {
-            memcpy(image,frame->image,frame->image_bytes);
-            dc1394_capture_enqueue(camera,frame);
-            
-        }
-        
-        dc1394_get_image_size_from_video_mode(camera, DC1394_VIDEO_MODE_640x480_RGB8, &width, &height);
-        
-        uint64_t numPixels = height*width;
-        
-        // save image as 'hdr00000000i.ppm' (create path + filename)
-        sprintf( filename, "%s%d%s", "./hdr00000000", frame_number ,".ppm" ); 
-        
-        imagefile = fopen(filename, "wb");
-        
-        if( imagefile == NULL) {
-            perror( "Can't create output file");
-            return false;
-        }
-        
-        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
-        fwrite(frame->image, 1, numPixels*3, imagefile);
-        fclose(imagefile);
-        
-        printf("saved: hdr00000000%d.ppm )\n", frame_number);
-        
-        return true;
-        
-        
-    }
-
-    bool FirewireVideo::SaveOneShot(    
-                                    int frame_number, 
-                                    dc1394video_frame_t *frame,
-                                    unsigned char* image
-                                    ) 
-    {
-        
-        
-        FILE* imagefile;
-        unsigned int width, height;
-        char filename[64];
-        
-        dc1394_video_set_one_shot( camera, DC1394_ON );
-        
-        // acquire frame from camera 
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
-        
-        // convert bytes for pangolin -- REMOVE LATER
+        // convert bytes for pangolin display -- REMOVE LATER? added complexity
         if( frame ){
             memcpy(image,frame->image,frame->image_bytes);
             dc1394_capture_enqueue(camera,frame);
-            
         }
         
         dc1394_get_image_size_from_video_mode(
@@ -1229,10 +1179,132 @@
         
         uint64_t numPixels = height*width;
         
-        // save image as 'hdr00000000i.ppm' (create path + filename)
+        // save image to 'hdr00000000i.ppm' 
+        sprintf( filenamePPM, "%s%s%d%s", "./", "hdr00000000", frame_number , ".ppm" ); 
         
-        sprintf( filename, "%s%d%s", "./hdr00000000", frame_number ,".ppm" ); 
+        imagefile = fopen(filenamePPM, "wb");
         
+        if( imagefile == NULL) {
+            perror( "Can't create output file");
+            return false;
+        }
+        
+        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
+        fwrite(frame->image, 1, numPixels*3, imagefile);
+        fclose(imagefile);
+        printf("saved: %s\n", filenamePPM);
+        
+        Magick::Image img;
+        img.read(filenamePPM);
+        sprintf( filenameJPG, "%s%s%d%s", "./", "hdr00000000", frame_number , ".jpg" ); 
+        img.write(filenameJPG);
+        printf("saved: %s\n", filenameJPG);
+
+        
+        return true;       
+        
+    }
+        
+        bool FirewireVideo::SaveFrameJPG(
+                                      int frame_number, 
+                                      unsigned char* image, 
+                                      bool wait
+                                      )
+        {
+            
+            FILE* imagefile;
+            unsigned int width, height;
+            char filename[128];
+            char filenamePPM[128];
+            char filenameJPG[128];
+            dc1394video_frame_t *frame = NULL;
+            
+            const dc1394capture_policy_t policy =
+            wait ? DC1394_CAPTURE_POLICY_WAIT : DC1394_CAPTURE_POLICY_POLL;
+            
+            // acquire frame from camera 
+            dc1394_capture_dequeue(camera, policy, &frame);  
+            
+            // convert bytes for pangolin display -- REMOVE LATER? added complexity
+            if( frame ){
+                memcpy(image,frame->image,frame->image_bytes);
+                dc1394_capture_enqueue(camera,frame);
+            }
+            
+            dc1394_get_image_size_from_video_mode(
+                                                  camera, 
+                                                  DC1394_VIDEO_MODE_640x480_RGB8, 
+                                                  &width, 
+                                                  &height
+                                                  );
+            
+            uint64_t numPixels = height*width;
+            
+            // save image to 'hdr00000000i.ppm' 
+            sprintf( filename, "%s%s%d", "./", "hdr00000000", frame_number); 
+            
+            sprintf( filenamePPM, filename, ".ppm" );
+            
+            imagefile = fopen(filenamePPM, "wb");
+            
+            if( imagefile == NULL) {
+                perror( "Can't create output file");
+                return false;
+            }
+            
+            fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
+            fwrite(frame->image, 1, numPixels*3, imagefile);
+            fclose(imagefile);
+            
+            sprintf( filenameJPG, filename, ".jpg" );
+            
+            
+            Magick::Image img;
+            img.read(filenamePPM);
+            img.write(filenameJPG);
+            
+            
+            printf("saved: %s\n", filename);
+            
+            return true;       
+            
+        }
+
+    bool FirewireVideo::SaveOneShot(    
+                                    int frame_number,
+                                    unsigned char* image
+                                    ) 
+    {
+        
+        
+        FILE* imagefile;
+        unsigned int width, height;
+        char filename[128];
+        dc1394video_frame_t *frame = NULL;
+        
+        dc1394_video_set_one_shot( camera, DC1394_ON );
+        
+        // acquire frame from camera 
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
+        
+        // convert bytes for pangolin display -- REMOVE LATER? added complexity
+        if( frame ){
+            memcpy(image,frame->image,frame->image_bytes);
+            dc1394_capture_enqueue(camera,frame);
+        }
+        
+        dc1394_get_image_size_from_video_mode(
+                                              camera, 
+                                              DC1394_VIDEO_MODE_640x480_RGB8, 
+                                              &width, 
+                                              &height
+                                             );
+        
+        uint64_t numPixels = height*width;
+        
+        // save image to 'hdr00000000i.ppm' 
+        sprintf( filename, "%s%s%d%s", "./", "hdr00000000", frame_number , ".ppm" ); 
+
         imagefile = fopen(filename, "wb");
         
         if( imagefile == NULL) {
@@ -1244,8 +1316,8 @@
         fwrite(frame->image, 1, numPixels*3, imagefile);
         fclose(imagefile);
         
-        printf("saved: hdr00000000%d.ppm\n", frame_number);
-        
+        printf("saved: %s\n", filename);
+
         return true;            
     }
       

@@ -326,6 +326,33 @@ GLUT_cocoa_LIBRARY:STRING=-framework Cocoa
 //GLUT library for OSX
 GLUT_glut_LIBRARY:STRING=-framework GLUT
 
+//Path to the ImageMagick binary directory.
+IMAGEMAGICK_BINARY_PATH:PATH=ImageMagick_EXECUTABLE_DIR-NOTFOUND
+
+//Path to ImageMagick's composite executable.
+IMAGEMAGICK_COMPOSITE_EXECUTABLE:FILEPATH=
+
+//Path to ImageMagick's convert executable.
+IMAGEMAGICK_CONVERT_EXECUTABLE:FILEPATH=
+
+//Path to ImageMagick's import executable.
+IMAGEMAGICK_IMPORT_EXECUTABLE:FILEPATH=
+
+//Path to ImageMagick's mogrify executable.
+IMAGEMAGICK_MOGRIFY_EXECUTABLE:FILEPATH=
+
+//Path to ImageMagick's montage executable.
+IMAGEMAGICK_MONTAGE_EXECUTABLE:FILEPATH=
+
+//Path to the ImageMagick binary directory.
+ImageMagick_EXECUTABLE_DIR:PATH=ImageMagick_EXECUTABLE_DIR-NOTFOUND
+
+//Path to the ImageMagick include dir.
+ImageMagick_Magick++_INCLUDE_DIR:PATH=/usr/local/include/ImageMagick
+
+//Path to the ImageMagick Magick++ library.
+ImageMagick_Magick++_LIBRARY:FILEPATH=/usr/local/lib/libMagick++.dylib
+
 //Path to a file.
 OPENCV2_INCLUDE_DIR:PATH=/usr/local/include
 
@@ -351,7 +378,7 @@ OPENNI_LIBRARY:FILEPATH=OPENNI_LIBRARY-NOTFOUND
 OpenCV2_DIR:PATH=OpenCV2_DIR-NOTFOUND
 
 //pkg-config executable
-PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/local/bin/pkg-config
 
 //Value Computed by CMake
 Pangolin_BINARY_DIR:STATIC=/Users/akram/Developer/pangolin-hdr/build
@@ -372,7 +399,7 @@ SWSCALE_LIBRARY:FILEPATH=SWSCALE_LIBRARY-NOTFOUND
 TooN_INCLUDE_DIR:PATH=TooN_INCLUDE_DIR-NOTFOUND
 
 //Dependencies for the target
-pangolin_LIB_DEPENDS:STATIC=general;/System/Library/Frameworks/AGL.framework;general;/System/Library/Frameworks/OpenGL.framework;general;/opt/local/lib/libGLEW.dylib;general;/usr/local/lib/libboost_thread-mt.dylib;general;/opt/local/lib/libglut.dylib;general;/usr/local/lib/libdc1394.dylib;
+pangolin_LIB_DEPENDS:STATIC=general;/System/Library/Frameworks/AGL.framework;general;/System/Library/Frameworks/OpenGL.framework;general;/opt/local/lib/libGLEW.dylib;general;/usr/local/lib/libboost_thread-mt.dylib;general;/usr/local/lib/libMagick++.dylib;general;/opt/local/lib/libglut.dylib;general;/usr/local/lib/libdc1394.dylib;
 
 
 ########################
@@ -572,10 +599,26 @@ CUDA_run_nvcc:INTERNAL=/Applications/CMake 2.8-8.app/Contents/share/cmake-2.8/Mo
 EIGEN3_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //Details about finding GLUT
 FIND_PACKAGE_MESSAGE_DETAILS_GLUT:INTERNAL=[-framework GLUT][/System/Library/Frameworks/GLUT.framework/Headers][v()]
+//Details about finding ImageMagick
+FIND_PACKAGE_MESSAGE_DETAILS_ImageMagick:INTERNAL=[/usr/local/lib/libMagick++.dylib][v()]
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/local/bin/pkg-config][v0.27()]
 //ADVANCED property for variable: GLUT_INCLUDE_DIR
 GLUT_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GLUT_glut_LIBRARY
 GLUT_glut_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_BINARY_PATH
+IMAGEMAGICK_BINARY_PATH-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_COMPOSITE_EXECUTABLE
+IMAGEMAGICK_COMPOSITE_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_CONVERT_EXECUTABLE
+IMAGEMAGICK_CONVERT_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_IMPORT_EXECUTABLE
+IMAGEMAGICK_IMPORT_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_MOGRIFY_EXECUTABLE
+IMAGEMAGICK_MOGRIFY_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_MONTAGE_EXECUTABLE
+IMAGEMAGICK_MONTAGE_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_INCLUDE_DIR
 OPENGL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_gl_LIBRARY
@@ -606,6 +649,10 @@ PC_OPENNI_STATIC_LIBS_L:INTERNAL=
 PC_OPENNI_STATIC_LIBS_OTHER:INTERNAL=
 PC_OPENNI_STATIC_LIBS_PATHS:INTERNAL=
 PC_OPENNI_VERSION:INTERNAL=
+PC_OPENNI_openni-dev_INCLUDEDIR:INTERNAL=
+PC_OPENNI_openni-dev_LIBDIR:INTERNAL=
+PC_OPENNI_openni-dev_PREFIX:INTERNAL=
+PC_OPENNI_openni-dev_VERSION:INTERNAL=
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //Stored Xcode object GUID

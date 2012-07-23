@@ -33,6 +33,8 @@
 
     #include <dc1394/dc1394.h>
 
+    #include <ImageMagick/Magick++.h>
+
     #ifndef _WIN32
     #include <unistd.h>
     #endif
@@ -109,7 +111,7 @@
     META_ROI_POSITION = 512,
     META_ALL = 1023
     } meta_flags;
-
+        
     class FirewireVideo : public VideoInterface
     {
     public:
@@ -428,16 +430,23 @@
      *-----------------------------------------------------------------------*/
     
     //! Save frame to .ppm
-    bool SaveFrame(     int frame_number, 
-                   dc1394video_frame_t *frame,
-                   unsigned char* image, 
-                   bool wait
+    bool SaveFrame(     
+                        int frame_number, 
+                        unsigned char* image, 
+                        bool wait
+                   ); 
+        
+    //! Save frame to .jpeg
+    bool SaveFrameJPG(     
+                      int frame_number, 
+                      unsigned char* image, 
+                      bool wait
                    ); 
     
     //! Use one shot mode and save frame to .ppm
-    bool SaveOneShot(   int frame_number, 
-                     dc1394video_frame_t *frame,
-                     unsigned char* image
+    bool SaveOneShot(   
+                        int frame_number, 
+                        unsigned char* image
                      );
     
     /*-----------------------------------------------------------------------

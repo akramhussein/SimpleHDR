@@ -13,6 +13,7 @@ CMakeFiles/cmake.check_cache: \
 /Applications/CMake\ 2.8-8.app/Contents/share/cmake-2.8/Modules/FindBoost.cmake\
 /Applications/CMake\ 2.8-8.app/Contents/share/cmake-2.8/Modules/FindCUDA.cmake\
 /Applications/CMake\ 2.8-8.app/Contents/share/cmake-2.8/Modules/FindGLUT.cmake\
+/Applications/CMake\ 2.8-8.app/Contents/share/cmake-2.8/Modules/FindImageMagick.cmake\
 /Applications/CMake\ 2.8-8.app/Contents/share/cmake-2.8/Modules/FindOpenGL.cmake\
 /Applications/CMake\ 2.8-8.app/Contents/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake\
 /Applications/CMake\ 2.8-8.app/Contents/share/cmake-2.8/Modules/FindPackageMessage.cmake\
@@ -28,7 +29,6 @@ CMakeFiles/cmake.check_cache: \
 /Users/akram/Developer/pangolin-hdr/CMakeModules/FindFFMPEG.cmake\
 /Users/akram/Developer/pangolin-hdr/CMakeModules/FindFREEGLUT.cmake\
 /Users/akram/Developer/pangolin-hdr/CMakeModules/FindGLEW.cmake\
-/Users/akram/Developer/pangolin-hdr/CMakeModules/FindOpenCV2.cmake\
 /Users/akram/Developer/pangolin-hdr/CMakeModules/FindOpenNI.cmake\
 /Users/akram/Developer/pangolin-hdr/CMakeModules/FindTooN.cmake\
 /Users/akram/Developer/pangolin-hdr/CMakeModules/SetPlatformVars.cmake\

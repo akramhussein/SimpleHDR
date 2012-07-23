@@ -4,7 +4,7 @@ r1
 cCheck dependencies
 cCompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cLd /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR normal x86_64
-cPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh
+cPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh
 
 N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
 c000000004F90F72900000000000000CC
@@ -12,9 +12,9 @@ t1334900521
 s204
 
 N/Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp
-c00000000500C3D900000000000000945
-t1342979472
-s2373
+c00000000500DA0E50000000000000BE3
+t1343070437
+s3043
 i<pangolin/pangolin.h>
 i<pangolin/video.h>
 i<pangolin/video/firewire.h>
@@ -22,8 +22,8 @@ i<dc1394/dc1394.h>
 i<boost/thread/thread.hpp>
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
-t1342979425
-s1200508
+t1343070385
+s1057764
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/SimpleHDR.LinkFileList
 c00000000500C30940000000000000076
@@ -31,8 +31,13 @@ t1342976148
 s118
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o
-t1342979425
-s306968
+t1343070384
+s69756
+
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh
+c00000000500D9F6600000000000000BA
+t1343070054
+s186
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh
 c00000000500C338C00000000000000BA
@@ -49,9 +54,9 @@ t2
 s0
 
 N/Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/video/firewire.h
-c00000000500C3D420000000000003C91
-t1342979394
-s15505
+c00000000500D9E980000000000003D6D
+t1343069848
+s15725
 
 N/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h
 c00000000500C26800000000000003C1B
@@ -87,6 +92,606 @@ N/opt/local/include/GL/glu.h
 c000000004FBE6EF50000000000004367
 t1337880309
 s17255
+
+N/usr/local/include/ImageMagick/Magick++.h
+c00000000500D9C4F00000000000001A3
+t1343069263
+s419
+
+N/usr/local/include/ImageMagick/Magick++/Blob.h
+c00000000500D9C4F0000000000000951
+t1343069263
+s2385
+
+N/usr/local/include/ImageMagick/Magick++/CoderInfo.h
+c00000000500D9C4F00000000000005E4
+t1343069263
+s1508
+
+N/usr/local/include/ImageMagick/Magick++/Color.h
+c00000000500D9C4F0000000000002F44
+t1343069263
+s12100
+
+N/usr/local/include/ImageMagick/Magick++/Drawable.h
+c00000000500D9C4F000000000000FADF
+t1343069263
+s64223
+
+N/usr/local/include/ImageMagick/Magick++/Exception.h
+c00000000500D9C4F0000000000001EE3
+t1343069263
+s7907
+
+N/usr/local/include/ImageMagick/Magick++/Geometry.h
+c00000000500D9C4F000000000000183B
+t1343069263
+s6203
+
+N/usr/local/include/ImageMagick/Magick++/Image.h
+c00000000500D9C4F000000000000E7DC
+t1343069263
+s59356
+
+N/usr/local/include/ImageMagick/Magick++/Include.h
+c00000000500D9C4F0000000000007F7A
+t1343069263
+s32634
+
+N/usr/local/include/ImageMagick/Magick++/Montage.h
+c00000000500D9C4F00000000000022ED
+t1343069263
+s8941
+
+N/usr/local/include/ImageMagick/Magick++/Pixels.h
+c00000000500D9C4F0000000000000DA8
+t1343069263
+s3496
+
+N/usr/local/include/ImageMagick/Magick++/STL.h
+c00000000500D9C4F00000000000113B1
+t1343069263
+s70577
+
+N/usr/local/include/ImageMagick/Magick++/TypeMetric.h
+c00000000500D9C4F00000000000004FD
+t1343069263
+s1277
+
+N/usr/local/include/ImageMagick/magick/MagickCore.h
+c00000000500D9C4F0000000000000FD0
+t1343069263
+s4048
+
+N/usr/local/include/ImageMagick/magick/accelerate.h
+c00000000500D9C4F00000000000003F5
+t1343069263
+s1013
+
+N/usr/local/include/ImageMagick/magick/animate.h
+c00000000500D9C4F00000000000003BF
+t1343069263
+s959
+
+N/usr/local/include/ImageMagick/magick/annotate.h
+c00000000500D9C4F000000000000051A
+t1343069263
+s1306
+
+N/usr/local/include/ImageMagick/magick/artifact.h
+c00000000500D9C4F0000000000000562
+t1343069263
+s1378
+
+N/usr/local/include/ImageMagick/magick/attribute.h
+c00000000500D9C4F0000000000000647
+t1343069263
+s1607
+
+N/usr/local/include/ImageMagick/magick/blob.h
+c00000000500D9C4F00000000000008A4
+t1343069263
+s2212
+
+N/usr/local/include/ImageMagick/magick/cache-view.h
+c00000000500D9C4F0000000000000E05
+t1343069263
+s3589
+
+N/usr/local/include/ImageMagick/magick/cache.h
+c00000000500D9C4F0000000000000AE9
+t1343069263
+s2793
+
+N/usr/local/include/ImageMagick/magick/cipher.h
+c00000000500D9C4F0000000000000469
+t1343069263
+s1129
+
+N/usr/local/include/ImageMagick/magick/client.h
+c00000000500D9C4F00000000000003DC
+t1343069263
+s988
+
+N/usr/local/include/ImageMagick/magick/coder.h
+c00000000500D9C4F0000000000000669
+t1343069263
+s1641
+
+N/usr/local/include/ImageMagick/magick/color.h
+c00000000500D9C4F0000000000000C2C
+t1343069263
+s3116
+
+N/usr/local/include/ImageMagick/magick/colormap.h
+c00000000500D9C4F00000000000003FE
+t1343069263
+s1022
+
+N/usr/local/include/ImageMagick/magick/colorspace.h
+c00000000500D9C4F0000000000000635
+t1343069263
+s1589
+
+N/usr/local/include/ImageMagick/magick/compare.h
+c00000000500D9C4F00000000000007E1
+t1343069263
+s2017
+
+N/usr/local/include/ImageMagick/magick/composite.h
+c00000000500D9C4F0000000000000CA1
+t1343069263
+s3233
+
+N/usr/local/include/ImageMagick/magick/compress.h
+c00000000500D9C4F00000000000007CC
+t1343069263
+s1996
+
+N/usr/local/include/ImageMagick/magick/configure.h
+c00000000500D9C4F00000000000007EC
+t1343069263
+s2028
+
+N/usr/local/include/ImageMagick/magick/constitute.h
+c00000000500D9C4F0000000000000682
+t1343069263
+s1666
+
+N/usr/local/include/ImageMagick/magick/decorate.h
+c00000000500D9C4F00000000000004E9
+t1343069263
+s1257
+
+N/usr/local/include/ImageMagick/magick/delegate.h
+c00000000500D9C4F00000000000008AC
+t1343069263
+s2220
+
+N/usr/local/include/ImageMagick/magick/deprecate.h
+c00000000500D9C4F0000000000003D02
+t1343069263
+s15618
+
+N/usr/local/include/ImageMagick/magick/display.h
+c00000000500D9C4F000000000000041F
+t1343069263
+s1055
+
+N/usr/local/include/ImageMagick/magick/distort.h
+c00000000500D9C4F0000000000000A7B
+t1343069263
+s2683
+
+N/usr/local/include/ImageMagick/magick/draw.h
+c00000000500D9C4F0000000000001529
+t1343069263
+s5417
+
+N/usr/local/include/ImageMagick/magick/effect.h
+c00000000500D9C4F0000000000000F9E
+t1343069263
+s3998
+
+N/usr/local/include/ImageMagick/magick/enhance.h
+c00000000500D9C4F0000000000000B62
+t1343069263
+s2914
+
+N/usr/local/include/ImageMagick/magick/exception.h
+c00000000500D9C4F00000000000011A5
+t1343069263
+s4517
+
+N/usr/local/include/ImageMagick/magick/feature.h
+c00000000500D9C4F0000000000000591
+t1343069263
+s1425
+
+N/usr/local/include/ImageMagick/magick/fourier.h
+c00000000500D9C4F000000000000043F
+t1343069263
+s1087
+
+N/usr/local/include/ImageMagick/magick/fx.h
+c00000000500D9C4F0000000000000AE5
+t1343069263
+s2789
+
+N/usr/local/include/ImageMagick/magick/gem.h
+c00000000500D9C4F0000000000000747
+t1343069263
+s1863
+
+N/usr/local/include/ImageMagick/magick/geometry.h
+c00000000500D9C4F0000000000000F56
+t1343069263
+s3926
+
+N/usr/local/include/ImageMagick/magick/hashmap.h
+c00000000500D9C4F0000000000000B5D
+t1343069263
+s2909
+
+N/usr/local/include/ImageMagick/magick/histogram.h
+c00000000500D9C4F00000000000005AD
+t1343069263
+s1453
+
+N/usr/local/include/ImageMagick/magick/identify.h
+c00000000500D9C4F00000000000003B7
+t1343069263
+s951
+
+N/usr/local/include/ImageMagick/magick/image-view.h
+c00000000500D9C4F0000000000000ACA
+t1343069263
+s2762
+
+N/usr/local/include/ImageMagick/magick/image.h
+c00000000500D9C4F0000000000002C41
+t1343069263
+s11329
+
+N/usr/local/include/ImageMagick/magick/layer.h
+c00000000500D9C4F000000000000081E
+t1343069263
+s2078
+
+N/usr/local/include/ImageMagick/magick/list.h
+c00000000500D9C4F0000000000000848
+t1343069263
+s2120
+
+N/usr/local/include/ImageMagick/magick/locale_.h
+c00000000500D9C4F00000000000009A9
+t1343069263
+s2473
+
+N/usr/local/include/ImageMagick/magick/log.h
+c00000000500D9C4F0000000000000A27
+t1343069263
+s2599
+
+N/usr/local/include/ImageMagick/magick/magic.h
+c00000000500D9C4F0000000000000677
+t1343069263
+s1655
+
+N/usr/local/include/ImageMagick/magick/magick-config.h
+c00000000500D9C4F000000000000BD2F
+t1343069263
+s48431
+
+N/usr/local/include/ImageMagick/magick/magick-type.h
+c00000000500D9C4F00000000000013F6
+t1343069263
+s5110
+
+N/usr/local/include/ImageMagick/magick/magick.h
+c00000000500D9C4F0000000000000C9E
+t1343069263
+s3230
+
+N/usr/local/include/ImageMagick/magick/matrix.h
+c00000000500D9C4F00000000000004CF
+t1343069263
+s1231
+
+N/usr/local/include/ImageMagick/magick/memory_.h
+c00000000500D9C4F00000000000007D4
+t1343069263
+s2004
+
+N/usr/local/include/ImageMagick/magick/method-attribute.h
+c00000000500D9C4F0000000000000FA5
+t1343069263
+s4005
+
+N/usr/local/include/ImageMagick/magick/mime.h
+c00000000500D9C4F00000000000005C7
+t1343069263
+s1479
+
+N/usr/local/include/ImageMagick/magick/module.h
+c00000000500D9C4F000000000000094E
+t1343069263
+s2382
+
+N/usr/local/include/ImageMagick/magick/monitor.h
+c00000000500D9C4F00000000000005BD
+t1343069263
+s1469
+
+N/usr/local/include/ImageMagick/magick/montage.h
+c00000000500D9C4F00000000000006EA
+t1343069263
+s1770
+
+N/usr/local/include/ImageMagick/magick/morphology.h
+c00000000500D9C4F00000000000011B7
+t1343069263
+s4535
+
+N/usr/local/include/ImageMagick/magick/option.h
+c00000000500D9C4F00000000000013D5
+t1343069263
+s5077
+
+N/usr/local/include/ImageMagick/magick/paint.h
+c00000000500D9C4F00000000000006EE
+t1343069263
+s1774
+
+N/usr/local/include/ImageMagick/magick/pixel.h
+c00000000500D9C4F00000000000019D7
+t1343069263
+s6615
+
+N/usr/local/include/ImageMagick/magick/policy.h
+c00000000500D9C4F00000000000006F1
+t1343069263
+s1777
+
+N/usr/local/include/ImageMagick/magick/prepress.h
+c00000000500D9C4F0000000000000397
+t1343069263
+s919
+
+N/usr/local/include/ImageMagick/magick/profile.h
+c00000000500D9C4F0000000000000700
+t1343069263
+s1792
+
+N/usr/local/include/ImageMagick/magick/property.h
+c00000000500D9C4F0000000000000659
+t1343069263
+s1625
+
+N/usr/local/include/ImageMagick/magick/quantize.h
+c00000000500D9C4F00000000000007C5
+t1343069263
+s1989
+
+N/usr/local/include/ImageMagick/magick/quantum.h
+c00000000500D9C4F000000000000135C
+t1343069263
+s4956
+
+N/usr/local/include/ImageMagick/magick/random_.h
+c00000000500D9C4F0000000000000675
+t1343069263
+s1653
+
+N/usr/local/include/ImageMagick/magick/registry.h
+c00000000500D9C4F00000000000005E1
+t1343069263
+s1505
+
+N/usr/local/include/ImageMagick/magick/resample.h
+c00000000500D9C4F0000000000000A3C
+t1343069263
+s2620
+
+N/usr/local/include/ImageMagick/magick/resize.h
+c00000000500D9C4F00000000000006BD
+t1343069263
+s1725
+
+N/usr/local/include/ImageMagick/magick/resource_.h
+c00000000500D9C4F00000000000006DC
+t1343069263
+s1756
+
+N/usr/local/include/ImageMagick/magick/segment.h
+c00000000500D9C4F000000000000044F
+t1343069263
+s1103
+
+N/usr/local/include/ImageMagick/magick/semaphore.h
+c00000000500D9C4F0000000000000531
+t1343069263
+s1329
+
+N/usr/local/include/ImageMagick/magick/shear.h
+c00000000500D9C4F000000000000046E
+t1343069263
+s1134
+
+N/usr/local/include/ImageMagick/magick/signature.h
+c00000000500D9C4F000000000000039F
+t1343069263
+s927
+
+N/usr/local/include/ImageMagick/magick/splay-tree.h
+c00000000500D9C4F00000000000007B5
+t1343069263
+s1973
+
+N/usr/local/include/ImageMagick/magick/statistic.h
+c00000000500D9C4F0000000000000F57
+t1343069263
+s3927
+
+N/usr/local/include/ImageMagick/magick/stream.h
+c00000000500D9C4F0000000000000459
+t1343069263
+s1113
+
+N/usr/local/include/ImageMagick/magick/string_.h
+c00000000500D9C4F0000000000000DF2
+t1343069263
+s3570
+
+N/usr/local/include/ImageMagick/magick/threshold.h
+c00000000500D9C4F0000000000000846
+t1343069263
+s2118
+
+N/usr/local/include/ImageMagick/magick/timer.h
+c00000000500D9C4F00000000000005EF
+t1343069263
+s1519
+
+N/usr/local/include/ImageMagick/magick/token.h
+c00000000500D9C4F000000000000058E
+t1343069263
+s1422
+
+N/usr/local/include/ImageMagick/magick/transform.h
+c00000000500D9C4F0000000000000754
+t1343069263
+s1876
+
+N/usr/local/include/ImageMagick/magick/type.h
+c00000000500D9C4F0000000000000847
+t1343069263
+s2119
+
+N/usr/local/include/ImageMagick/magick/utility.h
+c00000000500D9C4F00000000000007D4
+t1343069263
+s2004
+
+N/usr/local/include/ImageMagick/magick/version.h
+c00000000500D9C4F0000000000000C2B
+t1343069263
+s3115
+
+N/usr/local/include/ImageMagick/magick/xml-tree.h
+c00000000500D9C4F0000000000000866
+t1343069263
+s2150
+
+N/usr/local/include/ImageMagick/magick/xwindow.h
+c00000000500D9C4F0000000000000459
+t1343069263
+s1113
+
+N/usr/local/include/ImageMagick/wand/MagickWand.h
+c00000000500D9C500000000000000BFA
+t1343069264
+s3066
+
+N/usr/local/include/ImageMagick/wand/animate.h
+c00000000500D9C5000000000000003C9
+t1343069264
+s969
+
+N/usr/local/include/ImageMagick/wand/compare.h
+c00000000500D9C5000000000000003C8
+t1343069264
+s968
+
+N/usr/local/include/ImageMagick/wand/composite.h
+c00000000500D9C5000000000000003D0
+t1343069264
+s976
+
+N/usr/local/include/ImageMagick/wand/conjure.h
+c00000000500D9C5000000000000003C8
+t1343069264
+s968
+
+N/usr/local/include/ImageMagick/wand/convert.h
+c00000000500D9C5000000000000003C8
+t1343069264
+s968
+
+N/usr/local/include/ImageMagick/wand/deprecate.h
+c00000000500D9C500000000000001D9A
+t1343069264
+s7578
+
+N/usr/local/include/ImageMagick/wand/display.h
+c00000000500D9C5000000000000003C8
+t1343069264
+s968
+
+N/usr/local/include/ImageMagick/wand/drawing-wand.h
+c00000000500D9C5000000000000023A1
+t1343069264
+s9121
+
+N/usr/local/include/ImageMagick/wand/identify.h
+c00000000500D9C5000000000000003CC
+t1343069264
+s972
+
+N/usr/local/include/ImageMagick/wand/import.h
+c00000000500D9C5000000000000003C4
+t1343069264
+s964
+
+N/usr/local/include/ImageMagick/wand/magick-image.h
+c00000000500D9C50000000000000549E
+t1343069264
+s21662
+
+N/usr/local/include/ImageMagick/wand/magick-property.h
+c00000000500D9C50000000000000154C
+t1343069264
+s5452
+
+N/usr/local/include/ImageMagick/wand/magick-wand.h
+c00000000500D9C500000000000000329
+t1343069264
+s809
+
+N/usr/local/include/ImageMagick/wand/method-attribute.h
+c00000000500D9C500000000000000EA1
+t1343069264
+s3745
+
+N/usr/local/include/ImageMagick/wand/mogrify.h
+c00000000500D9C5000000000000005DE
+t1343069264
+s1502
+
+N/usr/local/include/ImageMagick/wand/montage.h
+c00000000500D9C5000000000000003C8
+t1343069264
+s968
+
+N/usr/local/include/ImageMagick/wand/pixel-iterator.h
+c00000000500D9C500000000000000821
+t1343069264
+s2081
+
+N/usr/local/include/ImageMagick/wand/pixel-wand.h
+c00000000500D9C500000000000000FB7
+t1343069264
+s4023
+
+N/usr/local/include/ImageMagick/wand/stream.h
+c00000000500D9C5000000000000003C5
+t1343069264
+s965
+
+N/usr/local/include/ImageMagick/wand/wand-view.h
+c00000000500D9C50000000000000097A
+t1343069264
+s2426
 
 N/usr/local/include/boost/algorithm/string.hpp
 c000000004F48C8550000000000000425
@@ -3606,11 +4211,11 @@ r0
 
 CCheck dependencies
 r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesb56f761375bcb541^7590771375bcb541^---0#1#0#--18"Check dependencies36"AE559B01-6FFA-427E-92CF-7096D58826D7-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies67602c68d8bdb541^67d73d68d8bdb541^---0#1#0#--18"Check dependencies36"83926DEA-06FA-451B-AAEE-A20130E1A2DC-
 
 CCompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s364672275.485429
-e364672279.835482
+s364763240.257660
+e364763247.321311
 r1
 xCompileC
 xbuild/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o
@@ -3619,22 +4224,35 @@ xnormal
 xx86_64
 xc++
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp1b667c1375bcb541^b7ebd51775bcb541^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp0000000000000000^2129"CompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/include -I/usr/local/include -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.dia -c /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o36"82242AE0-E0EF-4B75-9389-81D169B11014-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp6d1b4268d8bdb541^2942526fd8bdb541^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp0000000000000000^2162"CompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.dia -c /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o36"1F23C1D3-A596-4F7C-B952-26F81B612C41-
 
 CLd /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR normal x86_64
-s364672279.842332
-e364672280.061862
+s364763247.328881
+e364763248.093336
 r1
 xLd
 x/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
 xnormal
 xx86_64
 old: warning: directory not found for option '-L/usr/local/lib/Debug'
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Link /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR90bcd71775bcb541^02d50f1875bcb541^-69"ld: warning: directory not found for option '-L/usr/local/lib/Debug'1(21%IDEActivityLogMessage2@55"Directory not found for option '-L/usr/local/lib/Debug'-364672279#0#69#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#32"Apple Mach-O Linker (ld) Warning--0#0#0#--1157"Ld build/SimpleHDR/Debug/SimpleHDR normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -L/usr/local/lib/Debug -L/usr/local/lib -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -L/Users/akram/Developer/pangolin-hdr/build/pangolin -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/SimpleHDR.LinkFileList -mmacosx-version-min=10.7 -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR36"FF5D85AD-F774-4531-9AF0-E4B079FD14CD-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Link /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR734a546fd8bdb541^3e051870d8bdb541^-69"ld: warning: directory not found for option '-L/usr/local/lib/Debug'1(21%IDEActivityLogMessage2@55"Directory not found for option '-L/usr/local/lib/Debug'-364763247#0#69#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#32"Apple Mach-O Linker (ld) Warning--0#0#0#--1190"Ld build/SimpleHDR/Debug/SimpleHDR normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -L/usr/local/lib/Debug -L/usr/local/lib -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -L/Users/akram/Developer/pangolin-hdr/build/pangolin -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/SimpleHDR.LinkFileList -mmacosx-version-min=10.7 -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR36"A7ED4F92-2426-4C4A-B666-47FAB1690597-
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh
+s364763248.102068
+e364763248.197593
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug
+omake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'2ae01a70d8bdb541^f3933270d8bdb541^-321"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debugmake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364763248#0#30#-0#-----2@23"Depend check for xcode-364763248#30#23#-0#-----2@207"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug-364763248#53#207#-0#-----2@61"make[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.-364763248#260#61#-0#-----0#0#0#--315"PhaseScriptExecution "CMake PostBuild Rules" build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh36"522736B5-B6AC-488C-BEBB-40E6E638777D-
 
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh
-s364672280.070207
-e364672280.153843
+s364749899.539734
+e364749899.620295
 r1
 xPhaseScriptExecution
 xCMake PostBuild Rules
@@ -3643,7 +4261,7 @@ oecho "Depend check for xcode"
 oDepend check for xcode
 ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug
 omake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'0398121875bcb541^f2e9291875bcb541^-321"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debugmake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364672280#0#30#-0#-----2@23"Depend check for xcode-364672280#30#23#-0#-----2@207"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug-364672280#53#207#-0#-----2@61"make[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.-364672280#260#61#-0#-----0#0#0#--315"PhaseScriptExecution "CMake PostBuild Rules" build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh36"BFF85D6C-8ED7-4786-832C-6890D7421573-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'36e58a4ba4bdb541^dfe19e4ba4bdb541^-321"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debugmake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364749899#0#30#-0#-----2@23"Depend check for xcode-364749899#30#23#-0#-----2@207"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug-364749899#53#207#-0#-----2@61"make[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.-364749899#260#61#-0#-----0#0#0#--315"PhaseScriptExecution "CMake PostBuild Rules" build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh36"D6A2CAD9-7390-41F8-935D-127759599840-
 
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-DC5E82470C814F369B957E4A.sh
 r0

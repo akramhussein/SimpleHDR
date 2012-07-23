@@ -8,6 +8,7 @@ default:
 /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a:
 /opt/local/lib/libGLEW.dylib:
 /usr/local/lib/libboost_thread-mt.dylib:
+/usr/local/lib/libMagick++.dylib:
 /opt/local/lib/libglut.dylib:
 /usr/local/lib/libdc1394.dylib:
 /Users/akram/Developer/pangolin-hdr/build/pangolin/MinSizeRel/libpangolin.a:
@@ -25,6 +26,7 @@ PostBuild.pangolin.Debug: /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/De
 	/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a\
 	/opt/local/lib/libGLEW.dylib\
 	/usr/local/lib/libboost_thread-mt.dylib\
+	/usr/local/lib/libMagick++.dylib\
 	/opt/local/lib/libglut.dylib\
 	/usr/local/lib/libdc1394.dylib
 	/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
@@ -37,6 +39,7 @@ PostBuild.pangolin.Release: /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/
 	/Users/akram/Developer/pangolin-hdr/build/pangolin/Release/libpangolin.a\
 	/opt/local/lib/libGLEW.dylib\
 	/usr/local/lib/libboost_thread-mt.dylib\
+	/usr/local/lib/libMagick++.dylib\
 	/opt/local/lib/libglut.dylib\
 	/usr/local/lib/libdc1394.dylib
 	/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Release/SimpleHDR
@@ -49,6 +52,7 @@ PostBuild.pangolin.MinSizeRel: /Users/akram/Developer/pangolin-hdr/build/SimpleH
 	/Users/akram/Developer/pangolin-hdr/build/pangolin/MinSizeRel/libpangolin.a\
 	/opt/local/lib/libGLEW.dylib\
 	/usr/local/lib/libboost_thread-mt.dylib\
+	/usr/local/lib/libMagick++.dylib\
 	/opt/local/lib/libglut.dylib\
 	/usr/local/lib/libdc1394.dylib
 	/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/MinSizeRel/SimpleHDR
@@ -61,6 +65,7 @@ PostBuild.pangolin.RelWithDebInfo: /Users/akram/Developer/pangolin-hdr/build/Sim
 	/Users/akram/Developer/pangolin-hdr/build/pangolin/RelWithDebInfo/libpangolin.a\
 	/opt/local/lib/libGLEW.dylib\
 	/usr/local/lib/libboost_thread-mt.dylib\
+	/usr/local/lib/libMagick++.dylib\
 	/opt/local/lib/libglut.dylib\
 	/usr/local/lib/libdc1394.dylib
 	/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/RelWithDebInfo/SimpleHDR
