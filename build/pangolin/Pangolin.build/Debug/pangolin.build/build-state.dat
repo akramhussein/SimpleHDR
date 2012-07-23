@@ -14,7 +14,7 @@ cCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_
 cCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.o /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cLibtool /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a normal x86_64
-cPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-DFE1C7550C7C44C9B6AAF40D.sh
+cPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F1B8CC73B1E34672B57929A3.sh
 
 N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
 c000000004F90F72900000000000000CC
@@ -22,16 +22,16 @@ t1334900521
 s204
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a
-t1343070379
-s6869144
+t1343081892
+s6871760
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/display.o
 t1343069973
 s1144536
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o
-t1343070378
-s228668
+t1343081891
+s231012
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o
 t1343070013
@@ -59,8 +59,8 @@ t1343070013
 s871608
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.o
-t1343070037
-s634072
+t1343079326
+s634232
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o
 t1343070047
@@ -74,9 +74,19 @@ N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangoli
 t1343070037
 s751112
 
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-0FC69B89FDDD45CAB3590F1C.sh
+c00000000500DC7F700000000000000B7
+t1343080439
+s183
+
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-1B27239484604395971C15D4.sh
 c00000000500C338C00000000000000B7
 t1342976908
+s183
+
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-3DA1E20BC9654173A27C76A5.sh
+c00000000500DC83900000000000000B7
+t1343080505
 s183
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-5481A4A743B6439FBA282CB3.sh
@@ -84,14 +94,44 @@ c00000000500D9E3000000000000000B7
 t1343069744
 s183
 
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-6078412A394A4B3B986B0F52.sh
+c00000000500DC72400000000000000B7
+t1343080228
+s183
+
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-A2409A4AA82446F4AE30BE9A.sh
 c00000000500C307C00000000000000B7
 t1342976124
 s183
 
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-B451987683E2483BA81D3AE2.sh
+c00000000500DC7A600000000000000B7
+t1343080358
+s183
+
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-CB40C3E84C694E5D84C87BC6.sh
+c00000000500DC5C600000000000000B7
+t1343079878
+s183
+
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-DFE1C7550C7C44C9B6AAF40D.sh
 c00000000500D9F0200000000000000B7
 t1343069954
+s183
+
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F03D24BDAD8043CBBDB40D5D.sh
+c00000000500DC77600000000000000B7
+t1343080310
+s183
+
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F06FAC47EDBA4C649B191F7B.sh
+c00000000500DC48A00000000000000B7
+t1343079562
+s183
+
+N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F1B8CC73B1E34672B57929A3.sh
+c00000000500DC8C300000000000000B7
+t1343080643
 s183
 
 N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/StaticAnalyzer/normal/x86_64/display.plist
@@ -243,14 +283,14 @@ t1342761994
 s4948
 
 N/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp
-c00000000500DA070000000000000BA39
-t1343070320
-s47673
+c00000000500DCE9A000000000000B930
+t1343082138
+s47408
 
 N/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h
-c00000000500D9E980000000000003D6D
-t1343069848
-s15725
+c00000000500DCF610000000000004027
+t1343082337
+s16423
 
 N/Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp
 c000000005008EC0A0000000000000B61
@@ -4490,7 +4530,7 @@ r0
 
 CCheck dependencies
 r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies15c9cb67d8bdb541^9c1ad467d8bdb541^---0#1#0#--18"Check dependencies36"AF7498E8-0B57-4829-BB6F-1267DA743CFD-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies6e1756e406beb541^7ced5de406beb541^---0#1#0#--18"Check dependencies36"4DF40DC3-3EB4-4E53-BFC6-0C18440F219E-
 
 CCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/display.o /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
 s364762754.699477
@@ -4506,8 +4546,8 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Compile /Users/akram/Developer/pangolin-hdr/pangolin/display.cppc139b382d6bdb541^adde7d96d6bdb541^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/display.cpp0000000000000000^2205"CompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/display.o pangolin/display.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/display.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/display.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/display.o36"8E0D030B-FAFB-43E7-9599-BC0673611C5C-
 
 CCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s364763172.013400
-e364763178.660859
+s364775140.414434
+e364775149.460675
 r1
 xCompileC
 xbuild/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o
@@ -4520,7 +4560,7 @@ o/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp:482:17: warning
 o        if (err == NULL) break;
 o            ~~~ ^  ~~~~
 o1 warning generated.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp21900324d8bdb541^c651a92ad8bdb541^-235"/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp:482:17: warning: comparison between NULL and non-pointer ('int' and NULL) [-Wnull-arithmetic]        if (err == NULL) break;            ~~~ ^  ~~~~1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@56"Comparison between NULL and non-pointer ('int' and NULL)-364763178#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^481#16#481#16#17349#0#14"Semantic Issue2(3@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^481#12#481#15#17345#0#3@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^481#19#481#23#0#0#-0#0#0#-19%DVTDocumentLocation4@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^2223"CompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o pangolin/video/firewire.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o36"C3001757-F9BC-4518-8B46-B5C430044F0E-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp1e6f6ae406beb541^13ee75ed06beb541^-235"/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp:482:17: warning: comparison between NULL and non-pointer ('int' and NULL) [-Wnull-arithmetic]        if (err == NULL) break;            ~~~ ^  ~~~~1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@56"Comparison between NULL and non-pointer ('int' and NULL)-364775149#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^481#16#481#16#17349#0#14"Semantic Issue2(3@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^481#12#481#15#17345#0#3@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^481#19#481#23#0#0#-0#0#0#-19%DVTDocumentLocation4@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^2223"CompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o pangolin/video/firewire.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o36"B44AC9AE-B670-4970-8E3B-EF4C94CF54B7-
 
 CCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
 s364762790.572287
@@ -4617,8 +4657,8 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection61"Compile /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp587192a6d6bdb541^7d5d4abed6bdb541^---0#0#0#-19%DVTDocumentLocation2@69"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp0000000000000000^2187"CompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o pangolin/vars.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/vars.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/vars.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o36"D24FDB72-354F-4883-A9B2-29FDA486AB44-
 
 CCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.o /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s364762814.270633
-e364762837.754897
+s364775140.400354
+e364775150.628091
 r1
 xCompileC
 xbuild/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.o
@@ -4627,7 +4667,7 @@ xnormal
 xx86_64
 xc++
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp9c6a45bed6bdb541^b342c1d5d6bdb541^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video.cpp0000000000000000^2193"CompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.o pangolin/video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.o36"006D00CD-3D60-4EF2-99B6-4F6454C226FE-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp14af66e406beb541^82caa0ee06beb541^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video.cpp0000000000000000^2193"CompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.o pangolin/video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video.o36"B3304BB9-CD6D-4740-81D2-88E8B40A6644-
 
 CCompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
 s364762843.572474
@@ -4728,14 +4768,27 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Compile /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp543945bed6bdb541^8c1171d5d6bdb541^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp0000000000000000^2205"CompileC build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o pangolin/widgets.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o36"F4B21ECC-10A7-4463-BE55-30AB621021B0-
 
 CLibtool /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a normal x86_64
-s364763178.668092
-e364763179.850381
+s364775150.635887
+e364775151.785571
 r1
 xLibtool
 x/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a
 xnormal
 xx86_64
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Libtool build/pangolin/Debug/libpangolin.a normal x86_64973bab2ad8bdb541^6cb3d92bd8bdb541^---0#0#0#--651"Libtool build/pangolin/Debug/libpangolin.a normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only x86_64 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/pangolin.LinkFileList -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a36"542859C4-C2C9-4D1C-B859-D004EA35F717-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Libtool build/pangolin/Debug/libpangolin.a normal x86_64fbe6a2ee06beb541^a12bc9ef06beb541^---0#0#0#--651"Libtool build/pangolin/Debug/libpangolin.a normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only x86_64 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Objects-normal/x86_64/pangolin.LinkFileList -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a36"4021293A-4602-4BB9-894C-431EA463E782-
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-0FC69B89FDDD45CAB3590F1C.sh
+s364773281.895601
+e364773281.957584
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-0FC69B89FDDD45CAB3590F1C.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'ffe6e5a1ffbdb541^1022f5a1ffbdb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364773281#0#30#-0#-----2@23"Depend check for xcode-364773281#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364773281#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364773281#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-0FC69B89FDDD45CAB3590F1C.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-0FC69B89FDDD45CAB3590F1C.sh36"BDC4E6B6-F2F3-4E26-BE89-06428356F90F-
 
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-1B27239484604395971C15D4.sh
 s364749894.728994
@@ -4750,8 +4803,34 @@ ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/
 omake[1]: Nothing to be done for `PostBuild.pangolin.Debug'.
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'984fbe46a4bdb541^a9dece46a4bdb541^-319"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debugmake[1]: Nothing to be done for `PostBuild.pangolin.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364749894#0#30#-0#-----2@23"Depend check for xcode-364749894#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364749894#53#206#-0#-----2@60"make[1]: Nothing to be done for `PostBuild.pangolin.Debug'.-364749894#259#60#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-1B27239484604395971C15D4.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-1B27239484604395971C15D4.sh36"612690AA-9DF1-4604-8F55-56E37CB0FFF9-
 
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-3DA1E20BC9654173A27C76A5.sh
+s364773380.690015
+e364773380.839046
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-3DA1E20BC9654173A27C76A5.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'd271b10400beb541^334ed70400beb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364773380#0#30#-0#-----2@23"Depend check for xcode-364773380#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364773380#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364773380#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-3DA1E20BC9654173A27C76A5.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-3DA1E20BC9654173A27C76A5.sh36"091E1488-8B39-4F90-A724-E01ABCCA29E3-
+
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-5481A4A743B6439FBA282CB3.sh
 r0
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-6078412A394A4B3B986B0F52.sh
+s364773028.098384
+e364773028.154379
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-6078412A394A4B3B986B0F52.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'4a7c1aa4febdb541^359b27a4febdb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364773028#0#30#-0#-----2@23"Depend check for xcode-364773028#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364773028#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364773028#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-6078412A394A4B3B986B0F52.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-6078412A394A4B3B986B0F52.sh36"8D2BA7D6-5F75-41C9-9199-B6A4A9250C71-
 
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-A2409A4AA82446F4AE30BE9A.sh
 s364669519.238369
@@ -4766,9 +4845,35 @@ ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/
 o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'b0c63d4f6abcb541^eacc714f6abcb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364669519#0#30#-0#-----2@23"Depend check for xcode-364669519#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364669519#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364669519#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-A2409A4AA82446F4AE30BE9A.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-A2409A4AA82446F4AE30BE9A.sh36"E9BEE056-2743-4E5C-87B9-2A72465B5BB4-
 
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-B451987683E2483BA81D3AE2.sh
+s364773205.111894
+e364773205.151639
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-B451987683E2483BA81D3AE2.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'00541d55ffbdb541^18d12655ffbdb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364773205#0#30#-0#-----2@23"Depend check for xcode-364773205#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364773205#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364773205#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-B451987683E2483BA81D3AE2.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-B451987683E2483BA81D3AE2.sh36"870755F1-BF9A-4E9A-9CE2-CAD681829F80-
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-CB40C3E84C694E5D84C87BC6.sh
+s364772941.173727
+e364772941.253631
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-CB40C3E84C694E5D84C87BC6.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'ee5d2f4dfebdb541^d9ec404dfebdb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364772941#0#30#-0#-----2@23"Depend check for xcode-364772941#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364772941#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364772941#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-CB40C3E84C694E5D84C87BC6.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-CB40C3E84C694E5D84C87BC6.sh36"E7486A32-8B91-4BBA-B19A-D68984A678C2-
+
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-DFE1C7550C7C44C9B6AAF40D.sh
-s364763239.881029
-e364763240.146899
+s364772157.551038
+e364772157.617700
 r1
 xPhaseScriptExecution
 xCMake PostBuild Rules
@@ -4776,6 +4881,45 @@ x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangoli
 oecho "Depend check for xcode"
 oDepend check for xcode
 ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
-omake[1]: Nothing to be done for `PostBuild.pangolin.Debug'.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'0d54e267d8bdb541^eca52568d8bdb541^-319"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debugmake[1]: Nothing to be done for `PostBuild.pangolin.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364763239#0#30#-0#-----2@23"Depend check for xcode-364763239#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364763239#53#206#-0#-----2@60"make[1]: Nothing to be done for `PostBuild.pangolin.Debug'.-364763240#259#60#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-DFE1C7550C7C44C9B6AAF40D.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-DFE1C7550C7C44C9B6AAF40D.sh36"9EFEBA4F-C1B9-4035-BEB6-9B1E1C18ACBF-
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'8cbf8d3dfbbdb541^8c659e3dfbbdb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364772157#0#30#-0#-----2@23"Depend check for xcode-364772157#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364772157#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364772157#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-DFE1C7550C7C44C9B6AAF40D.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-DFE1C7550C7C44C9B6AAF40D.sh36"D2B70D6A-F3E1-49FB-A3EB-9F6352724A5F-
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F03D24BDAD8043CBBDB40D5D.sh
+s364773110.222868
+e364773110.321201
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F03D24BDAD8043CBBDB40D5D.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'73b939f6febdb541^e57a53f6febdb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364773110#0#30#-0#-----2@23"Depend check for xcode-364773110#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364773110#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364773110#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F03D24BDAD8043CBBDB40D5D.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F03D24BDAD8043CBBDB40D5D.sh36"34934783-AFAA-4F2D-9FEB-B8F92E295013-
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F06FAC47EDBA4C649B191F7B.sh
+s364772363.048227
+e364772363.152897
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F06FAC47EDBA4C649B191F7B.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'81080d0bfcbdb541^b7b5290bfcbdb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364772363#0#30#-0#-----2@23"Depend check for xcode-364772363#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364772363#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364772363#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F06FAC47EDBA4C649B191F7B.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F06FAC47EDBA4C649B191F7B.sh36"48C870EB-4204-4B10-801A-FE7695B31EA4-
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F1B8CC73B1E34672B57929A3.sh
+s364775151.794282
+e364775152.095219
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F1B8CC73B1E34672B57929A3.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
+o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'fc00ccef06beb541^6c3f1df006beb541^-338"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364775151#0#30#-0#-----2@23"Depend check for xcode-364775151#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-364775151#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-364775151#259#79#-0#-----0#0#0#--311"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F1B8CC73B1E34672B57929A3.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin.build/Debug/pangolin.build/Script-F1B8CC73B1E34672B57929A3.sh36"8CA85CBE-CA6E-4756-BA8B-E87F7ED5BDE8-
 

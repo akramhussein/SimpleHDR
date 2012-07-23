@@ -429,31 +429,33 @@
      *  SAVING
      *-----------------------------------------------------------------------*/
     
-    //! Save frame to .ppm
+    //! Use standard frame grab and save to .ppm (for jpg, set to true)
     bool SaveFrame(     
-                        int frame_number, 
-                        unsigned char* image, 
-                        bool wait
-                   ); 
-        
-    //! Save frame to .jpeg
-    bool SaveFrameJPG(     
-                      int frame_number, 
-                      unsigned char* image, 
-                      bool wait
+                        int frame_number,      // current frame number
+                        unsigned char* image,  // empty image buffer -- to go in future
+                        bool wait,             // defaults = true
+                        bool jpg           // true => converts ppm to jpg (default = false)
                    ); 
     
-    //! Use one shot mode and save frame to .ppm
-    bool SaveOneShot(   
-                        int frame_number, 
-                        unsigned char* image
+    //! Use one shot frame grab and save to .ppm (for jpg, set to true)
+    bool SaveOneShot(     
+                        int frame_number,     // current frame number
+                        unsigned char* image, // empty image buffer -- to go in future
+                        bool jpg              // if true; converts ppm to jpg
                      );
     
+    //! Save image file to ppm or jpg
+    bool SaveFile(    
+                        int frame_number,           // current frame number
+                        dc1394video_frame_t *frame, // frame buffer
+                        bool jpg = false            // jpg save: defaults to false
+                );
+        
     /*-----------------------------------------------------------------------
      *  CONVERTING
      *-----------------------------------------------------------------------*/
         
-    // HAVEN'T TESTED!
+    // HAVEN'T TESTED! PROBABLY DOESN'T WORK
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
            
     /*-----------------------------------------------------------------------
@@ -463,21 +465,17 @@
     //! Print full camera features and current settings report
     void PrintCameraReport();
     
-        
-    /*
-      
-     //! Save direct to JPEG
-     void SaveJpeg();
-     
-     
-     */
-        
     /*-----------------------------------------------------------------------
-     *  CONVENIENCE TOOLS
+     *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/
     
     //! set all to auto mode for point grey flea
     void SetAutoAll();
+        
+    //! get the best video mode and highest framerate for camera (default colour RGB8)
+    void GetBestSettings( dc1394video_mode_t video_mode, 
+                          dc1394framerate_t framerate 
+                         );
     
     protected:
 

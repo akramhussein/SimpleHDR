@@ -47,11 +47,26 @@ BUILD_SHARED_LIBS:BOOL=OFF
 //The directory containing a CMake configuration file for Boost.
 Boost_DIR:PATH=Boost_DIR-NOTFOUND
 
+//The Boost FILESYSTEM library
+Boost_FILESYSTEM_LIBRARY:FILEPATH=/usr/local/lib/libboost_filesystem-mt.dylib
+
+//Boost filesystem library (debug)
+Boost_FILESYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libboost_filesystem-mt.dylib
+
+//Boost filesystem library (release)
+Boost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libboost_filesystem-mt.dylib
+
 //Path to a file.
 Boost_INCLUDE_DIR:PATH=/usr/local/include
 
 //Boost library directory
 Boost_LIBRARY_DIRS:FILEPATH=/usr/local/lib
+
+//Boost threaded library (debug)
+Boost_THREADED_LIBRARY_DEBUG:FILEPATH=Boost_THREADED_LIBRARY_DEBUG-NOTFOUND
+
+//Boost threaded library (release)
+Boost_THREADED_LIBRARY_RELEASE:FILEPATH=Boost_THREADED_LIBRARY_RELEASE-NOTFOUND
 
 //The Boost THREAD library
 Boost_THREAD_LIBRARY:FILEPATH=/usr/local/lib/libboost_thread-mt.dylib
@@ -410,12 +425,24 @@ pangolin_LIB_DEPENDS:STATIC=general;/System/Library/Frameworks/AGL.framework;gen
 ALL_BUILD_GUID_CMAKE:INTERNAL=580209C79B4944A59D342A1B
 //Have includes AVUTIL_INCLUDE_DIR-NOTFOUND/pixdesc.h
 AVUTIL_HAVE_PIXDESC:INTERNAL=
+//Whether the Boost FILESYSTEM library found
+Boost_FILESYSTEM_FOUND:INTERNAL=ON
+//ADVANCED property for variable: Boost_FILESYSTEM_LIBRARY
+Boost_FILESYSTEM_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_FILESYSTEM_LIBRARY_DEBUG
+Boost_FILESYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_FILESYSTEM_LIBRARY_RELEASE
+Boost_FILESYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_INCLUDE_DIR
 Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_LIBRARY_DIRS
 Boost_LIBRARY_DIRS-ADVANCED:INTERNAL=1
 //The library version string for boost libraries
 Boost_LIB_VERSION:INTERNAL=1_49
+//ADVANCED property for variable: Boost_THREADED_LIBRARY_DEBUG
+Boost_THREADED_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREADED_LIBRARY_RELEASE
+Boost_THREADED_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //Whether the Boost THREAD library found
 Boost_THREAD_FOUND:INTERNAL=ON
 //ADVANCED property for variable: Boost_THREAD_LIBRARY

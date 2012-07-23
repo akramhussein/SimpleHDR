@@ -9,23 +9,23 @@
 /* Begin PBXAggregateTarget section */
               580209C79B4944A59D342A1B /* ALL_BUILD */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = 7DF826A606B94E2E906E004C /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildConfigurationList = C81DADC5BF4D4E4D9D449534 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
                      buildPhases = (
-                            7E3C9F03544B4C0C8A71A677 /* CMake Rules */,
+                            28560D3743664316B40E0AD7 /* CMake Rules */,
                      );
                      dependencies = (
-                            871EC642DF274F76A625897A /* PBXTargetDependency */,
-                            96C9DED519C54241A6EBF5FD /* PBXTargetDependency */,
-                            BAA9F1582B194033BA68505B /* PBXTargetDependency */,
+                            6567A24A644F4337B7E44B28 /* PBXTargetDependency */,
+                            E807FFDFA4BC494093E1E4D8 /* PBXTargetDependency */,
+                            4F1AB9C6EDBD4C6986DF5B75 /* PBXTargetDependency */,
                      );
                      name = ALL_BUILD;
                      productName = ALL_BUILD;
               };
               2423BB6EE793489094158A01 /* ZERO_CHECK */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = C0551DB1A26844829F437387 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildConfigurationList = 2C4029A9C2A748F4A73D3891 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
                      buildPhases = (
-                            9179CBE0912E440AA6F5F2C2 /* CMake Rules */,
+                            E1AB30D56CE941EFA33DB482 /* CMake Rules */,
                      );
                      dependencies = (
                      );
@@ -34,24 +34,24 @@
               };
               55CB0563E3FB4B02969D8145 /* install */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = 07D847E32F1C4AE9ACF030DE /* Build configuration list for PBXAggregateTarget "install" */;
+                     buildConfigurationList = 7D47DE913C7B4B278A9CFB76 /* Build configuration list for PBXAggregateTarget "install" */;
                      buildPhases = (
-                            337D00BEDB024E49900085E9 /* CMake PostBuild Rules */,
+                            AF0BAC2C54A9496684D9FD9F /* CMake PostBuild Rules */,
                      );
                      dependencies = (
-                            D288C0A75564487C9CC21895 /* PBXTargetDependency */,
+                            3ADEC6B6043A4E4E8E5F0DD0 /* PBXTargetDependency */,
                      );
                      name = install;
                      productName = install;
               };
               5ADDDC78631543E7A3DDF957 /* uninstall */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = 690B094ED9CC4E16A23F18B9 /* Build configuration list for PBXAggregateTarget "uninstall" */;
+                     buildConfigurationList = 446F044E7176496CBEC94DFD /* Build configuration list for PBXAggregateTarget "uninstall" */;
                      buildPhases = (
-                            3A652FCC2AC8488592248BE2 /* CMake Rules */,
+                            39F02DDD7FFC42C2AF38755A /* CMake Rules */,
                      );
                      dependencies = (
-                            871EC642DF274F76A625897A /* PBXTargetDependency */,
+                            6567A24A644F4337B7E44B28 /* PBXTargetDependency */,
                      );
                      name = uninstall;
                      productName = uninstall;
@@ -59,68 +59,68 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-A13B25DABBA44C52BD3D07C5 /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */ = {isa = PBXBuildFile; fileRef = CA7E415DEA8441498D37442F /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */; settings = { COMPILER_FLAGS = ""; }; };
-0C92B0A4770045579AACDF91 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */ = {isa = PBXBuildFile; fileRef = EA0562C95B4C4C73BE3419B7 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */; settings = { COMPILER_FLAGS = ""; }; };
-9865667A77DD4A8AA08B9199 /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */ = {isa = PBXBuildFile; fileRef = 38EB8B3D788D496B8FEE152C /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */; settings = { COMPILER_FLAGS = ""; }; };
-F5AD9B899BD64B9C9D0DB6FE /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */ = {isa = PBXBuildFile; fileRef = 4DE68BC18C194A7D839B28A9 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */; settings = { COMPILER_FLAGS = ""; }; };
-0F97886409544C29AF73E956 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */ = {isa = PBXBuildFile; fileRef = D801052AAB6B4F5E906B6247 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */; settings = { COMPILER_FLAGS = ""; }; };
-04522DC888B049BB96CBFA3E /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */ = {isa = PBXBuildFile; fileRef = BCCAD0CF167141CA9FFDC474 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-1BEEFBE6645B47EF819F07C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */ = {isa = PBXBuildFile; fileRef = 00C4AF2E1DF947F0970ECD29 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */; settings = { COMPILER_FLAGS = ""; }; };
-9AE365FBEC24460C8FCB8659 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */ = {isa = PBXBuildFile; fileRef = 636709DE756947DB99971A77 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-78B21EA44C504F2497A0C5D1 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */ = {isa = PBXBuildFile; fileRef = 9E41636E369E42F38981F7E4 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */; settings = { COMPILER_FLAGS = ""; }; };
-426036D3DF20422795FF13BB /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */ = {isa = PBXBuildFile; fileRef = 21BFAE29E4F8466588DA0B43 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */; settings = { COMPILER_FLAGS = ""; }; };
-478047D7FCF84EE78E98BC41 /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */ = {isa = PBXBuildFile; fileRef = 2DE02EFD9C6742199654AB9D /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */; settings = { COMPILER_FLAGS = ""; }; };
-EC5CEB9487CF4F31A561FCD3 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */ = {isa = PBXBuildFile; fileRef = 7AD57BC3B61A43EAA89C715E /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */; settings = { COMPILER_FLAGS = ""; }; };
-C0C5681252914231869869A2 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */ = {isa = PBXBuildFile; fileRef = A88FEFF67C224C46A6A13D65 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-F9F46A95544A497E82B3A834 /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */ = {isa = PBXBuildFile; fileRef = 1F65F6BF1FFE46D4BFA7123A /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */; settings = { COMPILER_FLAGS = ""; }; };
-7BA10CA5427642BD99104185 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */ = {isa = PBXBuildFile; fileRef = 8ED16A72F7704D0789F9995C /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */; settings = { COMPILER_FLAGS = ""; }; };
-0538201B429D4043B251ACE1 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */ = {isa = PBXBuildFile; fileRef = 11EE2A8800994BAF816AE421 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */; settings = { COMPILER_FLAGS = ""; }; };
-571722B6A0D14A099B038999 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */ = {isa = PBXBuildFile; fileRef = 461B9A7704664D30A1EF8664 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-3D1E078E9A47488C99DD20F6 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */ = {isa = PBXBuildFile; fileRef = F3A52A77BDD44385AA1C5D1D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */; settings = { COMPILER_FLAGS = ""; }; };
-0AA5DE1DDD1E4FA1BFA8F0C3 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */ = {isa = PBXBuildFile; fileRef = C1FF86193CE54D5CB2A74B41 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-51A1C7FCE8BF440E8C41F666 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */ = {isa = PBXBuildFile; fileRef = DC60C82D6DA54913AF8B09B0 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */; settings = { COMPILER_FLAGS = ""; }; };
-BA34C9EECC054654AF395B66 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */ = {isa = PBXBuildFile; fileRef = 3A3E9B9B704048CEA252E586 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-F2C486ECEF8345EAB5448582 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */ = {isa = PBXBuildFile; fileRef = 8FB728C6A8A84DE498B310AC /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */; settings = { COMPILER_FLAGS = ""; }; };
-B7AA5B107CB545DFA4EC2E93 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */ = {isa = PBXBuildFile; fileRef = D05842C71F49497A85D9799A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-ECC56914D61E423E8703906D /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */ = {isa = PBXBuildFile; fileRef = 8AF57F080F324652B0B1D9C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */; settings = { COMPILER_FLAGS = ""; }; };
-4C4F50004F53410E8472CDFF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */ = {isa = PBXBuildFile; fileRef = DE043F533F4B4A70BD3C4F3A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-034A86EDEB7B47EAA9E15462 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */ = {isa = PBXBuildFile; fileRef = 880BEFDFDEF14CBA881961DB /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */; settings = { COMPILER_FLAGS = ""; }; };
-8167DDACFE9545088C9872FF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */ = {isa = PBXBuildFile; fileRef = EC9D0A91EB204EB8B0D11487 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-0A9B0B7759354046A6C5327C /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */ = {isa = PBXBuildFile; fileRef = F0B77B5C62B748C89C875902 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */; settings = { COMPILER_FLAGS = ""; }; };
-C4D05EF7A0F14971810A0148 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */ = {isa = PBXBuildFile; fileRef = 4F29E254A5324D31B0B544AE /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-F53D47132C7A44D383FC9BB6 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */ = {isa = PBXBuildFile; fileRef = 68FD466D62DF4102A264FD8D /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */; settings = { COMPILER_FLAGS = ""; }; };
-4BC4886CE1E04EAD802295DF /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */ = {isa = PBXBuildFile; fileRef = 9DF5B71FF3CE441D9DD766F1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-421A9DDD2812476D8369742F /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 855BEE9639E34617AE63F313 /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
-251CEFBE4C8842BEAEFB627E /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */ = {isa = PBXBuildFile; fileRef = B860DFC3C98548E38A82913C /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */; settings = { COMPILER_FLAGS = ""; }; };
-4A87B90CCED6481286FE1F33 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 4A5BD0FF1ED047ACA41D352D /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+9C13596D0D0A418AA4AE133D /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */ = {isa = PBXBuildFile; fileRef = 6640BC2694414C039371EE13 /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */; settings = { COMPILER_FLAGS = ""; }; };
+CF8FA8D29B4F4C6DB16B351A /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */ = {isa = PBXBuildFile; fileRef = 8993E70F52224496BDC25389 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */; settings = { COMPILER_FLAGS = ""; }; };
+0B5934AA6F914EA5AB64CA55 /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */ = {isa = PBXBuildFile; fileRef = DEC94B2A8A7947959961C8C6 /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */; settings = { COMPILER_FLAGS = ""; }; };
+B09814FE10DE4968B1FA3758 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */ = {isa = PBXBuildFile; fileRef = 7E7E903830194B0DAFED7AFC /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */; settings = { COMPILER_FLAGS = ""; }; };
+1388C0F8591F4FE1B93F0ECD /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */ = {isa = PBXBuildFile; fileRef = EDE20A1ED0F04A00981B9042 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */; settings = { COMPILER_FLAGS = ""; }; };
+0C4FB999BF7F43EEBBD66FF3 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */ = {isa = PBXBuildFile; fileRef = 1700A25D6C544EB483BF687A /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+6E447C328CDF422DBBB4880C /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */ = {isa = PBXBuildFile; fileRef = 0EB0A72C535642078DDEFAB0 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */; settings = { COMPILER_FLAGS = ""; }; };
+90E6F03795CE417B8B8BC651 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */ = {isa = PBXBuildFile; fileRef = E7188CA8547040DE83292921 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+8CCD513D5CE74FFFAC7418AF /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */ = {isa = PBXBuildFile; fileRef = 3168D976555C41DEBFC7F22D /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */; settings = { COMPILER_FLAGS = ""; }; };
+EC08D0F6A66A46CF880C70AF /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */ = {isa = PBXBuildFile; fileRef = 05B87E0AB4A94B8F84BC8FC9 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */; settings = { COMPILER_FLAGS = ""; }; };
+819C464A6611458086B9EB7E /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */ = {isa = PBXBuildFile; fileRef = 120B573124EF41B6A10BC6CE /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */; settings = { COMPILER_FLAGS = ""; }; };
+531768471EE34B7B8F9866DF /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */ = {isa = PBXBuildFile; fileRef = 6FF79847575B4027B070D977 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */; settings = { COMPILER_FLAGS = ""; }; };
+1A9742BDEFD14DD3ACBC870A /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */ = {isa = PBXBuildFile; fileRef = F18C39880DDE433A972240B4 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+AF9A3DD7BEDA4A4AB1FB9540 /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */ = {isa = PBXBuildFile; fileRef = 5AD724AAA83547EEB0EDEF9C /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */; settings = { COMPILER_FLAGS = ""; }; };
+AB1790A91E5C4B3D89ABC549 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */ = {isa = PBXBuildFile; fileRef = DBBB4E21A71342B682738CFA /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */; settings = { COMPILER_FLAGS = ""; }; };
+B4A8751D11254E4BBFE4EFF4 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */ = {isa = PBXBuildFile; fileRef = 38D785FA8DA34B3EB493360D /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */; settings = { COMPILER_FLAGS = ""; }; };
+4896B388FC9C4BE788E335E9 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */ = {isa = PBXBuildFile; fileRef = 66852401A17F4016A6B2D3FF /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+113D212B8A734CA7A1C8F92D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */ = {isa = PBXBuildFile; fileRef = FB6031177B1B446C873AC6B2 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */; settings = { COMPILER_FLAGS = ""; }; };
+0CEC42B9774D47F7AFAC06D2 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */ = {isa = PBXBuildFile; fileRef = A258DBF102FE44C88339E68D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+6A16D0DEF5954E659D6448B7 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */ = {isa = PBXBuildFile; fileRef = 3108FFD8213D47AAA11FF194 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */; settings = { COMPILER_FLAGS = ""; }; };
+C10A2A013DB048228889038E /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */ = {isa = PBXBuildFile; fileRef = 63A1F8FFE793443FA45D292D /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+868848BFA9EE41868544B0C3 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */ = {isa = PBXBuildFile; fileRef = 0A495122395A4FBB81E2939A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */; settings = { COMPILER_FLAGS = ""; }; };
+3572A3F788B34EEBA7AC5E6A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */ = {isa = PBXBuildFile; fileRef = 37BFBEE40F7746988969C463 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+D3B6A26DAFC4499AAF1759C3 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */ = {isa = PBXBuildFile; fileRef = 8F576B2D1AD54C75BD20C07A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */; settings = { COMPILER_FLAGS = ""; }; };
+22EC360FBB8D4E1B95F12B88 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */ = {isa = PBXBuildFile; fileRef = B6F5B3FFAB774E44AC516D19 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+1AD5E99EC07C4D1D83432D35 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */ = {isa = PBXBuildFile; fileRef = D71C9D5AA19C41389BF0F436 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */; settings = { COMPILER_FLAGS = ""; }; };
+F66092648A6246EC8832F38A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */ = {isa = PBXBuildFile; fileRef = 5318D3930A1441619C8B992F /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+693FDE1D29354DF99149D4DD /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */ = {isa = PBXBuildFile; fileRef = 6C8844B0AC1F499E9B7B9C7F /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */; settings = { COMPILER_FLAGS = ""; }; };
+B0C2D7E378D54959B2805D7B /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */ = {isa = PBXBuildFile; fileRef = 09E2B350667442D9B6B721F3 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+543CDA4C7EE34347A4B21D85 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */ = {isa = PBXBuildFile; fileRef = 688CF75640A84C1CB1F00F22 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */; settings = { COMPILER_FLAGS = ""; }; };
+D7DAB293BFAA42CB8FCCB5D6 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */ = {isa = PBXBuildFile; fileRef = 344E65DB532549FEA25F6DA5 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+2873BA7ABEF044D492E51A24 /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 79782FAC45384A66A6B271DA /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+3554B9C2231644D69F982F85 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */ = {isa = PBXBuildFile; fileRef = C424D3BBC6EF4E4195CF2069 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+7A16B663B0634FAEBAD951EA /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 40D42E739352493DACCB57C0 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-              43CD6EC52FB24BFA97622EE0 /*  */ = {
+              2CABFFB9D83E4D94B09D5E7B /*  */ = {
                      isa = PBXBuildStyle;
               };
-              160BC861E60244DBA78ECDB5 /* Debug */ = {
+              6E08AFFD53CF4A309DB9DFB9 /* Debug */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Debug;
               };
-              9F6489D5A4B640DFBA47709A /* Release */ = {
+              24831E9B963F4029B98331A8 /* Release */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Release;
               };
-              1CB58538DDCD4F27AE936BBC /* MinSizeRel */ = {
+              8CB69A21126A4F819F6A9620 /* MinSizeRel */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = MinSizeRel;
               };
-              93153D4D007340499418F95F /* RelWithDebInfo */ = {
+              FC10C1107E7D4EF98CF40B5D /* RelWithDebInfo */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
@@ -130,28 +130,28 @@ F53D47132C7A44D383FC9BB6 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/f
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-              90D4E1CCE5074B10BB83F154 /* PBXContainerItemProxy */ = {
+              49454BDF6C864A9DB7AE65F2 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = 2423BB6EE793489094158A01;
                      remoteInfo = ZERO_CHECK;
               };
-              8F258730F8E04AFD8B344A89 /* PBXContainerItemProxy */ = {
-                     isa = PBXContainerItemProxy;
-                     containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
-                     proxyType = 1;
-                     remoteGlobalIDString = EC2AEE53C29F4DB8B132AD3B;
-                     remoteInfo = SimpleHDR;
-              };
-              354D2B05E4054DA6962B59CE /* PBXContainerItemProxy */ = {
+              F3F3B660656C451B93EEE812 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = 276580A46DBA4DA6B55831ED;
                      remoteInfo = pangolin;
               };
-              A6CDFC7592D949F8B79524F0 /* PBXContainerItemProxy */ = {
+              2724E8AE17EB42FF956DFED0 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = EC2AEE53C29F4DB8B132AD3B;
+                     remoteInfo = SimpleHDR;
+              };
+              BF54FAD6F4AB4282AC55FBDB /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 095039C5C0FB40E6893D23FA /* Project object */;
                      proxyType = 1;
@@ -161,199 +161,199 @@ F53D47132C7A44D383FC9BB6 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/f
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-CA7E415DEA8441498D37442F /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "pangolin.h"; path = "pangolin/pangolin.h"; sourceTree = SOURCE_ROOT; };
-EA0562C95B4C4C73BE3419B7 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "platform.h"; path = "pangolin/platform.h"; sourceTree = SOURCE_ROOT; };
-38EB8B3D788D496B8FEE152C /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "simple_math.h"; path = "pangolin/simple_math.h"; sourceTree = SOURCE_ROOT; };
-4DE68BC18C194A7D839B28A9 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "display.h"; path = "pangolin/display.h"; sourceTree = SOURCE_ROOT; };
-D801052AAB6B4F5E906B6247 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "display_internal.h"; path = "pangolin/display_internal.h"; sourceTree = SOURCE_ROOT; };
-BCCAD0CF167141CA9FFDC474 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "display.cpp"; path = "pangolin/display.cpp"; sourceTree = SOURCE_ROOT; };
-00C4AF2E1DF947F0970ECD29 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "plotter.h"; path = "pangolin/plotter.h"; sourceTree = SOURCE_ROOT; };
-636709DE756947DB99971A77 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "plotter.cpp"; path = "pangolin/plotter.cpp"; sourceTree = SOURCE_ROOT; };
-9E41636E369E42F38981F7E4 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "gl.h"; path = "pangolin/gl.h"; sourceTree = SOURCE_ROOT; };
-21BFAE29E4F8466588DA0B43 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "glcuda.h"; path = "pangolin/glcuda.h"; sourceTree = SOURCE_ROOT; };
-2DE02EFD9C6742199654AB9D /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "cg.h"; path = "pangolin/cg.h"; sourceTree = SOURCE_ROOT; };
-7AD57BC3B61A43EAA89C715E /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "threadedfilebuf.h"; path = "pangolin/threadedfilebuf.h"; sourceTree = SOURCE_ROOT; };
-A88FEFF67C224C46A6A13D65 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "threadedfilebuf.cpp"; path = "pangolin/threadedfilebuf.cpp"; sourceTree = SOURCE_ROOT; };
-1F65F6BF1FFE46D4BFA7123A /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "timer.h"; path = "pangolin/timer.h"; sourceTree = SOURCE_ROOT; };
-8ED16A72F7704D0789F9995C /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "vars.h"; path = "pangolin/vars.h"; sourceTree = SOURCE_ROOT; };
-11EE2A8800994BAF816AE421 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "vars_internal.h"; path = "pangolin/vars_internal.h"; sourceTree = SOURCE_ROOT; };
-461B9A7704664D30A1EF8664 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "vars.cpp"; path = "pangolin/vars.cpp"; sourceTree = SOURCE_ROOT; };
-F3A52A77BDD44385AA1C5D1D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "input_record_repeat.h"; path = "pangolin/input_record_repeat.h"; sourceTree = SOURCE_ROOT; };
-C1FF86193CE54D5CB2A74B41 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "input_record_repeat.cpp"; path = "pangolin/input_record_repeat.cpp"; sourceTree = SOURCE_ROOT; };
-DC60C82D6DA54913AF8B09B0 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "widgets.h"; path = "pangolin/widgets.h"; sourceTree = SOURCE_ROOT; };
-3A3E9B9B704048CEA252E586 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "widgets.cpp"; path = "pangolin/widgets.cpp"; sourceTree = SOURCE_ROOT; };
-8FB728C6A8A84DE498B310AC /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video.h"; path = "pangolin/video.h"; sourceTree = SOURCE_ROOT; };
-D05842C71F49497A85D9799A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video.cpp"; path = "pangolin/video.cpp"; sourceTree = SOURCE_ROOT; };
-8AF57F080F324652B0B1D9C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video_recorder.h"; path = "pangolin/video_recorder.h"; sourceTree = SOURCE_ROOT; };
-DE043F533F4B4A70BD3C4F3A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video_recorder.cpp"; path = "pangolin/video_recorder.cpp"; sourceTree = SOURCE_ROOT; };
-880BEFDFDEF14CBA881961DB /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video_record_repeat.h"; path = "pangolin/video_record_repeat.h"; sourceTree = SOURCE_ROOT; };
-EC9D0A91EB204EB8B0D11487 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video_record_repeat.cpp"; path = "pangolin/video_record_repeat.cpp"; sourceTree = SOURCE_ROOT; };
-F0B77B5C62B748C89C875902 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "pvn_video.h"; path = "pangolin/video/pvn_video.h"; sourceTree = SOURCE_ROOT; };
-4F29E254A5324D31B0B544AE /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "pvn_video.cpp"; path = "pangolin/video/pvn_video.cpp"; sourceTree = SOURCE_ROOT; };
-68FD466D62DF4102A264FD8D /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "firewire.h"; path = "pangolin/video/firewire.h"; sourceTree = SOURCE_ROOT; };
-9DF5B71FF3CE441D9DD766F1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "firewire.cpp"; path = "pangolin/video/firewire.cpp"; sourceTree = SOURCE_ROOT; };
-855BEE9639E34617AE63F313 /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "pangolin/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-913028366BE4490A81A06938 /* pangolin */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libpangolin.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
-B860DFC3C98548E38A82913C /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "main.cpp"; path = "SimpleHDR/main.cpp"; sourceTree = SOURCE_ROOT; };
-4A5BD0FF1ED047ACA41D352D /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "SimpleHDR/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-CFF3424C80184780B6A43496 /* SimpleHDR */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = SimpleHDR; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+D3B3DF3E01A048E080F273BD /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+6640BC2694414C039371EE13 /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "pangolin.h"; path = "pangolin/pangolin.h"; sourceTree = SOURCE_ROOT; };
+8993E70F52224496BDC25389 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "platform.h"; path = "pangolin/platform.h"; sourceTree = SOURCE_ROOT; };
+DEC94B2A8A7947959961C8C6 /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "simple_math.h"; path = "pangolin/simple_math.h"; sourceTree = SOURCE_ROOT; };
+7E7E903830194B0DAFED7AFC /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "display.h"; path = "pangolin/display.h"; sourceTree = SOURCE_ROOT; };
+EDE20A1ED0F04A00981B9042 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "display_internal.h"; path = "pangolin/display_internal.h"; sourceTree = SOURCE_ROOT; };
+1700A25D6C544EB483BF687A /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "display.cpp"; path = "pangolin/display.cpp"; sourceTree = SOURCE_ROOT; };
+0EB0A72C535642078DDEFAB0 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "plotter.h"; path = "pangolin/plotter.h"; sourceTree = SOURCE_ROOT; };
+E7188CA8547040DE83292921 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "plotter.cpp"; path = "pangolin/plotter.cpp"; sourceTree = SOURCE_ROOT; };
+3168D976555C41DEBFC7F22D /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "gl.h"; path = "pangolin/gl.h"; sourceTree = SOURCE_ROOT; };
+05B87E0AB4A94B8F84BC8FC9 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "glcuda.h"; path = "pangolin/glcuda.h"; sourceTree = SOURCE_ROOT; };
+120B573124EF41B6A10BC6CE /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "cg.h"; path = "pangolin/cg.h"; sourceTree = SOURCE_ROOT; };
+6FF79847575B4027B070D977 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "threadedfilebuf.h"; path = "pangolin/threadedfilebuf.h"; sourceTree = SOURCE_ROOT; };
+F18C39880DDE433A972240B4 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "threadedfilebuf.cpp"; path = "pangolin/threadedfilebuf.cpp"; sourceTree = SOURCE_ROOT; };
+5AD724AAA83547EEB0EDEF9C /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "timer.h"; path = "pangolin/timer.h"; sourceTree = SOURCE_ROOT; };
+DBBB4E21A71342B682738CFA /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "vars.h"; path = "pangolin/vars.h"; sourceTree = SOURCE_ROOT; };
+38D785FA8DA34B3EB493360D /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "vars_internal.h"; path = "pangolin/vars_internal.h"; sourceTree = SOURCE_ROOT; };
+66852401A17F4016A6B2D3FF /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "vars.cpp"; path = "pangolin/vars.cpp"; sourceTree = SOURCE_ROOT; };
+FB6031177B1B446C873AC6B2 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "input_record_repeat.h"; path = "pangolin/input_record_repeat.h"; sourceTree = SOURCE_ROOT; };
+A258DBF102FE44C88339E68D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "input_record_repeat.cpp"; path = "pangolin/input_record_repeat.cpp"; sourceTree = SOURCE_ROOT; };
+3108FFD8213D47AAA11FF194 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "widgets.h"; path = "pangolin/widgets.h"; sourceTree = SOURCE_ROOT; };
+63A1F8FFE793443FA45D292D /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "widgets.cpp"; path = "pangolin/widgets.cpp"; sourceTree = SOURCE_ROOT; };
+0A495122395A4FBB81E2939A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video.h"; path = "pangolin/video.h"; sourceTree = SOURCE_ROOT; };
+37BFBEE40F7746988969C463 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video.cpp"; path = "pangolin/video.cpp"; sourceTree = SOURCE_ROOT; };
+8F576B2D1AD54C75BD20C07A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video_recorder.h"; path = "pangolin/video_recorder.h"; sourceTree = SOURCE_ROOT; };
+B6F5B3FFAB774E44AC516D19 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video_recorder.cpp"; path = "pangolin/video_recorder.cpp"; sourceTree = SOURCE_ROOT; };
+D71C9D5AA19C41389BF0F436 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "video_record_repeat.h"; path = "pangolin/video_record_repeat.h"; sourceTree = SOURCE_ROOT; };
+5318D3930A1441619C8B992F /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "video_record_repeat.cpp"; path = "pangolin/video_record_repeat.cpp"; sourceTree = SOURCE_ROOT; };
+6C8844B0AC1F499E9B7B9C7F /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "pvn_video.h"; path = "pangolin/video/pvn_video.h"; sourceTree = SOURCE_ROOT; };
+09E2B350667442D9B6B721F3 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "pvn_video.cpp"; path = "pangolin/video/pvn_video.cpp"; sourceTree = SOURCE_ROOT; };
+688CF75640A84C1CB1F00F22 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "firewire.h"; path = "pangolin/video/firewire.h"; sourceTree = SOURCE_ROOT; };
+344E65DB532549FEA25F6DA5 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "firewire.cpp"; path = "pangolin/video/firewire.cpp"; sourceTree = SOURCE_ROOT; };
+79782FAC45384A66A6B271DA /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "pangolin/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+06ED1AD834E34E4CA721D47E /* pangolin */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libpangolin.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+C424D3BBC6EF4E4195CF2069 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "main.cpp"; path = "SimpleHDR/main.cpp"; sourceTree = SOURCE_ROOT; };
+40D42E739352493DACCB57C0 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "SimpleHDR/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+2028384CE1544D0CA3E07F82 /* SimpleHDR */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = SimpleHDR; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-              300E4771D4664554B094FA18  = {
+              4293C29E06894F69A31638A5  = {
                      isa = PBXGroup;
                      children = (
-                            BD559C2D177B4BA1B3A375B9 /* Sources */,
-                            09FE04FC720A4C05A035B6E3 /* Resources */,
-                            F5E036938E744C27940AE4D1 /* Products */,
+                            B9083415EEC24586996BE250 /* Sources */,
+                            2F4CA8E4E8994A7188B41F20 /* Resources */,
+                            4EF16588E1C14077BE034F76 /* Products */,
                      );
                      sourceTree = "<group>";
               };
-              BD559C2D177B4BA1B3A375B9 /* Sources */ = {
+              B9083415EEC24586996BE250 /* Sources */ = {
                      isa = PBXGroup;
                      children = (
-                            89D492A6BCF4498E89C412C3 /* ALL_BUILD */,
-                            29FF6AED46E84552856B9348 /* ZERO_CHECK */,
-                            4F82BD3A0AD84871AE241A29 /* uninstall */,
-                            8E4732F701A44233B63CAAAE /* pangolin */,
-                            5100309B1D7249EFA85700FF /* SimpleHDR */,
+                            3FD5C08C6AE649ECAF5248C0 /* ALL_BUILD */,
+                            B2C3C02986494EFEBD061855 /* ZERO_CHECK */,
+                            74E2F67ECB404413AC0DF50C /* uninstall */,
+                            0717BFA33B314D74BF8C5538 /* pangolin */,
+                            148A76FC22E64DB5907A121D /* SimpleHDR */,
                      );
                      name = Sources;
                      sourceTree = "<group>";
               };
-              09FE04FC720A4C05A035B6E3 /* Resources */ = {
+              2F4CA8E4E8994A7188B41F20 /* Resources */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = Resources;
                      sourceTree = "<group>";
               };
-              89D492A6BCF4498E89C412C3 /* ALL_BUILD */ = {
+              3FD5C08C6AE649ECAF5248C0 /* ALL_BUILD */ = {
                      isa = PBXGroup;
                      children = (
-                            3444068FD9A14EFABA438508 /* CMake Rules */,
-                            2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
+                            3196270B60A54941B70C5851 /* CMake Rules */,
+                            D3B3DF3E01A048E080F273BD /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
                      );
                      name = ALL_BUILD;
                      sourceTree = "<group>";
               };
-              3444068FD9A14EFABA438508 /* CMake Rules */ = {
+              3196270B60A54941B70C5851 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              29FF6AED46E84552856B9348 /* ZERO_CHECK */ = {
+              B2C3C02986494EFEBD061855 /* ZERO_CHECK */ = {
                      isa = PBXGroup;
                      children = (
-                            25CB546B9E2B43B6BADE30D0 /* CMake Rules */,
-                            2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
+                            785A82B075174E32BEFAA9C7 /* CMake Rules */,
+                            D3B3DF3E01A048E080F273BD /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
                      );
                      name = ZERO_CHECK;
                      sourceTree = "<group>";
               };
-              25CB546B9E2B43B6BADE30D0 /* CMake Rules */ = {
+              785A82B075174E32BEFAA9C7 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              4F82BD3A0AD84871AE241A29 /* uninstall */ = {
+              74E2F67ECB404413AC0DF50C /* uninstall */ = {
                      isa = PBXGroup;
                      children = (
-                            AC43D9E9119D463296B5C095 /* CMake Rules */,
-                            2479498ABB9D48AAA79C94CE /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
+                            E04B04AFA6DE499D953AD321 /* CMake Rules */,
+                            D3B3DF3E01A048E080F273BD /* /Users/akram/Developer/pangolin-hdr/CMakeLists.txt */,
                      );
                      name = uninstall;
                      sourceTree = "<group>";
               };
-              AC43D9E9119D463296B5C095 /* CMake Rules */ = {
+              E04B04AFA6DE499D953AD321 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              8E4732F701A44233B63CAAAE /* pangolin */ = {
+              0717BFA33B314D74BF8C5538 /* pangolin */ = {
                      isa = PBXGroup;
                      children = (
-                            E361BA5683104735A990B984 /* Header Files */,
-                            52CE35EA7E064AE79643BEC8 /* Source Files */,
-                            855BEE9639E34617AE63F313 /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */,
+                            06729F97C7384969BA3F6794 /* Header Files */,
+                            A81D42612AB0403C898864F2 /* Source Files */,
+                            79782FAC45384A66A6B271DA /* /Users/akram/Developer/pangolin-hdr/pangolin/CMakeLists.txt */,
                      );
                      name = pangolin;
                      sourceTree = "<group>";
               };
-              E361BA5683104735A990B984 /* Header Files */ = {
+              06729F97C7384969BA3F6794 /* Header Files */ = {
                      isa = PBXGroup;
                      children = (
-                            CA7E415DEA8441498D37442F /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */,
-                            EA0562C95B4C4C73BE3419B7 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */,
-                            38EB8B3D788D496B8FEE152C /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */,
-                            4DE68BC18C194A7D839B28A9 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */,
-                            D801052AAB6B4F5E906B6247 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */,
-                            00C4AF2E1DF947F0970ECD29 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */,
-                            9E41636E369E42F38981F7E4 /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */,
-                            21BFAE29E4F8466588DA0B43 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */,
-                            2DE02EFD9C6742199654AB9D /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */,
-                            7AD57BC3B61A43EAA89C715E /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */,
-                            1F65F6BF1FFE46D4BFA7123A /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */,
-                            8ED16A72F7704D0789F9995C /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */,
-                            11EE2A8800994BAF816AE421 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */,
-                            F3A52A77BDD44385AA1C5D1D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */,
-                            DC60C82D6DA54913AF8B09B0 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */,
-                            8FB728C6A8A84DE498B310AC /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */,
-                            8AF57F080F324652B0B1D9C1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */,
-                            880BEFDFDEF14CBA881961DB /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */,
-                            F0B77B5C62B748C89C875902 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */,
-                            68FD466D62DF4102A264FD8D /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */,
+                            6640BC2694414C039371EE13 /* /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h */,
+                            8993E70F52224496BDC25389 /* /Users/akram/Developer/pangolin-hdr/pangolin/platform.h */,
+                            DEC94B2A8A7947959961C8C6 /* /Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h */,
+                            7E7E903830194B0DAFED7AFC /* /Users/akram/Developer/pangolin-hdr/pangolin/display.h */,
+                            EDE20A1ED0F04A00981B9042 /* /Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h */,
+                            0EB0A72C535642078DDEFAB0 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.h */,
+                            3168D976555C41DEBFC7F22D /* /Users/akram/Developer/pangolin-hdr/pangolin/gl.h */,
+                            05B87E0AB4A94B8F84BC8FC9 /* /Users/akram/Developer/pangolin-hdr/pangolin/glcuda.h */,
+                            120B573124EF41B6A10BC6CE /* /Users/akram/Developer/pangolin-hdr/pangolin/cg.h */,
+                            6FF79847575B4027B070D977 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h */,
+                            5AD724AAA83547EEB0EDEF9C /* /Users/akram/Developer/pangolin-hdr/pangolin/timer.h */,
+                            DBBB4E21A71342B682738CFA /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.h */,
+                            38D785FA8DA34B3EB493360D /* /Users/akram/Developer/pangolin-hdr/pangolin/vars_internal.h */,
+                            FB6031177B1B446C873AC6B2 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.h */,
+                            3108FFD8213D47AAA11FF194 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.h */,
+                            0A495122395A4FBB81E2939A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.h */,
+                            8F576B2D1AD54C75BD20C07A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h */,
+                            D71C9D5AA19C41389BF0F436 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h */,
+                            6C8844B0AC1F499E9B7B9C7F /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.h */,
+                            688CF75640A84C1CB1F00F22 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h */,
                      );
                      name = "Header Files";
                      sourceTree = "<group>";
               };
-              52CE35EA7E064AE79643BEC8 /* Source Files */ = {
+              A81D42612AB0403C898864F2 /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            BCCAD0CF167141CA9FFDC474 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */,
-                            636709DE756947DB99971A77 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */,
-                            A88FEFF67C224C46A6A13D65 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */,
-                            461B9A7704664D30A1EF8664 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */,
-                            C1FF86193CE54D5CB2A74B41 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */,
-                            3A3E9B9B704048CEA252E586 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */,
-                            D05842C71F49497A85D9799A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */,
-                            DE043F533F4B4A70BD3C4F3A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */,
-                            EC9D0A91EB204EB8B0D11487 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */,
-                            4F29E254A5324D31B0B544AE /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */,
-                            9DF5B71FF3CE441D9DD766F1 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */,
+                            1700A25D6C544EB483BF687A /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */,
+                            E7188CA8547040DE83292921 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */,
+                            F18C39880DDE433A972240B4 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */,
+                            66852401A17F4016A6B2D3FF /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */,
+                            A258DBF102FE44C88339E68D /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */,
+                            63A1F8FFE793443FA45D292D /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */,
+                            37BFBEE40F7746988969C463 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */,
+                            B6F5B3FFAB774E44AC516D19 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */,
+                            5318D3930A1441619C8B992F /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */,
+                            09E2B350667442D9B6B721F3 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */,
+                            344E65DB532549FEA25F6DA5 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              5100309B1D7249EFA85700FF /* SimpleHDR */ = {
+              148A76FC22E64DB5907A121D /* SimpleHDR */ = {
                      isa = PBXGroup;
                      children = (
-                            F026EA7F16BF42B0926E12D9 /* Source Files */,
-                            4A5BD0FF1ED047ACA41D352D /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */,
+                            A1A306A638214F328F795A30 /* Source Files */,
+                            40D42E739352493DACCB57C0 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/CMakeLists.txt */,
                      );
                      name = SimpleHDR;
                      sourceTree = "<group>";
               };
-              F026EA7F16BF42B0926E12D9 /* Source Files */ = {
+              A1A306A638214F328F795A30 /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            B860DFC3C98548E38A82913C /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */,
+                            C424D3BBC6EF4E4195CF2069 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              F5E036938E744C27940AE4D1 /* Products */ = {
+              4EF16588E1C14077BE034F76 /* Products */ = {
                      isa = PBXGroup;
                      children = (
-                            913028366BE4490A81A06938 /* pangolin */,
-                            CFF3424C80184780B6A43496 /* SimpleHDR */,
+                            06ED1AD834E34E4CA721D47E /* pangolin */,
+                            2028384CE1544D0CA3E07F82 /* SimpleHDR */,
                      );
                      name = Products;
                      sourceTree = "<group>";
@@ -363,37 +363,37 @@ CFF3424C80184780B6A43496 /* SimpleHDR */ = {isa = PBXFileReference; explicitFile
 /* Begin PBXNativeTarget section */
               276580A46DBA4DA6B55831ED /* pangolin */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = 93C809BE3C684419BDA20773 /* Build configuration list for PBXNativeTarget "pangolin" */;
+                     buildConfigurationList = 85CF6751237F42978AFA34CB /* Build configuration list for PBXNativeTarget "pangolin" */;
                      buildPhases = (
-                            5073066DFD2549269E9D9748 /* Sources */,
-                            DFE1C7550C7C44C9B6AAF40D /* CMake PostBuild Rules */,
+                            0223C657A2214A6DA1DBE06E /* Sources */,
+                            F1B8CC73B1E34672B57929A3 /* CMake PostBuild Rules */,
                      );
                      buildRules = (
                      );
                      dependencies = (
-                            871EC642DF274F76A625897A /* PBXTargetDependency */,
+                            6567A24A644F4337B7E44B28 /* PBXTargetDependency */,
                      );
                      name = pangolin;
                      productName = pangolin;
-                     productReference = 913028366BE4490A81A06938 /* pangolin */;
+                     productReference = 06ED1AD834E34E4CA721D47E /* pangolin */;
                      productType = "com.apple.product-type.library.static";
               };
               EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = 05D2258B80CB4B80A4D0742C /* Build configuration list for PBXNativeTarget "SimpleHDR" */;
+                     buildConfigurationList = C34F6AF743C24F908BBF8F87 /* Build configuration list for PBXNativeTarget "SimpleHDR" */;
                      buildPhases = (
-                            A72E9A475693423E8F5A7FAD /* Sources */,
-                            22052C6104A44538A45B6A7B /* CMake PostBuild Rules */,
+                            8473B37E94DD49DAA2EEF989 /* Sources */,
+                            CD72CA8A77494C2885A144AE /* CMake PostBuild Rules */,
                      );
                      buildRules = (
                      );
                      dependencies = (
-                            871EC642DF274F76A625897A /* PBXTargetDependency */,
-                            BAA9F1582B194033BA68505B /* PBXTargetDependency */,
+                            6567A24A644F4337B7E44B28 /* PBXTargetDependency */,
+                            E807FFDFA4BC494093E1E4D8 /* PBXTargetDependency */,
                      );
                      name = SimpleHDR;
                      productName = SimpleHDR;
-                     productReference = CFF3424C80184780B6A43496 /* SimpleHDR */;
+                     productReference = 2028384CE1544D0CA3E07F82 /* SimpleHDR */;
                      productType = "com.apple.product-type.tool";
               };
 /* End PBXNativeTarget section */
@@ -404,18 +404,18 @@ CFF3424C80184780B6A43496 /* SimpleHDR */ = {isa = PBXFileReference; explicitFile
                      attributes = {
                             BuildIndependentTargetsInParallel = YES;
                      };
-                     buildConfigurationList = 3BF065F4750C4EEC9C253202 /* Build configuration list for PBXProject  "Pangolin" */;
+                     buildConfigurationList = BC3CCF7ABF484DEBB6DAA9F6 /* Build configuration list for PBXProject  "Pangolin" */;
                      buildSettings = {
                      };
                      buildStyles = (
-                            160BC861E60244DBA78ECDB5 /* Debug */,
-                            9F6489D5A4B640DFBA47709A /* Release */,
-                            1CB58538DDCD4F27AE936BBC /* MinSizeRel */,
-                            93153D4D007340499418F95F /* RelWithDebInfo */,
+                            6E08AFFD53CF4A309DB9DFB9 /* Debug */,
+                            24831E9B963F4029B98331A8 /* Release */,
+                            8CB69A21126A4F819F6A9620 /* MinSizeRel */,
+                            FC10C1107E7D4EF98CF40B5D /* RelWithDebInfo */,
                      );
                      compatibilityVersion = "Xcode 3.2";
                      hasScannedForEncodings = 0;
-                     mainGroup = 300E4771D4664554B094FA18;
+                     mainGroup = 4293C29E06894F69A31638A5;
                      projectDirPath = "..";
                      projectRoot = "";
                      targets = (
@@ -430,7 +430,7 @@ CFF3424C80184780B6A43496 /* SimpleHDR */ = {isa = PBXFileReference; explicitFile
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-              AE6F3EEC9DAF49F18CD5570E /*  */ = {
+              F9188FB61EDE4AE3A28F700A /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -445,7 +445,7 @@ CFF3424C80184780B6A43496 /* SimpleHDR */ = {isa = PBXFileReference; explicitFile
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              7E3C9F03544B4C0C8A71A677 /* CMake Rules */ = {
+              28560D3743664316B40E0AD7 /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -456,7 +456,7 @@ exit 0";
                      shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              F59DC07A9E4040378BFFCA54 /*  */ = {
+              72582C15AD9A46F3A83D889A /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -471,7 +471,7 @@ exit 0";
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              9179CBE0912E440AA6F5F2C2 /* CMake Rules */ = {
+              E1AB30D56CE941EFA33DB482 /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -482,7 +482,7 @@ exit 0";
                      shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              E128ECB6DE524ECAB10DF0C8 /*  */ = {
+              B18AB7C7EDAA4FAF925DFF97 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -497,7 +497,7 @@ exit 0";
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              337D00BEDB024E49900085E9 /* CMake PostBuild Rules */ = {
+              AF0BAC2C54A9496684D9FD9F /* CMake PostBuild Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -508,7 +508,7 @@ exit 0";
                      shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              571D16FBAC0B438F93195283 /*  */ = {
+              7EA7B9A6AC874323B043A424 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -523,7 +523,7 @@ exit 0";
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              3A652FCC2AC8488592248BE2 /* CMake Rules */ = {
+              39F02DDD7FFC42C2AF38755A /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -534,7 +534,7 @@ exit 0";
                      shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/uninstall_cmakeRulesBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              DFE1C7550C7C44C9B6AAF40D /* CMake PostBuild Rules */ = {
+              F1B8CC73B1E34672B57929A3 /* CMake PostBuild Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -545,7 +545,7 @@ exit 0";
                      shellScript = "make -C /Users/akram/Developer/pangolin-hdr/build/pangolin -f /Users/akram/Developer/pangolin-hdr/build/pangolin/CMakeScripts/pangolin_postBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              22052C6104A44538A45B6A7B /* CMake PostBuild Rules */ = {
+              CD72CA8A77494C2885A144AE /* CMake PostBuild Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -559,59 +559,59 @@ exit 0";
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-              5073066DFD2549269E9D9748 /* Sources */ = {
+              0223C657A2214A6DA1DBE06E /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            04522DC888B049BB96CBFA3E /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */,
-                            9AE365FBEC24460C8FCB8659 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */,
-                            C0C5681252914231869869A2 /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */,
-                            571722B6A0D14A099B038999 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */,
-                            0AA5DE1DDD1E4FA1BFA8F0C3 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */,
-                            BA34C9EECC054654AF395B66 /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */,
-                            B7AA5B107CB545DFA4EC2E93 /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */,
-                            4C4F50004F53410E8472CDFF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */,
-                            8167DDACFE9545088C9872FF /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */,
-                            C4D05EF7A0F14971810A0148 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */,
-                            4BC4886CE1E04EAD802295DF /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */,
+                            0C4FB999BF7F43EEBBD66FF3 /* /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp */,
+                            90E6F03795CE417B8B8BC651 /* /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp */,
+                            1A9742BDEFD14DD3ACBC870A /* /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp */,
+                            4896B388FC9C4BE788E335E9 /* /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp */,
+                            0CEC42B9774D47F7AFAC06D2 /* /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp */,
+                            C10A2A013DB048228889038E /* /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp */,
+                            3572A3F788B34EEBA7AC5E6A /* /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp */,
+                            22EC360FBB8D4E1B95F12B88 /* /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp */,
+                            F66092648A6246EC8832F38A /* /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp */,
+                            B0C2D7E378D54959B2805D7B /* /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp */,
+                            D7DAB293BFAA42CB8FCCB5D6 /* /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
-              A72E9A475693423E8F5A7FAD /* Sources */ = {
+              8473B37E94DD49DAA2EEF989 /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            251CEFBE4C8842BEAEFB627E /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */,
+                            3554B9C2231644D69F982F85 /* /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-              871EC642DF274F76A625897A /* PBXTargetDependency */ = {
+              6567A24A644F4337B7E44B28 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = 2423BB6EE793489094158A01 /* ZERO_CHECK */;
-                     targetProxy = 90D4E1CCE5074B10BB83F154 /* PBXContainerItemProxy */;
+                     targetProxy = 49454BDF6C864A9DB7AE65F2 /* PBXContainerItemProxy */;
               };
-              96C9DED519C54241A6EBF5FD /* PBXTargetDependency */ = {
-                     isa = PBXTargetDependency;
-                     target = EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */;
-                     targetProxy = 8F258730F8E04AFD8B344A89 /* PBXContainerItemProxy */;
-              };
-              BAA9F1582B194033BA68505B /* PBXTargetDependency */ = {
+              E807FFDFA4BC494093E1E4D8 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = 276580A46DBA4DA6B55831ED /* pangolin */;
-                     targetProxy = 354D2B05E4054DA6962B59CE /* PBXContainerItemProxy */;
+                     targetProxy = F3F3B660656C451B93EEE812 /* PBXContainerItemProxy */;
               };
-              D288C0A75564487C9CC21895 /* PBXTargetDependency */ = {
+              4F1AB9C6EDBD4C6986DF5B75 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = EC2AEE53C29F4DB8B132AD3B /* SimpleHDR */;
+                     targetProxy = 2724E8AE17EB42FF956DFED0 /* PBXContainerItemProxy */;
+              };
+              3ADEC6B6043A4E4E8E5F0DD0 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = 580209C79B4944A59D342A1B /* ALL_BUILD */;
-                     targetProxy = A6CDFC7592D949F8B79524F0 /* PBXContainerItemProxy */;
+                     targetProxy = BF54FAD6F4AB4282AC55FBDB /* PBXContainerItemProxy */;
               };
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-              21D15C169CC54E808886B5AC /* Debug */ = {
+              172D0DEA424D484B9AE180AD /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -621,7 +621,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              3E5F82A538DE4603BF4CA23C /* Release */ = {
+              C027BEF55EDF46DDBB7D5FF9 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -631,7 +631,7 @@ exit 0";
                      };
                      name = Release;
               };
-              EAE98C8696A84CC3A9765680 /* MinSizeRel */ = {
+              5D70D3156D7B4B8EAC51658D /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -641,7 +641,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              1B9ED1188C7548FC8831483C /* RelWithDebInfo */ = {
+              B66184C6C4E74677AA04872A /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -651,7 +651,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              5B5F1885D0E4429F8EBC1DDD /* Debug */ = {
+              C97B61A7DA7940CE8E8AC7A3 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -671,7 +671,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              70A684F4D403431BB7E0ABE0 /* Release */ = {
+              99ABE1EEBE9C440BA785E0FB /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -691,7 +691,7 @@ exit 0";
                      };
                      name = Release;
               };
-              77C280AD8A2C4A83B41E8161 /* MinSizeRel */ = {
+              EE13114513074411945ADAB7 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -711,7 +711,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              A6059987748948D4AF39268F /* RelWithDebInfo */ = {
+              ABA22CA5DEB6443B853EADAA /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -731,7 +731,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              8460E5FC8F704462B165A512 /* Debug */ = {
+              A503BE9E50BC41719030013C /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -751,7 +751,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              6181638D59D349BAB2CC628B /* Release */ = {
+              86C95EE6589E472EADA5E75D /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -771,7 +771,7 @@ exit 0";
                      };
                      name = Release;
               };
-              0251416AECC7495696BE7624 /* MinSizeRel */ = {
+              FE80F823060143E9B8832808 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -791,7 +791,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              D86D5610F538402BBA9E78C3 /* RelWithDebInfo */ = {
+              A4DFAE4D6421400BA57A311C /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -811,7 +811,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              7D2C07359F6142F8B8172BDA /* Debug */ = {
+              1F1224ECE54E412DB57EE380 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -831,7 +831,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              5CDE978762BD4600A935D1F8 /* Release */ = {
+              53AFC58427AE4426913D2F09 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -851,7 +851,7 @@ exit 0";
                      };
                      name = Release;
               };
-              7871507AEF1A4AF4961E70D7 /* MinSizeRel */ = {
+              A2F415BBCFE0424E853BB396 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -871,7 +871,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              0DFBE30A40D24C59A6C046A8 /* RelWithDebInfo */ = {
+              8D9CC0662D1B4C548C0304CC /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -891,7 +891,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              547B7D0852BD4D66A0D2B8F3 /* Debug */ = {
+              83EFD6A48113433582579EA2 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -911,7 +911,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              D9A73C7FCC094A43994C4045 /* Release */ = {
+              18851F93945045888F11C497 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -931,7 +931,7 @@ exit 0";
                      };
                      name = Release;
               };
-              DBCAD81B29BB48A18B6E0EB3 /* MinSizeRel */ = {
+              D0A429F616E54CE6B343F630 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -951,7 +951,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              3F6C4E68408E472F9ABF2BCA /* RelWithDebInfo */ = {
+              216B05744D9E4D249E450DB5 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -971,7 +971,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              ED9924ECBF38410CA1260D40 /* Debug */ = {
+              080FDA78EC9B4511B4E1027D /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = lib;
@@ -996,7 +996,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              EAE7EEE0F4CE4F4882305E79 /* Release */ = {
+              16ACDAB71CAD49BE967BE622 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = lib;
@@ -1021,7 +1021,7 @@ exit 0";
                      };
                      name = Release;
               };
-              62035408726043B5A7971A93 /* MinSizeRel */ = {
+              2AE8150F54374919B6842788 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = lib;
@@ -1046,7 +1046,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              63335EC40BF6419C843B1200 /* RelWithDebInfo */ = {
+              5736C8DFCF5D41B2B93E28A8 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = lib;
@@ -1071,7 +1071,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              1BC66E5B5B66416DBA7BBA07 /* Debug */ = {
+              A21E75A1B3AB4A6C8D6BA12C /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = "";
@@ -1096,7 +1096,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              CCF37D42306B483DA1584B68 /* Release */ = {
+              3DA329467C6C4206AF277094 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = "";
@@ -1121,7 +1121,7 @@ exit 0";
                      };
                      name = Release;
               };
-              00026CC1C7014F71B3EE54E2 /* MinSizeRel */ = {
+              D5D45E655A17432AAE39450C /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = "";
@@ -1146,7 +1146,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              0FB8B11F4F4C4AF9A708B32F /* RelWithDebInfo */ = {
+              7485B719174842C5BDD27F01 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             EXECUTABLE_PREFIX = "";
@@ -1174,79 +1174,79 @@ exit 0";
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-              3BF065F4750C4EEC9C253202 /* Build configuration list for PBXProject  "Pangolin" */ = {
+              BC3CCF7ABF484DEBB6DAA9F6 /* Build configuration list for PBXProject  "Pangolin" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            21D15C169CC54E808886B5AC /* Debug */,
-                            3E5F82A538DE4603BF4CA23C /* Release */,
-                            EAE98C8696A84CC3A9765680 /* MinSizeRel */,
-                            1B9ED1188C7548FC8831483C /* RelWithDebInfo */,
+                            172D0DEA424D484B9AE180AD /* Debug */,
+                            C027BEF55EDF46DDBB7D5FF9 /* Release */,
+                            5D70D3156D7B4B8EAC51658D /* MinSizeRel */,
+                            B66184C6C4E74677AA04872A /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              7DF826A606B94E2E906E004C /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+              C81DADC5BF4D4E4D9D449534 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            5B5F1885D0E4429F8EBC1DDD /* Debug */,
-                            70A684F4D403431BB7E0ABE0 /* Release */,
-                            77C280AD8A2C4A83B41E8161 /* MinSizeRel */,
-                            A6059987748948D4AF39268F /* RelWithDebInfo */,
+                            C97B61A7DA7940CE8E8AC7A3 /* Debug */,
+                            99ABE1EEBE9C440BA785E0FB /* Release */,
+                            EE13114513074411945ADAB7 /* MinSizeRel */,
+                            ABA22CA5DEB6443B853EADAA /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              C0551DB1A26844829F437387 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+              2C4029A9C2A748F4A73D3891 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            8460E5FC8F704462B165A512 /* Debug */,
-                            6181638D59D349BAB2CC628B /* Release */,
-                            0251416AECC7495696BE7624 /* MinSizeRel */,
-                            D86D5610F538402BBA9E78C3 /* RelWithDebInfo */,
+                            A503BE9E50BC41719030013C /* Debug */,
+                            86C95EE6589E472EADA5E75D /* Release */,
+                            FE80F823060143E9B8832808 /* MinSizeRel */,
+                            A4DFAE4D6421400BA57A311C /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              07D847E32F1C4AE9ACF030DE /* Build configuration list for PBXAggregateTarget "install" */ = {
+              7D47DE913C7B4B278A9CFB76 /* Build configuration list for PBXAggregateTarget "install" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            7D2C07359F6142F8B8172BDA /* Debug */,
-                            5CDE978762BD4600A935D1F8 /* Release */,
-                            7871507AEF1A4AF4961E70D7 /* MinSizeRel */,
-                            0DFBE30A40D24C59A6C046A8 /* RelWithDebInfo */,
+                            1F1224ECE54E412DB57EE380 /* Debug */,
+                            53AFC58427AE4426913D2F09 /* Release */,
+                            A2F415BBCFE0424E853BB396 /* MinSizeRel */,
+                            8D9CC0662D1B4C548C0304CC /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              690B094ED9CC4E16A23F18B9 /* Build configuration list for PBXAggregateTarget "uninstall" */ = {
+              446F044E7176496CBEC94DFD /* Build configuration list for PBXAggregateTarget "uninstall" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            547B7D0852BD4D66A0D2B8F3 /* Debug */,
-                            D9A73C7FCC094A43994C4045 /* Release */,
-                            DBCAD81B29BB48A18B6E0EB3 /* MinSizeRel */,
-                            3F6C4E68408E472F9ABF2BCA /* RelWithDebInfo */,
+                            83EFD6A48113433582579EA2 /* Debug */,
+                            18851F93945045888F11C497 /* Release */,
+                            D0A429F616E54CE6B343F630 /* MinSizeRel */,
+                            216B05744D9E4D249E450DB5 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              93C809BE3C684419BDA20773 /* Build configuration list for PBXNativeTarget "pangolin" */ = {
+              85CF6751237F42978AFA34CB /* Build configuration list for PBXNativeTarget "pangolin" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            ED9924ECBF38410CA1260D40 /* Debug */,
-                            EAE7EEE0F4CE4F4882305E79 /* Release */,
-                            62035408726043B5A7971A93 /* MinSizeRel */,
-                            63335EC40BF6419C843B1200 /* RelWithDebInfo */,
+                            080FDA78EC9B4511B4E1027D /* Debug */,
+                            16ACDAB71CAD49BE967BE622 /* Release */,
+                            2AE8150F54374919B6842788 /* MinSizeRel */,
+                            5736C8DFCF5D41B2B93E28A8 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              05D2258B80CB4B80A4D0742C /* Build configuration list for PBXNativeTarget "SimpleHDR" */ = {
+              C34F6AF743C24F908BBF8F87 /* Build configuration list for PBXNativeTarget "SimpleHDR" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            1BC66E5B5B66416DBA7BBA07 /* Debug */,
-                            CCF37D42306B483DA1584B68 /* Release */,
-                            00026CC1C7014F71B3EE54E2 /* MinSizeRel */,
-                            0FB8B11F4F4C4AF9A708B32F /* RelWithDebInfo */,
+                            A21E75A1B3AB4A6C8D6BA12C /* Debug */,
+                            3DA329467C6C4206AF277094 /* Release */,
+                            D5D45E655A17432AAE39450C /* MinSizeRel */,
+                            7485B719174842C5BDD27F01 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;

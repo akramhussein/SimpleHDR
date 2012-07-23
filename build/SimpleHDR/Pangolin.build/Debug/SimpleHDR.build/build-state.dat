@@ -4,17 +4,23 @@ r1
 cCheck dependencies
 cCompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cLd /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR normal x86_64
-cPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh
+cPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-CD72CA8A77494C2885A144AE.sh
 
 N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
 c000000004F90F72900000000000000CC
 t1334900521
 s204
 
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/usr/include/sys/stat.h
+c000000004FECFBE10000000000004B2F
+t1340931041
+s19247
+
 N/Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp
-c00000000500DA0E50000000000000BE3
-t1343070437
-s3043
+c00000000500DCDD2000000000000095F
+t1343081938
+s2399
+i<sys/stat.h>
 i<pangolin/pangolin.h>
 i<pangolin/video.h>
 i<pangolin/video/firewire.h>
@@ -22,8 +28,8 @@ i<dc1394/dc1394.h>
 i<boost/thread/thread.hpp>
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
-t1343070385
-s1057764
+t2
+s0
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/SimpleHDR.LinkFileList
 c00000000500C30940000000000000076
@@ -31,8 +37,8 @@ t1342976148
 s118
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o
-t1343070384
-s69756
+t1343080649
+s307240
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh
 c00000000500D9F6600000000000000BA
@@ -44,9 +50,44 @@ c00000000500C338C00000000000000BA
 t1342976908
 s186
 
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-51BAFC9469784CB3A5D863D2.sh
+c00000000500DC83A00000000000000BA
+t1343080506
+s186
+
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-5619DF7F77224B759C5F783B.sh
+c00000000500DC72400000000000000BA
+t1343080228
+s186
+
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-5876D61E22FD4A6993786340.sh
+c00000000500DC48B00000000000000BA
+t1343079563
+s186
+
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-8E79D499AAEB4B7786458D5E.sh
+c00000000500DC5C600000000000000BA
+t1343079878
+s186
+
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-AA41DDF9EAB044E7949AEAF3.sh
+c00000000500DC7F800000000000000BA
+t1343080440
+s186
+
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-CD72CA8A77494C2885A144AE.sh
+c00000000500DC8C400000000000000BA
+t1343080644
+s186
+
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-DC5E82470C814F369B957E4A.sh
 c00000000500C309400000000000000BA
 t1342976148
+s186
+
+N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-F59BFD407C4042E5994798A5.sh
+c00000000500DC7A700000000000000BA
+t1343080359
 s186
 
 N/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/StaticAnalyzer/normal/x86_64/main.plist
@@ -54,9 +95,9 @@ t2
 s0
 
 N/Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/video/firewire.h
-c00000000500D9E980000000000003D6D
-t1343069848
-s15725
+c00000000500DCF610000000000004027
+t1343082337
+s16423
 
 N/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h
 c00000000500C26800000000000003C1B
@@ -963,6 +1004,11 @@ c000000004F48C8540000000000000305
 t1330169940
 s773
 
+N/usr/local/include/boost/cerrno.hpp
+c000000004F48C854000000000000104D
+t1330169940
+s4173
+
 N/usr/local/include/boost/checked_delete.hpp
 c000000004F48C8540000000000000635
 t1330169940
@@ -1393,6 +1439,11 @@ c000000004F48C856000000000000051F
 t1330169942
 s1311
 
+N/usr/local/include/boost/detail/bitmask.hpp
+c000000004F48C856000000000000094B
+t1330169942
+s2379
+
 N/usr/local/include/boost/detail/call_traits.hpp
 c000000004F48C8560000000000000FD2
 t1330169942
@@ -1428,6 +1479,11 @@ c000000004F48C8560000000000000BCE
 t1330169942
 s3022
 
+N/usr/local/include/boost/detail/scoped_enum_emulation.hpp
+c000000004F48C85600000000000007A5
+t1330169942
+s1957
+
 N/usr/local/include/boost/detail/select_type.hpp
 c000000004F48C856000000000000046A
 t1330169942
@@ -1457,6 +1513,41 @@ N/usr/local/include/boost/exception/exception.hpp
 c000000004F48C8560000000000002C63
 t1330169942
 s11363
+
+N/usr/local/include/boost/filesystem.hpp
+c000000004F48C854000000000000053C
+t1330169940
+s1340
+
+N/usr/local/include/boost/filesystem/operations.hpp
+c000000004F48C8560000000000000431
+t1330169942
+s1073
+
+N/usr/local/include/boost/filesystem/v3/config.hpp
+c000000004F48C85D0000000000000B70
+t1330169949
+s2928
+
+N/usr/local/include/boost/filesystem/v3/convenience.hpp
+c000000004F48C85D0000000000000780
+t1330169949
+s1920
+
+N/usr/local/include/boost/filesystem/v3/operations.hpp
+c00000000500DC2D7000000000000B185
+t1343079127
+s45445
+
+N/usr/local/include/boost/filesystem/v3/path.hpp
+c000000004F48C85D0000000000007566
+t1330169949
+s30054
+
+N/usr/local/include/boost/filesystem/v3/path_traits.hpp
+c000000004F48C85D0000000000001EF2
+t1330169949
+s7922
 
 N/usr/local/include/boost/foreach.hpp
 c000000004F48C854000000000000B135
@@ -1582,6 +1673,11 @@ N/usr/local/include/boost/integer_traits.hpp
 c000000004F48C854000000000000220E
 t1330169940
 s8718
+
+N/usr/local/include/boost/io/detail/quoted_manip.hpp
+c000000004F48C85F0000000000001946
+t1330169951
+s6470
 
 N/usr/local/include/boost/io/ios_state.hpp
 c000000004F48C8580000000000002E15
@@ -2968,6 +3064,26 @@ c000000004F48C855000000000000011F
 t1330169941
 s287
 
+N/usr/local/include/boost/system/api_config.hpp
+c000000004F48C85A0000000000000728
+t1330169946
+s1832
+
+N/usr/local/include/boost/system/config.hpp
+c000000004F48C85A0000000000000695
+t1330169946
+s1685
+
+N/usr/local/include/boost/system/error_code.hpp
+c000000004F48C85A0000000000004460
+t1330169946
+s17504
+
+N/usr/local/include/boost/system/system_error.hpp
+c000000004F48C85A00000000000009B6
+t1330169946
+s2486
+
 N/usr/local/include/boost/thread/condition_variable.hpp
 c000000004F48C85A000000000000027A
 t1330169946
@@ -4211,11 +4327,11 @@ r0
 
 CCheck dependencies
 r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies67602c68d8bdb541^67d73d68d8bdb541^---0#1#0#--18"Check dependencies36"83926DEA-06FA-451B-AAEE-A20130E1A2DC-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesf1a025f006beb541^460a35f006beb541^---0#1#0#--18"Check dependencies36"104DDD52-474B-47D9-B20D-78E16156FD02-
 
 CCompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s364763240.257660
-e364763247.321311
+s364775152.232092
+e364775156.225249
 r1
 xCompileC
 xbuild/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o
@@ -4224,22 +4340,22 @@ xnormal
 xx86_64
 xc++
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp6d1b4268d8bdb541^2942526fd8bdb541^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp0000000000000000^2162"CompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.dia -c /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o36"1F23C1D3-A596-4F7C-B952-26F81B612C41-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp9e9a3bf006beb541^40bd39f406beb541^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp0000000000000000^2162"CompileC build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o SimpleHDR/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.dia -c /Users/akram/Developer/pangolin-hdr/SimpleHDR/main.cpp -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/main.o36"F4DEF4B5-582E-4C4E-A28B-7A976B4AB721-
 
 CLd /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR normal x86_64
-s364763247.328881
-e364763248.093336
+s364775156.232766
+e364775157.177170
 r1
 xLd
 x/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
 xnormal
 xx86_64
 old: warning: directory not found for option '-L/usr/local/lib/Debug'
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Link /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR734a546fd8bdb541^3e051870d8bdb541^-69"ld: warning: directory not found for option '-L/usr/local/lib/Debug'1(21%IDEActivityLogMessage2@55"Directory not found for option '-L/usr/local/lib/Debug'-364763247#0#69#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#32"Apple Mach-O Linker (ld) Warning--0#0#0#--1190"Ld build/SimpleHDR/Debug/SimpleHDR normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -L/usr/local/lib/Debug -L/usr/local/lib -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -L/Users/akram/Developer/pangolin-hdr/build/pangolin -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/SimpleHDR.LinkFileList -mmacosx-version-min=10.7 -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR36"A7ED4F92-2426-4C4A-B666-47FAB1690597-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Link /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDRf7b03bf406beb541^ae662df506beb541^-69"ld: warning: directory not found for option '-L/usr/local/lib/Debug'1(21%IDEActivityLogMessage2@55"Directory not found for option '-L/usr/local/lib/Debug'-364775156#0#69#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#32"Apple Mach-O Linker (ld) Warning--0#0#0#--1190"Ld build/SimpleHDR/Debug/SimpleHDR normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -L/usr/local/lib/Debug -L/usr/local/lib -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -L/Users/akram/Developer/pangolin-hdr/build/pangolin -F/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Objects-normal/x86_64/SimpleHDR.LinkFileList -mmacosx-version-min=10.7 -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib -o /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR36"24CB3834-7FE9-4993-A251-1F9542F06194-
 
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh
-s364763248.102068
-e364763248.197593
+s364767355.977814
+e364767356.028842
 r1
 xPhaseScriptExecution
 xCMake PostBuild Rules
@@ -4248,7 +4364,7 @@ oecho "Depend check for xcode"
 oDepend check for xcode
 ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug
 omake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'2ae01a70d8bdb541^f3933270d8bdb541^-321"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debugmake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364763248#0#30#-0#-----2@23"Depend check for xcode-364763248#30#23#-0#-----2@207"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug-364763248#53#207#-0#-----2@61"make[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.-364763248#260#61#-0#-----0#0#0#--315"PhaseScriptExecution "CMake PostBuild Rules" build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh36"522736B5-B6AC-488C-BEBB-40E6E638777D-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'a419fb7be8bdb541^d060077ce8bdb541^-321"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debugmake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364767356#0#30#-0#-----2@23"Depend check for xcode-364767356#30#23#-0#-----2@207"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug-364767356#53#207#-0#-----2@61"make[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.-364767356#260#61#-0#-----0#0#0#--315"PhaseScriptExecution "CMake PostBuild Rules" build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-22052C6104A44538A45B6A7B.sh36"5C53C6C4-3886-47A8-8D57-D032B61542E7-
 
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh
 s364749899.539734
@@ -4263,6 +4379,37 @@ ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/
 omake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.
 lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'36e58a4ba4bdb541^dfe19e4ba4bdb541^-321"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debugmake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364749899#0#30#-0#-----2@23"Depend check for xcode-364749899#30#23#-0#-----2@207"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug-364749899#53#207#-0#-----2@61"make[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.-364749899#260#61#-0#-----0#0#0#--315"PhaseScriptExecution "CMake PostBuild Rules" build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-4A1CEFFC85B943EF8D78C9C7.sh36"D6A2CAD9-7390-41F8-935D-127759599840-
 
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-51BAFC9469784CB3A5D863D2.sh
+r0
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-5619DF7F77224B759C5F783B.sh
+r0
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-5876D61E22FD4A6993786340.sh
+r0
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-8E79D499AAEB4B7786458D5E.sh
+r0
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-AA41DDF9EAB044E7949AEAF3.sh
+r0
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-CD72CA8A77494C2885A144AE.sh
+s364775157.185347
+e364775157.246605
+r1
+xPhaseScriptExecution
+xCMake PostBuild Rules
+x/Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-CD72CA8A77494C2885A144AE.sh
+oecho "Depend check for xcode"
+oDepend check for xcode
+ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug
+omake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'dc2e30f506beb541^c9203ff506beb541^-321"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debugmake[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.4(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-364775157#0#30#-0#-----2@23"Depend check for xcode-364775157#30#23#-0#-----2@207"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.SimpleHDR.Debug-364775157#53#207#-0#-----2@61"make[1]: Nothing to be done for `PostBuild.SimpleHDR.Debug'.-364775157#260#61#-0#-----0#0#0#--315"PhaseScriptExecution "CMake PostBuild Rules" build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-CD72CA8A77494C2885A144AE.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-CD72CA8A77494C2885A144AE.sh36"CABD9C81-7E38-4FC9-AC2B-3D515A0F5961-
+
 CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-DC5E82470C814F369B957E4A.sh
+r0
+
+CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Pangolin.build/Debug/SimpleHDR.build/Script-F59BFD407C4042E5994798A5.sh
 r0
 

@@ -4,6 +4,8 @@
  *                     Imperial College London
  **/
 
+#include <sys/stat.h>
+
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
 #include <pangolin/video/firewire.h>
@@ -19,19 +21,18 @@ int main( int argc, char* argv[] )
 {
 
     // Setup Video Source
-    // FirewireVideo video = FirewireVideo(); // Simplified constructor
-    FirewireVideo video =  FirewireVideo(
-                                          0,
-                                          DC1394_VIDEO_MODE_640x480_RGB8,
-                                          DC1394_FRAMERATE_30,
-                                          DC1394_ISO_SPEED_400,
-                                          10
-                                         );
+    
+    FirewireVideo video = FirewireVideo(); // Simplified constructor
     
     VideoPixelFormat vid_fmt = VideoFormatFromString(video.PixFormat());
     const unsigned w = video.Width();
     const unsigned h = video.Height();
-
+ 
+    // creates image folders if they don't already exist
+    // change to boost::filesystem when possible for cross compatibility
+    mkdir("ppm", 0755);
+    mkdir("jpg", 0755);
+    
     video.PrintCameraReport();
     
     // Create Glut window
@@ -45,14 +46,6 @@ int main( int argc, char* argv[] )
 
     unsigned char* img = new unsigned char[video.SizeBytes()];
     bool over_exposed = true;
-    
-    //meta_flags flags = META_ALL;
-    
-    //video.SetMetaDataFlags(flags);
-    
-    //uint32_t Current_MetaData = video.GetMetaDataFlags();
-    
-    //printf("Current MetaData: ", Current_MetaData);
     
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {
@@ -74,19 +67,9 @@ int main( int argc, char* argv[] )
         
         // wait 1/30th of a second to sync change in settings and display
         boost::this_thread::sleep(boost::posix_time::seconds(1/30));
-        sleep(1/30);
         
-        
-        // Grab frame without saving
-        video.SaveFrame(     
-                           frame_number, 
-                           img, 
-                           true
-                        ); 
-        
-        //cout << video.ReadShutter(img) << endl;
-        
-        //video.SaveOneShot(frame_number, empty_frame, img);
+        // Grab frame and save to JPG
+        video.SaveFrame(frame_number, img, true, true);
 
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
 

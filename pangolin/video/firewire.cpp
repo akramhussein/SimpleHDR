@@ -670,76 +670,6 @@
     }
     
     /*-----------------------------------------------------------------------
-     *  CONVENIENCE TOOLS
-     *-----------------------------------------------------------------------*/
-        
-    // Includes only Point Grey auto-capable functions 
-    // more might be available for your camera
-    void FirewireVideo::SetAutoAll(){
-        
-        // Exposure
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto exposure mode");
-        }
-        
-        // Shutter
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto shutter mode");
-        }
-        
-        // Sharpness
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto sharpness mode");
-        }
-        
-        // Gain
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto gain mode");
-        }
-        
-        // White Balance
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto white balance mode");
-        }
-        
-        // White Balance
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto white balance mode");
-        }
-        
-        // Saturation
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto saturation mode");
-        }
-        
-        // Frame rate
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto frame rate mode");
-        }
-
-        // Pan
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_PAN, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto pan mode");
-        }
-        
-        // Tilt
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_TILT, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto tilt mode");
-        }
-        
-    }
-        
-    /*-----------------------------------------------------------------------
      *  SHUTTER
      *-----------------------------------------------------------------------*/
     
@@ -1141,21 +1071,17 @@
      - pass filename prefix as argument, via reference
      - set image mode in more elegant manner
      - better printing statements
-     - save file name as time stamp?
      
      */
     
+        
     bool FirewireVideo::SaveFrame(
                                   int frame_number, 
                                   unsigned char* image, 
-                                  bool wait   
+                                  bool wait,
+                                  bool jpg
                                   )
     {
-        
-        FILE* imagefile;
-        unsigned int width, height;
-        char filenamePPM[128];
-        char filenameJPG[128];
         dc1394video_frame_t *frame = NULL;
         
         const dc1394capture_policy_t policy =
@@ -1170,116 +1096,20 @@
             dc1394_capture_enqueue(camera,frame);
         }
         
-        dc1394_get_image_size_from_video_mode(
-                                              camera, 
-                                              DC1394_VIDEO_MODE_640x480_RGB8, 
-                                              &width, 
-                                              &height
-                                              );
-        
-        uint64_t numPixels = height*width;
-        
-        // save image to 'hdr00000000i.ppm' 
-        sprintf( filenamePPM, "%s%s%d%s", "./", "hdr00000000", frame_number , ".ppm" ); 
-        
-        imagefile = fopen(filenamePPM, "wb");
-        
-        if( imagefile == NULL) {
-            perror( "Can't create output file");
-            return false;
-        }
-        
-        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
-        fwrite(frame->image, 1, numPixels*3, imagefile);
-        fclose(imagefile);
-        printf("saved: %s\n", filenamePPM);
-        
-        Magick::Image img;
-        img.read(filenamePPM);
-        sprintf( filenameJPG, "%s%s%d%s", "./", "hdr00000000", frame_number , ".jpg" ); 
-        img.write(filenameJPG);
-        printf("saved: %s\n", filenameJPG);
+        SaveFile(frame_number, frame, true);
 
-        
         return true;       
         
     }
-        
-        bool FirewireVideo::SaveFrameJPG(
-                                      int frame_number, 
-                                      unsigned char* image, 
-                                      bool wait
-                                      )
-        {
-            
-            FILE* imagefile;
-            unsigned int width, height;
-            char filename[128];
-            char filenamePPM[128];
-            char filenameJPG[128];
-            dc1394video_frame_t *frame = NULL;
-            
-            const dc1394capture_policy_t policy =
-            wait ? DC1394_CAPTURE_POLICY_WAIT : DC1394_CAPTURE_POLICY_POLL;
-            
-            // acquire frame from camera 
-            dc1394_capture_dequeue(camera, policy, &frame);  
-            
-            // convert bytes for pangolin display -- REMOVE LATER? added complexity
-            if( frame ){
-                memcpy(image,frame->image,frame->image_bytes);
-                dc1394_capture_enqueue(camera,frame);
-            }
-            
-            dc1394_get_image_size_from_video_mode(
-                                                  camera, 
-                                                  DC1394_VIDEO_MODE_640x480_RGB8, 
-                                                  &width, 
-                                                  &height
-                                                  );
-            
-            uint64_t numPixels = height*width;
-            
-            // save image to 'hdr00000000i.ppm' 
-            sprintf( filename, "%s%s%d", "./", "hdr00000000", frame_number); 
-            
-            sprintf( filenamePPM, filename, ".ppm" );
-            
-            imagefile = fopen(filenamePPM, "wb");
-            
-            if( imagefile == NULL) {
-                perror( "Can't create output file");
-                return false;
-            }
-            
-            fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
-            fwrite(frame->image, 1, numPixels*3, imagefile);
-            fclose(imagefile);
-            
-            sprintf( filenameJPG, filename, ".jpg" );
-            
-            
-            Magick::Image img;
-            img.read(filenamePPM);
-            img.write(filenameJPG);
-            
-            
-            printf("saved: %s\n", filename);
-            
-            return true;       
-            
-        }
+
 
     bool FirewireVideo::SaveOneShot(    
                                     int frame_number,
-                                    unsigned char* image
+                                    unsigned char* image,
+                                    bool jpg
                                     ) 
     {
-        
-        
-        FILE* imagefile;
-        unsigned int width, height;
-        char filename[128];
+         
         dc1394video_frame_t *frame = NULL;
         
         dc1394_video_set_one_shot( camera, DC1394_ON );
@@ -1293,19 +1123,37 @@
             dc1394_capture_enqueue(camera,frame);
         }
         
+        SaveFile(frame_number, frame, true);
+
+        return true;            
+    }
+        
+    bool FirewireVideo::SaveFile(
+                                 int frame_number, 
+                                 dc1394video_frame_t *frame, 
+                                 bool jpg
+                                 )
+    {
+        
+        FILE* imagefile;
+        unsigned int width, height;
+        char filename_ppm[128];
+        char filename_jpg[128];
+        
         dc1394_get_image_size_from_video_mode(
                                               camera, 
                                               DC1394_VIDEO_MODE_640x480_RGB8, 
                                               &width, 
                                               &height
-                                             );
+                                              );
         
         uint64_t numPixels = height*width;
         
-        // save image to 'hdr00000000i.ppm' 
-        sprintf( filename, "%s%s%d%s", "./", "hdr00000000", frame_number , ".ppm" ); 
-
-        imagefile = fopen(filename, "wb");
+        
+        // save image
+        sprintf(filename_ppm, "./ppm/%s%d%s", "hdr0000", frame_number, ".ppm");
+        
+        imagefile = fopen(filename_ppm, "wb");
         
         if( imagefile == NULL) {
             perror( "Can't create output file");
@@ -1316,15 +1164,32 @@
         fwrite(frame->image, 1, numPixels*3, imagefile);
         fclose(imagefile);
         
-        printf("saved: %s\n", filename);
-
-        return true;            
+        cout << "saved: " << filename_ppm << endl;
+        
+        if( jpg ){
+            
+            // make threaded or post-process
+            // ultimately skip PPM and make seperate function
+            
+            sprintf(filename_jpg, "./jpg/%s%d%s", "hdr0000", frame_number, ".jpg");
+            
+            Magick::Image img;
+            img.read(filename_ppm);
+            img.write(filename_jpg);
+            
+            cout << "saved: " << filename_jpg << endl;
+            
+        }
+        
+        return true;
     }
+        
       
     /*-----------------------------------------------------------------------
      *  CONVERTING
      *-----------------------------------------------------------------------*/    
         
+    // UNTESTED FUNCTION
     dc1394video_frame_t* FirewireVideo::ConvertToRGB(dc1394video_frame_t *original_frame)
     {
         dc1394video_frame_t *new_frame = NULL;
@@ -1348,13 +1213,13 @@
         cout << camera->guid << endl; 
         
         // print camera details
-        dc1394_camera_print_info(camera,stdout); 
+        dc1394_camera_print_info(camera, stdout); 
         
         // print camera features
-        err=dc1394_feature_get_all(camera, &features);
+        err = dc1394_feature_get_all(camera, &features);
         
-        if (err!=DC1394_SUCCESS) {
-            dc1394_log_warning("Could not get feature set");
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not get camera feature set");
         }
         
         else {
@@ -1362,7 +1227,129 @@
         } 
         
     }
+        
+    /*-----------------------------------------------------------------------
+     *  CONVENIENCE UTILITIES
+     *-----------------------------------------------------------------------*/
+        
+        // Includes only Point Grey auto-capable functions 
+        // more might be available for your camera, add as needed
+        void FirewireVideo::SetAutoAll(){
+            
+            // Exposure
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto exposure mode");
+            }
+            
+            // Shutter
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto shutter mode");
+            }
+            
+            // Sharpness
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto sharpness mode");
+            }
+            
+            // Gain
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto gain mode");
+            }
+            
+            // White Balance
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto white balance mode");
+            }
+            
+            // White Balance
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto white balance mode");
+            }
+            
+            // Saturation
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto saturation mode");
+            }
+            
+            // Frame rate
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto frame rate mode");
+            }
+            
+            // Pan
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_PAN, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto pan mode");
+            }
+            
+            // Tilt
+            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_TILT, DC1394_FEATURE_MODE_AUTO);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set auto tilt mode");
+            }
+            
+        }
 
+    
+    void FirewireVideo::GetBestSettings( dc1394video_mode_t video_mode, 
+                                         dc1394framerate_t framerate 
+                                       )
+        {
+    
+        dc1394video_modes_t video_modes;
+        dc1394color_coding_t coding;
+        dc1394framerates_t framerates;
+        int i;
+
+        // get video modes:
+        err = dc1394_video_get_supported_modes( camera, &video_modes );
+            if( err != DC1394_SUCCESS )
+                throw VideoException("Could not get supported modes");
+        
+        // select highest res mode:
+        for (i = video_modes.num-1;i>=0;i--) {
+           
+            if (!dc1394_is_video_mode_scalable(video_modes.modes[i])) {
+                dc1394_get_color_coding_from_video_mode(camera,video_modes.modes[i], &coding);
+               
+                if (coding == DC1394_COLOR_CODING_RGB8) {
+                    video_mode = video_modes.modes[i]; // best video_mode set
+                    break;
+                    
+                }
+                
+            }
+            
+        }
+            
+        if (i < 0) {
+            dc1394_log_error("Could not get a valid RGB8 mode");
+        }
+        
+        err = dc1394_get_color_coding_from_video_mode(camera, video_mode, &coding);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Could not get colour coding");
+        
+        // get highest framerate
+        err = dc1394_video_get_supported_framerates(camera, video_mode, &framerates);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Could not get frame rates");
+            
+        framerate = framerates.framerates[framerates.num-1]; // best video_mode set
+        
+    }
+    
+        
+        
+        
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
 
     int low, high;
