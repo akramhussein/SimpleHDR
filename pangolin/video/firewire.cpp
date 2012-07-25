@@ -58,6 +58,10 @@
         dc1394_video_set_transmission(camera, DC1394_OFF);
     }
 
+    err = dc1394_feature_get_all(camera, &features);  
+    if (err != DC1394_SUCCESS) {
+        throw VideoException("Could not get camera feature set");
+    }
 
     cout << "Using camera with GUID " << camera->guid << endl;
 
@@ -479,7 +483,7 @@
 
     while( 1 ) {
         err=dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_POLL, &frame);
-        if (err == NULL) break;
+        if (err != DC1394_SUCCESS) break;
         dc1394_capture_enqueue(camera, frame);
     }
     }
@@ -1139,6 +1143,7 @@
         unsigned int width, height;
         char filename_ppm[128];
         char filename_jpg[128];
+        ExifData *exif_data = NULL;
         
         dc1394_get_image_size_from_video_mode(
                                               camera, 
@@ -1177,6 +1182,26 @@
             img.read(filename_ppm);
             img.write(filename_jpg);
             
+            
+            GetFrameExifData(*exif_data);
+            
+            // remove later
+            exif_data_dump(exif_data);
+            
+            /*
+             //write the Exif data to a jpeg file
+             pData = jpeg_data_new_from_file (FILENAME);  //input data
+             if (!pData) {
+             printf ("Could not load '%s'!\n", FILENAME);
+             return (-1);
+             }
+             
+             printf("Saving EXIF data to jpeg file\n");
+             jpeg_data_set_exif_data (pData, pEd);
+             printf("Set the data\n");
+             jpeg_data_save_file(pData, "foobar2.jpg");
+             */
+            
             cout << "saved: " << filename_jpg << endl;
             
         }
@@ -1207,8 +1232,6 @@
     void FirewireVideo::PrintCameraReport() 
     {
         
-        dc1394featureset_t features; // can add to class later
-        
         // print unique id of camera(not node/slot on chipset)
         cout << camera->guid << endl; 
         
@@ -1216,17 +1239,10 @@
         dc1394_camera_print_info(camera, stdout); 
         
         // print camera features
-        err = dc1394_feature_get_all(camera, &features);
-        
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not get camera feature set");
-        }
-        
-        else {
-            dc1394_feature_print_all(&features, stdout);
-        } 
+        dc1394_feature_print_all(&features, stdout);
         
     }
+        
         
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES
@@ -1347,55 +1363,136 @@
         
     }
     
+     dc1394featureset_t* FirewireVideo::GetFeatures()
+    {
+        return &features;   
+    }
+    
+    void FirewireVideo::GetFrameExifData(ExifData &exif_data){
+    
+        ExifEntry *pE;
+        ExifData *pEd;
         
+        //ExifSRational xR = {features->feature[DC1394_FEATURE_BRIGHTNESS - DC1394_FEATURE_MIN].value, features->feature[DC1394_FEATURE_BRIGHTNESS - DC1394_FEATURE_MIN].max};;
         
+        printf ("Creating EXIF data...\n");
+        pEd = exif_data_new ();
+        
+        /*
+         
+         Things to tag:
+         
+         EXIF_TAG_MAKE               = 0x010f,
+         EXIF_TAG_MODEL              = 0x0110,
+         EXIF_TAG_EXPOSURE_TIME      = 0x829a,
+         EXIF_TAG_BRIGHTNESS_VALUE   = 0x9203,
+         EXIF_TAG_WHITE_BALANCE      = 0xa403,
+         EXIF_TAG_GAIN_CONTROL       = 0xa407,
+         EXIF_TAG_CONTRAST           = 0xa408,
+         EXIF_TAG_SATURATION         = 0xa409,
+         EXIF_TAG_SHARPNESS          = 0xa40a,
+         */
+        
+        // Make
+        pE = exif_entry_new ();
+        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
+        exif_entry_initialize (pE, EXIF_TAG_MAKE);
+        pE->data= (unsigned char *) "P.GREY";
+        exif_entry_unref (pE);
+        
+        // Model
+        pE = exif_entry_new ();
+        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
+        exif_entry_initialize (pE, EXIF_TAG_MODEL);
+        pE->data= (unsigned char *) "FLEA";
+        exif_entry_unref (pE);
+        
+        // Exposure Time
+        pE = exif_entry_new ();
+        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
+        exif_entry_initialize (pE, EXIF_TAG_EXPOSURE_TIME); 
+        exif_set_short(pE->data, exif_data_get_byte_order (pEd), GetExposureQuant());
+        exif_entry_unref (pE);
+        
+        // Shutter Speed
+        pE = exif_entry_new ();
+        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
+        exif_entry_initialize (pE, EXIF_TAG_SHUTTER_SPEED_VALUE); 
+        exif_set_short(pE->data, exif_data_get_byte_order (pEd), GetShutterTime());
+        exif_entry_unref (pE);
+        
+        // Aperture
+        pE = exif_entry_new ();
+        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
+        exif_entry_initialize (pE, EXIF_TAG_APERTURE_VALUE);
+        // must create rational number a/b == {a,b} i.e. 1/1 = 1.0 EV = f/1.4 
+        ExifRational aperture = {1,1}; 
+        exif_set_rational(pE->data, exif_data_get_byte_order (pEd), aperture);
+        exif_entry_unref (pE);
+        
+        // Time/Date
+        pE = exif_entry_new ();
+        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
+        exif_entry_initialize (pE, EXIF_TAG_DATE_TIME);
+        // it magically adds the current time....very strange but I won't complain
+        exif_entry_unref (pE);
+        
+        // TO ADD
+        
+        // Resolution
+        // White balance mode
+        //
+
+        exif_data = *pEd;
+
+    }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
 
-    int low, high;
+        int low, high;
 
-    low=value-(value%step);
-    high=value-(value%step)+step;
-    if (low<min)
-    low=min;
-    if (high>max)
-    high=max;
+        low=value-(value%step);
+        high=value-(value%step)+step;
+        if (low<min)
+        low=min;
+        if (high>max)
+        high=max;
 
-    if (abs(low-value)<abs(high-value))
-    return low;
-    else
-    return high;
-    }
+        if (abs(low-value)<abs(high-value))
+        return low;
+        else
+        return high;
+        }
 
-    double FirewireVideo::bus_period_from_iso_speed(dc1394speed_t iso_speed)
-    {
-    double bus_period;
+        double FirewireVideo::bus_period_from_iso_speed(dc1394speed_t iso_speed)
+        {
+        double bus_period;
 
-    switch(iso_speed){
-    case DC1394_ISO_SPEED_3200:
-      bus_period = 15.625e-6;
-      break;
-    case DC1394_ISO_SPEED_1600:
-      bus_period = 31.25e-6;
-      break;
-    case DC1394_ISO_SPEED_800:
-      bus_period = 62.5e-6;
-      break;
-    case DC1394_ISO_SPEED_400:
-       bus_period = 125e-6;
-       break;
-    case DC1394_ISO_SPEED_200:
-       bus_period = 250e-6;
-       break;
-    case DC1394_ISO_SPEED_100:
-       bus_period = 500e-6;
-       break;
-    default:
-      throw VideoException("iso speed not valid");
-    }
+        switch(iso_speed){
+        case DC1394_ISO_SPEED_3200:
+          bus_period = 15.625e-6;
+          break;
+        case DC1394_ISO_SPEED_1600:
+          bus_period = 31.25e-6;
+          break;
+        case DC1394_ISO_SPEED_800:
+          bus_period = 62.5e-6;
+          break;
+        case DC1394_ISO_SPEED_400:
+           bus_period = 125e-6;
+           break;
+        case DC1394_ISO_SPEED_200:
+           bus_period = 250e-6;
+           break;
+        case DC1394_ISO_SPEED_100:
+           bus_period = 500e-6;
+           break;
+        default:
+          throw VideoException("iso speed not valid");
+        }
 
-    return bus_period;
-    }
+        return bus_period;
+        }
 
     }
 

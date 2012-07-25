@@ -35,6 +35,11 @@
 
     #include <ImageMagick/Magick++.h>
 
+    //EXIF includes
+    #include <libexif/exif-data.h>
+    #include <libexif/exif-ifd.h>
+    #include <libexif/exif-loader.h>
+
     #ifndef _WIN32
     #include <unistd.h>
     #endif
@@ -465,6 +470,9 @@
     //! Print full camera features and current settings report
     void PrintCameraReport();
     
+    //! Get Camera EXIF
+    // GetCameraExifData(ExifData **ExifData);
+        
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/
@@ -477,6 +485,13 @@
                           dc1394framerate_t framerate 
                          );
     
+    //! get camera feature set
+    dc1394featureset_t *GetFeatures();
+    
+    //! Set frames exif data
+    void GetFrameExifData(ExifData &exif_data);
+        
+        
     protected:
 
     void init_camera(
@@ -501,7 +516,7 @@
     bool running;
     dc1394camera_t *camera;
     unsigned width, height, top, left;
-    //dc1394featureset_t features;
+    dc1394featureset_t features;
     dc1394_t * d;
     dc1394camera_list_t * list;
     mutable dc1394error_t err;
