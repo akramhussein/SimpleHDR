@@ -45,6 +45,7 @@ IF(FREEGLUT_FOUND OR GLUT_FOUND)
       ## Video Samples require Pangolin Video support
       IF(BUILD_PANGOLIN_VIDEO)
         ADD_SUBDIRECTORY(SimpleHDR)
+ 	    ADD_SUBDIRECTORY(testApp)
       ENDIF()
 
     ENDIF()
