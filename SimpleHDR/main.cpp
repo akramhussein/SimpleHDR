@@ -27,6 +27,8 @@ int main( int argc, char* argv[] )
     const unsigned w = video.Width();
     const unsigned h = video.Height();
     
+    video.PrintCameraReport();
+    
     // Create Glut window
     pangolin::CreateGlutWindowAndBind("Main",w,h);
 

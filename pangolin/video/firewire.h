@@ -489,7 +489,7 @@
     dc1394featureset_t *GetFeatures();
     
     //! Set frames exif data
-    void GetFrameExifData(ExifData &exif_data);
+    void GetFrameExifData(ExifData **exif_data);
         
         
     protected:

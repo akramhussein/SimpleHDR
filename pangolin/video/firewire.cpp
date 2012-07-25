@@ -1143,7 +1143,7 @@
         unsigned int width, height;
         char filename_ppm[128];
         char filename_jpg[128];
-        ExifData *exif_data = NULL;
+        ExifData *exif_data;
         
         dc1394_get_image_size_from_video_mode(
                                               camera, 
@@ -1182,8 +1182,7 @@
             img.read(filename_ppm);
             img.write(filename_jpg);
             
-            
-            GetFrameExifData(*exif_data);
+            GetFrameExifData(&exif_data);
             
             // remove later
             exif_data_dump(exif_data);
@@ -1368,7 +1367,8 @@
         return &features;   
     }
     
-    void FirewireVideo::GetFrameExifData(ExifData &exif_data){
+    // Take a look at the pointers/references here -- a bit poor
+    void FirewireVideo::GetFrameExifData(ExifData **exif_data){
     
         ExifEntry *pE;
         ExifData *pEd;
@@ -1443,7 +1443,7 @@
         // White balance mode
         //
 
-        exif_data = *pEd;
+        *exif_data = pEd;
 
     }
         
