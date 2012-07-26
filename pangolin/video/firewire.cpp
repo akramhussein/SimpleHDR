@@ -699,13 +699,17 @@
         dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
         if (err < 0) {
             throw VideoException("Could not set manual shutter mode");
-            
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_OFF);
+        if (err < 0) {
+            throw VideoException("Could not turn off absolute control for shutter");
         }
         
         err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHUTTER,shutter);
-        
-        if( err != DC1394_SUCCESS )
+        if( err != DC1394_SUCCESS ){
             throw VideoException("Failed to set shutter");
+        }
     }
 
     void FirewireVideo::SetShutterTime(float val){
@@ -730,20 +734,18 @@
     {
         float shutter;
         
-        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
+        dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read shutter");
         
         return shutter;
     }
 
-
-
     int FirewireVideo::GetShutterTimeQuant() const
     {
         uint32_t shutter;
         
-        err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
+        dc1394error_t err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER, &shutter);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read shutter");
         
@@ -783,7 +785,7 @@
     float FirewireVideo::GetGain() const
     {
         float gain;
-        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAIN,&gain);
+        dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAIN,&gain);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read gain");
         
@@ -794,7 +796,7 @@
     int FirewireVideo::GetGainQuant() const
     {
         uint32_t shutter;
-        err = dc1394_feature_get_value(camera,DC1394_FEATURE_GAIN,&shutter);
+        dc1394error_t err = dc1394_feature_get_value(camera,DC1394_FEATURE_GAIN,&shutter);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read shutter");
         
@@ -851,6 +853,11 @@
             
         }
         
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_EXPOSURE, DC1394_OFF);
+        if (err < 0) {
+            throw VideoException("Could not turn off absolute control for exposure");
+        }
+        
         err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHUTTER, exposure);
         
         if( err != DC1394_SUCCESS )
@@ -861,7 +868,7 @@
     float FirewireVideo::GetExposure() const {
         
         float exposure;
-        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_EXPOSURE,&exposure);
+        dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_EXPOSURE,&exposure);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read exposure");
         
@@ -872,7 +879,7 @@
     int FirewireVideo::GetExposureQuant() const
     {
         uint32_t exposure;
-        err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER,&exposure);
+        dc1394error_t err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER,&exposure);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read exposure");
         
@@ -915,7 +922,7 @@
     float FirewireVideo::GetGamma() const
     {
     float gamma;
-    err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAMMA,&gamma);
+    dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAMMA,&gamma);
     if( err != DC1394_SUCCESS )
         throw VideoException("Failed to read gamma");
     return gamma;
@@ -933,28 +940,28 @@
         }
         }
 
-        void FirewireVideo::SetExternalTrigger(dc1394trigger_mode_t mode, dc1394trigger_polarity_t polarity, dc1394trigger_source_t source)
-        {
-        dc1394error_t err = dc1394_external_trigger_set_polarity(camera, polarity);
-        if (err < 0) {
-            throw VideoException("Could not set external trigger polarity");
-        }
-
-        err = dc1394_external_trigger_set_mode(camera, mode);
-        if (err < 0) {
-            throw VideoException("Could not set external trigger mode");
-        }
-
-        err = dc1394_external_trigger_set_source(camera, source);
-        if (err < 0) {
-            throw VideoException("Could not set external trigger source");
-        }
-
-        err = dc1394_external_trigger_set_power(camera, DC1394_ON);
-        if (err < 0) {
-            throw VideoException("Could not set external trigger power");
-        }
+    void FirewireVideo::SetExternalTrigger(dc1394trigger_mode_t mode, dc1394trigger_polarity_t polarity, dc1394trigger_source_t source)
+    {
+    dc1394error_t err = dc1394_external_trigger_set_polarity(camera, polarity);
+    if (err < 0) {
+        throw VideoException("Could not set external trigger polarity");
     }
+
+    err = dc1394_external_trigger_set_mode(camera, mode);
+    if (err < 0) {
+        throw VideoException("Could not set external trigger mode");
+    }
+
+    err = dc1394_external_trigger_set_source(camera, source);
+    if (err < 0) {
+        throw VideoException("Could not set external trigger source");
+    }
+
+    err = dc1394_external_trigger_set_power(camera, DC1394_ON);
+    if (err < 0) {
+        throw VideoException("Could not set external trigger power");
+    }
+}
 
     /*-----------------------------------------------------------------------
      *  META DATA & LOOPUP TABLE ETC
@@ -1059,7 +1066,7 @@
     void FirewireVideo::CreateShutterLookupTable() {
     shutter_lookup_table = new float[4096];
     for (int i=0; i<4096; i++) {
-        SetShutterTimeQuant(i);
+        SetShutterTime (i);
         shutter_lookup_table[i] = GetShutterTime();
         cout << shutter_lookup_table[i] << endl;
     }
@@ -1143,7 +1150,6 @@
         unsigned int width, height;
         char filename_ppm[128];
         char filename_jpg[128];
-        ExifData *exif_data;
         
         dc1394_get_image_size_from_video_mode(
                                               camera, 
@@ -1169,7 +1175,7 @@
         fwrite(frame->image, 1, numPixels*3, imagefile);
         fclose(imagefile);
         
-        cout << "saved: " << filename_ppm << endl;
+        //cout << "saved: " << filename_ppm << endl;
         
         if( jpg ){
             
@@ -1181,27 +1187,41 @@
             Magick::Image img;
             img.read(filename_ppm);
             img.write(filename_jpg);
+                     
+            Exiv2::ExifData exifData;
             
-            GetFrameExifData(&exif_data);
+            try {
+               
+                // hard-coded
+                exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5);
+                
+                // change the following
+                exifData["Exif.Image.Make"] = camera->vendor;
+                exifData["Exif.Image.Model"] = camera->model;
+                
+                exifData["Exif.Photo.ExposureTime"] = Exiv2::Rational(1, 1);
+                //exifData["Exif.Photo.ISOSpeed"] = int32_t(-2); 
+                exifData["Exif.Photo.ShutterSpeedValue"] = Exiv2::Rational(1, 1);
+                //exifData["Exif.Photo.DateTimeOriginal"] = "Date/Time";
+                exifData["Exif.Photo.WhiteBalance"] = uint16_t(1);
+                exifData["Exif.Photo.GainControl"] = uint16_t(1);
+                exifData["Exif.Photo.Saturation"] = uint16_t(1);
+                exifData["Exif.Photo.Sharpness"] = uint16_t(1);
+                
+                
+                Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename_jpg);
+                assert(image.get() != 0);
+
+                image->setExifData(exifData);
+                image->writeMetadata();
             
-            // remove later
-            exif_data_dump(exif_data);
             
-            /*
-             //write the Exif data to a jpeg file
-             pData = jpeg_data_new_from_file (FILENAME);  //input data
-             if (!pData) {
-             printf ("Could not load '%s'!\n", FILENAME);
-             return (-1);
-             }
-             
-             printf("Saving EXIF data to jpeg file\n");
-             jpeg_data_set_exif_data (pData, pEd);
-             printf("Set the data\n");
-             jpeg_data_save_file(pData, "foobar2.jpg");
-             */
-            
-            cout << "saved: " << filename_jpg << endl;
+            }
+            catch (Exiv2::AnyError& e) {
+                cout << "Caught Exiv2 exception '" << e << "'\n";
+            }
+                    
+            //cout << "saved: " << filename_jpg << endl;
             
         }
         
@@ -1367,86 +1387,6 @@
         return &features;   
     }
     
-    // Take a look at the pointers/references here -- a bit poor
-    void FirewireVideo::GetFrameExifData(ExifData **exif_data){
-    
-        ExifEntry *pE;
-        ExifData *pEd;
-        
-        //ExifSRational xR = {features->feature[DC1394_FEATURE_BRIGHTNESS - DC1394_FEATURE_MIN].value, features->feature[DC1394_FEATURE_BRIGHTNESS - DC1394_FEATURE_MIN].max};;
-        
-        printf ("Creating EXIF data...\n");
-        pEd = exif_data_new ();
-        
-        /*
-         
-         Things to tag:
-         
-         EXIF_TAG_MAKE               = 0x010f,
-         EXIF_TAG_MODEL              = 0x0110,
-         EXIF_TAG_EXPOSURE_TIME      = 0x829a,
-         EXIF_TAG_BRIGHTNESS_VALUE   = 0x9203,
-         EXIF_TAG_WHITE_BALANCE      = 0xa403,
-         EXIF_TAG_GAIN_CONTROL       = 0xa407,
-         EXIF_TAG_CONTRAST           = 0xa408,
-         EXIF_TAG_SATURATION         = 0xa409,
-         EXIF_TAG_SHARPNESS          = 0xa40a,
-         */
-        
-        // Make
-        pE = exif_entry_new ();
-        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
-        exif_entry_initialize (pE, EXIF_TAG_MAKE);
-        pE->data= (unsigned char *) "P.GREY";
-        exif_entry_unref (pE);
-        
-        // Model
-        pE = exif_entry_new ();
-        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
-        exif_entry_initialize (pE, EXIF_TAG_MODEL);
-        pE->data= (unsigned char *) "FLEA";
-        exif_entry_unref (pE);
-        
-        // Exposure Time
-        pE = exif_entry_new ();
-        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
-        exif_entry_initialize (pE, EXIF_TAG_EXPOSURE_TIME); 
-        exif_set_short(pE->data, exif_data_get_byte_order (pEd), GetExposureQuant());
-        exif_entry_unref (pE);
-        
-        // Shutter Speed
-        pE = exif_entry_new ();
-        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
-        exif_entry_initialize (pE, EXIF_TAG_SHUTTER_SPEED_VALUE); 
-        exif_set_short(pE->data, exif_data_get_byte_order (pEd), GetShutterTime());
-        exif_entry_unref (pE);
-        
-        // Aperture
-        pE = exif_entry_new ();
-        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
-        exif_entry_initialize (pE, EXIF_TAG_APERTURE_VALUE);
-        // must create rational number a/b == {a,b} i.e. 1/1 = 1.0 EV = f/1.4 
-        ExifRational aperture = {1,1}; 
-        exif_set_rational(pE->data, exif_data_get_byte_order (pEd), aperture);
-        exif_entry_unref (pE);
-        
-        // Time/Date
-        pE = exif_entry_new ();
-        exif_content_add_entry (pEd->ifd[EXIF_IFD_0], pE);
-        exif_entry_initialize (pE, EXIF_TAG_DATE_TIME);
-        // it magically adds the current time....very strange but I won't complain
-        exif_entry_unref (pE);
-        
-        // TO ADD
-        
-        // Resolution
-        // White balance mode
-        //
-
-        *exif_data = pEd;
-
-    }
-        
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
 
         int low, high;

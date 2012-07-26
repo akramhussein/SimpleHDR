@@ -1,3 +1,6 @@
+# Mac related
+.DS_Store
+
 # Compiled Object files
 *.slo
 *.lo
@@ -17,3 +20,6 @@
 *.pvn
 *.mpeg
 *.avi
+
+# Build directory (inc images)
+build/

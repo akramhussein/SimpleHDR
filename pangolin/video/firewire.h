@@ -35,10 +35,7 @@
 
     #include <ImageMagick/Magick++.h>
 
-    //EXIF includes
-    #include <libexif/exif-data.h>
-    #include <libexif/exif-ifd.h>
-    #include <libexif/exif-loader.h>
+    #include <exiv2/exiv2.hpp>
 
     #ifndef _WIN32
     #include <unistd.h>
@@ -487,11 +484,7 @@
     
     //! get camera feature set
     dc1394featureset_t *GetFeatures();
-    
-    //! Set frames exif data
-    void GetFrameExifData(ExifData **exif_data);
-        
-        
+     
     protected:
 
     void init_camera(
