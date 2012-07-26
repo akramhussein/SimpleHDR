@@ -1064,14 +1064,15 @@
     }
 
     void FirewireVideo::CreateShutterLookupTable() {
-    shutter_lookup_table = new float[4096];
-    for (int i=0; i<4096; i++) {
-        SetShutterTime (i);
-        shutter_lookup_table[i] = GetShutterTime();
-        cout << shutter_lookup_table[i] << endl;
-    }
+        shutter_lookup_table = new float[4096];
+        for (int i=0; i<4096; i++) {
+            SetShutterTime (i);
+            shutter_lookup_table[i] = GetShutterTime();
+            cout << shutter_lookup_table[i] << endl;
+        }
     }
     
+        
     /*-----------------------------------------------------------------------
      *  SAVING
      *-----------------------------------------------------------------------*/
@@ -1192,22 +1193,23 @@
             
             try {
                
-                // hard-coded
-                exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5);
                 
-                // change the following
+                exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
+                
                 exifData["Exif.Image.Make"] = camera->vendor;
                 exifData["Exif.Image.Model"] = camera->model;
-                
-                exifData["Exif.Photo.ExposureTime"] = Exiv2::Rational(1, 1);
-                //exifData["Exif.Photo.ISOSpeed"] = int32_t(-2); 
+                               
+                exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(GetShutterTime());	
                 exifData["Exif.Photo.ShutterSpeedValue"] = Exiv2::Rational(1, 1);
-                //exifData["Exif.Photo.DateTimeOriginal"] = "Date/Time";
+
+                //exifData["Exif.Photo.ISOSpeed"] = int32_t(-2); 
                 exifData["Exif.Photo.WhiteBalance"] = uint16_t(1);
                 exifData["Exif.Photo.GainControl"] = uint16_t(1);
                 exifData["Exif.Photo.Saturation"] = uint16_t(1);
                 exifData["Exif.Photo.Sharpness"] = uint16_t(1);
                 
+                // some other potentially useful ones
+                //exifData["Exif.Photo.DateTimeOriginal"] = "Date/Time";
                 
                 Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename_jpg);
                 assert(image.get() != 0);

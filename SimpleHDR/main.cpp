@@ -66,8 +66,8 @@ int main( int argc, char* argv[] )
         boost::this_thread::sleep(boost::posix_time::seconds(1/30));
         
         // Grab frame and save to JPG with exif
-        //video.SaveFrame(frame_number, img, true, true);
-        video.GrabOneShot(img);
+        video.SaveFrame(frame_number, img, true, true);
+        //video.GrabOneShot(img);
         
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
 

@@ -210,7 +210,7 @@
     
     //! create lookup table to convert quantised shutter values to absolute values
     void CreateShutterLookupTable();
-    
+            
     /*-----------------------------------------------------------------------
      *  FRAME GRAB
      *-----------------------------------------------------------------------*/
