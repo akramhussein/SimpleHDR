@@ -924,6 +924,129 @@
     }
 
     /*-----------------------------------------------------------------------
+     *  BRIGHTNESS
+     *-----------------------------------------------------------------------*/ 
+    
+    void FirewireVideo::SetAutoBrightness()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set auto brightness mode");
+        }
+    }
+    
+    
+    void FirewireVideo::SetManualBrightness()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual brightness mode");
+        }
+    }
+    
+    void FirewireVideo::SetBrightness(float val)
+    {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual brightness mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn on absolute control for brightness");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_BRIGHTNESS, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute brightness value");
+        }
+    }
+    
+    void FirewireVideo::SetBrightnessQuant(int val)
+    {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual brightness mode");
+        }        
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for brightness");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_BRIGHTNESS, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised brightness");
+        }
+    }
+    
+    float FirewireVideo::GetBrightness() const
+    {
+        float brightness;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_BRIGHTNESS, &brightness);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read absolute brightness");
+        
+        return brightness;
+        
+    }
+    
+    int FirewireVideo::GetBrightnessQuant() const
+    {
+        uint32_t brightness;
+        
+        err = dc1394_feature_get_value(camera, DC1394_FEATURE_BRIGHTNESS, &brightness);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read quantised brightness");
+        
+        return brightness;
+    }
+    
+    float FirewireVideo::GetBrightnessMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetBrightnessMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return min;
+    }
+    
+    int FirewireVideo::GetBrightnessQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return max;
+    }
+    
+    int FirewireVideo::GetBrightnessQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return min;
+    }
+
+    /*-----------------------------------------------------------------------
      * GAIN
      *-----------------------------------------------------------------------*/
     
@@ -1296,7 +1419,7 @@
     {
         float saturation;
         
-        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SATURATION,&saturation);
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SATURATION, &saturation);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read absolute saturation");
         
@@ -1634,136 +1757,135 @@
         return min;
     }
   
-    /*-----------------------------------------------------------------------
-     *  BRIGHTNESS
-     *-----------------------------------------------------------------------*/ 
     
-    void FirewireVideo::SetAutoBrightness()
-    {  
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_AUTO);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set auto brightness mode");
-        }
-    }
-    
-    
-    void FirewireVideo::SetManualBrightness()
-    {  
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual brightness mode");
-        }
-    }
-    
-    void FirewireVideo::SetBrightness(float val)
-    {
-        
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual brightness mode");
-        }
-        
-        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_ON);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn on absolute control for brightness");
-        }
-        
-        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_BRIGHTNESS, val);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set absolute brightness value");
-        }
-    }
-    
-    void FirewireVideo::SetBrightnessQuant(int val)
-    {
-        
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual brightness mode");
-        }        
-        
-        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_OFF);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn off absolute control for brightness");
-        }
-        
-        err = dc1394_feature_set_value(camera,DC1394_FEATURE_BRIGHTNESS, val);
-        if( err != DC1394_SUCCESS ){
-            throw VideoException("Failed to set quantised brightness");
-        }
-        
-    }
-    
-    float FirewireVideo::GetBrightness() const
-    {
-        float brightness;
-        
-        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_BRIGHTNESS, &brightness);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read absolute brightness");
-        
-        return brightness;
-        
-    }
-    
-    int FirewireVideo::GetBrightnessQuant() const
-    {
-        uint32_t brightness;
-        
-        err = dc1394_feature_get_value(camera, DC1394_FEATURE_BRIGHTNESS, &brightness);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read quantised brightness");
-        
-        return brightness;
-    }
-        
-    float FirewireVideo::GetBrightnessMax() const
-    {
-        float min, max;
-        
-        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read shutter");
-        
-        return max;
-    }
-    
-    float FirewireVideo::GetBrightnessMin() const
-    {
-        float min, max;
-        
-        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read shutter");
-        
-        return min;
-    }
-    
-    int FirewireVideo::GetBrightnessQuantMax() const
-    {
-        uint32_t min, max;
-        
-        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read shutter");
-        
-        return max;
-    }
-    
-    int FirewireVideo::GetBrightnessQuantMin() const
-    {
-        uint32_t min, max;
-        
-        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read shutter");
-        
-        return min;
-    }
-        
     /*-----------------------------------------------------------------------
      *  FRAMERATE
      *-----------------------------------------------------------------------*/  
 
+    void FirewireVideo::SetAutoFramerate()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE , DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set auto framerate mode");
+        }
+    }
+        
+    void FirewireVideo::SetManualFramerate()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE , DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual framerate mode");
+        }
+    }
+        
+        
+    void FirewireVideo::SetFramerate(float val)
+    {
+    
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual framerate mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_FRAME_RATE, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn on absolute control for framerate");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_FRAME_RATE, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute framerate value");
+        }  
+
+    }
+        
+    void FirewireVideo::SetFramerateQuant(int val){
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual framerate mode");
+        }        
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_FRAME_RATE, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for framerate");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_FRAME_RATE, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised framerate");
+        }
+    }
+        
+        
+    float FirewireVideo::GetFramerate() const
+    {
+        float framerate;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_FRAME_RATE, &framerate);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read absolute framerate");
+        
+        return framerate;
+    }
+      
+        
+    int FirewireVideo::GetFramerateQuant() const
+    {
+        uint32_t framerate;
+        
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_FRAME_RATE, &framerate);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read quantised framerate");
+        
+        return framerate;
+    }
+        
+    float FirewireVideo::GetFramerateMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_FRAME_RATE, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read framerate");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetFramerateMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_FRAME_RATE, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read framerate");
+        
+        return min;
+    }
+    
+    int FirewireVideo::GetFramerateQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_FRAME_RATE, &min, &max);        
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read framerate");
+        
+        return max;
+    }
+    
+    int FirewireVideo::GetFramerateQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_FRAME_RATE, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read frame rate");
+        
+        return min;
+    }
+    
+        
     /*-----------------------------------------------------------------------
      *  TILT
      *-----------------------------------------------------------------------*/   
@@ -2038,26 +2160,22 @@
             Exiv2::ExifData exifData;
             
             try {
-               
-                
-                exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
                 
                 exifData["Exif.Image.Make"] = camera->vendor;
                 exifData["Exif.Image.Model"] = camera->model;
-                               
+                exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
                 exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(GetShutterTime());	
-                exifData["Exif.Photo.ShutterSpeedValue"] = Exiv2::Rational(1, 1);
-                /*
-                //exifData["Exif.Photo.ISOSpeed"] = int32_t(-2); 
-                exifData["Exif.Photo.WhiteBalance"] = uint16_t(1);
-                exifData["Exif.Photo.GainControl"] = uint16_t(1);
-                exifData["Exif.Photo.Saturation"] = uint16_t(1);
-                exifData["Exif.Photo.Sharpness"] = uint16_t(1);
+                exifData["Exif.Photo.ShutterSpeedValue"] = Exiv2::Rational(1, 4);
+                
+                /* DO NOT WORK
+                 
+                //exifData["Exif.Photo.ISOSpeed"] = int32_t(100);
+                //exifData["Exif.Photo.WhiteBalance"] = uint16_t(1);
+                exifData["Exif.Photo.GainControl"] = int16_t(GetGain());
+                exifData["Exif.Photo.Saturation"] = int16_t(GetSaturation());
+                exifData["Exif.Photo.Sharpness"] = int16_t(GetSharpness());
                 */
-                
-                // some other potentially useful ones
-                //exifData["Exif.Photo.DateTimeOriginal"] = "Date/Time";
-                
+                                
                 Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename_jpg);
                 assert(image.get() != 0);
 
@@ -2258,11 +2376,72 @@
         
     }
     
-     dc1394featureset_t* FirewireVideo::GetFeatures()
-    {
-        return &features;   
-    }
+
+    void FirewireVideo::GetResponseFunction(){
+        
+        float min, max, step, shutter;
+        step = 0.0005;
+        
+        SetAutoAll();
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read shutter");
+        }
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual shutter mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute control for shutter");
+        }
+        
+        shutter = (max - min)/2 + min; // first half of shutter range is black
+            
+        cout << "Min: " << min << endl;
+        cout << "Max: " << max << endl;
+        cout << "Step Size: " << step << endl;
+        
+        //mkdir("./responsefunction", 0755);
+        
+        unsigned char* image = new unsigned char[SizeBytes()];
+        
+        for(int frame_number = 0; shutter <= max ; frame_number++){
+            
+            cout << "frame number: " << frame_number << endl;
+            cout << "shutter value: " << shutter << endl;
+            
+
+            err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set shutter value");
+            }
+            
+            sleep(1/30);
+            
+            SaveFrame(frame_number, image, true, true);
+
+            shutter += step;
+        }
+        
+        // run hdrgen script
+        cout << "Generating exif script..." << endl;
+        
+        
+        // run pfs calibrate
+        cout << "Generating response function" << endl;
+        
+        
+        //run gnu plot
+        cout << "DONE" << endl;
     
+        delete[] image;
+        
+    }
+        
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
 
         int low, high;

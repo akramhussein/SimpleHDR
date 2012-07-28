@@ -28,6 +28,8 @@
     #ifndef PANGOLIN_FIREWIRE_H
     #define PANGOLIN_FIREWIRE_H
 
+    #include <sys/stat.h>
+
     #include <pangolin/pangolin.h>
     #include <pangolin/video.h>
 
@@ -529,13 +531,13 @@
      *  FRAMERATE
      *-----------------------------------------------------------------------*/  
        
-    /*
+    
      
     //! set framerate auto
-    void SetFramerateAuto();
+    void SetAutoFramerate();
     
     //! set framerate auto
-    void SetFramerateManual();
+    void SetManualFramerate();
      
     //! set framerate value
     void SetFramerate(float val);
@@ -549,7 +551,18 @@
     //! return quantised framerate
     int GetFramerateQuant() const;
       
-     */
+    //! return max framerate value
+    float GetFramerateMax() const;
+    
+    //! return min framerate value
+    float GetFramerateMin() const;
+    
+    //! return max quantised framerate value
+    int GetFramerateQuantMax() const;
+    
+    //! return min quantised framerate value
+    int GetFramerateQuantMin() const;
+        
         
     /*-----------------------------------------------------------------------
      *  TILT
@@ -629,8 +642,17 @@
                          );
     
     //! get camera feature set
-    dc1394featureset_t *GetFeatures();
+    dc1394featureset_t *GetFeatures() { return &features; }
+        
+    //! get camera vendor
+    std::string GetCameraVendor() { return camera->vendor; }
+    
+    //! get camera model
+    std::string GetCameraModel() { return camera->model; }
      
+    //! generate camera response function and save to file
+    void GetResponseFunction();
+    
     protected:
 
     void init_camera(

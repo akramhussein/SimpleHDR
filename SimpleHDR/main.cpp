@@ -19,22 +19,6 @@
 using namespace pangolin;
 using namespace std;
 
-
-struct CustomType
-{
-    string y;
-};
-
-std::ostream& operator<< (std::ostream& os, const CustomType& o){
-    os << o.y;
-    return os;
-}
-
-std::istream& operator>> (std::istream& is, CustomType& o){
-    is >> o.y;
-    return is;
-}
-
 int main( int argc, char* argv[] )
 {
 
@@ -73,17 +57,18 @@ int main( int argc, char* argv[] )
     GlTexture texVideo(w,h,GL_RGBA8);
     
     //keyboard shortcuts
-    pangolin::RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR", true));
-    pangolin::RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR", false));
-    pangolin::RegisterKeyPressCallback( 's', SetVarFunctor<bool>("ui.Record", true));
+    pangolin::RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));
+    pangolin::RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));
+    pangolin::RegisterKeyPressCallback( 's', SetVarFunctor<bool>("ui.Record Frames", true));
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));
     pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));
     pangolin::RegisterKeyPressCallback( 'f', SetVarFunctor<bool>("ui.Reset Frame Count", true));
     
     // options
-    static Var<bool> record("ui.Record",false,false);
-    static Var<bool> hdr("ui.HDR",false,true);
+    static Var<bool> record("ui.Record Frames",false,false);
+    static Var<bool> capture_hdr("ui.Capture HDR Frame",false,false);
+    static Var<bool> hdr("ui.HDR Mode",false,true);
     //static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
     //static Var<bool> motion("ui.Motion Correction",false,true);
     static Var<bool> manual("ui.Manual Camera Settings",false,true);
@@ -95,18 +80,21 @@ int main( int argc, char* argv[] )
     static Var<float> brightness("ui.Brightness (%)",video.GetBrightness(),video.GetBrightnessMin(),video.GetBrightnessMax(), false); 
     static Var<float> gain("ui.Gain (dB)",video.GetGain(),video.GetGainMin(),video.GetGainMax(), false);
     static Var<float> gamma("ui.Gamma",video.GetGamma(),video.GetGammaMin(),video.GetGammaMax(), false);
-    static Var<float> saturation("ui.Saturation",video.GetSaturation(),video.GetSaturationMin(),video.GetSaturationMax(), false);
+    static Var<float> saturation("ui.Saturation (&)",video.GetSaturation(),video.GetSaturationMin(),video.GetSaturationMax(), false);
     static Var<int> hue("ui.Hue (deg)",video.GetHueQuant(),video.GetHueQuantMin(),video.GetHueQuantMax(), false);
     static Var<int> sharpness("ui.Sharpness",video.GetSharpnessQuant(),video.GetSharpnessQuantMin(),video.GetSharpnessQuantMax(), false);
-    //static Var<float> framerate("ui.Framerate (fps)",0,0,100);
+    static Var<float> framerate("ui.Framerate (fps)",video.GetFramerate(),video.GetFramerateMin(),video.GetFramerateMax(), true);
     //static Var<float> tilt("ui.Tilt",0,0,100);
     //static Var<float> pan("ui.Pan",0,0,100);
      
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
     
     // info
+    static Var<float> current_framerate("ui.Framerate (fps)",0);
     static Var<int> current_frame("ui.Current Frame",0);
     static Var<bool> reset_frame("ui.Reset Frame Count",false,false);
+    static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
+    static Var<string> model("ui.Model", video.GetCameraModel());
     
     /*-----------------------------------------------------------------------
      *  CAPTURE
@@ -121,10 +109,14 @@ int main( int argc, char* argv[] )
             DisplayBase().ActivateScissorAndClear();
         
         current_frame.operator=(frame_number);
+        current_framerate.operator=(video.GetFramerate());
         
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-        
+        if(pangolin::Pushed(capture_hdr)){
+            //hdr_frame(); -- TO DO
+        }
+            
         if(pangolin::Pushed(reset)){
             shutter.Reset();
             exposure.Reset();
@@ -134,6 +126,7 @@ int main( int argc, char* argv[] )
             saturation.Reset();
             hue.Reset();
             sharpness.Reset();
+            framerate.Reset();
         }
         
         if( hdr ) {
@@ -163,6 +156,7 @@ int main( int argc, char* argv[] )
             video.SetSaturation(saturation);
             video.SetHueQuant(hue);
             video.SetSharpnessQuant(sharpness);
+            video.SetFramerate(framerate);
         }
 
         if(pangolin::Pushed(reset_frame)){ frame_number = 0; }
