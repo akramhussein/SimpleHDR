@@ -186,7 +186,6 @@
     //! Stop the video stream before using One-shot mode
     void StopForOneShot();
 
-
     //! Grab one shot (iso-transmission must be off - call StopForOneShot first)
     bool GrabOneShot(unsigned char* image);
         
@@ -243,7 +242,7 @@
     void SetAutoShutterTime();
 
     //! set manual shutter
-    void SetShutterTimeManual();
+    void SetManualShutterTime();
 
     //! set absolute shutter value
     void SetShutterTime(float val);
@@ -257,6 +256,18 @@
     //! return the quantised shutter time
     int GetShutterTimeQuant() const;
     
+    //! return max shutter time value
+    float GetShutterTimeMax() const;
+       
+    //! return min shutter time value
+    float GetShutterTimeMin() const;
+    
+    //! return max quantised shutter time value
+    int GetShutterTimeQuantMax() const;
+    
+    //! return min quantised shutter time value
+    int GetShutterTimeQuantMin() const;
+    
     /*-----------------------------------------------------------------------
      *  EXPOSURE
      *-----------------------------------------------------------------------*/
@@ -265,7 +276,7 @@
     void SetAutoExposure();
     
     //! set manual exposure
-    void SetExposureManual();
+    void SetManualExposure();
         
     //! set absolute exposure value
     void SetExposure(float val);
@@ -279,32 +290,123 @@
     //! return quantised exposure
     int GetExposureQuant() const;
 
+    //! return max exposure time value
+    float GetExposureMax() const;
+    
+    //! return min exposure time value
+    float GetExposureMin() const;
+    
+    //! return max quantised exposure value
+    int GetExposureQuantMax() const;
+    
+    //! return min quantised exposure value
+    int GetExposureQuantMin() const;
+        
+    /*-----------------------------------------------------------------------
+     *  BRIGHTNESS
+     *-----------------------------------------------------------------------*/   
+    
+    //! set auto brightness mode
+    void SetAutoBrightness();            // doesn't exist for point grey
+    
+    //! set manual brightness mode
+    void SetManualBrightness();      
+    
+    //! set absolute brightness value 
+    void SetBrightness(float val);       
+    
+    //! set quantised brightness value 
+    void SetBrightnessQuant(int val);    // doesn't exist for point grey
+    
+    //! return absolute brightness value 
+    float GetBrightness() const;        
+    
+    //! return quantised brightness value 
+    int GetBrightnessQuant() const;      // doesn't exist for point grey
+        
+    //! return max brightness value
+    float GetBrightnessMax() const;
+    
+    //! return min brightness value
+    float GetBrightnessMin() const;
+    
+    //! return max quantised brightness value
+    int GetBrightnessQuantMax() const;
+    
+    //! return min quantised brightness value
+    int GetBrightnessQuantMin() const;
+        
     /*-----------------------------------------------------------------------
      * GAIN
      *-----------------------------------------------------------------------*/
 
-    //! set auto gain value
+    //! set auto gain 
     void SetAutoGain();
+        
+    //! set manual gain
+    void SetManualGain();
 
-    //! set absolute shutter value
+    //! set absolute gain value
     void SetGain(float val);
+        
+    //! set quantised gain value
+    void SetGainQuant(int val);
 
     //! return absolute gain value
     float GetGain() const;
         
     //! return the quantised gain
     int GetGainQuant() const;
+        
+    //! return max gain value
+    float GetGainMax() const;
+    
+    //! return min gain value
+    float GetGainMin() const;
+    
+    //! return max quantised gain value
+    int GetGainQuantMax() const;
+    
+    //! return min quantised gain value
+    int GetGainQuantMin() const;
 
    /*-----------------------------------------------------------------------
     *  GAMMA
     *-----------------------------------------------------------------------*/
-
+    
+    //! set gamma on 
+    void SetGammaOn();
+     
+    //! set manual off
+    void SetGammaOff();
+    
+    //! Reset gamma to 1.0
+    void ResetGamma();
+        
+    //! set absolute gamma value
+    void SetGamma(float val); 
+    
+    //! set quantised gamma value
+    void SetGammaQuant(int val); 
+        
     //! return absolute gamma value
     float GetGamma() const;
-
-    //! set gamma value
-    // void SetGamma(float val); 
+    
+    //! return the quantised gamma
+    int GetGammaQuant() const;
         
+    //! return max gamma value
+    float GetGammaMax() const;
+    
+    //! return min gamma value
+    float GetGammaMin() const;
+    
+    //! return max quantised gamma value
+    int GetGammaQuantMax() const;
+    
+    //! return min quantised gamma value
+    int GetGammaQuantMin() const;
+    
     /*-----------------------------------------------------------------------
      *  WHITE BALANCE
      *-----------------------------------------------------------------------*/
@@ -321,11 +423,16 @@
     /*-----------------------------------------------------------------------
      *  SATURATION
      *-----------------------------------------------------------------------*/     
-    
-    /*
+
+    //! set auto saturation mode
+    void SetAutoSaturation();
+     
+    //! set manual saturation mode
+    void SetManualSaturation();
+        
     //! set saturation value
     void SetSaturation(float val); 
-    
+        
     //! set quantised saturation value
     void SetSaturationQuant(int val); 
     
@@ -334,13 +441,32 @@
      
     //! return quantised saturation value
     int GetSaturationQuant() const;
-    */
     
+    //! return max saturation value
+    float GetSaturationMax() const;
+    
+    //! return min saturation value
+    float GetSaturationMin() const;
+    
+    //! return max quantised saturation value
+    int GetSaturationQuantMax() const;
+    
+    //! return min quantised saturation value
+    int GetSaturationQuantMin() const;
+        
     /*-----------------------------------------------------------------------
      *  HUE
      *-----------------------------------------------------------------------*/     
-   
-    /*
+           
+    //! set gamma on 
+    void SetHueOn();
+    
+    //! set manual off
+    void SetHueOff();
+    
+    //! Reset gamma to 0
+    void ResetHue();
+        
     //! set hue value
     void SetHue(float val); 
     
@@ -352,43 +478,55 @@
 
     //! return hue value
     int GetHueQuant() const; 
-    */
+        
+    //! return max hue value
+    float GetHueMax() const;
+    
+    //! return min hue value
+    float GetHueMin() const;
+    
+    //! return max quantised hue value
+    int GetHueQuantMax() const;
+    
+    //! return min quantised hue value
+    int GetHueQuantMin() const;
         
     /*-----------------------------------------------------------------------
      *  SHARPNESS
      *-----------------------------------------------------------------------*/    
      
-    /*
-    //! set sharpness auto
-    void SetSharpnessAuto();
+    //! set auto sharpness mode
+    void SetAutoSharpness();        
     
-    //! set quantised sharpness value (abs doesn't exist)
+    //! set manual sharpness mode
+    void SetManualSharpness();      
+
+    //! set absolute sharpness value 
+    void SetSharpness(float val);       // doesn't exist for point grey
+        
+    //! set quantised sharpness value 
     void SetSharpnessQuant(int val);
     
-    //! return quantised sharpness value (abs doesn't exist)
+    //! return absolute sharpness value 
+    float GetSharpness() const;         // doesn't exist for point grey
+    
+    //! return quantised sharpness value 
     int GetSharpnessQuant() const;
-    */
         
-    /*-----------------------------------------------------------------------
-     *  BRIGHTNESS
-     *-----------------------------------------------------------------------*/   
+    //! return max sharpness value
+    float GetSharpnessMax() const;
     
-    /*
-    //! set brightness value
-    void SetBrightnessQuant(float val);
+    //! return min sharpness value
+    float GetSharpnessMin() const;
     
-    //! set quantised brightness value (abs doesn't exist)
-    void SetBrightnessQuant(int brightness);
-    
-    //! return brightness value 
-    float GetBrightness() const;
-    
-    //! return quantised brightness value
-    float GetBrightnessQuant() const;
-    */
+    //! return max quantised sharpness value
+    int GetSharpnessQuantMax() const;
         
+    //! return min quantised sharpness value
+    int GetSharpnessQuantMin() const;
+            
     /*-----------------------------------------------------------------------
-     *  FRAME RATE
+     *  FRAMERATE
      *-----------------------------------------------------------------------*/  
        
     /*
@@ -412,6 +550,14 @@
     int GetFramerateQuant() const;
       
      */
+        
+    /*-----------------------------------------------------------------------
+     *  TILT
+     *-----------------------------------------------------------------------*/   
+    
+    /*-----------------------------------------------------------------------
+     *  PAN
+     *-----------------------------------------------------------------------*/
         
     /*-----------------------------------------------------------------------
      *  TRIGGERS
@@ -476,7 +622,7 @@
     
     //! set all to auto mode for point grey flea
     void SetAutoAll();
-        
+      
     //! get the best video mode and highest framerate for camera (default colour RGB8)
     void GetBestSettings( dc1394video_mode_t video_mode, 
                           dc1394framerate_t framerate 

@@ -202,7 +202,7 @@
 
     if((framerate == MAX_FR)||(framerate == EXT_TRIG)){
 
-      err=dc1394_format7_set_packet_size(camera,video_mode, format7_info.max_packet_size);
+      err = dc1394_format7_set_packet_size(camera,video_mode, format7_info.max_packet_size);
       if( err != DC1394_SUCCESS )
         throw VideoException("Could not set format7 packet size");
 
@@ -433,7 +433,7 @@
     if( running )
     {
         // Stop transmission
-        err=dc1394_video_set_transmission(camera,DC1394_OFF);
+        err = dc1394_video_set_transmission(camera,DC1394_OFF);
         if( err != DC1394_SUCCESS )
             throw VideoException("Could not stop the camera");
         running = false;
@@ -445,7 +445,7 @@
     if( running )
     {
         // Stop transmission
-        err=dc1394_video_set_transmission(camera,DC1394_OFF);
+        err = dc1394_video_set_transmission(camera,DC1394_OFF);
         if( err != DC1394_SUCCESS )
             throw VideoException("Could not stop the camera");
         running = false;
@@ -679,16 +679,16 @@
     
     void FirewireVideo::SetAutoShutterTime()
     {
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set auto shutter mode");
         }
     }
         
-    void FirewireVideo::SetShutterTimeManual()
+    void FirewireVideo::SetManualShutterTime()
     {
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
-        if (err < 0) {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set manual shutter mode");
             
         }
@@ -696,13 +696,13 @@
 
     void FirewireVideo::SetShutterTimeQuant(int shutter)
     {
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
-        if (err < 0) {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set manual shutter mode");
         }
         
         err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_OFF);
-        if (err < 0) {
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not turn off absolute control for shutter");
         }
         
@@ -714,18 +714,18 @@
 
     void FirewireVideo::SetShutterTime(float val){
         
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
-        if (err < 0) {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set manual shutter mode");
         }
         
         err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON);
-        if (err < 0) {
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set absolute control for shutter");
         }
         
         err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, val);
-        if (err < 0) {
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set shutter value");
         }
     }
@@ -734,7 +734,7 @@
     {
         float shutter;
         
-        dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SHUTTER,&shutter);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read shutter");
         
@@ -745,11 +745,182 @@
     {
         uint32_t shutter;
         
-        dc1394error_t err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER, &shutter);
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER, &shutter);
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to read shutter");
         
         return shutter;
+    }
+        
+    float FirewireVideo::GetShutterTimeMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return max;
+    }
+
+    float FirewireVideo::GetShutterTimeMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return min;
+    }
+        
+    int FirewireVideo::GetShutterTimeQuantMax() const
+    {
+        uint32_t min, max;
+        
+    err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max);        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return max;
+    }
+    
+    int FirewireVideo::GetShutterTimeQuantMin() const
+    {
+        uint32_t min, max;
+
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return min;
+    }
+    
+    /*-----------------------------------------------------------------------
+     *  EXPOSURE
+     *-----------------------------------------------------------------------*/
+    
+    void FirewireVideo::SetAutoExposure(){
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set auto exposure mode");
+        }
+    }
+    
+    void FirewireVideo::SetManualExposure()
+    {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual exposure mode");
+            
+        }
+    }
+    
+    void FirewireVideo::SetExposure(float val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual exposure mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_EXPOSURE, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute control for exposure");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_EXPOSURE, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set exposure value");
+        }
+    }
+    
+    void FirewireVideo::SetExposureQuant(int exposure)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual exposure mode");
+            
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_EXPOSURE, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for exposure");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_EXPOSURE, exposure);
+        
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to set exposure");
+        
+    }
+    
+    float FirewireVideo::GetExposure() const {
+        
+        float exposure;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_EXPOSURE,&exposure);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read exposure");
+        
+        return exposure;
+        
+    }
+    
+    int FirewireVideo::GetExposureQuant() const
+    {
+        uint32_t exposure;
+        
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_EXPOSURE,&exposure);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read exposure");
+        
+        return exposure;
+    }
+    
+    float FirewireVideo::GetExposureMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_EXPOSURE, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read exposure");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetExposureMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_EXPOSURE, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read exposure");
+        }
+        return min;
+    }
+    
+    int FirewireVideo::GetExposureQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_EXPOSURE, &min, &max);
+        if( err != DC1394_SUCCESS ){
+        throw VideoException("Failed to read exposure");
+        }
+        return max;
+    }
+    
+    int FirewireVideo::GetExposureQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_EXPOSURE, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read exposure");
+        }
+        return min;
     }
 
     /*-----------------------------------------------------------------------
@@ -758,132 +929,274 @@
     
     void FirewireVideo::SetAutoGain()
     {  
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
+         err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set auto gain mode");
+        }
+    }
+        
+        
+    void FirewireVideo::SetManualGain()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual gain mode");
         }
     }
         
     void FirewireVideo::SetGain(float val)
         {
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_MANUAL);
-        if (err < 0) {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
                 throw VideoException("Could not set manual gain mode");
         }
 
         err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_GAIN, DC1394_ON);
-        if (err < 0) {
-          throw VideoException("Could not set absolute control for gain");
+        if (err != DC1394_SUCCESS) {
+          throw VideoException("Could not turn on absolute control for gain");
         }
 
         err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_GAIN, val);
-        if (err < 0) {
-                throw VideoException("Could not set gain value");
+        if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set absolute gain value");
         }
     }
 
+    void FirewireVideo::SetGainQuant(int val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual gain mode");
+        }        
+            
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_GAIN, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for gain");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHUTTER, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised gain");
+        }
+        
+    }
+        
     float FirewireVideo::GetGain() const
     {
         float gain;
-        dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAIN,&gain);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read gain");
         
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAIN,&gain);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read absolute gain");
+        }
         return gain;
         
     }
     
     int FirewireVideo::GetGainQuant() const
     {
-        uint32_t shutter;
-        dc1394error_t err = dc1394_feature_get_value(camera,DC1394_FEATURE_GAIN,&shutter);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read shutter");
+        uint32_t gain;
         
-        return shutter;
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_GAIN,&gain);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read quantised gain");
+        }
+        return gain;
     }
         
-       
+    float FirewireVideo::GetGainMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_GAIN, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read gain");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetGainMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_GAIN, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read gain");
+        }
+        return min;
+    }
+    
+    int FirewireVideo::GetGainQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_GAIN, &min, &max);   
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read gain");
+        }
+        return max;
+    }
+    
+    int FirewireVideo::GetGainQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_GAIN, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read gain");
+        }
+        return min;
+    }
+    
     /*-----------------------------------------------------------------------
-     *  EXPOSURE
+     *  GAMMA
      *-----------------------------------------------------------------------*/
     
-    void FirewireVideo::SetAutoExposure(){
-        
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_AUTO);
-        if (err < 0) {
-            throw VideoException("Could not set auto exposure mode");
-        }
-    }
-
-    void FirewireVideo::SetExposureManual()
+    void FirewireVideo::SetGammaOn()
     {
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
-        if (err < 0) {
-            throw VideoException("Could not set manual exposure mode");
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set gamma feature on");
+        }
+        
+    }  
+    
+    void FirewireVideo::SetGammaOff()
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set gamma feature on");
+        }
+        
+    } 
+        
+    void FirewireVideo::ResetGamma()
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set gamma feature on");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute control for gamma");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_GAMMA, 1.0);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute gamma value to 1.0");
+        }
+        
+    }   
+    
+        
+    void FirewireVideo::SetGamma(float val)
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set gamma feature on");
+        }
+
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute control for gamma");
+        }
+
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_GAMMA, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute gamma value");
+        }
             
-        }
     }
         
-    void FirewireVideo::SetExposure(float val)
+    void FirewireVideo::SetGammaQuant(int val)
     {
-
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
-        if (err < 0) {
-            throw VideoException("Could not set manual exposure mode");
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set gamma feature on");
         }
         
-        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_EXPOSURE, DC1394_ON);
-        if (err < 0) {
-            throw VideoException("Could not set absolute control for exposure");
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_GAMMA, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute control for gamma");
         }
         
-        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_EXPOSURE, val);
-        if (err < 0) {
-            throw VideoException("Could not set exposure value");
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_GAMMA, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised gamma");
         }
+        
     }
     
-    void FirewireVideo::SetExposureQuant(int exposure)
+    float FirewireVideo::GetGamma() const
     {
+        float gamma;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAMMA,&gamma);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read absolute gamma");
+        
+        return gamma;
+    }
+        
+        
+    int FirewireVideo::GetGammaQuant() const
+    {
+        uint32_t gamma;
 
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
-        if (err < 0) {
-            throw VideoException("Could not set manual exposure mode");
-            
-        }
-        
-        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_EXPOSURE, DC1394_OFF);
-        if (err < 0) {
-            throw VideoException("Could not turn off absolute control for exposure");
-        }
-        
-        err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHUTTER, exposure);
-        
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_GAMMA,&gamma);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to set exposure");
+            throw VideoException("Failed to read quantised gamma");
         
+        return gamma;
     }
-            
-    float FirewireVideo::GetExposure() const {
-        
-        float exposure;
-        dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_EXPOSURE,&exposure);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read exposure");
-        
-        return exposure;
-        
-    }
-     
-    int FirewireVideo::GetExposureQuant() const
+  
+    float FirewireVideo::GetGammaMax() const
     {
-        uint32_t exposure;
-        dc1394error_t err = dc1394_feature_get_value(camera,DC1394_FEATURE_SHUTTER,&exposure);
-        if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to read exposure");
+        float min, max;
         
-        return exposure;
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_GAMMA, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read gamma");
+        }
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetGammaMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_GAMMA, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read gamma");
+        }
+        
+        return min;
+    }
+    
+    int FirewireVideo::GetGammaQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_GAMMA, &min, &max);        
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read gamma");
+        }
+        return max;
+    }
+    
+    int FirewireVideo::GetGammaQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_GAMMA, &min, &max);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to read gamma");
+        }
+        return min;
     }
 
     /*-----------------------------------------------------------------------
@@ -892,21 +1205,21 @@
         
     void FirewireVideo::SetSingleAutoWhiteBalance(){
 
-        dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_ONE_PUSH_AUTO);
-        if (err < 0) {
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_ONE_PUSH_AUTO);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set manual white balance mode");
         }
     }
         
     void FirewireVideo::SetWhiteBalance(unsigned int Blue_U_val, unsigned int Red_V_val){
 
-    dc1394error_t err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_MANUAL);
-    if (err < 0) {
+    err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_MANUAL);
+    if (err != DC1394_SUCCESS) {
         throw VideoException("Could not set manual white balance mode");
     }
 
     err = dc1394_feature_whitebalance_set_value(camera, Blue_U_val, Red_V_val);
-    if (err < 0) {
+    if (err != DC1394_SUCCESS) {
         throw VideoException("Could not set white balance value");
     }
 
@@ -914,51 +1227,584 @@
 
     void FirewireVideo::GetWhiteBalance(unsigned int *Blue_U_val, unsigned int *Red_V_val) {
 
-    dc1394error_t err = dc1394_feature_whitebalance_get_value(camera,Blue_U_val, Red_V_val );
+    err = dc1394_feature_whitebalance_get_value(camera,Blue_U_val, Red_V_val );
     if( err != DC1394_SUCCESS )
         throw VideoException("Failed to read white balance");
     }
 
-    float FirewireVideo::GetGamma() const
-    {
-    float gamma;
-    dc1394error_t err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_GAMMA,&gamma);
-    if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to read gamma");
-    return gamma;
-    }
+    /*-----------------------------------------------------------------------
+     *  SATURATION
+     *-----------------------------------------------------------------------*/
 
+    void FirewireVideo::SetAutoSaturation()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set auto saturation mode");
+        }
+    }
+    
+    
+    void FirewireVideo::SetManualSaturation()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual saturation mode");
+        }
+    }
+        
+    void FirewireVideo::SetSaturation(float val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual saturation mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SATURATION, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn on absolute control for saturation");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SATURATION, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute saturation value");
+        }
+    }
+    
+    void FirewireVideo::SetSaturationQuant(int val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual saturation mode");
+        }        
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SATURATION, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for saturation");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_SATURATION, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised saturation");
+        }
+        
+    }
+    
+    float FirewireVideo::GetSaturation() const
+    {
+        float saturation;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SATURATION,&saturation);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read absolute saturation");
+        
+        return saturation;
+        
+    }
+    
+    int FirewireVideo::GetSaturationQuant() const
+    {
+        uint32_t saturation;
+        
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_SATURATION, &saturation);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read quantised saturation");
+        
+        return saturation;
+    }
+        
+    float FirewireVideo::GetSaturationMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SATURATION, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read saturation");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetSaturationMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SATURATION, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read saturation");
+        
+        return min;
+    }
+    
+    int FirewireVideo::GetSaturationQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_SATURATION, &min, &max);        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read saturation");
+        
+        return max;
+    }
+    
+    int FirewireVideo::GetSaturationQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_SATURATION, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read saturation");
+        
+        return min;
+    }
+   
+    /*-----------------------------------------------------------------------
+     *  HUE
+     *-----------------------------------------------------------------------*/
+        
+    void FirewireVideo::SetHueOn()
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set hue feature on");
+        }
+        
+    }  
+    
+    void FirewireVideo::SetHueOff()
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set hue feature on");
+        }
+        
+    } 
+    
+    void FirewireVideo::ResetHue()
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set hue feature on");
+        }
+
+        err = dc1394_feature_set_value(camera, DC1394_FEATURE_GAMMA, 2048);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute hue value to 2048 i.e. 0");
+        }
+        
+    } 
+        
+    void FirewireVideo::SetHue(float val)
+    {
+        
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set hue feature on");
+        }
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_HUE, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual hue mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_HUE, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn on absolute control for hue");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_HUE, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute saturation hue");
+        }
+    }
+    
+    void FirewireVideo::SetHueQuant(int val)
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set hue feature on");
+        }
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_HUE, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual saturation hue");
+        }        
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_HUE, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for hue");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_HUE, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised hue");
+        }
+        
+    }
+    
+    float FirewireVideo::GetHue() const
+    {
+        float hue;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_HUE,&hue);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read absolute hue");
+        
+        return hue;
+        
+    }
+    
+    int FirewireVideo::GetHueQuant() const
+    {
+        uint32_t hue;
+        
+        err = dc1394_feature_get_value(camera,DC1394_FEATURE_HUE, &hue);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read quantised hue");
+        
+        return hue;
+    }   
+        
+    float FirewireVideo::GetHueMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_HUE, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read hue");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetHueMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_HUE, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read hue");
+        
+        return min;
+    }
+    
+    int FirewireVideo::GetHueQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_HUE, &min, &max);        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read hue");
+        
+        return max;
+    }
+    
+    int FirewireVideo::GetHueQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_HUE, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read hue");
+        
+        return min;
+    }
+        
+    /*-----------------------------------------------------------------------
+     *  SHARPNESS
+     *-----------------------------------------------------------------------*/   
+
+    void FirewireVideo::SetAutoSharpness()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set auto sharpness mode");
+        }
+    }
+    
+    
+    void FirewireVideo::SetManualSharpness()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual sharpness mode");
+        }
+    }
+    
+    void FirewireVideo::SetSharpness(float val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual sharpness mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHARPNESS, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn on absolute control for sharpness");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHARPNESS, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute sharpness value");
+        }
+    }
+    
+    void FirewireVideo::SetSharpnessQuant(int val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual sharpness mode");
+        }        
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHARPNESS, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for sharpness");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_SHARPNESS, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised sharpness");
+        }
+        
+    }
+    
+    float FirewireVideo::GetSharpness() const
+    {
+        float sharpness;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_SHARPNESS, &sharpness);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read absolute sharpness");
+        
+        return sharpness;
+        
+    }
+    
+    int FirewireVideo::GetSharpnessQuant() const
+    {
+        uint32_t sharpness;
+        
+        err = dc1394_feature_get_value(camera, DC1394_FEATURE_SHARPNESS, &sharpness);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read quantised sharpness");
+        
+        return sharpness;
+    }
+        
+    float FirewireVideo::GetSharpnessMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHARPNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read sharpness");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetSharpnessMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHARPNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read sharpness");
+        
+        return min;
+    }
+    
+    int FirewireVideo::GetSharpnessQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_SHARPNESS, &min, &max);        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read sharpness");
+        
+        return max;
+    }
+    
+    int FirewireVideo::GetSharpnessQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_SHARPNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read sharpness");
+        
+        return min;
+    }
+  
+    /*-----------------------------------------------------------------------
+     *  BRIGHTNESS
+     *-----------------------------------------------------------------------*/ 
+    
+    void FirewireVideo::SetAutoBrightness()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set auto brightness mode");
+        }
+    }
+    
+    
+    void FirewireVideo::SetManualBrightness()
+    {  
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual brightness mode");
+        }
+    }
+    
+    void FirewireVideo::SetBrightness(float val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual brightness mode");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn on absolute control for brightness");
+        }
+        
+        err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_BRIGHTNESS, val);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set absolute brightness value");
+        }
+    }
+    
+    void FirewireVideo::SetBrightnessQuant(int val)
+    {
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_FEATURE_MODE_MANUAL);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set manual brightness mode");
+        }        
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not turn off absolute control for brightness");
+        }
+        
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_BRIGHTNESS, val);
+        if( err != DC1394_SUCCESS ){
+            throw VideoException("Failed to set quantised brightness");
+        }
+        
+    }
+    
+    float FirewireVideo::GetBrightness() const
+    {
+        float brightness;
+        
+        err = dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_BRIGHTNESS, &brightness);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read absolute brightness");
+        
+        return brightness;
+        
+    }
+    
+    int FirewireVideo::GetBrightnessQuant() const
+    {
+        uint32_t brightness;
+        
+        err = dc1394_feature_get_value(camera, DC1394_FEATURE_BRIGHTNESS, &brightness);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read quantised brightness");
+        
+        return brightness;
+    }
+        
+    float FirewireVideo::GetBrightnessMax() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return max;
+    }
+    
+    float FirewireVideo::GetBrightnessMin() const
+    {
+        float min, max;
+        
+        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return min;
+    }
+    
+    int FirewireVideo::GetBrightnessQuantMax() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return max;
+    }
+    
+    int FirewireVideo::GetBrightnessQuantMin() const
+    {
+        uint32_t min, max;
+        
+        err = dc1394_feature_get_boundaries(camera, DC1394_FEATURE_BRIGHTNESS, &min, &max);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Failed to read shutter");
+        
+        return min;
+    }
+        
+    /*-----------------------------------------------------------------------
+     *  FRAMERATE
+     *-----------------------------------------------------------------------*/  
+
+    /*-----------------------------------------------------------------------
+     *  TILT
+     *-----------------------------------------------------------------------*/   
+    
+    /*-----------------------------------------------------------------------
+     *  PAN
+     *-----------------------------------------------------------------------*/
+        
     /*-----------------------------------------------------------------------
      *  TRIGGERS
      *-----------------------------------------------------------------------*/
 
+
     void FirewireVideo::SetInternalTrigger() 
     {
-        dc1394error_t err = dc1394_external_trigger_set_power(camera, DC1394_OFF);
-        if (err < 0) {
+        err = dc1394_external_trigger_set_power(camera, DC1394_OFF);
+        if ( err != DC1394_SUCCESS) {
             throw VideoException("Could not set internal trigger mode");
         }
-        }
+        
+    }
 
     void FirewireVideo::SetExternalTrigger(dc1394trigger_mode_t mode, dc1394trigger_polarity_t polarity, dc1394trigger_source_t source)
     {
-    dc1394error_t err = dc1394_external_trigger_set_polarity(camera, polarity);
-    if (err < 0) {
+    err = dc1394_external_trigger_set_polarity(camera, polarity);
+    if (err != DC1394_SUCCESS) {
         throw VideoException("Could not set external trigger polarity");
     }
 
     err = dc1394_external_trigger_set_mode(camera, mode);
-    if (err < 0) {
+    if (err != DC1394_SUCCESS) {
         throw VideoException("Could not set external trigger mode");
     }
 
     err = dc1394_external_trigger_set_source(camera, source);
-    if (err < 0) {
+    if (err != DC1394_SUCCESS) {
         throw VideoException("Could not set external trigger source");
     }
 
     err = dc1394_external_trigger_set_power(camera, DC1394_ON);
-    if (err < 0) {
+    if (err != DC1394_SUCCESS) {
         throw VideoException("Could not set external trigger power");
     }
 }
@@ -971,8 +1817,8 @@
     {
         meta_data_flags = 0x80000000 | flags;
 
-        dc1394error_t err = dc1394_set_control_register(camera, 0x12f8, meta_data_flags);
-        if (err < 0) {
+        err = dc1394_set_control_register(camera, 0x12f8, meta_data_flags);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set meta data flags");
         }
     }
@@ -980,8 +1826,8 @@
     uint32_t FirewireVideo::GetMetaDataFlags() 
     {
         uint32_t value;
-        dc1394error_t err = dc1394_get_control_register(camera, 0x12f8, &value);
-        if (err < 0) {
+        err = dc1394_get_control_register(camera, 0x12f8, &value);
+        if (err != DC1394_SUCCESS) {
             throw VideoException("Could not get meta data flags");
         }
         return value;
@@ -1201,12 +2047,13 @@
                                
                 exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(GetShutterTime());	
                 exifData["Exif.Photo.ShutterSpeedValue"] = Exiv2::Rational(1, 1);
-
+                /*
                 //exifData["Exif.Photo.ISOSpeed"] = int32_t(-2); 
                 exifData["Exif.Photo.WhiteBalance"] = uint16_t(1);
                 exifData["Exif.Photo.GainControl"] = uint16_t(1);
                 exifData["Exif.Photo.Saturation"] = uint16_t(1);
                 exifData["Exif.Photo.Sharpness"] = uint16_t(1);
+                */
                 
                 // some other potentially useful ones
                 //exifData["Exif.Photo.DateTimeOriginal"] = "Date/Time";
@@ -1297,10 +2144,37 @@
                 throw VideoException("Could not set auto gain mode");
             }
             
-            // White Balance
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
+            // Gamma
+            
+            err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
             if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto white balance mode");
+                throw VideoException("Could not set gamma feature on");
+            }
+            
+            err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_GAMMA, 1);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set absolute gamma value to 1.0 ");
+            }
+            
+            err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_OFF);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set gamma feature off");
+            }
+            
+            // Hue
+            err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_ON);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set hue feature on");
+            }
+            
+            err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_HUE, 0);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set absolute hue value to 0");
+            }
+            
+            err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_OFF);
+            if (err != DC1394_SUCCESS) {
+                throw VideoException("Could not set hue feature off");
             }
             
             // White Balance
