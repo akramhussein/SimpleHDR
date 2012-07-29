@@ -284,7 +284,7 @@
     void SetExposure(float val);
     
     //! set quantised exposure
-    void SetExposureQuant(int exposure);
+    void SetExposureQuant(int val);
      
     //! return absolute exposure value
     float GetExposure() const;
@@ -595,13 +595,15 @@
                         int frame_number,      // current frame number
                         unsigned char* image,  // empty image buffer -- to go in future
                         bool wait,             // defaults = true
-                        bool jpg           // true => converts ppm to jpg (default = false)
+                        const char* folder,     // folder name
+                        bool jpg               // true => converts ppm to jpg (default = false)
                    ); 
     
     //! Use one shot frame grab and save to .ppm (for jpg, set to true)
     bool SaveOneShot(     
                         int frame_number,     // current frame number
                         unsigned char* image, // empty image buffer -- to go in future
+                        const char* folder,   // folder name
                         bool jpg              // if true; converts ppm to jpg
                      );
     
@@ -609,6 +611,7 @@
     bool SaveFile(    
                         int frame_number,           // current frame number
                         dc1394video_frame_t *frame, // frame buffer
+                        const char* folder,           // folder name
                         bool jpg = false            // jpg save: defaults to false
                 );
         

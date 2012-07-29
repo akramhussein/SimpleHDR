@@ -835,7 +835,7 @@
         }
     }
     
-    void FirewireVideo::SetExposureQuant(int exposure)
+    void FirewireVideo::SetExposureQuant(int val)
     {
         
         err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_MANUAL);
@@ -849,7 +849,7 @@
             throw VideoException("Could not turn off absolute control for exposure");
         }
         
-        err = dc1394_feature_set_value(camera,DC1394_FEATURE_EXPOSURE, exposure);
+        err = dc1394_feature_set_value(camera,DC1394_FEATURE_EXPOSURE, val);
         
         if( err != DC1394_SUCCESS )
             throw VideoException("Failed to set exposure");
@@ -2059,6 +2059,7 @@
                                   int frame_number, 
                                   unsigned char* image, 
                                   bool wait,
+                                  const char* folder,
                                   bool jpg
                                   )
     {
@@ -2076,7 +2077,7 @@
             dc1394_capture_enqueue(camera,frame);
         }
         
-        SaveFile(frame_number, frame, true);
+        SaveFile(frame_number, frame, folder, jpg);
 
         return true;       
         
@@ -2086,6 +2087,7 @@
     bool FirewireVideo::SaveOneShot(    
                                     int frame_number,
                                     unsigned char* image,
+                                    const char* folder,
                                     bool jpg
                                     ) 
     {
@@ -2103,7 +2105,7 @@
             dc1394_capture_enqueue(camera,frame);
         }
         
-        SaveFile(frame_number, frame, true);
+        SaveFile(frame_number, frame, folder, jpg);
 
         return true;            
     }
@@ -2111,6 +2113,7 @@
     bool FirewireVideo::SaveFile(
                                  int frame_number, 
                                  dc1394video_frame_t *frame, 
+                                 const char* folder, 
                                  bool jpg
                                  )
     {
@@ -2131,7 +2134,11 @@
         
         
         // save image
-        sprintf(filename_ppm, "./ppm/%s%d%s", "hdr0000", frame_number, ".ppm");
+        
+        mkdir(folder, 0755);
+
+        
+        sprintf(filename_ppm, "./%s/ppm/%s%d%s", folder, "image0000", frame_number, ".ppm");
         
         imagefile = fopen(filename_ppm, "wb");
         
@@ -2151,7 +2158,7 @@
             // make threaded or post-process
             // ultimately skip PPM and make seperate function
             
-            sprintf(filename_jpg, "./jpg/%s%d%s", "hdr0000", frame_number, ".jpg");
+            sprintf(filename_jpg, "./%s/jpg/%s%d%s", folder, "image0000", frame_number, ".jpg");
             
             Magick::Image img;
             img.read(filename_ppm);
@@ -2422,7 +2429,7 @@
             
             sleep(1/30);
             
-            SaveFrame(frame_number, image, true, true);
+            SaveFrame(frame_number, image, true, "response", true);
 
             shutter += step;
         }

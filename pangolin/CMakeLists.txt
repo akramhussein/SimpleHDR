@@ -37,7 +37,7 @@ ENDIF()
 
 FIND_PACKAGE(OpenGL REQUIRED QUIET)
 FIND_PACKAGE(GLEW REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS thread REQUIRED QUIET)
+FIND_PACKAGE(Boost COMPONENTS thread filesystem REQUIRED QUIET)
 FIND_PACKAGE(ImageMagick COMPONENTS Magick++ REQUIRED QUIET)
 
 ## Apply required dependencies settings
@@ -138,25 +138,13 @@ IF(BUILD_PANGOLIN_VIDEO AND OPENNI_FOUND)
   MESSAGE(STATUS "OpenNI Found and Enabled")
 ENDIF()
 
-# not needed anymore -- remove later when sure
-#FIND_PACKAGE(EXIF QUIET)
-#IF(BUILD_PANGOLIN_VIDEO AND EXIF_FOUND)
-#  SET(HAVE_EXIF 1)
-#  LIST(APPEND INTERNAL_INC  ${EXIF_INCLUDE_DIRS} )
-#  LIST(APPEND LINK_LIBS ${EXIF_LIBRARIES} )
-#  LIST(APPEND SOURCES video/firewire.h video/firewire.cpp)
-#
-#  MESSAGE(STATUS "libexif Found and Enabled")
-#ENDIF()
-
 FIND_PACKAGE(EXIV2 QUIET)
 IF(BUILD_PANGOLIN_VIDEO AND EXIV2_FOUND)
   SET(HAVE_EXIV2 1)
   LIST(APPEND INTERNAL_INC  ${EXIV2_INCLUDE_DIRS} )
   LIST(APPEND LINK_LIBS ${EXIV2_LIBRARIES} )
   LIST(APPEND SOURCES video/firewire.h video/firewire.cpp)
-
-  MESSAGE(STATUS "EXIV2 Found and Enabled")
+    MESSAGE(STATUS "Exiv2 Found and Enabled")
 ENDIF()
 
 #######################################################
