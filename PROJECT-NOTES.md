@@ -6,15 +6,9 @@ Last updated: 23/07/2012
 TO DO
 =====
 
-Extract shutter/exposure etc data from Camera
----------------------------------------------
-See Jan's MetaData functions
-Need to save to Exif
-
 Write EXIF Data 
 -----------------------
-Need to extract EXIF data from camera per frame and write to JPG version.
-See http://libexif.sourcearchive.com/documentation/0.6.18-1/cam__features_8c-source.html
+Exiv2 -- works but not all tags write 
 
 Camera Response Function 
 ------------------------
@@ -27,7 +21,7 @@ See notes/Ask Jan
 
 Tone map
 ------------------------
-pfs
+pfstools/mo/calibrate
 
 Motion correction
 ------------------------
@@ -59,7 +53,7 @@ REFACTORING
 
 SaveFile()
 ----------
-Find appropriate implement functionality to save files and for better workflow
+Find appropriate  way to implement functionality to save files and for better workflow
 Currently running grab frame --> save frame in loop, a bit inefficient
 
 
@@ -82,3 +76,9 @@ NOTES: added script to remove before build and create new folders after build.
 Can addmkdir("ppm", 0755);
 mkdir("jpg", 0755);
 for POSIX version to main or boost::filesystem for universal method
+
+
+Extract shutter/exposure etc data from Camera
+---------------------------------------------
+See Jan's MetaData functions
+Need to save to Exif

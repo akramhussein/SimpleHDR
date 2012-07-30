@@ -6,7 +6,6 @@
 
 #include <sys/stat.h>
 #include <iostream>
-#include <iomanip>
 
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
@@ -69,31 +68,35 @@ int main( int argc, char* argv[] )
     static Var<bool> record("ui.Record",false,false);
     static Var<bool> capture("ui.Capture Frame",false,false);
     static Var<bool> capture_hdr("ui.Capture HDR Frame",false,false);
+    
     static Var<bool> hdr("ui.HDR Mode",false,true);
+    static Var<float> short_exposure("ui.Short Exposure",0);
+    static Var<float> long_exposure("ui.Long Exposure",0);
+    
     //static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
     //static Var<bool> motion("ui.Motion Correction",false,true);
     static Var<bool> manual("ui.Manual Camera Settings",false,true);
-
     static Var<bool> print("ui.Print",false,false);
     
     // camera settings
-    //static Var<float> shutter("ui.Shutter",video.GetShutterTimeQuant(),video.GetShutterTimeQuantMin()+numeric_limits<double>::epsilon(),video.GetShutterTimeQuantMax(), false);
     static Var<float> shutter("ui.Shutter (s)",video.GetShutterTime(),video.GetShutterTimeMin(),video.GetShutterTimeMax(), true);
-    static Var<float> exposure("ui.Exposure (EV)",video.GetExposure(),video.GetExposureMin(),video.GetExposureMax(), false);      //faulty  
+    static Var<float> exposure("ui.Exposure (EV)",video.GetExposure(),video.GetExposureMin(),video.GetExposureMax(), false);            //faulty  
     static Var<float> brightness("ui.Brightness (%)",video.GetBrightness(),video.GetBrightnessMin(),video.GetBrightnessMax(), false); 
     static Var<float> gain("ui.Gain (dB)",video.GetGain(),video.GetGainMin(),video.GetGainMax(), false);
     static Var<float> gamma("ui.Gamma",video.GetGamma(),video.GetGammaMin(),video.GetGammaMax(), false);
     static Var<float> saturation("ui.Saturation (%)",video.GetSaturation(),video.GetSaturationMin(),video.GetSaturationMax(), false);
-    static Var<int> hue("ui.Hue (deg)",video.GetHueQuant(),video.GetHueQuantMin(),video.GetHueQuantMax(), false);
+    static Var<int> hue("ui.Hue (deg)",video.GetHue(),video.GetHueMin(),video.GetHueMax(), false);
     static Var<int> sharpness("ui.Sharpness",video.GetSharpnessQuant(),video.GetSharpnessQuantMin(),video.GetSharpnessQuantMax(), false);
-    static Var<float> framerate("ui.Framerate (fps)",video.GetFramerate(),video.GetFramerateMin(),video.GetFramerateMax(), true);
-    //static Var<float> tilt("ui.Tilt",0,0,100);
-    //static Var<float> pan("ui.Pan",0,0,100);
-     
+    
+    //static Var<float> whitebalance("ui.White Balance",video.GetWhiteBalance(),video.GetWhiteBalanceMin(),video.GetWhiteBalanceMax(), false);
+    //static Var<float> framerate("ui.Framerate (fps)",video.GetFramerate(),video.GetFramerateMin(),video.GetFramerateMax(), true);
+    //static Var<int> tilt("ui.Tilt",video.GetTiltQuant(),video.GetTiltQuantMin(),video.GetTiltQuantMax(), false);
+    //static Var<int> pan("ui.Pan",video.GetPanQuant(),video.GetPanQuantMin(),video.GetPanQuantMax(), false);
+    
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
     
     // info
-    static Var<float> current_framerate("ui.Framerate (fps)",0);
+    //static Var<float> current_framerate("ui.Framerate (fps)",0);
     static Var<int> recorded_frames("ui.Recorded Frames",0);
     //static Var<bool> reset_frame("ui.Reset Frame Count",false,false);
     static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
@@ -107,23 +110,12 @@ int main( int argc, char* argv[] )
     bool save = false;
     
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
-    {
-        //cout << "Exposure: " << video.GetExposure() << endl;
-        //cout << "Exposure Quant: " << video.GetExposureQuant() << endl;
-        
-        
+    {        
         if(pangolin::HasResized())
             DisplayBase().ActivateScissorAndClear();
         
-        //current_frame.operator=(frame_number);
-        current_framerate.operator=(video.GetFramerate());
-        
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
-        if(pangolin::Pushed(capture_hdr)){
-            //hdr_frame(); -- TO DO
-        }
-            
+ 
         if(pangolin::Pushed(reset)){
             shutter.Reset();
             exposure.Reset();
@@ -133,8 +125,10 @@ int main( int argc, char* argv[] )
             saturation.Reset();
             hue.Reset();
             sharpness.Reset();
-            framerate.Reset();
-            
+            //whitebalance.Reset();
+            //framerate.Reset();
+            //pan.Reset();
+            //tilt.Reset();
         }
         
         if(pangolin::Pushed(print)){
@@ -145,75 +139,78 @@ int main( int argc, char* argv[] )
             cout << "Gain: " << video.GetGain() << endl;
             cout << "Gamma: " << video.GetGamma() << endl;
             cout << "Saturation: " << video.GetSaturation() << endl;
-            cout << "Hue: " << video.GetHueQuant() << endl;
+            cout << "Hue: " << video.GetHue () << endl;
             cout << "Sharpness: " << video.GetSharpnessQuant() << endl;
-            cout << "Framerate: " << video.GetFramerate() << endl << endl;            
-            
+            //cout << "WhiteBalance: " << video.GetWhiteBalance() << endl;
+            //cout << "Framerate: " << video.GetFramerate() << endl;
+            //cout << "Pan: " << video.GetPanquant() << endl;
+            //cout << "Tilt: " << video.GetTiltQuant() << endl;
+                    
         }
-        
-        if( hdr ) {
-            if (over_exposed){
-                //cout << "Over" << endl;
-                video.SetShutterTimeQuant(150);
-                over_exposed = false;
-                //cout << video.GetShutterTimeQuant() << endl;
-            }
-            else {
-                //cout << "Under" << endl;
-                video.SetShutterTimeQuant(100);
-                over_exposed = true;
-                //cout << video.GetShutterTimeQuant() << endl;
-            }
-        }
-        else{
-            video.SetAutoAll();
-        }
-        
-        if (manual){ 
+
+        if ( manual && !hdr){
             video.SetShutterTime(shutter);
+        }
+        
+        if ( manual ){ 
             video.SetExposure(exposure);
             video.SetBrightness(brightness);
             video.SetGain(gain);
             video.SetGamma(gamma);
             video.SetSaturation(saturation);
-            video.SetHueQuant(hue);
+            video.SetHue(hue);
             video.SetSharpnessQuant(sharpness);
-            video.SetFramerate(framerate);
-            
+            //video.SetWhiteBalance(whitebalance);
+            //video.SetFramerate(framerate);
+            //video.SetPanQuant(pan);
+            //video.SetTiltQuant(tilt);
+        } 
+        
+        else if( !manual && !hdr){
+             video.SetAutoAll();
         }
         
-        if(pangolin::Pushed(capture)){ video.SaveFrame(frame_number, img, true, "single", true); } 
-        
-        if(pangolin::Pushed(capture_hdr)){ /**/ } 
-
-        /*
-        if(pangolin::Pushed(reset_frame)){ 
-            frame_number = 0; 
-            recorded_frames.operator=(frame_number);
+        if( hdr ) {
+            if (over_exposed){
+                video.SetShutterTimeQuant(150);
+                over_exposed = false;
+                short_exposure.operator=(video.GetShutterTime());
+            }
+            else {
+                video.SetShutterTimeQuant(100);
+                over_exposed = true;
+                long_exposure.operator=(video.GetShutterTime());
+            }
         }
-        */
+        else {
+            short_exposure.Reset();
+            long_exposure.Reset();
+        }
+        
+        if( pangolin::Pushed(capture) ){ video.SaveFrame(frame_number, img, true, "single", true); } 
+        
+        if( pangolin::Pushed(capture_hdr) ){ /**/ } 
         
         // start/stop recording
-        if (!save && pangolin::Pushed(record)){ 
+        if ( save && pangolin::Pushed(record) ){ save = false; }
+
+        if ( !save && pangolin::Pushed(record) ){ 
             save = true; 
             frame_number = 0; 
             recorded_frames.operator=(frame_number);
         }
-        
-        if (save && pangolin::Pushed(record)){ save = false; }
 
         // save mode
-        if (save && hdr){
+        if ( save && hdr ){
             // wait 1/30th of a second to sync change in settings and display
             boost::this_thread::sleep(boost::posix_time::seconds(1/30));
             video.SaveFrame(frame_number, img, true, "hdr", true); 
             recorded_frames.operator=(frame_number);
-            
         } 
-        else if (save){
+        else if ( save ){
             video.SaveFrame(frame_number, img, true, "normal", true);  
             recorded_frames.operator=(frame_number);
-        }        
+        } 
         else {
             video.GrabOneShot(img);
         }

@@ -32,11 +32,8 @@
 
     #include <pangolin/pangolin.h>
     #include <pangolin/video.h>
-
     #include <dc1394/dc1394.h>
-
     #include <ImageMagick/Magick++.h>
-
     #include <exiv2/exiv2.hpp>
 
     #ifndef _WIN32
@@ -530,8 +527,6 @@
     /*-----------------------------------------------------------------------
      *  FRAMERATE
      *-----------------------------------------------------------------------*/  
-       
-    
      
     //! set framerate auto
     void SetAutoFramerate();
@@ -656,6 +651,7 @@
     //! generate camera response function and save to file
     void GetResponseFunction();
     
+        
     protected:
 
     void init_camera(

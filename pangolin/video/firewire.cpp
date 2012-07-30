@@ -2292,9 +2292,9 @@
                 throw VideoException("Could not set hue feature on");
             }
             
-            err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_HUE, 0);
+            err = dc1394_feature_set_value(camera, DC1394_FEATURE_HUE, 2048);
             if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set absolute hue value to 0");
+                throw VideoException("Could not set hue value to 2048");
             }
             
             err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_OFF);
@@ -2386,8 +2386,8 @@
 
     void FirewireVideo::GetResponseFunction(){
         
-        float min, max, step, shutter;
-        step = 0.0005;
+        float min, max, step_size, shutter;
+        int no_steps = 10; // grab 10 frames
         
         SetAutoAll();
         
@@ -2395,6 +2395,13 @@
         if( err != DC1394_SUCCESS ){
             throw VideoException("Failed to read shutter");
         }
+        
+        shutter = (max - min)/2; // first half of shutter range is black
+        step_size = shutter/no_steps;
+        
+        cout << "Min: " << min << endl;
+        cout << "Max: " << max << endl;
+        cout << "Step Size: " << step_size << endl;
         
         err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
         if (err != DC1394_SUCCESS) {
@@ -2405,15 +2412,7 @@
         if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set absolute control for shutter");
         }
-        
-        shutter = (max - min)/2 + min; // first half of shutter range is black
-            
-        cout << "Min: " << min << endl;
-        cout << "Max: " << max << endl;
-        cout << "Step Size: " << step << endl;
-        
-        //mkdir("./responsefunction", 0755);
-        
+                
         unsigned char* image = new unsigned char[SizeBytes()];
         
         for(int frame_number = 0; shutter <= max ; frame_number++){
@@ -2421,17 +2420,23 @@
             cout << "frame number: " << frame_number << endl;
             cout << "shutter value: " << shutter << endl;
             
-
             err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter);
             if (err != DC1394_SUCCESS) {
                 throw VideoException("Could not set shutter value");
             }
             
-            sleep(1/30);
+            sleep(1/30); // pause 1/30th second 
             
             SaveFrame(frame_number, image, true, "response", true);
 
-            shutter += step;
+            shutter += step_size;
+            
+            
+        }
+        
+        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set auto shutter mode");
         }
         
         // run hdrgen script
