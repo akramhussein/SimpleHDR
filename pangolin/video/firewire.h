@@ -582,9 +582,11 @@
     );      
     
     /*-----------------------------------------------------------------------
-     *  SAVING
+     *  RECORDING/SAVING
      *-----------------------------------------------------------------------*/
-    
+
+                
+        
     //! Use standard frame grab and save to .ppm (for jpg, set to true)
     bool SaveFrame(     
                         int frame_number,      // current frame number
@@ -593,7 +595,8 @@
                         const char* folder,     // folder name
                         bool jpg               // true => converts ppm to jpg (default = false)
                    ); 
-    
+        
+
     //! Use one shot frame grab and save to .ppm (for jpg, set to true)
     bool SaveOneShot(     
                         int frame_number,     // current frame number
@@ -602,6 +605,9 @@
                         bool jpg              // if true; converts ppm to jpg
                      );
     
+        
+        
+        
     //! Save image file to ppm or jpg
     bool SaveFile(    
                         int frame_number,           // current frame number

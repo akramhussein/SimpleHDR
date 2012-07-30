@@ -2082,8 +2082,8 @@
         return true;       
         
     }
-
-
+                                   
+                                       
     bool FirewireVideo::SaveOneShot(    
                                     int frame_number,
                                     unsigned char* image,

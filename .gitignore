@@ -22,4 +22,5 @@
 *.avi
 
 # Build directory (inc images)
-build/
+build/Pangolin-hdr.xcodeproj/project.xcworkspace/xcuserdata/akram.xcuserdatad/UserInterfaceState.xcuserstate
+build/*/Debug/

@@ -6,6 +6,7 @@
 
 #include <sys/stat.h>
 #include <iostream>
+#include <time.h>
 
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
@@ -61,22 +62,24 @@ int main( int argc, char* argv[] )
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
     pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));    // reset settings
-    pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                    // print settings
+                                                                                                        //pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                    // print settings
     //pangolin::RegisterKeyPressCallback( 'f', SetVarFunctor<bool>("ui.Reset Frame Count", true));
     
-    // options
+    // capture options
     static Var<bool> record("ui.Record",false,false);
     static Var<bool> capture("ui.Capture Frame",false,false);
     static Var<bool> capture_hdr("ui.Capture HDR Frame",false,false);
     
+    // hdr controls
     static Var<bool> hdr("ui.HDR Mode",false,true);
-    static Var<float> short_exposure("ui.Short Exposure",0);
-    static Var<float> long_exposure("ui.Long Exposure",0);
-    
+    static Var<float> short_exposure("ui.Short Exposure (s)",0.00);
+    static Var<float> long_exposure("ui.Long Exposure (s)",0.00);
     //static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
     //static Var<bool> motion("ui.Motion Correction",false,true);
+    
+    //other options
     static Var<bool> manual("ui.Manual Camera Settings",false,true);
-    static Var<bool> print("ui.Print",false,false);
+    //static Var<bool> print("ui.Print",false,false);
     
     // camera settings
     static Var<float> shutter("ui.Shutter (s)",video.GetShutterTime(),video.GetShutterTimeMin(),video.GetShutterTimeMax(), true);
@@ -95,10 +98,9 @@ int main( int argc, char* argv[] )
     
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
     
-    // info
+    // general info
     //static Var<float> current_framerate("ui.Framerate (fps)",0);
     static Var<int> recorded_frames("ui.Recorded Frames",0);
-    //static Var<bool> reset_frame("ui.Reset Frame Count",false,false);
     static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
     static Var<string> model("ui.Model", video.GetCameraModel());
 
@@ -131,6 +133,7 @@ int main( int argc, char* argv[] )
             //tilt.Reset();
         }
         
+        /*
         if(pangolin::Pushed(print)){
             
             cout << "Shutter: " << video.GetShutterTime() << endl;
@@ -147,7 +150,8 @@ int main( int argc, char* argv[] )
             //cout << "Tilt: " << video.GetTiltQuant() << endl;
                     
         }
-
+        */
+        
         if ( manual && !hdr){
             video.SetShutterTime(shutter);
         }
@@ -187,7 +191,22 @@ int main( int argc, char* argv[] )
             long_exposure.Reset();
         }
         
-        if( pangolin::Pushed(capture) ){ video.SaveFrame(frame_number, img, true, "single", true); } 
+        if( pangolin::Pushed(capture) ){ 
+            
+            time_t now;
+            char the_date[12];
+            
+            the_date[0] = '\0';
+            
+            now = time(NULL);
+            
+            if (now != -1)
+            {
+                strftime(the_date, 12, "%X_%x", gmtime(&now));
+            }
+            
+            video.SaveFrame(frame_number, img, true, "single", true); 
+        } 
         
         if( pangolin::Pushed(capture_hdr) ){ /**/ } 
         
