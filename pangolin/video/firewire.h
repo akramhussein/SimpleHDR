@@ -29,6 +29,7 @@
     #define PANGOLIN_FIREWIRE_H
 
     #include <sys/stat.h>
+    #include <vector>
 
     #include <pangolin/pangolin.h>
     #include <pangolin/video.h>
@@ -43,6 +44,8 @@
     namespace pangolin
     {
 
+
+        
     std::string Dc1394ColorCodingToString(dc1394color_coding_t coding);
 
     dc1394color_coding_t Dc1394ColorCodingFromString(std::string coding);
@@ -234,338 +237,75 @@
     void PutFrame(FirewireFrame& frame);
         
     /*-----------------------------------------------------------------------
-     *  SHUTTER
-     *-----------------------------------------------------------------------*/
+     *  FEATURE CONTROL
+     *-----------------------------------------------------------------------*/    
 
-    //! set auto shutter value
-    void SetAutoShutterTime();
-
-    //! set manual shutter
-    void SetManualShutterTime();
-
-    //! set absolute shutter value
-    void SetShutterTime(float val);
-
-    //! return quantised shutter value
-    void SetShutterTimeQuant(int shutter);  
-
-    //! return absolute shutter value
-    float GetShutterTime() const;
-
-    //! return the quantised shutter time
-    int GetShutterTimeQuant() const;
-    
-    //! return max shutter time value
-    float GetShutterTimeMax() const;
-       
-    //! return min shutter time value
-    float GetShutterTimeMin() const;
-    
-    //! return max quantised shutter time value
-    int GetShutterTimeQuantMax() const;
-    
-    //! return min quantised shutter time value
-    int GetShutterTimeQuantMin() const;
-    
-    /*-----------------------------------------------------------------------
-     *  EXPOSURE
-     *-----------------------------------------------------------------------*/
-      
-    //! set auto exposure
-    void SetAutoExposure();
-    
-    //! set manual exposure
-    void SetManualExposure();
-        
-    //! set absolute exposure value
-    void SetExposure(float val);
-    
-    //! set quantised exposure
-    void SetExposureQuant(int val);
+    //!Set all to auto
+    void SetAllFeaturesAuto();
      
-    //! return absolute exposure value
-    float GetExposure() const;
+    //!Set all to auto
+    void SetAllFeaturesManual();
+        
+    //! set feature to auto mode
+    void SetFeatureAuto(dc1394feature_t feature);
     
-    //! return quantised exposure
-    int GetExposureQuant() const;
+    //! set feature to manual mode
+    void SetFeatureManual(dc1394feature_t feature);
+    
+    //! set feature on
+    void SetFeatureOn(dc1394feature_t feature);
+    
+    //! set feature off
+    void SetFeatureOff(dc1394feature_t feature);
+           
+    //! set feature absolute value
+    void SetFeatureValue(dc1394feature_t feature, float value);
+    
+    //! set feature quantised value
+    void SetFeatureQuant(dc1394feature_t feature, int value);
+    
+    //! check if feature is on or off
+    bool GetFeaturePower(dc1394feature_t feature);
+        
+    //! check current mode (auto [0] or manual [1])
+    int GetFeatureMode(dc1394feature_t feature) const;
+        
+    //! get feature absolute value
+    float GetFeatureValue(dc1394feature_t feature) const;
+    
+    //! get feature quantised value
+    int GetFeatureQuant(dc1394feature_t feature) const;
+    
+    //! get feature max absolute value
+    float GetFeatureValueMax(dc1394feature_t feature) const;
 
-    //! return max exposure time value
-    float GetExposureMax() const;
+    //! get feature min absolute value
+    float GetFeatureValueMin(dc1394feature_t feature) const;
     
-    //! return min exposure time value
-    float GetExposureMin() const;
+    //! get feature max quantised value
+    int GetFeatureQuantMax(dc1394feature_t feature) const;
     
-    //! return max quantised exposure value
-    int GetExposureQuantMax() const;
-    
-    //! return min quantised exposure value
-    int GetExposureQuantMin() const;
-        
-    /*-----------------------------------------------------------------------
-     *  BRIGHTNESS
-     *-----------------------------------------------------------------------*/   
-    
-    //! set auto brightness mode
-    void SetAutoBrightness();            // doesn't exist for point grey
-    
-    //! set manual brightness mode
-    void SetManualBrightness();      
-    
-    //! set absolute brightness value 
-    void SetBrightness(float val);       
-    
-    //! set quantised brightness value 
-    void SetBrightnessQuant(int val);    // doesn't exist for point grey
-    
-    //! return absolute brightness value 
-    float GetBrightness() const;        
-    
-    //! return quantised brightness value 
-    int GetBrightnessQuant() const;      // doesn't exist for point grey
-        
-    //! return max brightness value
-    float GetBrightnessMax() const;
-    
-    //! return min brightness value
-    float GetBrightnessMin() const;
-    
-    //! return max quantised brightness value
-    int GetBrightnessQuantMax() const;
-    
-    //! return min quantised brightness value
-    int GetBrightnessQuantMin() const;
-        
-    /*-----------------------------------------------------------------------
-     * GAIN
-     *-----------------------------------------------------------------------*/
-
-    //! set auto gain 
-    void SetAutoGain();
-        
-    //! set manual gain
-    void SetManualGain();
-
-    //! set absolute gain value
-    void SetGain(float val);
-        
-    //! set quantised gain value
-    void SetGainQuant(int val);
-
-    //! return absolute gain value
-    float GetGain() const;
-        
-    //! return the quantised gain
-    int GetGainQuant() const;
-        
-    //! return max gain value
-    float GetGainMax() const;
-    
-    //! return min gain value
-    float GetGainMin() const;
-    
-    //! return max quantised gain value
-    int GetGainQuantMax() const;
-    
-    //! return min quantised gain value
-    int GetGainQuantMin() const;
-
-   /*-----------------------------------------------------------------------
-    *  GAMMA
-    *-----------------------------------------------------------------------*/
-    
-    //! set gamma on 
-    void SetGammaOn();
-     
-    //! set manual off
-    void SetGammaOff();
+    //! get feature min quantised value
+    int GetFeatureQuantMin(dc1394feature_t feature) const;
     
     //! Reset gamma to 1.0
     void ResetGamma();
-        
-    //! set absolute gamma value
-    void SetGamma(float val); 
     
-    //! set quantised gamma value
-    void SetGammaQuant(int val); 
-        
-    //! return absolute gamma value
-    float GetGamma() const;
-    
-    //! return the quantised gamma
-    int GetGammaQuant() const;
-        
-    //! return max gamma value
-    float GetGammaMax() const;
-    
-    //! return min gamma value
-    float GetGammaMin() const;
-    
-    //! return max quantised gamma value
-    int GetGammaQuantMax() const;
-    
-    //! return min quantised gamma value
-    int GetGammaQuantMin() const;
-    
+    //! Reset gamma to 0
+    void ResetHue();
+
     /*-----------------------------------------------------------------------
-     *  WHITE BALANCE
+     *  WHITE BALANCE CONTROLS
      *-----------------------------------------------------------------------*/
       
     //! set the white balance to single shot auto
     void SetSingleAutoWhiteBalance();
-        
+           
     //! set the white balance
     void SetWhiteBalance(unsigned int u_b_value, unsigned int v_r_value);
 
     //! get the white balance
     void GetWhiteBalance(unsigned int *Blue_U_val, unsigned int *Red_V_val);
-        
-    /*-----------------------------------------------------------------------
-     *  SATURATION
-     *-----------------------------------------------------------------------*/     
-
-    //! set auto saturation mode
-    void SetAutoSaturation();
-     
-    //! set manual saturation mode
-    void SetManualSaturation();
-        
-    //! set saturation value
-    void SetSaturation(float val); 
-        
-    //! set quantised saturation value
-    void SetSaturationQuant(int val); 
-    
-    //! return saturation value
-    float GetSaturation() const; 
-     
-    //! return quantised saturation value
-    int GetSaturationQuant() const;
-    
-    //! return max saturation value
-    float GetSaturationMax() const;
-    
-    //! return min saturation value
-    float GetSaturationMin() const;
-    
-    //! return max quantised saturation value
-    int GetSaturationQuantMax() const;
-    
-    //! return min quantised saturation value
-    int GetSaturationQuantMin() const;
-        
-    /*-----------------------------------------------------------------------
-     *  HUE
-     *-----------------------------------------------------------------------*/     
-           
-    //! set gamma on 
-    void SetHueOn();
-    
-    //! set manual off
-    void SetHueOff();
-    
-    //! Reset gamma to 0
-    void ResetHue();
-        
-    //! set hue value
-    void SetHue(float val); 
-    
-    //! set hue value
-    void SetHueQuant(int val); 
-    
-    //! return hue value
-    float GetHue() const; 
-
-    //! return hue value
-    int GetHueQuant() const; 
-        
-    //! return max hue value
-    float GetHueMax() const;
-    
-    //! return min hue value
-    float GetHueMin() const;
-    
-    //! return max quantised hue value
-    int GetHueQuantMax() const;
-    
-    //! return min quantised hue value
-    int GetHueQuantMin() const;
-        
-    /*-----------------------------------------------------------------------
-     *  SHARPNESS
-     *-----------------------------------------------------------------------*/    
-     
-    //! set auto sharpness mode
-    void SetAutoSharpness();        
-    
-    //! set manual sharpness mode
-    void SetManualSharpness();      
-
-    //! set absolute sharpness value 
-    void SetSharpness(float val);       // doesn't exist for point grey
-        
-    //! set quantised sharpness value 
-    void SetSharpnessQuant(int val);
-    
-    //! return absolute sharpness value 
-    float GetSharpness() const;         // doesn't exist for point grey
-    
-    //! return quantised sharpness value 
-    int GetSharpnessQuant() const;
-        
-    //! return max sharpness value
-    float GetSharpnessMax() const;
-    
-    //! return min sharpness value
-    float GetSharpnessMin() const;
-    
-    //! return max quantised sharpness value
-    int GetSharpnessQuantMax() const;
-        
-    //! return min quantised sharpness value
-    int GetSharpnessQuantMin() const;
-            
-    /*-----------------------------------------------------------------------
-     *  FRAMERATE
-     *-----------------------------------------------------------------------*/  
-     
-    //! set framerate auto
-    void SetAutoFramerate();
-    
-    //! set framerate auto
-    void SetManualFramerate();
-     
-    //! set framerate value
-    void SetFramerate(float val);
-     
-    //! set quantised framerate 
-    void SetFramerateQuant(int val);
-    
-    //! return framerate value
-    float GetFramerate() const;
-    
-    //! return quantised framerate
-    int GetFramerateQuant() const;
-      
-    //! return max framerate value
-    float GetFramerateMax() const;
-    
-    //! return min framerate value
-    float GetFramerateMin() const;
-    
-    //! return max quantised framerate value
-    int GetFramerateQuantMax() const;
-    
-    //! return min quantised framerate value
-    int GetFramerateQuantMin() const;
-        
-        
-    /*-----------------------------------------------------------------------
-     *  TILT
-     *-----------------------------------------------------------------------*/   
-    
-    /*-----------------------------------------------------------------------
-     *  PAN
-     *-----------------------------------------------------------------------*/
         
     /*-----------------------------------------------------------------------
      *  TRIGGERS
@@ -585,44 +325,49 @@
      *  RECORDING/SAVING
      *-----------------------------------------------------------------------*/
 
+    //! Records multiple frames to ppm  (& jpg if set to true)
+    bool RecordFrames(     
+                      int frame_number,      // current frame number
+                      unsigned char* image,  // empty image buffer -- to go in future
+                      bool wait,             // defaults = true
+                      bool jpg,               // true => converts ppm to jpg (default = false)
+                      bool hdr               // if hdr
+                      ); 
+        
+    //! Records multiple frames using 'One Shot' mode to ppm  (& jpg if set to true)
+    bool RecordFramesOneShot(   
+                              int frame_number,     // current frame number
+                              unsigned char* image, // empty image buffer -- to go in future
+                              bool jpg,             // if true; converts ppm to jpg
+                              bool hdr              // if hdr
+                              );
                 
-        
-    //! Use standard frame grab and save to .ppm (for jpg, set to true)
-    bool SaveFrame(     
-                        int frame_number,      // current frame number
-                        unsigned char* image,  // empty image buffer -- to go in future
-                        bool wait,             // defaults = true
-                        const char* folder,     // folder name
-                        bool jpg               // true => converts ppm to jpg (default = false)
-                   ); 
-        
-
-    //! Use one shot frame grab and save to .ppm (for jpg, set to true)
-    bool SaveOneShot(     
-                        int frame_number,     // current frame number
-                        unsigned char* image, // empty image buffer -- to go in future
-                        const char* folder,   // folder name
-                        bool jpg              // if true; converts ppm to jpg
+    //! Saves one frame to ppm (& jpg if set to true)
+    bool CaptureFrame(
+                      unsigned char* image, // empty image buffer -- to go in future
+                      bool wait,             // defaults = true
+                      bool jpg              // if true; converts ppm to jpg
                      );
-    
-        
-        
+
         
     //! Save image file to ppm or jpg
     bool SaveFile(    
-                        int frame_number,           // current frame number
-                        dc1394video_frame_t *frame, // frame buffer
-                        const char* folder,           // folder name
-                        bool jpg = false            // jpg save: defaults to false
+                    int frame_number,           // current frame number
+                    dc1394video_frame_t *frame, // frame buffer
+                    const char* path,           // folder name
+                    bool jpg = false            // jpg save: defaults to false
                 );
         
     /*-----------------------------------------------------------------------
-     *  CONVERTING
+     *  CONVERTING/IMAGE PROCESSING
      *-----------------------------------------------------------------------*/
         
     // HAVEN'T TESTED! PROBABLY DOESN'T WORK
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
-           
+    
+    //! Obtains the "average scene luminance" (cd/m^2) from an image file.
+    float GetAvgLum(const std::string& filename);
+        
     /*-----------------------------------------------------------------------
      *  REPORTING
      *-----------------------------------------------------------------------*/
@@ -657,7 +402,6 @@
     //! generate camera response function and save to file
     void GetResponseFunction();
     
-        
     protected:
 
     void init_camera(

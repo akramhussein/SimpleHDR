@@ -1,467 +1,0 @@
-Tpangolin
-v5
-r1
-cCheck dependencies
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.o /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.o /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.o /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.o /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.o /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.o /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cLibtool /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a normal x86_64
-cPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Script-A3C1D047B6CC46C28A07BA88.sh
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
-c000000004F90F72900000000000000CC
-t1334900521
-s204
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pangolin.LinkFileList
-c000000005015594B000000000000056E
-t1343576395
-s1390
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Script-A3C1D047B6CC46C28A07BA88.sh
-c000000005015594B00000000000000B7
-t1343576395
-s183
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/display.cpp
-c000000005008EC0A000000000000840E
-t1342761994
-s33806
-i<iostream>
-i<sstream>
-i<map>
-i<boost/function.hpp>
-i<boost/foreach.hpp>
-i"platform.h"
-i"display.h"
-i"display_internal.h"
-i"simple_math.h"
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/display.h
-c000000005008EC0A000000000000475B
-t1342761994
-s18267
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/display_internal.h
-c000000005008EC0A00000000000008B3
-t1342761994
-s2227
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp
-c000000005008EC0A0000000000000BE5
-t1342761994
-s3045
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/platform.h
-c000000005008EC0A000000000000057F
-t1342761994
-s1407
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp
-c000000005008EC0A00000000000037E2
-t1342761994
-s14306
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/simple_math.h
-c000000005008EC0A000000000000263C
-t1342761994
-s9788
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp
-c000000005008EC0A0000000000000F53
-t1342761994
-s3923
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp
-c000000005008EC0A00000000000016E2
-t1342761994
-s5858
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/video.cpp
-c000000005008EC0A00000000000033EB
-t1342761994
-s13291
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp
-c0000000050152CBF00000000000148DD
-t1343564991
-s84189
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp
-c000000005008EC0A0000000000000B61
-t1342761994
-s2913
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp
-c000000005008EC0A0000000000000DE9
-t1342761994
-s3561
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp
-c000000005008EC0A000000000000093F
-t1342761994
-s2367
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp
-c000000005014359B0000000000003C65
-t1343501723
-s15461
-
-N/usr/local/include/boost/foreach.hpp
-c000000004F48C854000000000000B135
-t1330169940
-s45365
-
-N/usr/local/include/boost/function.hpp
-c000000004F48C8540000000000000898
-t1330169940
-s2200
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp
-r0
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp
-r0
-
-CCheck dependencies
-r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies253e4fcb90c5b541^28605fcb90c5b541^---0#1#0#--18"Check dependencies36"751C40BA-CC79-4EB5-9C59-C945E6B08BE9-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.o /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269195.376356
-e365269198.296979
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/display.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Compile /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp4a7e60cb90c5b541^af064cce90c5b541^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/display.cpp0000000000000000^2258"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.o pangolin/display.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/display.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/display.o36"22CDADFB-74EB-4F7E-8A3A-D7FCEAE357AA-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269209.900471
-e365269212.853574
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp5da6e6d990c5b541^b283dadc90c5b541^---0#0#0#-19%DVTDocumentLocation2@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp0000000000000000^2276"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o pangolin/video/firewire.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/firewire.o36"977E7006-5D9B-438D-A844-189DCDFC155C-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269200.534899
-e365269203.571418
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Compile /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp6f1089d090c5b541^624892d390c5b541^---0#0#0#-19%DVTDocumentLocation2@84"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp0000000000000000^2330"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o pangolin/input_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/input_record_repeat.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/input_record_repeat.o36"04E76A3D-28B0-4E46-B7E1-90926F6115EC-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.o /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269195.377116
-e365269198.315118
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Compile /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp2fa760cb90c5b541^d4b750ce90c5b541^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp0000000000000000^2258"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.o pangolin/plotter.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/plotter.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/plotter.o36"C5948B56-BD2F-4836-8852-8CB73088193F-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.o /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269207.509929
-e365269209.899139
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp11ac82d790c5b541^c72de6d990c5b541^---0#0#0#-19%DVTDocumentLocation2@80"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp0000000000000000^2282"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.o pangolin/video/pvn_video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video/pvn_video.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pvn_video.o36"3DACE42A-CBF0-4D2A-B75D-E12F8CD8CE17-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.o /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269198.298341
-e365269200.533437
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp:28:
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h:35:
-oIn file included from /usr/local/include/boost/thread.hpp:13:
-oIn file included from /usr/local/include/boost/thread/thread.hpp:17:
-oIn file included from /usr/local/include/boost/thread/pthread/thread_data.hpp:10:
-oIn file included from /usr/local/include/boost/shared_ptr.hpp:17:
-oIn file included from /usr/local/include/boost/smart_ptr/shared_ptr.hpp:30:
-o/usr/local/include/boost/checked_delete.hpp:34:5: warning: delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor [-Wdelete-non-virtual-dtor]
-o    delete x;
-o    ^
-o/usr/local/include/boost/smart_ptr/detail/shared_count.hpp:95:13: note: in instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o            boost::checked_delete( p );
-o            ^
-o/usr/local/include/boost/smart_ptr/shared_ptr.hpp:183:44: note: in instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o    explicit shared_ptr( Y * p ): px( p ), pn( p ) // Y must be complete
-o                                           ^
-o/usr/local/include/boost/exception/info.hpp:170:42: note: in instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o            shared_ptr<error_info_tag_t> p( new error_info_tag_t(v) );
-o                                         ^
-o/usr/local/include/boost/exception/info.hpp:191:16: note: in instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here
-o        return exception_detail::set_info(x,v);
-o               ^
-o/usr/local/include/boost/exception/detail/exception_ptr.hpp:181:21: note: in instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here
-o            (*this) << original_exception_type(&typeid(e));
-o                    ^
-o/usr/local/include/boost/exception/detail/exception_ptr.hpp:160:13: note: in instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here
-o            add_original_type(e);
-o            ^
-o1 warning generated.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Compile /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cppfd834cce90c5b541^1fba88d090c5b541^-2813"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp:28:In file included from /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h:35:In file included from /usr/local/include/boost/thread.hpp:13:In file included from /usr/local/include/boost/thread/thread.hpp:17:In file included from /usr/local/include/boost/thread/pthread/thread_data.hpp:10:In file included from /usr/local/include/boost/shared_ptr.hpp:17:In file included from /usr/local/include/boost/smart_ptr/shared_ptr.hpp:30:/usr/local/include/boost/checked_delete.hpp:34:5: warning: delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor [-Wdelete-non-virtual-dtor]    delete x;    ^/usr/local/include/boost/smart_ptr/detail/shared_count.hpp:95:13: note: in instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here            boost::checked_delete( p );            ^/usr/local/include/boost/smart_ptr/shared_ptr.hpp:183:44: note: in instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here    explicit shared_ptr( Y * p ): px( p ), pn( p ) // Y must be complete                                           ^/usr/local/include/boost/exception/info.hpp:170:42: note: in instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here            shared_ptr<error_info_tag_t> p( new error_info_tag_t(v) );                                         ^/usr/local/include/boost/exception/info.hpp:191:16: note: in instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here        return exception_detail::set_info(x,v);               ^/usr/local/include/boost/exception/detail/exception_ptr.hpp:181:21: note: in instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here            (*this) << original_exception_type(&typeid(e));                    ^/usr/local/include/boost/exception/detail/exception_ptr.hpp:160:13: note: in instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here            add_original_type(e);            ^1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@150"Delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor-365269200#18446744073709551615#0#13(2@90"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp:28:-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@80"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp0000000000000000^27#9#27#9#1232#0#21"Clang LLVM 1.0 Notice--2@88"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h:35:-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@78"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.h0000000000000000^34#9#34#9#1362#0#21"Clang LLVM 1.0 Notice--2@61"In file included from /usr/local/include/boost/thread.hpp:13:-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@51"file://localhost/usr/local/include/boost/thread.hpp0000000000000000^12#9#12#9#390#0#21"Clang LLVM 1.0 Notice--2@68"In file included from /usr/local/include/boost/thread/thread.hpp:17:-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@58"file://localhost/usr/local/include/boost/thread/thread.hpp0000000000000000^16#9#16#9#475#0#21"Clang LLVM 1.0 Notice--2@81"In file included from /usr/local/include/boost/thread/pthread/thread_data.hpp:10:-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@71"file://localhost/usr/local/include/boost/thread/pthread/thread_data.hpp0000000000000000^9#9#9#9#376#0#21"Clang LLVM 1.0 Notice--2@65"In file included from /usr/local/include/boost/shared_ptr.hpp:17:-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@55"file://localhost/usr/local/include/boost/shared_ptr.hpp0000000000000000^16#9#16#9#456#0#21"Clang LLVM 1.0 Notice--2@75"In file included from /usr/local/include/boost/smart_ptr/shared_ptr.hpp:30:-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file://localhost/usr/local/include/boost/smart_ptr/shared_ptr.hpp0000000000000000^29#9#29#9#993#0#21"Clang LLVM 1.0 Notice--2@171"In instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file://localhost/usr/local/include/boost/smart_ptr/detail/shared_count.hpp0000000000000000^94#12#94#12#2149#0#14"Semantic Issue--2@191"In instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file://localhost/usr/local/include/boost/smart_ptr/shared_ptr.hpp0000000000000000^182#43#182#43#4426#0#14"Semantic Issue--2@259"In instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/exception/info.hpp0000000000000000^169#41#169#41#4846#0#14"Semantic Issue--2@189"In instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/exception/info.hpp0000000000000000^190#15#190#15#5586#0#14"Semantic Issue--2@173"In instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@75"file://localhost/usr/local/include/boost/exception/detail/exception_ptr.hpp0000000000000000^180#20#180#20#4684#0#14"Semantic Issue--2@129"In instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here-365269200#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@75"file://localhost/usr/local/include/boost/exception/detail/exception_ptr.hpp0000000000000000^159#12#159#12#4257#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/checked_delete.hpp0000000000000000^33#4#33#4#899#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@80"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp0000000000000000^2306"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.o pangolin/threadedfilebuf.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/threadedfilebuf.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/threadedfilebuf.o36"451B0D9A-B36D-4E3D-96BB-7575EA49B333-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269198.316432
-e365269201.126892
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection61"Compile /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp892551ce90c5b541^3b8920d190c5b541^---0#0#0#-19%DVTDocumentLocation2@69"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp0000000000000000^2240"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o pangolin/vars.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/vars.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/vars.o36"266D71C0-0EB8-47FC-8436-8EF98F4CA8DA-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.o /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269203.572735
-e365269206.809758
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/video.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp2bc192d390c5b541^4d4ccfd690c5b541^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video.cpp0000000000000000^2246"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.o pangolin/video.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video.o36"E1B4CFC0-861D-4EF0-8EA6-7DBC4471C837-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269206.811108
-e365269209.990966
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp:1:
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/video_record_repeat.h:31:
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h:35:
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/plotter.h:33:
-oIn file included from /usr/local/include/boost/circular_buffer.hpp:65:
-oIn file included from /usr/local/include/boost/circular_buffer/base.hpp:19:
-oIn file included from /usr/local/include/boost/iterator/reverse_iterator.hpp:11:
-oIn file included from /usr/local/include/boost/utility.hpp:16:
-o/usr/local/include/boost/checked_delete.hpp:34:5: warning: delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor [-Wdelete-non-virtual-dtor]
-o    delete x;
-o    ^
-o/usr/local/include/boost/smart_ptr/detail/shared_count.hpp:95:13: note: in instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o            boost::checked_delete( p );
-o            ^
-o/usr/local/include/boost/smart_ptr/shared_ptr.hpp:183:44: note: in instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o    explicit shared_ptr( Y * p ): px( p ), pn( p ) // Y must be complete
-o                                           ^
-o/usr/local/include/boost/exception/info.hpp:170:42: note: in instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o            shared_ptr<error_info_tag_t> p( new error_info_tag_t(v) );
-o                                         ^
-o/usr/local/include/boost/exception/info.hpp:191:16: note: in instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here
-o        return exception_detail::set_info(x,v);
-o               ^
-o/usr/local/include/boost/exception/detail/exception_ptr.hpp:181:21: note: in instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here
-o            (*this) << original_exception_type(&typeid(e));
-o                    ^
-o/usr/local/include/boost/exception/detail/exception_ptr.hpp:160:13: note: in instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here
-o            add_original_type(e);
-o            ^
-o1 warning generated.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cppe7c7cfd690c5b541^2ec5fdd990c5b541^-2943"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp:1:In file included from /Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/video_record_repeat.h:31:In file included from /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h:35:In file included from /Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/plotter.h:33:In file included from /usr/local/include/boost/circular_buffer.hpp:65:In file included from /usr/local/include/boost/circular_buffer/base.hpp:19:In file included from /usr/local/include/boost/iterator/reverse_iterator.hpp:11:In file included from /usr/local/include/boost/utility.hpp:16:/usr/local/include/boost/checked_delete.hpp:34:5: warning: delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor [-Wdelete-non-virtual-dtor]    delete x;    ^/usr/local/include/boost/smart_ptr/detail/shared_count.hpp:95:13: note: in instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here            boost::checked_delete( p );            ^/usr/local/include/boost/smart_ptr/shared_ptr.hpp:183:44: note: in instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here    explicit shared_ptr( Y * p ): px( p ), pn( p ) // Y must be complete                                           ^/usr/local/include/boost/exception/info.hpp:170:42: note: in instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here            shared_ptr<error_info_tag_t> p( new error_info_tag_t(v) );                                         ^/usr/local/include/boost/exception/info.hpp:191:16: note: in instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here        return exception_detail::set_info(x,v);               ^/usr/local/include/boost/exception/detail/exception_ptr.hpp:181:21: note: in instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here            (*this) << original_exception_type(&typeid(e));                    ^/usr/local/include/boost/exception/detail/exception_ptr.hpp:160:13: note: in instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here            add_original_type(e);            ^1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@150"Delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor-365269209#18446744073709551615#0#14(2@93"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp:1:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@84"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp0000000000000000^0#9#0#9#9#0#21"Clang LLVM 1.0 Notice--2@104"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/video_record_repeat.h:31:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@82"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.h0000000000000000^30#9#30#9#1311#0#21"Clang LLVM 1.0 Notice--2@81"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h:35:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@71"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h0000000000000000^34#9#34#9#1386#0#21"Clang LLVM 1.0 Notice--2@92"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/../pangolin/plotter.h:33:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@70"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/plotter.h0000000000000000^32#9#32#9#1309#0#21"Clang LLVM 1.0 Notice--2@70"In file included from /usr/local/include/boost/circular_buffer.hpp:65:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@60"file://localhost/usr/local/include/boost/circular_buffer.hpp0000000000000000^64#9#64#9#2234#0#21"Clang LLVM 1.0 Notice--2@75"In file included from /usr/local/include/boost/circular_buffer/base.hpp:19:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file://localhost/usr/local/include/boost/circular_buffer/base.hpp0000000000000000^18#9#18#9#533#0#21"Clang LLVM 1.0 Notice--2@80"In file included from /usr/local/include/boost/iterator/reverse_iterator.hpp:11:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@70"file://localhost/usr/local/include/boost/iterator/reverse_iterator.hpp0000000000000000^10#9#10#9#404#0#21"Clang LLVM 1.0 Notice--2@62"In file included from /usr/local/include/boost/utility.hpp:16:-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@52"file://localhost/usr/local/include/boost/utility.hpp0000000000000000^15#9#15#9#617#0#21"Clang LLVM 1.0 Notice--2@171"In instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file://localhost/usr/local/include/boost/smart_ptr/detail/shared_count.hpp0000000000000000^94#12#94#12#2149#0#14"Semantic Issue--2@191"In instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file://localhost/usr/local/include/boost/smart_ptr/shared_ptr.hpp0000000000000000^182#43#182#43#4426#0#14"Semantic Issue--2@259"In instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/exception/info.hpp0000000000000000^169#41#169#41#4846#0#14"Semantic Issue--2@189"In instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/exception/info.hpp0000000000000000^190#15#190#15#5586#0#14"Semantic Issue--2@173"In instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@75"file://localhost/usr/local/include/boost/exception/detail/exception_ptr.hpp0000000000000000^180#20#180#20#4684#0#14"Semantic Issue--2@129"In instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here-365269209#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@75"file://localhost/usr/local/include/boost/exception/detail/exception_ptr.hpp0000000000000000^159#12#159#12#4257#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/checked_delete.hpp0000000000000000^33#4#33#4#899#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@84"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp0000000000000000^2330"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o pangolin/video_record_repeat.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video_record_repeat.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_record_repeat.o36"EDB0DFD7-F6EB-4716-9287-E06336B40463-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.o /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269204.239750
-e365269207.508354
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp:28:
-oIn file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h:34:
-oIn file included from /usr/local/include/boost/thread.hpp:13:
-oIn file included from /usr/local/include/boost/thread/thread.hpp:17:
-oIn file included from /usr/local/include/boost/thread/pthread/thread_data.hpp:10:
-oIn file included from /usr/local/include/boost/shared_ptr.hpp:17:
-oIn file included from /usr/local/include/boost/smart_ptr/shared_ptr.hpp:30:
-o/usr/local/include/boost/checked_delete.hpp:34:5: warning: delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor [-Wdelete-non-virtual-dtor]
-o    delete x;
-o    ^
-o/usr/local/include/boost/smart_ptr/detail/shared_count.hpp:95:13: note: in instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o            boost::checked_delete( p );
-o            ^
-o/usr/local/include/boost/smart_ptr/shared_ptr.hpp:183:44: note: in instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o    explicit shared_ptr( Y * p ): px( p ), pn( p ) // Y must be complete
-o                                           ^
-o/usr/local/include/boost/exception/info.hpp:170:42: note: in instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here
-o            shared_ptr<error_info_tag_t> p( new error_info_tag_t(v) );
-o                                         ^
-o/usr/local/include/boost/exception/info.hpp:191:16: note: in instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here
-o        return exception_detail::set_info(x,v);
-o               ^
-o/usr/local/include/boost/exception/detail/exception_ptr.hpp:181:21: note: in instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here
-o            (*this) << original_exception_type(&typeid(e));
-o                    ^
-o/usr/local/include/boost/exception/detail/exception_ptr.hpp:160:13: note: in instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here
-o            add_original_type(e);
-o            ^
-o1 warning generated.
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Compile /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cppb6833dd490c5b541^812282d790c5b541^-2811"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp:28:In file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h:34:In file included from /usr/local/include/boost/thread.hpp:13:In file included from /usr/local/include/boost/thread/thread.hpp:17:In file included from /usr/local/include/boost/thread/pthread/thread_data.hpp:10:In file included from /usr/local/include/boost/shared_ptr.hpp:17:In file included from /usr/local/include/boost/smart_ptr/shared_ptr.hpp:30:/usr/local/include/boost/checked_delete.hpp:34:5: warning: delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor [-Wdelete-non-virtual-dtor]    delete x;    ^/usr/local/include/boost/smart_ptr/detail/shared_count.hpp:95:13: note: in instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here            boost::checked_delete( p );            ^/usr/local/include/boost/smart_ptr/shared_ptr.hpp:183:44: note: in instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here    explicit shared_ptr( Y * p ): px( p ), pn( p ) // Y must be complete                                           ^/usr/local/include/boost/exception/info.hpp:170:42: note: in instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here            shared_ptr<error_info_tag_t> p( new error_info_tag_t(v) );                                         ^/usr/local/include/boost/exception/info.hpp:191:16: note: in instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here        return exception_detail::set_info(x,v);               ^/usr/local/include/boost/exception/detail/exception_ptr.hpp:181:21: note: in instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here            (*this) << original_exception_type(&typeid(e));                    ^/usr/local/include/boost/exception/detail/exception_ptr.hpp:160:13: note: in instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here            add_original_type(e);            ^1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@150"Delete called on 'boost::error_info<boost::tag_original_exception_type, const std::type_info *>' that has virtual functions but non-virtual destructor-365269207#18446744073709551615#0#13(2@89"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp:28:-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp0000000000000000^27#9#27#9#1232#0#21"Clang LLVM 1.0 Notice--2@87"In file included from /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h:34:-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@77"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.h0000000000000000^33#9#33#9#1338#0#21"Clang LLVM 1.0 Notice--2@61"In file included from /usr/local/include/boost/thread.hpp:13:-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@51"file://localhost/usr/local/include/boost/thread.hpp0000000000000000^12#9#12#9#390#0#21"Clang LLVM 1.0 Notice--2@68"In file included from /usr/local/include/boost/thread/thread.hpp:17:-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@58"file://localhost/usr/local/include/boost/thread/thread.hpp0000000000000000^16#9#16#9#475#0#21"Clang LLVM 1.0 Notice--2@81"In file included from /usr/local/include/boost/thread/pthread/thread_data.hpp:10:-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@71"file://localhost/usr/local/include/boost/thread/pthread/thread_data.hpp0000000000000000^9#9#9#9#376#0#21"Clang LLVM 1.0 Notice--2@65"In file included from /usr/local/include/boost/shared_ptr.hpp:17:-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@55"file://localhost/usr/local/include/boost/shared_ptr.hpp0000000000000000^16#9#16#9#456#0#21"Clang LLVM 1.0 Notice--2@75"In file included from /usr/local/include/boost/smart_ptr/shared_ptr.hpp:30:-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file://localhost/usr/local/include/boost/smart_ptr/shared_ptr.hpp0000000000000000^29#9#29#9#993#0#21"Clang LLVM 1.0 Notice--2@171"In instantiation of function template specialization 'boost::checked_delete<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file://localhost/usr/local/include/boost/smart_ptr/detail/shared_count.hpp0000000000000000^94#12#94#12#2149#0#14"Semantic Issue--2@191"In instantiation of function template specialization 'boost::detail::shared_count::shared_count<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file://localhost/usr/local/include/boost/smart_ptr/shared_ptr.hpp0000000000000000^182#43#182#43#4426#0#14"Semantic Issue--2@259"In instantiation of function template specialization 'boost::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >::shared_ptr<boost::error_info<boost::tag_original_exception_type, const std::type_info *> >' requested here-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/exception/info.hpp0000000000000000^169#41#169#41#4846#0#14"Semantic Issue--2@189"In instantiation of function template specialization 'boost::exception_detail::set_info<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/exception/info.hpp0000000000000000^190#15#190#15#5586#0#14"Semantic Issue--2@173"In instantiation of function template specialization 'boost::operator<<<boost::unknown_exception, boost::tag_original_exception_type, const std::type_info *>' requested here-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@75"file://localhost/usr/local/include/boost/exception/detail/exception_ptr.hpp0000000000000000^180#20#180#20#4684#0#14"Semantic Issue--2@129"In instantiation of function template specialization 'boost::unknown_exception::add_original_type<std::exception>' requested here-365269207#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@75"file://localhost/usr/local/include/boost/exception/detail/exception_ptr.hpp0000000000000000^159#12#159#12#4257#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@59"file://localhost/usr/local/include/boost/checked_delete.hpp0000000000000000^33#4#33#4#899#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@79"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp0000000000000000^2300"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.o pangolin/video_recorder.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/video_recorder.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/video_recorder.o36"4554BD35-E732-4C8E-9464-501F165249BA-
-
-CCompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269201.128210
-e365269204.238437
-r1
-xCompileC
-xbuild/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o
-x/Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection64"Compile /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cppe8f420d190c5b541^331a3dd490c5b541^---0#0#0#-19%DVTDocumentLocation2@72"file://localhost/Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp0000000000000000^2258"CompileC build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o pangolin/widgets.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/include -I/usr/local/include -I/usr/local/include/libexif -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -Wall -Wno-error=deprecated-declarations -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.dia -c /Users/akram/Developer/pangolin-hdr/pangolin/widgets.cpp -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/widgets.o36"3923AE9B-1EB8-4CCE-80ED-0298647EEE82-
-
-CLibtool /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a normal x86_64
-s365269212.860422
-e365269213.027299
-r1
-xLibtool
-x/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a
-xnormal
-xx86_64
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Libtool build/pangolin/Debug/libpangolin.a normal x86_642d5adcdc90c5b541^cefc06dd90c5b541^---0#0#0#--655"Libtool build/pangolin/Debug/libpangolin.a normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only x86_64 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Objects-normal/x86_64/pangolin.LinkFileList -o /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a36"6D1F3F33-41DA-4AAE-97C6-55AB7BBCC411-
-
-CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Script-A3C1D047B6CC46C28A07BA88.sh
-s365269213.035346
-e365269213.076803
-r1
-xPhaseScriptExecution
-xCMake PostBuild Rules
-x/Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Script-A3C1D047B6CC46C28A07BA88.sh
-oecho "Depend check for xcode"
-oDepend check for xcode
-ocd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug
-o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR
-o/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Run custom shell script 'CMake PostBuild Rules'45b809dd90c5b541^93a813dd90c5b541^-413"echo "Depend check for xcode"Depend check for xcodecd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp5(21%IDEActivityLogMessage2@30"echo "Depend check for xcode"-365269213#0#30#-0#-----2@23"Depend check for xcode-365269213#30#23#-0#-----2@206"cd /Users/akram/Developer/pangolin-hdr/build && make -C /Users/akram/Developer/pangolin-hdr/build -f /Users/akram/Developer/pangolin-hdr/build/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.pangolin.Debug-365269213#53#206#-0#-----2@79"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/SimpleHDR/Debug/SimpleHDR-365269213#259#79#-0#-----2@75"/bin/rm -f /Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp-365269213#338#75#-0#-----0#0#0#--319"PhaseScriptExecution "CMake PostBuild Rules" build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Script-A3C1D047B6CC46C28A07BA88.sh    cd /Users/akram/Developer/pangolin-hdr    /bin/sh -c /Users/akram/Developer/pangolin-hdr/build/pangolin/Pangolin-hdr.build/Debug/pangolin.build/Script-A3C1D047B6CC46C28A07BA88.sh36"00AAEC9E-DCF9-42C5-8D8A-9B614001C59A-
-

@@ -1,111 +1,0 @@
-TtestApp
-v5
-r1
-cCheck dependencies
-cCompileC build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.o /Users/akram/Developer/pangolin-hdr/testApp/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cLd /Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp normal x86_64
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk
-c000000004F90F72900000000000000CC
-t1334900521
-s204
-
-N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/usr/include/sys/stat.h
-c000000004FECFBE10000000000004B2F
-t1340931041
-s19247
-
-N/Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.o
-t2
-s0
-
-N/Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/testApp.LinkFileList
-c000000005015595D0000000000000076
-t1343576413
-s118
-
-N/Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Script-C4DEADD1801A4B2785C7DE51.sh
-c000000005015595D00000000000000B4
-t1343576413
-s180
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/pangolin.h
-c000000005008EC0A0000000000000694
-t1342761994
-s1684
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/video.h
-c000000005008EC0A0000000000001354
-t1342761994
-s4948
-
-N/Users/akram/Developer/pangolin-hdr/pangolin/video/firewire.h
-c0000000050152CC30000000000005461
-t1343564995
-s21601
-
-N/Users/akram/Developer/pangolin-hdr/testApp/main.cpp
-c00000000501552DF00000000000001C1
-t1343574751
-s449
-i<sys/stat.h>
-i<iostream>
-i<iomanip>
-i<cassert>
-i<limits>
-i<pangolin/pangolin.h>
-i<pangolin/video.h>
-i<pangolin/video/firewire.h>
-i<boost/filesystem.hpp>
-
-N/usr/local/include/boost/filesystem.hpp
-c000000004F48C854000000000000053C
-t1330169940
-s1340
-
-CBuild AST from /Users/akram/Developer/pangolin-hdr/testApp/main.cpp
-r0
-
-CCheck dependencies
-r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies0bb827dd90c5b541^d78428dd90c5b541^---0#1#0#--18"Check dependencies36"79809C2C-6874-487B-B93C-02545E1A3357-
-
-CCompileC build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.o /Users/akram/Developer/pangolin-hdr/testApp/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s365269213.159312
-e365269215.679388
-r1
-xCompileC
-xbuild/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.o
-x/Users/akram/Developer/pangolin-hdr/testApp/main.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection60"Compile /Users/akram/Developer/pangolin-hdr/testApp/main.cppcbf328dd90c5b541^0becaddf90c5b541^---0#0#0#-19%DVTDocumentLocation2@68"file://localhost/Users/akram/Developer/pangolin-hdr/testApp/main.cpp0000000000000000^2154"CompileC build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.o testApp/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/akram/Developer/pangolin-hdr    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wno-newline-eof -Wc++11-extensions "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -Wno-conversion -Wno-sign-conversion -I/Users/akram/Developer/pangolin-hdr/build/testApp/Debug/include -I/usr/local/include -I/usr/local/include/ImageMagick -I/Users/akram/Developer/pangolin-hdr/pangolin/.. -I/Users/akram/Developer/pangolin-hdr/build -I/opt/local/include -I/Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/DerivedSources/x86_64 -I/Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/akram/Developer/pangolin-hdr/build/testApp/Debug -MMD -MT dependencies -MF /Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.dia -c /Users/akram/Developer/pangolin-hdr/testApp/main.cpp -o /Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/main.o36"2BB3CDFA-9343-4214-9211-6599CED38AE9-
-
-CLd /Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp normal x86_64
-s365269215.685864
-e365269215.908359
-r0
-xLd
-x/Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp
-xnormal
-xx86_64
-old: warning: directory not found for option '-L/usr/local/lib/Debug'
-oUndefined symbols for architecture x86_64:
-o  "boost::system::generic_category()", referenced from:
-o      ___cxx_global_var_init3 in main.o
-o      ___cxx_global_var_init4 in main.o
-o  "boost::system::system_category()", referenced from:
-o      ___cxx_global_var_init5 in main.o
-old: symbol(s) not found for architecture x86_64
-oclang: error: linker command failed with exit code 1 (use -v to see invocation)
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection68"Link /Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testAppefaeafdf90c5b541^957ce8df90c5b541^-471"ld: warning: directory not found for option '-L/usr/local/lib/Debug'Undefined symbols for architecture x86_64:  "boost::system::generic_category()", referenced from:      ___cxx_global_var_init3 in main.o      ___cxx_global_var_init4 in main.o  "boost::system::system_category()", referenced from:      ___cxx_global_var_init5 in main.old: symbol(s) not found for architecture x86_64clang: error: linker command failed with exit code 1 (use -v to see invocation)8(21%IDEActivityLogMessage2@55"Directory not found for option '-L/usr/local/lib/Debug'-365269215#0#69#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#32"Apple Mach-O Linker (ld) Warning--2@53""boost::system::generic_category()", referenced from:-365269215#112#56#-2#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#30"Apple Mach-O Linker (ld) Error--2@33"___cxx_global_var_init3 in main.o-365269215#168#40#-0#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#31"Apple Mach-O Linker (ld) Notice--2@33"___cxx_global_var_init4 in main.o-365269215#208#40#-0#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#31"Apple Mach-O Linker (ld) Notice--2@52""boost::system::system_category()", referenced from:-365269215#248#55#-2#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#30"Apple Mach-O Linker (ld) Error--2@33"___cxx_global_var_init5 in main.o-365269215#303#40#-0#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#31"Apple Mach-O Linker (ld) Notice--2@43"Symbol(s) not found for architecture x86_64-365269215#343#48#-0#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#31"Apple Mach-O Linker (ld) Notice--2@65"Linker command failed with exit code 1 (use -v to see invocation)-365269215#391#80#-2#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#30"Apple Mach-O Linker (ld) Error--0#0#0#--1235"Ld build/testApp/Debug/testApp normal x86_64    cd /Users/akram/Developer/pangolin-hdr    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -L/Users/akram/Developer/pangolin-hdr/build/testApp/Debug -L/usr/local/lib/Debug -L/usr/local/lib -L/Users/akram/Developer/pangolin-hdr/build/pangolin/Debug -L/Users/akram/Developer/pangolin-hdr/build/pangolin -F/Users/akram/Developer/pangolin-hdr/build/testApp/Debug -filelist /Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Objects-normal/x86_64/testApp.LinkFileList -mmacosx-version-min=10.7 -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/akram/Developer/pangolin-hdr/build/pangolin/Debug/libpangolin.a -framework AGL -framework OpenGL /opt/local/lib/libGLEW.dylib /usr/local/lib/libboost_thread-mt.dylib /usr/local/lib/libMagick++.dylib /opt/local/lib/libglut.dylib /usr/local/lib/libdc1394.dylib /usr/local/lib/libexif.dylib /usr/local/lib/libexiv2.dylib -o /Users/akram/Developer/pangolin-hdr/build/testApp/Debug/testApp36"E8A23685-B934-4402-9ACF-247AABEC1CFB-
-
-CPhaseScriptExecution "CMake PostBuild Rules" /Users/akram/Developer/pangolin-hdr/build/testApp/Pangolin-hdr.build/Debug/testApp.build/Script-C4DEADD1801A4B2785C7DE51.sh
-r0
-

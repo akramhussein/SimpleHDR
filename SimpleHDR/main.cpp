@@ -6,13 +6,10 @@
 
 #include <sys/stat.h>
 #include <iostream>
-#include <time.h>
 
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
 #include <pangolin/video/firewire.h>
-
-#include <boost/thread/thread.hpp>
 
 using namespace pangolin;
 using namespace std;
@@ -25,7 +22,7 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/    
     
     FirewireVideo video = FirewireVideo();     
-    video.SetAutoAll();
+    video.SetAllFeaturesAuto();
     video.PrintCameraReport();
 
     unsigned char* img = new unsigned char[video.SizeBytes()];
@@ -53,7 +50,7 @@ int main( int argc, char* argv[] )
     
     // OpenGl Texture for video frame
     GlTexture texVideo(w,h,GL_RGBA8);
-    
+
     //keyboard shortcuts
     pangolin::RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));                 // hdr mode 
     pangolin::RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                // normal mode
@@ -62,14 +59,13 @@ int main( int argc, char* argv[] )
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
     pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));    // reset settings
-                                                                                                        //pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                    // print settings
-    //pangolin::RegisterKeyPressCallback( 'f', SetVarFunctor<bool>("ui.Reset Frame Count", true));
+    //pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                    // print settings
     
     // capture options
     static Var<bool> record("ui.Record",false,false);
     static Var<bool> capture("ui.Capture Frame",false,false);
     static Var<bool> capture_hdr("ui.Capture HDR Frame",false,false);
-    
+
     // hdr controls
     static Var<bool> hdr("ui.HDR Mode",false,true);
     static Var<float> short_exposure("ui.Short Exposure (s)",0.00);
@@ -82,27 +78,45 @@ int main( int argc, char* argv[] )
     //static Var<bool> print("ui.Print",false,false);
     
     // camera settings
-    static Var<float> shutter("ui.Shutter (s)",video.GetShutterTime(),video.GetShutterTimeMin(),video.GetShutterTimeMax(), true);
-    static Var<float> exposure("ui.Exposure (EV)",video.GetExposure(),video.GetExposureMin(),video.GetExposureMax(), false);            //faulty  
-    static Var<float> brightness("ui.Brightness (%)",video.GetBrightness(),video.GetBrightnessMin(),video.GetBrightnessMax(), false); 
-    static Var<float> gain("ui.Gain (dB)",video.GetGain(),video.GetGainMin(),video.GetGainMax(), false);
-    static Var<float> gamma("ui.Gamma",video.GetGamma(),video.GetGammaMin(),video.GetGammaMax(), false);
-    static Var<float> saturation("ui.Saturation (%)",video.GetSaturation(),video.GetSaturationMin(),video.GetSaturationMax(), false);
-    static Var<int> hue("ui.Hue (deg)",video.GetHue(),video.GetHueMin(),video.GetHueMax(), false);
-    static Var<int> sharpness("ui.Sharpness",video.GetSharpnessQuant(),video.GetSharpnessQuantMin(),video.GetSharpnessQuantMax(), false);
+    static Var<float> shutter("ui.Shutter (s)", video.GetFeatureValue(DC1394_FEATURE_SHUTTER),
+                               video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER),
+                               video.GetFeatureValueMax(DC1394_FEATURE_SHUTTER), true);
+
+    static Var<float> exposure("ui.Exposure (EV)", video.GetFeatureValue(DC1394_FEATURE_EXPOSURE),
+                                video.GetFeatureValueMin(DC1394_FEATURE_EXPOSURE),
+                                video.GetFeatureValueMax(DC1394_FEATURE_EXPOSURE),false);            //faulty  
     
-    //static Var<float> whitebalance("ui.White Balance",video.GetWhiteBalance(),video.GetWhiteBalanceMin(),video.GetWhiteBalanceMax(), false);
-    //static Var<float> framerate("ui.Framerate (fps)",video.GetFramerate(),video.GetFramerateMin(),video.GetFramerateMax(), true);
-    //static Var<int> tilt("ui.Tilt",video.GetTiltQuant(),video.GetTiltQuantMin(),video.GetTiltQuantMax(), false);
-    //static Var<int> pan("ui.Pan",video.GetPanQuant(),video.GetPanQuantMin(),video.GetPanQuantMax(), false);
+    static Var<float> brightness("ui.Brightness (%)", video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS),
+                                 video.GetFeatureValueMin(DC1394_FEATURE_BRIGHTNESS),
+                                 video.GetFeatureValueMax(DC1394_FEATURE_BRIGHTNESS),false); 
     
+    static Var<float> gain("ui.Gain (dB)", video.GetFeatureValue(DC1394_FEATURE_GAIN),
+                           video.GetFeatureValueMin(DC1394_FEATURE_GAIN),
+                           video.GetFeatureValueMax(DC1394_FEATURE_GAIN),false);    
+    
+    static Var<float> gamma("ui.Gamma", video.GetFeatureValue(DC1394_FEATURE_GAMMA),
+                            video.GetFeatureValueMin(DC1394_FEATURE_GAMMA),
+                            video.GetFeatureValueMax(DC1394_FEATURE_GAMMA),false);    
+    
+    static Var<float> saturation("ui.Saturation (%)", video.GetFeatureValue(DC1394_FEATURE_SATURATION),
+                                 video.GetFeatureValueMin(DC1394_FEATURE_SATURATION),
+                                 video.GetFeatureValueMax(DC1394_FEATURE_SATURATION),false);  
+    
+    static Var<float> hue("ui.Hue (deg)", video.GetFeatureValue(DC1394_FEATURE_HUE),
+                        video.GetFeatureValueMin(DC1394_FEATURE_HUE),
+                        video.GetFeatureValueMax(DC1394_FEATURE_HUE),false);  
+
+    static Var<int> sharpness("ui.Sharpness",video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS),
+                              video.GetFeatureQuantMin(DC1394_FEATURE_SHARPNESS),
+                              video.GetFeatureQuantMax(DC1394_FEATURE_SHARPNESS),false);  
+                                                   
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
     
     // general info
     //static Var<float> current_framerate("ui.Framerate (fps)",0);
     static Var<int> recorded_frames("ui.Recorded Frames",0);
-    static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
-    static Var<string> model("ui.Model", video.GetCameraModel());
+    //static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
+    static Var<string> camera("ui.Camera", video.GetCameraModel());
 
     /*-----------------------------------------------------------------------
      *  CAPTURE
@@ -127,85 +141,49 @@ int main( int argc, char* argv[] )
             saturation.Reset();
             hue.Reset();
             sharpness.Reset();
-            //whitebalance.Reset();
-            //framerate.Reset();
-            //pan.Reset();
-            //tilt.Reset();
-        }
-        
-        /*
-        if(pangolin::Pushed(print)){
-            
-            cout << "Shutter: " << video.GetShutterTime() << endl;
-            cout << "Exposure: " << video.GetExposure() << endl;
-            cout << "Brightness: " << video.GetBrightness() << endl;
-            cout << "Gain: " << video.GetGain() << endl;
-            cout << "Gamma: " << video.GetGamma() << endl;
-            cout << "Saturation: " << video.GetSaturation() << endl;
-            cout << "Hue: " << video.GetHue () << endl;
-            cout << "Sharpness: " << video.GetSharpnessQuant() << endl;
-            //cout << "WhiteBalance: " << video.GetWhiteBalance() << endl;
-            //cout << "Framerate: " << video.GetFramerate() << endl;
-            //cout << "Pan: " << video.GetPanquant() << endl;
-            //cout << "Tilt: " << video.GetTiltQuant() << endl;
-                    
-        }
-        */
-        
-        if ( manual && !hdr){
-            video.SetShutterTime(shutter);
-        }
-        
-        if ( manual ){ 
-            video.SetExposure(exposure);
-            video.SetBrightness(brightness);
-            video.SetGain(gain);
-            video.SetGamma(gamma);
-            video.SetSaturation(saturation);
-            video.SetHue(hue);
-            video.SetSharpnessQuant(sharpness);
-            //video.SetWhiteBalance(whitebalance);
-            //video.SetFramerate(framerate);
-            //video.SetPanQuant(pan);
-            //video.SetTiltQuant(tilt);
-        } 
-        
-        else if( !manual && !hdr){
-             video.SetAutoAll();
         }
         
         if( hdr ) {
             if (over_exposed){
-                video.SetShutterTimeQuant(150);
+                video.SetFeatureValue(DC1394_FEATURE_SHUTTER, 0.0003000);
                 over_exposed = false;
-                short_exposure.operator=(video.GetShutterTime());
+                long_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
             }
             else {
-                video.SetShutterTimeQuant(100);
+                video.SetFeatureValue(DC1394_FEATURE_SHUTTER, 0.0009522);
                 over_exposed = true;
-                long_exposure.operator=(video.GetShutterTime());
+                short_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
             }
+            
         }
         else {
             short_exposure.Reset();
             long_exposure.Reset();
         }
         
+        if ( manual && !hdr){
+            video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
+        }
+        
+        if ( manual ){ 
+
+            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure);
+            video.SetFeatureValue(DC1394_FEATURE_BRIGHTNESS, brightness);
+            video.SetFeatureValue(DC1394_FEATURE_GAIN, gain);
+            video.SetFeatureValue(DC1394_FEATURE_GAMMA, gamma); 
+            video.SetFeatureValue(DC1394_FEATURE_SATURATION, saturation);
+            video.SetFeatureValue(DC1394_FEATURE_HUE, hue); 
+            video.SetFeatureQuant(DC1394_FEATURE_SHARPNESS, sharpness);  
+
+        } 
+        
+        else if( !manual && !hdr){
+            video.SetAllFeaturesAuto();
+        }
+        
+
         if( pangolin::Pushed(capture) ){ 
-            
-            time_t now;
-            char the_date[12];
-            
-            the_date[0] = '\0';
-            
-            now = time(NULL);
-            
-            if (now != -1)
-            {
-                strftime(the_date, 12, "%X_%x", gmtime(&now));
-            }
-            
-            video.SaveFrame(frame_number, img, true, "single", true); 
+            video.CaptureFrame(img, true, true);
         } 
         
         if( pangolin::Pushed(capture_hdr) ){ /**/ } 
@@ -221,17 +199,20 @@ int main( int argc, char* argv[] )
 
         // save mode
         if ( save && hdr ){
-            // wait 1/30th of a second to sync change in settings and display
-            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
-            video.SaveFrame(frame_number, img, true, "hdr", true); 
+            //boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            //sleep(1/30);
+            video.RecordFramesOneShot(frame_number, img, true, hdr); 
             recorded_frames.operator=(frame_number);
         } 
         else if ( save ){
-            video.SaveFrame(frame_number, img, true, "normal", true);  
+            video.RecordFrames(frame_number, img, true, true, hdr); 
             recorded_frames.operator=(frame_number);
         } 
-        else {
+        else if ( hdr ){
             video.GrabOneShot(img);
+        }
+        else{
+            video.GrabNext(img);
         }
         
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
