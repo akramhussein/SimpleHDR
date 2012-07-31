@@ -66,7 +66,8 @@ int main( int argc, char* argv[] )
     static Var<int> recorded_frames("ui.Recorded Frames",0);
     static Var<bool> capture("ui.Capture Frame",false,false);
     static Var<bool> capture_hdr("ui.Capture HDR Frame",false,false);
-
+    static Var<bool> response_function("ui.Get Response Function",false,false);
+    
     // hdr controls
     static Var<bool> hdr("ui.HDR Mode",false,true);
     static Var<float> short_exposure("ui.Short Exposure (s)",0.00);
@@ -125,18 +126,24 @@ int main( int argc, char* argv[] )
       
     bool over_exposed = true;
     bool save = false;
+    bool reset_shutter = false;
+    //float current_exposure = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
     
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {     
-        
-        //cout << "EXPOSURE ABS: " << video.GetFeatureValue(DC1394_FEATURE_EXPOSURE) << endl;
-        //cout << "EXPOSURE QUANT: " << video.GetFeatureQuant(DC1394_FEATURE_EXPOSURE) << endl;
-        
         if(pangolin::HasResized())
             DisplayBase().ActivateScissorAndClear();
         
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
- 
+        
+        
+        if ( reset_shutter ){
+            video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
+            shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+        }
+        
+        if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); }
+        
         if(pangolin::Pushed(reset)){
             shutter.Reset();
             exposure.Reset();
@@ -148,6 +155,9 @@ int main( int argc, char* argv[] )
             sharpness.Reset();
         }
         
+        //cout << "EXPOSURE ABS: " << video.GetFeatureValue(DC1394_FEATURE_EXPOSURE) << endl;
+        //cout << "EXPOSURE QUANT: " << video.GetFeatureQuant(DC1394_FEATURE_EXPOSURE) << endl;
+    
         if( hdr ) {
             
             if (over_exposed){
@@ -171,6 +181,7 @@ int main( int argc, char* argv[] )
             video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
         }
         
+
         if ( manual ){ 
             
             video.SetFeatureQuant(DC1394_FEATURE_EXPOSURE, exposure);

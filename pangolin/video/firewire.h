@@ -356,7 +356,13 @@
                     const char* path,           // folder name
                     bool jpg = false            // jpg save: defaults to false
                 );
-                
+    
+    //! Create ppm from raw frame
+    void CreatePPM(dc1394video_frame_t *frame, const char* filename, dc1394video_mode_t video_mode);
+        
+    //! Copy ppm to jpg
+    void CopyPPMToJPG(const char* filename_ppm, const char* filename_jpg);
+        
     /*-----------------------------------------------------------------------
      *  CONVERTING/IMAGE PROCESSING
      *-----------------------------------------------------------------------*/
@@ -370,8 +376,11 @@
     // HAVEN'T TESTED! PROBABLY DOESN'T WORK
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
     
-    //! Obtains the "average scene luminance" (cd/m^2) from an image file.
+    //! Returns the "average scene luminance" (cd/m^2) from an image file.
     float GetAvgLuminance(const std::string& filename);
+        
+    //! creates hdrgen script for pfscalibrate based on exif data of image
+    bool JpgToHDRGEN(const char* filename, FILE* hdrgen, int frame_number);
         
     /*-----------------------------------------------------------------------
      *  REPORTING
@@ -380,7 +389,6 @@
     //! Print full camera features and current settings report
     void PrintCameraReport();
     
-        
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/

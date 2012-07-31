@@ -1289,21 +1289,10 @@
                                  bool jpg
                                  )
     {
-        
-        FILE* imagefile;
-        unsigned int width, height;
         char filename_ppm[128];
         char filename_jpg[128];
+        dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8;
         
-        dc1394_get_image_size_from_video_mode(
-                                              camera, 
-                                              DC1394_VIDEO_MODE_640x480_RGB8, 
-                                              &width, 
-                                              &height
-                                              );
-        
-        uint64_t numPixels = height*width;
-     
         // create top directory
         mkdir(folder, 0755);
         
@@ -1319,45 +1308,74 @@
         
         // create path for ppm
         sprintf(filename_ppm, "./%s/ppm/%s%d%s", folder, "image0000", frame_number, ".ppm");
-            
-        imagefile = fopen(filename_ppm, "wb");
         
-        if( imagefile == NULL) {
-            perror( "Can't create output file");
-            return false;
-        }
-           
-        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
-        fwrite(frame->image, 1, numPixels*3, imagefile);
-        fclose(imagefile);
+        CreatePPM(frame, filename_ppm, video_mode);
         
         if( jpg ){
             
-            // make threaded or post-process
-            // ultimately skip PPM and make seperate function
-            
             sprintf(filename_jpg, "./%s/jpg/%s%d%s", folder, "image0000", frame_number, ".jpg");
-            
-            Magick::Image img;
-            img.read(filename_ppm);
-            img.write(filename_jpg);
-                     
+            CopyPPMToJPG(filename_ppm, filename_jpg);
             WriteExifData(filename_jpg);
                         
         }
         
-        cout << "Image Average Luminance cd/m^2: " << GetAvgLum(filename_jpg) << endl;      
+        cout << "Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpg) << endl;      
         
         return true;
     }
     
+    void FirewireVideo::CreatePPM(dc1394video_frame_t *frame, const char* filename, dc1394video_mode_t video_mode){
+        
+        FILE* imagefile;
+        unsigned int width, height;
+        
+        err = dc1394_get_image_size_from_video_mode(
+                                              camera, 
+                                              video_mode, 
+                                              &width, 
+                                              &height
+                                              );
+        if (err != DC1394_SUCCESS){
+            throw VideoException("Could not get image size from video mode");
+        }
+        
+        uint64_t numPixels = height*width;
+        imagefile = fopen(filename, "wb");
+        
+        if( imagefile == NULL) {
+            perror( "Can't create output file");
+        }
+        
+        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
+        fwrite(frame->image, 1, numPixels*3, imagefile);
+        fclose(imagefile);
+        
+    }
+        
+    void FirewireVideo::CopyPPMToJPG(const char* filename_ppm, const char* filename_jpg){
+        
+        try {
+            Magick::Image img;
+            img.read(filename_ppm);
+            img.write(filename_jpg);
+            } 
+            catch( Magick::ErrorFileOpen &error ) {
+                // Process Magick++ file open error
+                cerr << "Error: " << error.what() << endl;
+            }
+            
+    }
+        
     void FirewireVideo::WriteExifData(const std::string& filename){
         
         Exiv2::ExifData exifData;
         
         try {
             
-            exifData["Exif.Image.Make"] =));	
+            exifData["Exif.Image.Make"] = camera->vendor;
+            exifData["Exif.Image.Model"] = camera->model;
+            exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
+            exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(GetFeatureValue(DC1394_FEATURE_SHUTTER));	
             exifData["Exif.Photo.ColorSpace"] = uint16_t(1);
             exifData["Exif.Photo.WhiteBalance"] = uint16_t(GetFeatureMode(DC1394_FEATURE_WHITE_BALANCE));   // 0=auto,1=man
             exifData["Exif.Photo.GainControl"] = uint16_t(GetFeatureValue(DC1394_FEATURE_GAIN));
@@ -1618,6 +1636,9 @@
 
         // UNFINISHED
     void FirewireVideo::GetResponseFunction(){
+        unsigned char* image = new unsigned char[SizeBytes()];
+        FILE* file;
+        char hdrgen_file[32] = "camera.hdrgen";
         
         float min, max, step_size, shutter;
         int no_steps = 10; // grab 10 frames
@@ -1645,8 +1666,11 @@
         if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set absolute control for shutter");
         }
-                
-        unsigned char* image = new unsigned char[SizeBytes()];
+        
+        file = fopen(hdrgen_file, "wb");
+        if( file == NULL) {
+            perror( "Can't create hdrgen file");
+        }
         
         for(int frame_number = 0; shutter <= max ; frame_number++){
             
@@ -1658,33 +1682,132 @@
                 throw VideoException("Could not set shutter value");
             }
             
-            sleep(1/30); // pause 1/30th second 
+            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            dc1394video_frame_t *frame = NULL;
             
-            RecordFramesOneShot(frame_number, image, true, false);
-
+            dc1394_video_set_one_shot( camera, DC1394_ON );
+            
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
+            if( frame ){
+                memcpy(image,frame->image,frame->image_bytes);
+                dc1394_capture_enqueue(camera,frame);
+            }
+            
+            SaveFile(frame_number, frame, "response-function", true);
+            JpgToHDRGEN("response-function", file, frame_number);
+            
             shutter += step_size;
             
-            
         }
+     
+        fclose(file);
         
         err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
         if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set auto shutter mode");
         }
-        
-        // run hdrgen script
-        cout << "Generating exif script..." << endl;
-        
-        
+
         // run pfs calibrate
         cout << "Generating response function" << endl;
-        
         
         //run gnu plot
         cout << "DONE" << endl;
     
         delete[] image;
         
+    }
+        
+    bool FirewireVideo::JpgToHDRGEN(const char* filename, FILE* hdrgen, int frame_number){
+   
+        char file_path[128];
+        
+        sprintf(file_path, "./%s/jpg/image0000%d.jpg", filename, frame_number);
+        
+        try
+        {
+            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file_path);
+            image->readMetadata();
+            Exiv2::ExifData &exifData = image->exifData();
+            if (exifData.empty())
+                return false;
+            
+            Exiv2::ExifData::const_iterator _expo = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ExposureTime"));
+            Exiv2::ExifData::const_iterator _expo2 = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ShutterSpeedValue"));
+            Exiv2::ExifData::const_iterator _iso  = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ISOSpeedRatings"));
+            Exiv2::ExifData::const_iterator _fnum = exifData.findKey(Exiv2::ExifKey("Exif.Photo.FNumber"));
+            Exiv2::ExifData::const_iterator _fnum2 = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ApertureValue"));
+            
+            // default not valid values
+            float expo  = -1;
+            int iso   = -1;
+            double fnum  = -1;
+            
+            if (_expo != exifData.end())
+            {
+                expo=_expo->toFloat();
+            }
+            else if (_expo2 != exifData.end())
+            {
+                long num=1, div=1;
+                double tmp = std::exp(std::log(2.0) * _expo2->toFloat());
+                if (tmp > 1)
+                {
+                    div = static_cast<long>(tmp + 0.5);
+                }
+                else
+                {
+                    num = static_cast<long>(1/tmp + 0.5);
+                }
+                expo = static_cast<float>(num)/static_cast<float>(div);
+            }
+            
+            if (_fnum != exifData.end())
+            {
+                fnum = _fnum->toFloat();
+            }
+            else if (_fnum2 != exifData.end())
+            {
+                fnum = static_cast<float>(std::exp(std::log(2.0) * _fnum2->toFloat() / 2));
+            }
+            // some cameras/lens DO print the fnum but with value 0, and this is not allowed for ev computation purposes.
+            if (fnum == 0)
+                return false;
+            
+            //if iso is found use that value, otherwise assume a value of iso=100. (again, some cameras do not print iso in exif).
+            if (_iso == exifData.end())
+            {
+                iso = 100;
+            }
+            else
+            {
+                iso = _iso->toFloat();
+            }
+            
+            //At this point the three variables have to be != -1
+            if (expo!=-1 && iso!=-1 && fnum!=-1)
+            {
+  
+                // write new line to file in format:
+                // path_to_an_image inverse_of_exposure_time_in_seconds aperture_size iso_speed 0
+                fprintf(hdrgen,"%s %f %2.2f %d 0\n", 
+                        file_path, 
+                        1/expo, 
+                        fnum, 
+                        iso
+                        );
+        
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exiv2::AnyError& e)
+        {
+            throw VideoException("Exiv Error");
+        }
+        
+        return true;
     }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
