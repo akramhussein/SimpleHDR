@@ -356,10 +356,16 @@
                     const char* path,           // folder name
                     bool jpg = false            // jpg save: defaults to false
                 );
-        
+                
     /*-----------------------------------------------------------------------
      *  CONVERTING/IMAGE PROCESSING
      *-----------------------------------------------------------------------*/
+    
+    //! Write current camera data to exif on jpg image    
+    void WriteExifData(const std::string& filename);
+    
+    //! Copy exif data from one jpg to another
+    void CopyExifData(const std::string& from, const std::string& to,  bool dont_overwrite);
         
     // HAVEN'T TESTED! PROBABLY DOESN'T WORK
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
@@ -374,8 +380,6 @@
     //! Print full camera features and current settings report
     void PrintCameraReport();
     
-    //! Get Camera EXIF
-    // GetCameraExifData(ExifData **ExifData);
         
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES
