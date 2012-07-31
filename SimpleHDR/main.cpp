@@ -22,7 +22,7 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/    
     
     FirewireVideo video = FirewireVideo();     
-    video.SetAllFeaturesAuto();
+    //video.SetAllFeaturesAuto();
     video.PrintCameraReport();
 
     unsigned char* img = new unsigned char[video.SizeBytes()];
@@ -82,9 +82,9 @@ int main( int argc, char* argv[] )
                                video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER),
                                video.GetFeatureValueMax(DC1394_FEATURE_SHUTTER), true);
 
-    static Var<float> exposure("ui.Exposure (EV)", video.GetFeatureValue(DC1394_FEATURE_EXPOSURE),
-                                video.GetFeatureValueMin(DC1394_FEATURE_EXPOSURE),
-                                video.GetFeatureValueMax(DC1394_FEATURE_EXPOSURE),false);            //faulty  
+    static Var<int> exposure("ui.Exposure (EV)", video.GetFeatureQuant(DC1394_FEATURE_EXPOSURE),
+                                video.GetFeatureQuantMin(DC1394_FEATURE_EXPOSURE),
+                                video.GetFeatureQuantMax(DC1394_FEATURE_EXPOSURE),false);            //faulty  
     
     static Var<float> brightness("ui.Brightness (%)", video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS),
                                  video.GetFeatureValueMin(DC1394_FEATURE_BRIGHTNESS),
@@ -126,7 +126,11 @@ int main( int argc, char* argv[] )
     bool save = false;
     
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
-    {        
+    {     
+        
+        //cout << "EXPOSURE ABS: " << video.GetFeatureValue(DC1394_FEATURE_EXPOSURE) << endl;
+        //cout << "EXPOSURE QUANT: " << video.GetFeatureQuant(DC1394_FEATURE_EXPOSURE) << endl;
+        
         if(pangolin::HasResized())
             DisplayBase().ActivateScissorAndClear();
         
@@ -144,6 +148,7 @@ int main( int argc, char* argv[] )
         }
         
         if( hdr ) {
+            
             if (over_exposed){
                 video.SetFeatureValue(DC1394_FEATURE_SHUTTER, 0.0003000);
                 over_exposed = false;
@@ -167,7 +172,7 @@ int main( int argc, char* argv[] )
         
         if ( manual ){ 
 
-            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure);
+            video.SetFeatureQuant(DC1394_FEATURE_EXPOSURE, exposure);
             video.SetFeatureValue(DC1394_FEATURE_BRIGHTNESS, brightness);
             video.SetFeatureValue(DC1394_FEATURE_GAIN, gain);
             video.SetFeatureValue(DC1394_FEATURE_GAMMA, gamma); 
@@ -212,7 +217,7 @@ int main( int argc, char* argv[] )
             video.GrabOneShot(img);
         }
         else{
-            video.GrabNext(img);
+            video.GrabOneShot(img);
         }
         
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);

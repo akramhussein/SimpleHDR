@@ -755,14 +755,14 @@
             }
             
         
-            if (modes.modes[1] == DC1394_FEATURE_MODE_AUTO){
+            if (modes.modes[0] == DC1394_FEATURE_MODE_MANUAL){
                 
                 err = dc1394_feature_set_power(camera, feature[i], DC1394_ON);
                 if (err != DC1394_SUCCESS) {
                     break;
                 }
                 
-                err = dc1394_feature_set_mode(camera, feature[i], DC1394_FEATURE_MODE_AUTO);
+                err = dc1394_feature_set_mode(camera, feature[i], DC1394_FEATURE_MODE_MANUAL);
                 if (err != DC1394_SUCCESS) {
                     break;
                 }
@@ -1500,100 +1500,6 @@
      *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/
         
-        // Includes only Point Grey auto-capable functions 
-        // more might be available for your camera, add as needed
-        void FirewireVideo::SetAutoAll(){
-            
-            // Exposure
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_EXPOSURE, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto exposure mode");
-            }
-            
-            // Shutter
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto shutter mode");
-            }
-            
-            // Sharpness
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHARPNESS, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto sharpness mode");
-            }
-            
-            // Gain
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_GAIN, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto gain mode");
-            }
-            
-            // Gamma
-            
-            err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set gamma feature on");
-            }
-            
-            err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_GAMMA, 1);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set absolute gamma value to 1.0 ");
-            }
-            
-            err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_OFF);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set gamma feature off");
-            }
-            
-            // Hue
-            err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_ON);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set hue feature on");
-            }
-            
-            err = dc1394_feature_set_value(camera, DC1394_FEATURE_HUE, 2048);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set hue value to 2048");
-            }
-            
-            err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_OFF);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set hue feature off");
-            }
-            
-            // White Balance
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto white balance mode");
-            }
-            
-            // Saturation
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SATURATION, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto saturation mode");
-            }
-            
-            // Frame rate
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_FRAME_RATE, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto frame rate mode");
-            }
-            
-            // Pan
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_PAN, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto pan mode");
-            }
-            
-            // Tilt
-            err = dc1394_feature_set_mode(camera, DC1394_FEATURE_TILT, DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
-                throw VideoException("Could not set auto tilt mode");
-            }
-            
-        }
-
-    
     void FirewireVideo::GetBestSettings( dc1394video_mode_t video_mode, 
                                          dc1394framerate_t framerate 
                                        )
@@ -1649,7 +1555,7 @@
         float min, max, step_size, shutter;
         int no_steps = 10; // grab 10 frames
         
-        SetAutoAll();
+        SetAllFeaturesAuto();
         
         err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max);
         if( err != DC1394_SUCCESS ){
