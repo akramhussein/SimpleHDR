@@ -1,4 +1,7 @@
-
+/*
+ * Playground file for testing in Pangolin
+ *
+ */
 #include <iostream>
 
 #include <pangolin/pangolin.h>
