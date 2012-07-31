@@ -29,13 +29,14 @@
     #define PANGOLIN_FIREWIRE_H
 
     #include <sys/stat.h>
-    #include <vector>
 
     #include <pangolin/pangolin.h>
     #include <pangolin/video.h>
+
     #include <dc1394/dc1394.h>
     #include <ImageMagick/Magick++.h>
     #include <exiv2/exiv2.hpp>
+    #include <boost/thread/thread.hpp>
 
     #ifndef _WIN32
     #include <unistd.h>
@@ -43,9 +44,7 @@
 
     namespace pangolin
     {
-
-
-        
+       
     std::string Dc1394ColorCodingToString(dc1394color_coding_t coding);
 
     dc1394color_coding_t Dc1394ColorCodingFromString(std::string coding);

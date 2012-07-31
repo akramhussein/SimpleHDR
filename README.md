@@ -8,12 +8,7 @@ An example of these additions can be found in the examples/SimpleHDR.
 
 __Added Features__
 
-* Single HDR Frame Capture
-* HDR Video Recording
-* Full dc1394 feature control
-* Capture images to ppm or jpg
-* Write image EXIF data to captured jpgs
-* Obtain Average Luminance of image
+* add notes here
 
 What is Pangolin
 ----------------
