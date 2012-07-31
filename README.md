@@ -6,12 +6,14 @@ Steven Lovegrove) to capture HDR frames and video.
 
 An example of these additions can be found in the SimpleHDR example.
 
-__New Features__
-
+__Added Features__
 
 * Single HDR Frame Capture
 * HDR Video Recording
-* More dc1394 get/set functions
+* Full dc1394 feature control
+* Capture images to ppm or jpg
+* Write image EXIF data to captured jpgs
+* Obtain Average Luminance of image
 
 What is Pangolin
 ----------------
