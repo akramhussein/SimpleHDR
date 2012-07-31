@@ -1336,7 +1336,7 @@
             // make threaded or post-process
             // ultimately skip PPM and make seperate function
             
-            sprintf(filename_jpg, "./%s/jpg/%s%d%s", folder, "image0000", frame_number, ".jpeg");
+            sprintf(filename_jpg, "./%s/jpg/%s%d%s", folder, "image0000", frame_number, ".jpg");
             
             Magick::Image img;
             img.read(filename_ppm);
@@ -1377,7 +1377,7 @@
             
         }
         
-        cout << GetAvgLum(filename_jpg) << endl;      
+        cout << "Image Average Luminance cd/m^2: " << GetAvgLum(filename_jpg) << endl;      
         
         return true;
     }
@@ -1397,6 +1397,8 @@
         return new_frame;
         
     }
+     
+    
     float FirewireVideo::GetAvgLum(const std::string& filename)
     {
         try
@@ -1472,7 +1474,7 @@
         }
         catch (Exiv2::AnyError& e)
         {
-            return -1;
+            throw VideoException("Exiv Error");
         }
     }
             
@@ -1593,7 +1595,7 @@
             
             sleep(1/30); // pause 1/30th second 
             
-            //SaveFrame(frame_number, image, true, "response", true);
+            RecordFramesOneShot(frame_number, image, true, false);
 
             shutter += step_size;
             
