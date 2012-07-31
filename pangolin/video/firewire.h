@@ -371,7 +371,7 @@
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
     
     //! Obtains the "average scene luminance" (cd/m^2) from an image file.
-    float GetAvgLum(const std::string& filename);
+    float GetAvgLuminance(const std::string& filename);
         
     /*-----------------------------------------------------------------------
      *  REPORTING

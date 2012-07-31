@@ -1357,10 +1357,7 @@
         
         try {
             
-            exifData["Exif.Image.Make"] = camera->vendor;
-            exifData["Exif.Image.Model"] = camera->model;
-            exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
-            exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(GetFeatureValue(DC1394_FEATURE_SHUTTER));	
+            exifData["Exif.Image.Make"] =));	
             exifData["Exif.Photo.ColorSpace"] = uint16_t(1);
             exifData["Exif.Photo.WhiteBalance"] = uint16_t(GetFeatureMode(DC1394_FEATURE_WHITE_BALANCE));   // 0=auto,1=man
             exifData["Exif.Photo.GainControl"] = uint16_t(GetFeatureValue(DC1394_FEATURE_GAIN));
@@ -1467,7 +1464,7 @@
      * F-number and shutter speed are mandatory in exif data for EV calculation, iso is not.
      */
         
-    float FirewireVideo::GetAvgLum(const std::string& filename)
+    float FirewireVideo::GetAvgLuminance(const std::string& filename)
     {
         try
         {
