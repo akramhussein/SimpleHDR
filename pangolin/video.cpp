@@ -31,6 +31,10 @@
 #include "video/firewire.h"
 #endif
 
+#ifdef HAVE_EXIV2
+#include "video/image.h"
+#endif
+
 #ifdef HAVE_V4L
 #include "video/v4l.h"
 #endif

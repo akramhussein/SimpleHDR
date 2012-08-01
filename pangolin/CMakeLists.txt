@@ -143,7 +143,7 @@ IF(BUILD_PANGOLIN_VIDEO AND EXIV2_FOUND)
   SET(HAVE_EXIV2 1)
   LIST(APPEND INTERNAL_INC  ${EXIV2_INCLUDE_DIRS} )
   LIST(APPEND LINK_LIBS ${EXIV2_LIBRARIES} )
-  LIST(APPEND SOURCES video/firewire.h video/firewire.cpp)
+  LIST(APPEND SOURCES video/image.h video/image.cpp)
     MESSAGE(STATUS "Exiv2 Found and Enabled")
 ENDIF()
 
@@ -193,6 +193,7 @@ SET(INSTALL_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/config.h
 	vars_internal.h 
 	video.h 
         video/firewire.h
+        video/image.h
         widgets.h
 )
 

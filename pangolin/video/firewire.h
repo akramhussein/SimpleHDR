@@ -28,14 +28,11 @@
     #ifndef PANGOLIN_FIREWIRE_H
     #define PANGOLIN_FIREWIRE_H
 
-    #include <sys/stat.h>
-
     #include <pangolin/pangolin.h>
     #include <pangolin/video.h>
 
     #include <dc1394/dc1394.h>
-    #include <ImageMagick/Magick++.h>
-    #include <exiv2/exiv2.hpp>
+
     #include <boost/thread/thread.hpp>
 
     #ifndef _WIN32
@@ -64,7 +61,7 @@
     FirewireFrame(dc1394video_frame_t* frame) : frame(frame) {}
     dc1394video_frame_t *frame;
     };
-
+        
     struct Guid
     {
         Guid(uint64_t guid):guid(guid){}
@@ -360,27 +357,8 @@
     //! Create ppm from raw frame
     void CreatePPM(dc1394video_frame_t *frame, const char* filename, dc1394video_mode_t video_mode);
         
-    //! Copy ppm to jpg
-    void CopyPPMToJPG(const char* filename_ppm, const char* filename_jpg);
-        
-    /*-----------------------------------------------------------------------
-     *  CONVERTING/IMAGE PROCESSING
-     *-----------------------------------------------------------------------*/
-    
-    //! Write current camera data to exif on jpg image    
-    void WriteExifData(const std::string& filename);
-    
-    //! Copy exif data from one jpg to another
-    void CopyExifData(const std::string& from, const std::string& to,  bool dont_overwrite);
-        
-    // HAVEN'T TESTED! PROBABLY DOESN'T WORK
+    //UNTESTED -- converts frame to rgb (e.g. yuv to rgb)
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
-    
-    //! Returns the "average scene luminance" (cd/m^2) from an image file.
-    float GetAvgLuminance(const std::string& filename);
-        
-    //! creates hdrgen script for pfscalibrate based on exif data of image
-    bool JpgToHDRGEN(const char* filename, FILE* hdrgen, int frame_number);
         
     /*-----------------------------------------------------------------------
      *  REPORTING
@@ -402,10 +380,10 @@
     dc1394featureset_t *GetFeatures() { return &features; }
         
     //! get camera vendor
-    std::string GetCameraVendor() { return camera->vendor; }
+    std::string GetCameraVendor() const { return camera->vendor; }
     
     //! get camera model
-    std::string GetCameraModel() { return camera->model; }
+    std::string GetCameraModel() const { return camera->model; }
      
     //! generate camera response function and save to file
     void GetResponseFunction();
