@@ -53,9 +53,6 @@ namespace pangolin
     //! write current camera data to exif on jpg image    
     void WriteExifData(const FirewireVideo* video, const std::string& filename);
 
-    //! get exif data from image
-    void GetExifData(const std::string& filename, Exiv2::ExifData &exifData);
-
     //! copy exif data from one jpg to another
     void CopyExifData(const std::string& from, const std::string& to,  bool dont_overwrite);
 

@@ -1497,6 +1497,7 @@
             }
             
             SaveFile(frame_number, frame, "response-function", true);
+            
             JpgToHDRGEN("response-function", file, frame_number);
             
             shutter += step_size;

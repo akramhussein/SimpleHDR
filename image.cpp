@@ -82,28 +82,6 @@ namespace pangolin
 
     }
 
-    void GetExifData(const std::string& filename, Exiv2::ExifData &exifData)
-    {
-        
-        try{
-            
-            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
-            image->readMetadata();
-            
-            exifData = image->exifData();
-            
-            if (exifData.empty()){
-                throw VideoException("Exiv Error: No Exif Data in image");
-            }
-        }
-        catch (Exiv2::AnyError& e)
-        {
-            throw VideoException("Exiv Error");
-        }
-
-
-    }
-
     /* Borrowed from LuminanceHDR package
      * 
      * Credits to Giuseppe Rota <grota@users.sourceforge.net>
@@ -133,8 +111,16 @@ namespace pangolin
     {
         try
         {
+
+            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
+            image->readMetadata();
+            
             Exiv2::ExifData exifData;
-            GetExifData(filename, exifData);
+            exifData = image->exifData();
+            
+            if (exifData.empty()){
+                throw VideoException("Exiv Error: No Exif Data in image");
+            }
 
             Exiv2::ExifData::const_iterator _expo = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ExposureTime"));
             Exiv2::ExifData::const_iterator _expo2 = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ShutterSpeedValue"));
@@ -259,8 +245,16 @@ namespace pangolin
         
         try
         {
+           
+            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
+            image->readMetadata();
+            
             Exiv2::ExifData exifData;
-            GetExifData(file_path, exifData);
+            exifData = image->exifData();
+            
+            if (exifData.empty()){
+                throw VideoException("Exiv Error: No Exif Data in image");
+            }
             
             Exiv2::ExifData::const_iterator _expo = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ExposureTime"));
             Exiv2::ExifData::const_iterator _expo2 = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ShutterSpeedValue"));
