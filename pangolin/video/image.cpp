@@ -246,7 +246,7 @@ namespace pangolin
         try
         {
            
-            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
+            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(file_path);
             image->readMetadata();
             
             Exiv2::ExifData exifData;
