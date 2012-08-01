@@ -1486,6 +1486,8 @@
             }
             
             boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            
+            // capture frame
             dc1394video_frame_t *frame = NULL;
             
             dc1394_video_set_one_shot( camera, DC1394_ON );
@@ -1496,8 +1498,10 @@
                 dc1394_capture_enqueue(camera,frame);
             }
             
+            // save to ppm with exif data
             SaveFile(frame_number, frame, "response-function", true);
             
+            // append line to hdrgen script for response function
             JpgToHDRGEN("response-function", file, frame_number);
             
             shutter += step_size;
