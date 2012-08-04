@@ -62,11 +62,13 @@ namespace pangolin
             exifData["Exif.Image.Model"] = video->GetCameraModel();
             exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
             exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_SHUTTER));	
+            exifData["Exif.Photo.ExposureBiasValue"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_EXPOSURE));	
             exifData["Exif.Photo.ColorSpace"] = uint16_t(1);
             exifData["Exif.Photo.WhiteBalance"] = uint16_t(video->GetFeatureMode(DC1394_FEATURE_WHITE_BALANCE));   // 0=auto,1=man
             exifData["Exif.Photo.GainControl"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_GAIN));
             exifData["Exif.Photo.Saturation"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SATURATION));
             exifData["Exif.Photo.Sharpness"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SHARPNESS));
+
             
             Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
             assert(image.get() != 0);
