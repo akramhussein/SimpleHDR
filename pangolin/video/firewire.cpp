@@ -1191,30 +1191,11 @@
      *   RECORDING/SAVING
      *-----------------------------------------------------------------------*/
         
-    void GetTimeStamp(char* date_time){
-            
-            time_t ltime;
-            struct tm *Tm;
-            
-            ltime=time(NULL);
-            Tm=localtime(&ltime);
-            
-            sprintf(date_time,"%d/%d/%d-%d:%d:%d",
-                    Tm->tm_mday,
-                    Tm->tm_mon,
-                    Tm->tm_year,
-                    Tm->tm_hour,
-                    Tm->tm_min,
-                    Tm->tm_sec);
-            
-        }
-      
-        
     bool FirewireVideo::RecordFrames(
                                     int frame_number, 
                                     unsigned char* image, 
                                     bool wait,
-                                    bool jpg,
+                                    bool jpeg,
                                     bool hdr
                                     )
     {
@@ -1231,7 +1212,7 @@
             dc1394_capture_enqueue(camera,frame);
         }
  
-        hdr ? SaveFile(frame_number, frame, "hdr-video", jpg) : SaveFile(frame_number, frame, "video", jpg);
+        hdr ? SaveFile(frame_number, frame, "hdr-video", jpeg) : SaveFile(frame_number, frame, "video", jpeg);
         
         return true;       
         
@@ -1240,7 +1221,7 @@
     bool FirewireVideo::RecordFramesOneShot(    
                                     int frame_number,
                                     unsigned char* image,
-                                    bool jpg,
+                                    bool jpeg,
                                     bool hdr
                                     ) 
     {
@@ -1254,16 +1235,17 @@
         dc1394_capture_enqueue(camera,frame);
     }
 
-    hdr ? SaveFile(frame_number, frame, "hdr-video", jpg) : SaveFile(frame_number, frame, "video", jpg);
+    hdr ? SaveFile(frame_number, frame, "hdr-video", jpeg) : SaveFile(frame_number, frame, "video", jpeg);
 
     return true;       
 
     }
         
     bool FirewireVideo::CaptureFrame(
+                                     int frame_number,
                                      unsigned char* image, 
                                      bool wait,   
-                                     bool jpg 
+                                     bool jpeg 
                                      )
         {
             dc1394video_frame_t *frame = NULL;
@@ -1278,21 +1260,43 @@
                 dc1394_capture_enqueue(camera,frame);
             }
             
-            SaveFile(1, frame, "single-frames", jpg);
+            SaveFile(frame_number, frame, "single-frames", jpeg);
             
             return true;     
+           
             
         }
-   
+    bool FirewireVideo::CaptureFrameOneShot(
+                                     int frame_number,
+                                     unsigned char* image,  
+                                     bool jpeg 
+                                     )
+    {
+        dc1394video_frame_t *frame = NULL;
+        
+        dc1394_video_set_one_shot( camera, DC1394_ON );
+        
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
+        if( frame ){
+            memcpy(image,frame->image,frame->image_bytes);
+            dc1394_capture_enqueue(camera,frame);
+        }
+        
+        SaveFile(frame_number, frame, "single-frames", jpeg);
+        
+        return true;     
+        
+    }
+
     bool FirewireVideo::SaveFile(
                                  int frame_number, 
                                  dc1394video_frame_t *frame, 
                                  const char* folder, 
-                                 bool jpg
+                                 bool jpeg
                                  )
     {
         char filename_ppm[128];
-        char filename_jpg[128];
+        char filename_jpeg[128];
         dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8;
 
         // create top directory
@@ -1303,31 +1307,31 @@
         sprintf(ppm_folder, "%s/ppm", folder);
         mkdir(ppm_folder, 0755);
         
-        // create jpg folder
-        char jpg_folder[128];
-        sprintf(jpg_folder, "%s/jpg", folder);
-        mkdir(jpg_folder, 0755);
+        // create jpeg folder
+        char jpeg_folder[128];
+        sprintf(jpeg_folder, "%s/jpeg", folder);
+        mkdir(jpeg_folder, 0755);
         
-        // create path for ppm
-        sprintf(filename_ppm, "./%s/ppm/%s%d%s", folder, "image0000", frame_number, ".ppm");
-        
-        CreatePPM(frame, filename_ppm, video_mode);
-        
-        if( jpg ){
-            
-            sprintf(filename_jpg, "./%s/jpg/%s%d%s", folder, "image0000", frame_number, ".jpg");
-            CopyPPMToJPG(filename_ppm, filename_jpg);
-            
-            WriteExifData(this, filename_jpg);
-                                    
+        // save to jpeg or ppm
+        if( jpeg ){ 
+            sprintf(filename_jpeg, "./%s/jpeg/%s%d%s", folder, "image0000", frame_number, ".jpeg");
+            CreateJPEG(frame, filename_jpeg, video_mode);
+            WriteExifData(this, filename_jpeg);                         
+        } else{
+            // create path for ppm
+            sprintf(filename_ppm, "./%s/ppm/%s%d%s", folder, "image0000", frame_number, ".ppm");
+            CreatePPM(frame, filename_ppm, video_mode);
         }
         
-        cout << "Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpg) << endl;      
+        cout << "Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpeg) << endl;      
         
         return true;
     }
     
-    void FirewireVideo::CreatePPM(dc1394video_frame_t *frame, const char* filename, dc1394video_mode_t video_mode){
+    void FirewireVideo::CreatePPM(dc1394video_frame_t *frame, 
+                                  const char* filename, 
+                                  dc1394video_mode_t video_mode)
+        {
         
         FILE* imagefile;
         unsigned int width, height;
@@ -1356,7 +1360,68 @@
     }
         
 
-    // UNTESTED FUNCTION
+    bool FirewireVideo::CreateJPEG(dc1394video_frame_t *frame, 
+                                 const char *filename,  
+                                 dc1394video_mode_t video_mode)
+    {            
+        unsigned int width, height;
+        
+        // get width & height
+        err = dc1394_get_image_size_from_video_mode(
+                                                    camera, 
+                                                    video_mode, 
+                                                    &width, 
+                                                    &height
+                                                    );
+        if ( err != DC1394_SUCCESS ) {
+            throw VideoException("Could not get image size from video mode");
+        }
+        
+        struct jpeg_compress_struct cinfo;
+        struct jpeg_error_mgr jerr;
+        
+        // this is a pointer to one row of image data
+        JSAMPROW row_pointer[1];
+        FILE *outfile = fopen( filename, "wb" );
+        
+        if ( !outfile ) {
+            printf("Error opening output jpeg file %s\n!", filename );
+            return false;
+        }
+        
+        cinfo.err = jpeg_std_error( &jerr );
+        jpeg_create_compress(&cinfo);
+        jpeg_stdio_dest(&cinfo, outfile);
+    
+        // Setting the parameters of the output file here 
+        cinfo.image_width = width;  
+        cinfo.image_height = height;
+        cinfo.input_components = 3;
+        cinfo.in_color_space = JCS_RGB;
+        
+        // default compression parameters
+        jpeg_set_defaults( &cinfo );
+        
+        // set quality to 100%
+        jpeg_set_quality ( &cinfo, 100, TRUE);
+        
+        // Now do the compression
+        jpeg_start_compress( &cinfo, TRUE );
+        
+        // like reading a file, this time write one row at a time
+        while( cinfo.next_scanline < cinfo.image_height )
+        {
+            row_pointer[0] = &frame->image[ cinfo.next_scanline * cinfo.image_width *  cinfo.input_components];
+            jpeg_write_scanlines( &cinfo, row_pointer, 1 );
+        }
+        // similar to read file, clean up after we're done compressing 
+        jpeg_finish_compress( &cinfo );
+        jpeg_destroy_compress( &cinfo );
+        fclose( outfile );
+        
+        return true;
+    }
+    
     dc1394video_frame_t* FirewireVideo::ConvertToRGB(dc1394video_frame_t *original_frame)
     {
         dc1394video_frame_t *new_frame = NULL;
@@ -1364,7 +1429,7 @@
         dc1394_convert_frames(original_frame, new_frame);
         
         return new_frame;
-        
+    
     }
          
     /*-----------------------------------------------------------------------
@@ -1438,7 +1503,8 @@
     
 
         // UNFINISHED
-    void FirewireVideo::GetResponseFunction(){
+    void FirewireVideo::GetResponseFunction()
+    {
         unsigned char* image = new unsigned char[SizeBytes()];
         FILE* file;
         char hdrgen_file[32] = "camera.hdrgen";
@@ -1502,7 +1568,7 @@
             SaveFile(frame_number, frame, "response-function", true);
             
             // append line to hdrgen script for response function
-            JpgToHDRGEN("response-function", file, frame_number);
+            JpegToHDRGEN("response-function", file, frame_number);
             
             shutter += step_size;
             
