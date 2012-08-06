@@ -58,7 +58,7 @@ namespace pangolin
         
         try {
             
-            // TO DO - change to metadata instead
+            // TO DO - change to pull form metadata instead
             exifData["Exif.Image.Make"] = video->GetCameraVendor();
             exifData["Exif.Image.Model"] = video->GetCameraModel();
             exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded

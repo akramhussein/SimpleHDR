@@ -1302,25 +1302,29 @@
         // create top directory
         mkdir(folder, 0755);
         
-        // create ppm folder
-        char ppm_folder[128];
-        sprintf(ppm_folder, "%s/ppm", folder);
-        mkdir(ppm_folder, 0755);
-        
-        // create jpeg folder
-        char jpeg_folder[128];
-        sprintf(jpeg_folder, "%s/jpeg", folder);
-        mkdir(jpeg_folder, 0755);
-        
         // save to jpeg or ppm
-        if( jpeg ){ 
+        if( jpeg ){  
+            
+            // create jpeg folder
+            char jpeg_folder[128];
+            sprintf(jpeg_folder, "%s/jpeg", folder);
+            mkdir(jpeg_folder, 0755);
+            
             sprintf(filename_jpeg, "./%s/jpeg/%s%d%s", folder, "image0000", frame_number, ".jpeg");
             CreateJPEG(frame, filename_jpeg, video_mode);
-            WriteExifData(this, filename_jpeg);                         
-        } else{
+            WriteExifData(this, filename_jpeg);
+            
+        } else{   
+            
+            // create ppm folder
+            char ppm_folder[128];
+            sprintf(ppm_folder, "%s/ppm", folder);
+            mkdir(ppm_folder, 0755);
+            
             // create path for ppm
             sprintf(filename_ppm, "./%s/ppm/%s%d%s", folder, "image0000", frame_number, ".ppm");
             CreatePPM(frame, filename_ppm, video_mode);
+            
         }
         
         cout << "Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpeg) << endl;      

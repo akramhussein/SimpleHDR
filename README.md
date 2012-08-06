@@ -59,7 +59,7 @@ __DC1394__ (for firewire input)
 * (deb) sudo apt-get install libdc1394-22-dev libraw1394-dev
 * (mac) sudo port install libdc1394
 
-__Magick++__ (for ppm to jpg conversion)
+__ImageMagick / Magick++__ (for ppm to jpg conversion and general image manipulation)
  
 * (win) http://www.imagemagick.org/script/magick++.php
 * (deb) sudo apt-get install imagemagick libmagick++-dev
@@ -70,6 +70,14 @@ __Exiv2__ (for writing exif data to jpgs)
 * (win) http://www.exiv2.org/download.html
 * (deb) sudo apt-get install exiv2 (may need to install from source)
 * (mac) sudo port install exiv2
+
+__JPEG__ (for generating JPEGS directly from the camera)
+
+_note: may come installed with Magick++_
+
+* (win) http://gnuwin32.sourceforge.net/packages/jpeg.htm _(untested)_
+* (deb) sudo apt-get install libjpeg8
+* (mac) sudo port install jpeg
 
 __PFSTools__ (for generating response functions and HDR images)
 

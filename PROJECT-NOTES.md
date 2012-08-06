@@ -25,11 +25,6 @@ extract histogram and adjust
 OPTIMISATIONS
 =============
 
-Save to JPEG 
-------------
-Currently: unsigned char * buffer -> PPM, PPM to ImageMagick object, ImageMagick -> JPEG
-Should be: unsigned char * buffer -> JPEG
-
 Threading
 ---------
 Add threading for all file writing operations
@@ -54,12 +49,15 @@ Currently have a mixed method to handle errors
 COMPLETED
 =========
 
+Save to JPEG 
+------------
+Currently: unsigned char * buffer -> PPM, PPM to ImageMagick object, ImageMagick -> JPEG
+Should be: unsigned char * buffer -> JPEG
 
 Camera Response Function 
 ------------------------
-Use Debevec technique
+Use robertson (change to debevec)
 Need to investigate more
-
 
 Create PPM & JPG Directories
 ----------------------------
