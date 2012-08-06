@@ -338,4 +338,20 @@ namespace pangolin
         return true;
     }
     
+    void SaveImageHistogram(const char* filename)
+    {
+        char histogram[128];
+        
+        try {
+            Magick::Image img;
+            img.read(filename);
+            sprintf(histogram, "histogram:%s-histogram.jpg", filename);
+            img.write(histogram);
+        } 
+        catch( Magick::ErrorFileOpen &error ) {
+            // Process Magick++ file open error
+            cerr << "Error: " << error.what() << endl;
+        }
+
+    }
 }

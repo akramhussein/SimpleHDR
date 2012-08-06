@@ -1313,7 +1313,7 @@
             sprintf(filename_jpeg, "./%s/jpeg/%s%d%s", folder, "image0000", frame_number, ".jpeg");
             CreateJPEG(frame, filename_jpeg, video_mode);
             WriteExifData(this, filename_jpeg);
-            
+          
         } else{   
             
             // create ppm folder
@@ -1328,7 +1328,7 @@
         }
         
         cout << "Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpeg) << endl;      
-        
+
         return true;
     }
     

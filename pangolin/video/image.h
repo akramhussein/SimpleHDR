@@ -62,6 +62,7 @@ namespace pangolin
     //! creates hdrgen script for pfscalibrate based on exif data of image
     bool JpegToHDRGEN(const char* filename, FILE* hdrgen, int frame_number);
     
-
+    //! saves image histogram to file
+    void SaveImageHistogram(const char* filename);
 }
 #endif
