@@ -36,20 +36,21 @@ using namespace std;
 
 namespace pangolin
 {
-    
-    void CopyPPMToJPG(const char* filename_ppm, const char* filename_jpg){
+    void CopyFormatToFormat(const char* from_filename, const char* to_filename)
+    {
         
         try {
             Magick::Image img;
-            img.read(filename_ppm);
-            img.write(filename_jpg);
+            img.read(from_filename);
+            img.write(to_filename);
         } 
         catch( Magick::ErrorFileOpen &error ) {
             // Process Magick++ file open error
             cerr << "Error: " << error.what() << endl;
         }
+
     }
-       
+
     void WriteExifData(const pangolin::FirewireVideo* video, const std::string& filename)
     {
       
@@ -239,11 +240,11 @@ namespace pangolin
     }
     
 
-    bool JpgToHDRGEN(const char* filename, FILE* hdrgen, int frame_number)
+    bool JpegToHDRGEN(const char* filename, FILE* hdrgen, int frame_number)
     {
         
         char file_path[128];
-        sprintf(file_path, "./%s/jpg/image0000%d.jpg", filename, frame_number);
+        sprintf(file_path, "./%s/jpeg/image0000%d.jpeg", filename, frame_number);
         
         try
         {

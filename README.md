@@ -41,7 +41,7 @@ __CMake__ (for build environment)
 * (deb) sudo apt-get install cmake
 * (mac) sudo port install cmake
 
-__FreeGlut / GLU / Glew__ (Required for drawing text and windowing)
+__FreeGlut / GLU / Glew__ (required for drawing text and windowing)
 
 * (win) http://www.transmissionzero.co.uk/software/freeglut-devel/
 * (deb) sudo apt-get install freeglut3-dev libglu-dev libglew-dev
@@ -50,16 +50,16 @@ __FreeGlut / GLU / Glew__ (Required for drawing text and windowing)
 Optional Dependencies
 ---------------------
 
-__FFMPEG__ (For video decoding and image rescaling)
+__FFMPEG__ (for video decoding and image rescaling)
 
 * (deb) sudo apt-get install ffmpeg libavcodec-dev libavutil-dev libavformat-dev libswscale-dev
 
-__DC1394__ (For firewire input)
+__DC1394__ (for firewire input)
 
 * (deb) sudo apt-get install libdc1394-22-dev libraw1394-dev
 * (mac) sudo port install libdc1394
 
-__Magick++__ (For ppm to jpg conversion)
+__Magick++__ (for ppm to jpg conversion)
  
 * (win) http://www.imagemagick.org/script/magick++.php
 * (deb) sudo apt-get install imagemagick libmagick++-dev
@@ -70,7 +70,15 @@ __Exiv2__ (for writing exif data to jpgs)
 * (win) http://www.exiv2.org/download.html
 * (deb) sudo apt-get install exiv2 (may need to install from source)
 * (mac) sudo port install exiv2
-		
+
+__PFSTools__ (for generating response functions and HDR images)
+
+_note: quite tricky to install on mac/win_
+
+* (win) http://sourceforge.net/projects/pfstools/files/
+* (deb) sudo apt-get install pfstools
+* (mac) http://sourceforge.net/projects/pfstools/files/
+
 Very Optional Dependencies
 --------------------------
 

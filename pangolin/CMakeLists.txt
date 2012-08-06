@@ -147,6 +147,15 @@ IF(BUILD_PANGOLIN_VIDEO AND EXIV2_FOUND)
     MESSAGE(STATUS "Exiv2 Found and Enabled")
 ENDIF()
 
+FIND_PACKAGE(LibJpeg QUIET)
+IF(BUILD_PANGOLIN_VIDEO AND LibJpeg_FOUND)
+  SET(HAVE_LibJpeg 1)
+  LIST(APPEND INTERNAL_INC  ${LibJpeg_INCLUDE_DIRS} )
+  LIST(APPEND LINK_LIBS ${LibJpeg_LIBRARIES} )
+  LIST(APPEND SOURCES video/firewire.h video/firewire.cpp)
+    MESSAGE(STATUS "LibJpeg Found and Enabled")
+ENDIF()
+
 #######################################################
 ## Add Librarys / Include Directories / Link directories
 

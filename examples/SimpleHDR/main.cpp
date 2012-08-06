@@ -54,8 +54,8 @@ int main( int argc, char* argv[] )
     //keyboard shortcuts
     pangolin::RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));                 // hdr mode 
     pangolin::RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                // normal mode
-    pangolin::RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // grab multiple frames in ppm & jpg
-    pangolin::RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single frame in ppm & jpg
+    pangolin::RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // grab multiple frames in ppm & jpeg
+    pangolin::RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single frame in ppm & jpeg
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
     pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));    // reset settings
@@ -72,12 +72,13 @@ int main( int argc, char* argv[] )
     static Var<bool> hdr("ui.HDR Mode",false,true);
     static Var<float> short_exposure("ui.Short Exposure (s)",0.00);
     static Var<float> long_exposure("ui.Long Exposure (s)",0.00);
+    
     //static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
     //static Var<bool> motion("ui.Motion Correction",false,true);
     
     //other options
     static Var<bool> manual("ui.Manual Camera Settings",false,true);
-    //static Var<bool> print("ui.Print",false,false);
+
     
     // camera settings
     static Var<float> shutter("ui.Shutter (s)", video.GetFeatureValue(DC1394_FEATURE_SHUTTER),
@@ -114,10 +115,8 @@ int main( int argc, char* argv[] )
                                                    
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
     
-    // general info
-    //static Var<float> current_framerate("ui.Framerate (fps)",0);
-
-    //static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
+    // camera brand/model info
+    static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
     static Var<string> camera("ui.Camera", video.GetCameraModel());
 
     /*-----------------------------------------------------------------------
@@ -127,7 +126,9 @@ int main( int argc, char* argv[] )
     bool over_exposed = true;
     bool save = false;
     bool reset_shutter = false;
-    //float current_exposure = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
+    float exp = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
+    float short_exp = exp - 1;
+    float long_exp = exp + 1;
     
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {     
@@ -154,21 +155,18 @@ int main( int argc, char* argv[] )
             hue.Reset();
             sharpness.Reset();
         }
-        
-        //cout << "EXPOSURE ABS: " << video.GetFeatureValue(DC1394_FEATURE_EXPOSURE) << endl;
-        //cout << "EXPOSURE QUANT: " << video.GetFeatureQuant(DC1394_FEATURE_EXPOSURE) << endl;
-    
+
         if( hdr ) {
             
             if (over_exposed){
-                video.SetFeatureValue(DC1394_FEATURE_SHUTTER, 0.0003000);
+                video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, 1);
                 over_exposed = false;
-                long_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+                long_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
             }
             else {
-                video.SetFeatureValue(DC1394_FEATURE_SHUTTER, 0.0009522);
+                video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, -1);
                 over_exposed = true;
-                short_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+                short_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
             }
             
         }
@@ -178,13 +176,12 @@ int main( int argc, char* argv[] )
         }
         
         if ( manual && !hdr){
-            video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
+            //video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
         }
         
-
         if ( manual ){ 
             
-            video.SetFeatureQuant(DC1394_FEATURE_EXPOSURE, exposure);
+            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure);
             video.SetFeatureValue(DC1394_FEATURE_BRIGHTNESS, brightness);
             video.SetFeatureValue(DC1394_FEATURE_GAIN, gain);
             video.SetFeatureValue(DC1394_FEATURE_GAMMA, gamma); 
@@ -200,11 +197,21 @@ int main( int argc, char* argv[] )
         
 
         if( pangolin::Pushed(capture) ){ 
-            video.CaptureFrame(img, true, true);
+            video.CaptureFrame(1, img, true, true);
         } 
         
-        if( pangolin::Pushed(capture_hdr) ){ /**/ } 
-        
+        if( pangolin::Pushed(capture_hdr) ){
+            
+            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, 1);
+            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            video.CaptureFrameOneShot(1, img, true);
+            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, -1);
+            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            video.CaptureFrameOneShot(2, img, true);
+
+         } 
+    
         // start/stop recording
         if ( save && pangolin::Pushed(record) ){ save = false; }
 

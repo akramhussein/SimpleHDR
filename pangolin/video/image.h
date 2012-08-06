@@ -47,20 +47,20 @@
 namespace pangolin
 {
 
-    //! Copy ppm to jpg
-    void CopyPPMToJPG(const char* filename_ppm, const char* filename_jpg);
+    //! Copy ppm to jpeg
+    void CopyFormatToFormat(const char* from_filename, const char* to_filename);
     
-    //! write current camera data to exif on jpg image    
+    //! write current camera data to exif on jpeg image    
     void WriteExifData(const FirewireVideo* video, const std::string& filename);
 
-    //! copy exif data from one jpg to another
+    //! copy exif data from one jpeg to another
     void CopyExifData(const std::string& from, const std::string& to,  bool dont_overwrite);
 
     //! returns the "average scene luminance" (cd/m^2) from an image file.
     float GetAvgLuminance(const std::string& filename);
 
     //! creates hdrgen script for pfscalibrate based on exif data of image
-    bool JpgToHDRGEN(const char* filename, FILE* hdrgen, int frame_number);
+    bool JpegToHDRGEN(const char* filename, FILE* hdrgen, int frame_number);
     
 
 }

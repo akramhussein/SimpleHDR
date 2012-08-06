@@ -15,8 +15,6 @@ using namespace std;
 int main( int argc, char* argv[] ){
 
     FirewireVideo video = FirewireVideo();     
-    video.PrintCameraReport();
-    video.GetResponseFunction();
-    
-    return 0;
+
+       return 0;
 }

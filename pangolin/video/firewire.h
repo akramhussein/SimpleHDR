@@ -33,6 +33,8 @@
 
     #include <dc1394/dc1394.h>
 
+    #include <jpeglib.h>
+
     #include <boost/thread/thread.hpp>
 
     #ifndef _WIN32
@@ -321,50 +323,64 @@
      *  RECORDING/SAVING
      *-----------------------------------------------------------------------*/
 
-    //! Records multiple frames to ppm  (& jpg if set to true)
+    //! records multiple frames
     bool RecordFrames(     
                       int frame_number,      // current frame number
                       unsigned char* image,  // empty image buffer -- to go in future
                       bool wait,             // defaults = true
-                      bool jpg,               // true => converts ppm to jpg (default = false)
-                      bool hdr               // if hdr
+                      bool jpeg = true,      // true = jpeg, false = ppm
+                      bool hdr = false       // hdr folder or not
                       ); 
         
-    //! Records multiple frames using 'One Shot' mode to ppm  (& jpg if set to true)
+    //! records multiple frames using 'One Shot' mode
     bool RecordFramesOneShot(   
-                              int frame_number,     // current frame number
-                              unsigned char* image, // empty image buffer -- to go in future
-                              bool jpg,             // if true; converts ppm to jpg
-                              bool hdr              // if hdr
-                              );
+                            int frame_number,     // current frame number
+                            unsigned char* image, // empty image buffer -- to go
+                            bool jpeg = true,     // true = jpeg, false = ppm
+                            bool hdr = true // hdr folder or not
+                            );
                 
-    //! Saves one frame to ppm (& jpg if set to true)
+    //! saves one frame
     bool CaptureFrame(
-                      unsigned char* image, // empty image buffer -- to go in future
-                      bool wait,             // defaults = true
-                      bool jpg              // if true; converts ppm to jpg
+                      int frame_number,
+                      unsigned char* image,  // empty image buffer -- to go in future
+                      bool wait,              // defaults = true
+                      bool jpeg = true        //true = jpeg, false = ppm
                      );
 
+    //! saves one frame with 'One Shot' mode
+    bool CaptureFrameOneShot(
+                          int frame_number,
+                          unsigned char* image, // empty image buffer -- to go 
+                          bool jpeg = true      // true = jpeg, false = ppm
+                      );
         
-    //! Save image file to ppm or jpg
+    //! save image file to ppm or jpeg
     bool SaveFile(    
                     int frame_number,           // current frame number
                     dc1394video_frame_t *frame, // frame buffer
                     const char* path,           // folder name
-                    bool jpg = false            // jpg save: defaults to false
+                    bool jpeg = true                // true = jpeg, false = ppm
                 );
     
-    //! Create ppm from raw frame
-    void CreatePPM(dc1394video_frame_t *frame, const char* filename, dc1394video_mode_t video_mode);
+    //! create ppm from raw frame buffer
+    void CreatePPM(dc1394video_frame_t *frame, 
+                   const char* filename, 
+                   dc1394video_mode_t video_mode);
         
-    //UNTESTED -- converts frame to rgb (e.g. yuv to rgb)
+    //! create jpeg from raw frame buffer 
+    bool CreateJPEG(dc1394video_frame_t *frame, 
+                   const char *filename,  
+                   dc1394video_mode_t video_mode);
+        
+    //! returns video frame in RGB format (e.g. from YUV to RGB)
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
-        
+    
     /*-----------------------------------------------------------------------
      *  REPORTING
      *-----------------------------------------------------------------------*/
     
-    //! Print full camera features and current settings report
+    //! print full camera features and current settings report
     void PrintCameraReport();
     
     /*-----------------------------------------------------------------------
