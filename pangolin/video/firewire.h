@@ -388,8 +388,8 @@
      *-----------------------------------------------------------------------*/
     
     //! get the best video mode and highest framerate for camera (default colour RGB8)
-    void GetBestSettings( dc1394video_mode_t video_mode, 
-                          dc1394framerate_t framerate 
+    void GetBestSettings( dc1394video_mode_t &video_mode, 
+                          dc1394framerate_t &framerate 
                          );
     
     //! get camera feature set

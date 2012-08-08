@@ -1427,9 +1427,9 @@
     }
     
     dc1394video_frame_t* FirewireVideo::ConvertToRGB(dc1394video_frame_t *original_frame)
-    {
-        dc1394video_frame_t *new_frame = NULL;
-        new_frame->color_coding=DC1394_COLOR_CODING_RGB8; // should be abstracted
+    {       
+        dc1394video_frame_t *new_frame = new dc1394video_frame_t();
+        new_frame->color_coding=DC1394_COLOR_CODING_RGB8;
         dc1394_convert_frames(original_frame, new_frame);
         
         return new_frame;
@@ -1457,8 +1457,8 @@
      *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/
         
-    void FirewireVideo::GetBestSettings( dc1394video_mode_t video_mode, 
-                                         dc1394framerate_t framerate 
+    void FirewireVideo::GetBestSettings( dc1394video_mode_t &video_mode, 
+                                         dc1394framerate_t &framerate 
                                        )
         {
     

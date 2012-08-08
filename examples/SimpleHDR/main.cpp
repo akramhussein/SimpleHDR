@@ -176,7 +176,7 @@ int main( int argc, char* argv[] )
         }
         
         if ( manual && !hdr){
-            //video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
+            video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
         }
         
         if ( manual ){ 
@@ -197,7 +197,7 @@ int main( int argc, char* argv[] )
         
 
         if( pangolin::Pushed(capture) ){ 
-            video.CaptureFrame(1, img, true, true);
+            video.CaptureFrameOneShot(1, img);
         } 
         
         if( pangolin::Pushed(capture_hdr) ){
@@ -205,10 +205,26 @@ int main( int argc, char* argv[] )
             video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, 1);
             boost::this_thread::sleep(boost::posix_time::seconds(1/30));
             video.CaptureFrameOneShot(1, img, true);
-            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            
+            texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
+            // Activate video viewport and render texture
+            vVideo.ActivateScissorAndClear();
+            texVideo.RenderToViewportFlipY();
+            // Swap back buffer with front and process window events via GLUT
+            d_panel.Render();
+            pangolin::FinishGlutFrame();
+
             video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, -1);
             boost::this_thread::sleep(boost::posix_time::seconds(1/30));
             video.CaptureFrameOneShot(2, img, true);
+
+            texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
+            // Activate video viewport and render texture
+            vVideo.ActivateScissorAndClear();
+            texVideo.RenderToViewportFlipY();
+            // Swap back buffer with front and process window events via GLUT
+            d_panel.Render();
+            pangolin::FinishGlutFrame();
 
          } 
     
