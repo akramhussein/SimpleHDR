@@ -27,11 +27,10 @@ int main( int argc, char* argv[] )
     
     video.SetAllFeaturesAuto();
     video.PrintCameraReport();
-    video.SetMetaDataFlags( META_ALL );
+    video.SetMetaDataFlags( META_SHUTTER );
     video.CreateShutterLookupTable();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
-    MetaData metadata;
     
     VideoPixelFormat vid_fmt = VideoFormatFromString(video.PixFormat());
     const unsigned w = video.Width();
@@ -65,7 +64,7 @@ int main( int argc, char* argv[] )
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
     pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));    // reset settings
-    //pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                    // print settings
+    //pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                  // print settings
     
     // capture options
     static Var<bool> record("ui.Record",false,false);

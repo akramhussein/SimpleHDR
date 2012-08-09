@@ -51,6 +51,7 @@ namespace pangolin
 
     }
 
+    //void WriteExifData(const pangolin::FirewireVideo* video, const std::string& filename)
     void WriteExifData(MetaData *metaData, const std::string& filename)
     {
       
@@ -64,8 +65,9 @@ namespace pangolin
             //exifData["Exif.Image.Model"] = video->GetCameraModel();
             exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
             exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(metaData->shutterAbs);	
+            //exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_SHUTTER));	
             //exifData["Exif.Photo.ExposureBiasValue"] = Exiv2::floatToRationalCast(metaData->); 
-            exifData["Exif.Photo.ColorSpace"] = uint16_t(1);
+            exifData["Exif.Photo.ColorSpace"] = uint16_t(1); //sRGB
             
             /*
             exifData["Exif.Photo.WhiteBalance"] = uint16_t(video->GetFeatureMode(DC1394_FEATURE_WHITE_BALANCE));   // 0=auto,1=man
