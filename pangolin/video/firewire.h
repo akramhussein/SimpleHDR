@@ -28,6 +28,12 @@
     #ifndef PANGOLIN_FIREWIRE_H
     #define PANGOLIN_FIREWIRE_H
 
+    #include <stdio.h>
+    #include <stdint.h>
+    #include <stdlib.h>
+    #include <inttypes.h>
+    #include <sys/stat.h>
+
     #include <pangolin/pangolin.h>
     #include <pangolin/video.h>
 
@@ -79,6 +85,7 @@
         uint32_t timestamp, frame_count;
         uint32_t shutterQuant, gain;
         float shutterAbs;
+        bool abs_on;
 
         //TODO: Add strobe, GPIO and ROI functionality if needed.
         uint32_t strobe, gpio, roi;
@@ -111,7 +118,9 @@
     META_STROBE = 128,
     META_GPIO_PIN_STATE = 256,
     META_ROI_POSITION = 512,
-    META_ALL = 1023
+    META_ALL = 1023,
+    META_ABS = 32678, 
+    META_ALL_AND_ABS = 33791,
     } meta_flags;
         
     class FirewireVideo : public VideoInterface
@@ -195,6 +204,9 @@
     /*-----------------------------------------------------------------------
      * LOOPUP TABLE & META DATA ETC
      *-----------------------------------------------------------------------*/
+        
+    //! get HDR flags
+    uint32_t GetHDRFlags();
         
     //! set the meta data flags to be included in image data
     void SetMetaDataFlags(int flags);
@@ -354,6 +366,9 @@
                           unsigned char* image, // empty image buffer -- to go 
                           bool jpeg = true      // true = jpeg, false = ppm
                       );
+        
+    //! Automatic HDR Frame Capture
+    void CaptureHDRFrame(float under, float over);
         
     //! save image file to ppm or jpeg
     bool SaveFile(    

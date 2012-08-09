@@ -28,12 +28,6 @@
     #include "firewire.h"
     #include "image.h"
 
-    #include <stdio.h>
-    #include <stdint.h>
-    #include <stdlib.h>
-    #include <inttypes.h>
-    #include <sys/stat.h>
-
     using namespace std;
 
     namespace pangolin
@@ -444,38 +438,38 @@
 
     void FirewireVideo::StopForOneShot()
     {
-    if( running )
-    {
-        // Stop transmission
-        err = dc1394_video_set_transmission(camera,DC1394_OFF);
+        if( running )
+        {
+            // Stop transmission
+            err = dc1394_video_set_transmission(camera,DC1394_OFF);
+            if( err != DC1394_SUCCESS )
+                throw VideoException("Could not stop the camera");
+            running = false;
+        }
+        //Call to eliminate spurious frames
+        err = dc1394_video_set_one_shot(camera, DC1394_OFF);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not stop the camera");
-        running = false;
-    }
-    //Call to eliminate spurious frames
-    err = dc1394_video_set_one_shot(camera, DC1394_OFF);
-    if( err != DC1394_SUCCESS )
-        throw VideoException("Could not set one shot to OFF");
-    FlushDMABuffer();
+            throw VideoException("Could not set one shot to OFF");
+        FlushDMABuffer();
     }
 
     bool FirewireVideo::CheckOneShotCapable() {
-    if (camera->one_shot_capable >0 ) return true;
-    else return false;
+        if (camera->one_shot_capable >0 ) return true;
+        else return false;
     }
 
     bool FirewireVideo::GrabOneShot(unsigned char* image) {
-    dc1394_video_set_one_shot(camera, DC1394_ON);
+        dc1394_video_set_one_shot(camera, DC1394_ON);
 
-    dc1394video_frame_t *frame;
-    dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);   
-    if( frame )
-    {
-        memcpy(image,frame->image,frame->image_bytes);
-        dc1394_capture_enqueue(camera,frame);
-        return true;
-    }
-    return false;
+        dc1394video_frame_t *frame;
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);   
+        if( frame )
+        {
+            memcpy(image,frame->image,frame->image_bytes);
+            dc1394_capture_enqueue(camera,frame);
+            return true;
+        }
+        return false;
     }
     
     void FirewireVideo::FlushDMABuffer()
@@ -1081,10 +1075,20 @@
      *  META DATA & LOOPUP TABLE ETC
      *-----------------------------------------------------------------------*/
         
-    void FirewireVideo::SetMetaDataFlags(  int flags ) 
+    uint32_t FirewireVideo::GetHDRFlags() 
+    {
+        uint32_t value;
+        err = dc1394_get_control_register(camera, 0x1800, &value);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr flag");
+        }
+        return value;
+    }
+        
+    void FirewireVideo::SetMetaDataFlags( int flags ) 
     {
         meta_data_flags = 0x80000000 | flags;
-
+        
         err = dc1394_set_control_register(camera, 0x12f8, meta_data_flags);
         if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set meta data flags");
@@ -1109,9 +1113,13 @@
 
     metaData->flags = meta_data_flags;
 
+    if(meta_data_flags & META_ABS) {
+        metaData->abs_on = true;
+    }
+    
     if(meta_data_flags & META_TIMESTAMP) {
-        metaData->timestamp = (data+4*offset)[3] + ((data+4*offset)[2] << 8) + ((data+4*offset)[1] << 16) + ((data+4*offset)[0] << 24);
-        offset++;
+    metaData->timestamp = (data+4*offset)[3] + ((data+4*offset)[2] << 8) + ((data+4*offset)[1] << 16) + ((data+4*offset)[0] << 24);
+    offset++;
     }
     if(meta_data_flags & META_GAIN) {
         metaData->gain = (data+4*offset)[3] + (((data+4*offset)[2]&0xf) << 8);
@@ -1178,15 +1186,16 @@
     }
 
     void FirewireVideo::CreateShutterLookupTable() {
+        cout << "Creating Lookup Table" << endl;
         shutter_lookup_table = new float[4096];
         for (int i=0; i<4096; i++) {
-            SetFeatureValue(DC1394_FEATURE_SHUTTER, i);
+            SetFeatureQuant(DC1394_FEATURE_SHUTTER, i);
             shutter_lookup_table[i] = GetFeatureValue(DC1394_FEATURE_SHUTTER);
-            cout << shutter_lookup_table[i] << endl;
+            //cout << shutter_lookup_table[i] << endl;
         }
+        cout << "Lookup Table Created" << endl;
     }
-    
-        
+            
     /*-----------------------------------------------------------------------
      *   RECORDING/SAVING
      *-----------------------------------------------------------------------*/
@@ -1287,6 +1296,44 @@
         return true;     
         
     }
+    
+    void FirewireVideo::CaptureHDRFrame(float under, float over)
+    {
+        
+        //dc1394_video_set_multi_shot(camera, 3, DC1394_ON);
+        
+        dc1394video_frame_t *under_frame = NULL;
+        dc1394video_frame_t *over_frame = NULL;
+        StopForOneShot();
+        
+        // over-exposed capture
+        SetFeatureValue(DC1394_FEATURE_EXPOSURE, over);
+        cout << "Over: " << over << endl;
+        boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+
+        dc1394_video_set_one_shot(camera, DC1394_ON);
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &over_frame);  
+        dc1394_capture_enqueue(camera, over_frame);
+        boost::thread(&FirewireVideo::SaveFile, this, 0, over_frame, "hdr-frames", true);
+        
+        // under-exposed capture
+        SetFeatureValue(DC1394_FEATURE_EXPOSURE, under);
+        cout << "Under: " << under << endl;
+        boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+        dc1394_video_set_one_shot(camera, DC1394_ON);
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &under_frame); 
+        dc1394_capture_enqueue(camera, under_frame);
+        boost::thread(&FirewireVideo::SaveFile, this, 1, under_frame, "hdr-frames", true);
+
+        system("pfsinme ./hdr-frames/jpeg/*.jpeg | pfshdrcalibrate -v -f camera.response | pfsoutexr hdr.exr");
+        cout << "DONE" << endl;
+        
+        //restart transmission
+        if (dc1394_video_set_transmission(camera,DC1394_ON) != DC1394_SUCCESS)
+            throw VideoException("Could not start the camera");
+        running = true;
+        
+    }
 
     bool FirewireVideo::SaveFile(
                                  int frame_number, 
@@ -1297,6 +1344,7 @@
     {
         char filename_ppm[128];
         char filename_jpeg[128];
+        MetaData metaData;
         dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8;
 
         // create top directory
@@ -1312,7 +1360,8 @@
             
             sprintf(filename_jpeg, "./%s/jpeg/%s%d%s", folder, "image0000", frame_number, ".jpeg");
             CreateJPEG(frame, filename_jpeg, video_mode);
-            WriteExifData(this, filename_jpeg);
+            ReadMetaData(frame->image, &metaData);
+            WriteExifData( &metaData, filename_jpeg);
           
         } else{   
             

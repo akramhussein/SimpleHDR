@@ -11,6 +11,8 @@
 #include <pangolin/video.h>
 #include <pangolin/video/firewire.h>
 
+#include <boost/thread.hpp>  
+
 using namespace pangolin;
 using namespace std;
 
@@ -22,10 +24,14 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/    
     
     FirewireVideo video = FirewireVideo();     
+    
     video.SetAllFeaturesAuto();
     video.PrintCameraReport();
-
+    video.SetMetaDataFlags( META_ALL );
+    video.CreateShutterLookupTable();
+    
     unsigned char* img = new unsigned char[video.SizeBytes()];
+    MetaData metadata;
     
     VideoPixelFormat vid_fmt = VideoFormatFromString(video.PixFormat());
     const unsigned w = video.Width();
@@ -87,8 +93,8 @@ int main( int argc, char* argv[] )
 
     static Var<float> exposure("ui.Exposure (EV)", video.GetFeatureValue(DC1394_FEATURE_EXPOSURE),
                                 video.GetFeatureValueMin(DC1394_FEATURE_EXPOSURE),
-                                video.GetFeatureValueMax(DC1394_FEATURE_EXPOSURE),false);            //faulty 
-    
+                                video.GetFeatureValueMax(DC1394_FEATURE_EXPOSURE),false);    
+
     static Var<float> brightness("ui.Brightness (%)", video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS),
                                  video.GetFeatureValueMin(DC1394_FEATURE_BRIGHTNESS),
                                  video.GetFeatureValueMax(DC1394_FEATURE_BRIGHTNESS),false); 
@@ -112,39 +118,42 @@ int main( int argc, char* argv[] )
     static Var<int> sharpness("ui.Sharpness",video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS),
                               video.GetFeatureQuantMin(DC1394_FEATURE_SHARPNESS),
                               video.GetFeatureQuantMax(DC1394_FEATURE_SHARPNESS),false);  
-                                                   
+                                               
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
     
     // camera brand/model info
+    
     static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
     static Var<string> camera("ui.Camera", video.GetCameraModel());
-
+     
     /*-----------------------------------------------------------------------
      *  CAPTURE
-     *-----------------------------------------------------------------------*/    
-      
+     *-----------------------------------------------------------------------*/     
     bool over_exposed = true;
     bool save = false;
-    bool reset_shutter = false;
-    float exp = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
-    float short_exp = exp - 1;
-    float long_exp = exp + 1;
-    
+
+    // loop until quit
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {     
+        //Screen refresh -- thread?
         if(pangolin::HasResized())
             DisplayBase().ActivateScissorAndClear();
-        
+
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
         
-        
-        if ( reset_shutter ){
-            video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
-            shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
-        }
+        /*-----------------------------------------------------------------------
+         *  Auxillary Options
+         *-----------------------------------------------------------------------*/ 
         
         if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); }
         
+        /*-----------------------------------------------------------------------
+         *  Control logic
+         *-----------------------------------------------------------------------*/
+        
+        //cout << "Shutter float: " << video.GetFeatureValue(DC1394_FEATURE_SHUTTER) << endl;
+        //cout << "Exposure float: " << video.GetFeatureValue(DC1394_FEATURE_EXPOSURE) << endl;
+
         if(pangolin::Pushed(reset)){
             shutter.Reset();
             exposure.Reset();
@@ -154,19 +163,20 @@ int main( int argc, char* argv[] )
             saturation.Reset();
             hue.Reset();
             sharpness.Reset();
+            
         }
 
         if( hdr ) {
             
             if (over_exposed){
                 video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, 1);
-                over_exposed = false;
                 long_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
+                over_exposed = false;
             }
             else {
                 video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, -1);
-                over_exposed = true;
                 short_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
+                over_exposed = true;
             }
             
         }
@@ -175,59 +185,33 @@ int main( int argc, char* argv[] )
             long_exposure.Reset();
         }
         
-        if ( manual && !hdr){
-            video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
-        }
+        if ( manual && !hdr){ video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); }
         
-        if ( manual ){ 
-            
+        if ( manual ){    
+            video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);             
             video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure);
             video.SetFeatureValue(DC1394_FEATURE_BRIGHTNESS, brightness);
             video.SetFeatureValue(DC1394_FEATURE_GAIN, gain);
             video.SetFeatureValue(DC1394_FEATURE_GAMMA, gamma); 
             video.SetFeatureValue(DC1394_FEATURE_SATURATION, saturation);
             video.SetFeatureValue(DC1394_FEATURE_HUE, hue); 
-            video.SetFeatureQuant(DC1394_FEATURE_SHARPNESS, sharpness);  
-
+            video.SetFeatureQuant(DC1394_FEATURE_SHARPNESS, sharpness);
         } 
-        
-        else if( !manual && !hdr){
-            video.SetAllFeaturesAuto();
-        }
-        
 
-        if( pangolin::Pushed(capture) ){ 
-            video.CaptureFrameOneShot(1, img);
+        else if( !manual && !hdr){ video.SetAllFeaturesAuto(); }
+        
+        if( pangolin::Pushed(capture) ){ video.CaptureFrameOneShot(1, img); } 
+        
+        if( pangolin::Pushed(capture_hdr) ){ 
+            float exposure = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
+            cout << exposure << endl;
+            video.CaptureHDRFrame( exposure-1.5, exposure+1.5); 
         } 
-        
-        if( pangolin::Pushed(capture_hdr) ){
-            
-            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, 1);
-            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
-            video.CaptureFrameOneShot(1, img, true);
-            
-            texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
-            // Activate video viewport and render texture
-            vVideo.ActivateScissorAndClear();
-            texVideo.RenderToViewportFlipY();
-            // Swap back buffer with front and process window events via GLUT
-            d_panel.Render();
-            pangolin::FinishGlutFrame();
-
-            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, -1);
-            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
-            video.CaptureFrameOneShot(2, img, true);
-
-            texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
-            // Activate video viewport and render texture
-            vVideo.ActivateScissorAndClear();
-            texVideo.RenderToViewportFlipY();
-            // Swap back buffer with front and process window events via GLUT
-            d_panel.Render();
-            pangolin::FinishGlutFrame();
-
-         } 
     
+        /*-----------------------------------------------------------------------
+         *  Save options
+         *-----------------------------------------------------------------------*/    
+        
         // start/stop recording
         if ( save && pangolin::Pushed(record) ){ save = false; }
 
@@ -239,7 +223,6 @@ int main( int argc, char* argv[] )
 
         // save mode
         if ( save && hdr ){
-            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
             video.RecordFramesOneShot(frame_number, img, true, hdr); 
             recorded_frames.operator=(frame_number);
         } 
@@ -253,7 +236,9 @@ int main( int argc, char* argv[] )
         else{
             video.GrabOneShot(img);
         }
+
         
+        // refresh screen 
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
         // Activate video viewport and render texture
         vVideo.ActivateScissorAndClear();
@@ -268,6 +253,4 @@ int main( int argc, char* argv[] )
 
     return 0;
 }
-
-
 
