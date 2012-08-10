@@ -193,7 +193,7 @@
     void FlushDMABuffer();
         
     /*-----------------------------------------------------------------------
-     * ONE SHOT CONTROL
+     * MULTI/ONE SHOT CONTROL
      *-----------------------------------------------------------------------*/
         
     //! Stop the video stream before using One-shot mode
@@ -400,7 +400,10 @@
                       );
         
     //! Automatic HDR Frame Capture
-    void CaptureHDRFrame(float under, float over);
+    void CaptureHDRFrame(uint32_t s0, 
+                         uint32_t s1, 
+                         uint32_t s2, 
+                         uint32_t s3);
         
     //! save image file to ppm or jpeg
     bool SaveFile(    

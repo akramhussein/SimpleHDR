@@ -24,11 +24,10 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/    
     
     FirewireVideo video = FirewireVideo();
-    
+    video.CreateShutterLookupTable();
     video.SetAllFeaturesAuto();
     video.PrintCameraReport();
     video.SetMetaDataFlags( META_SHUTTER );
-    video.CreateShutterLookupTable();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
     
@@ -130,7 +129,8 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/     
     bool over_exposed = true;
     bool save = false;
-
+    video.SetHDRRegister(false);
+    
     // loop until quit
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {     
@@ -202,9 +202,9 @@ int main( int argc, char* argv[] )
         if( pangolin::Pushed(capture) ){ video.CaptureFrameOneShot(1, img); } 
         
         if( pangolin::Pushed(capture_hdr) ){ 
-            float exposure = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
-            cout << exposure << endl;
-            video.CaptureHDRFrame( exposure-1.5, exposure+1.5); 
+            // float exposure = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
+            //cout << exposure << endl;
+            video.CaptureHDRFrame(400,800,400,800); 
         } 
     
         /*-----------------------------------------------------------------------

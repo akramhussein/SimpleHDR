@@ -1105,16 +1105,19 @@
         if( power ) {
             hdr_flags = 0x82000000;
             hdr_register = true;
+
         } else{
-         hdr_flags = 0x8000000;
+            hdr_flags = 0x8000000;
             hdr_register = false;
+            // reset shutter flags
+            SetHDRShutterFlags(0,0,0,0); 
         }
         
         err = dc1394_set_control_register(camera, 0x1800, hdr_flags);
         if (err != DC1394_SUCCESS) {
             throw VideoException("Could not set hdr flags");
         }
-        hdr_register = true;
+        
     }
      
     uint32_t FirewireVideo::GetHDRFlags() 
@@ -1398,42 +1401,54 @@
         return true;     
         
     }
-    
-    void FirewireVideo::CaptureHDRFrame(float under, float over)
+
+    void FirewireVideo::CaptureHDRFrame(uint32_t s0, uint32_t s1, uint32_t s2, uint32_t s3)
     {
+        // turn on hdr register control
+        SetHDRRegister(true);
         
-        //dc1394_video_set_multi_shot(camera, 3, DC1394_ON);
+        // set shutter times on register
+        SetHDRShutterFlags(s0,s1,s2,s3);
+                
+        if(dc1394_video_set_multi_shot(camera, 4, DC1394_ON) != DC1394_SUCCESS){
+            throw VideoException("Could not turn on multi-shot mode");
+        }
         
         dc1394video_frame_t *under_frame = NULL;
         dc1394video_frame_t *over_frame = NULL;
-        // StopForOneShot();
-        
+        dc1394video_frame_t *under_frame2 = NULL;
+        dc1394video_frame_t *over_frame2 = NULL;
+                
         // over-exposed capture
-        SetFeatureValue(DC1394_FEATURE_EXPOSURE, over);
-        cout << "Over: " << over << endl;
-        boost::this_thread::sleep(boost::posix_time::seconds(1/30));
-
-        dc1394_video_set_one_shot(camera, DC1394_ON);
         dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &over_frame);  
         dc1394_capture_enqueue(camera, over_frame);
-        boost::thread(&FirewireVideo::SaveFile, this, 0, over_frame, "hdr-frames", true);
+        SaveFile(0, over_frame, "hdr-frames", true);
         
         // under-exposed capture
-        SetFeatureValue(DC1394_FEATURE_EXPOSURE, under);
-        cout << "Under: " << under << endl;
-        boost::this_thread::sleep(boost::posix_time::seconds(1/30));
-        dc1394_video_set_one_shot(camera, DC1394_ON);
         dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &under_frame); 
         dc1394_capture_enqueue(camera, under_frame);
-        boost::thread(&FirewireVideo::SaveFile, this, 1, under_frame, "hdr-frames", true);
+        SaveFile(1, under_frame, "hdr-frames", true);
 
-        system("pfsinme ./hdr-frames/jpeg/*.jpeg | pfshdrcalibrate -v -f camera.response | pfsoutexr hdr.exr");
-        cout << "DONE" << endl;
+        // over-exposed capture
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &over_frame2);  
+        dc1394_capture_enqueue(camera, over_frame2);
+        SaveFile(2, over_frame2, "hdr-frames", true);
         
-        //restart transmission
-        if (dc1394_video_set_transmission(camera,DC1394_ON) != DC1394_SUCCESS)
-            throw VideoException("Could not start the camera");
-        running = true;
+        // under-exposed capture
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &under_frame2); 
+        dc1394_capture_enqueue(camera, under_frame2);
+        SaveFile(4, under_frame2, "hdr-frames", true);
+        
+        if(dc1394_video_set_multi_shot(camera, 0, DC1394_OFF) != DC1394_SUCCESS){
+            throw VideoException("Could not turn off multi-shot mode");
+        }
+        
+        SetHDRRegister(false);
+          
+        // run hdr script
+        //  system("pfsinme ./hdr-frames/jpeg/*.jpeg | pfshdrcalibrate -v -f camera.response | pfsoutexr hdr.exr");
+        
+        cout << "DONE" << endl;
         
     }
 
