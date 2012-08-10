@@ -294,6 +294,7 @@
     //    else if(!coding.compare("GRAY16BE")) return DC1394_COLOR_CODING_MONO16S;
     //    else if(!coding.compare("RGB48BE"))  return DC1394_COLOR_CODING_RGB16S;
 
+    
     //    else if(!coding.compare("YUV411P"))  return DC1394_COLOR_CODING_YUV411;
     //    else if(!coding.compare("YUV422P"))  return DC1394_COLOR_CODING_YUV422;
     //    else if(!coding.compare("YUV444P"))  return DC1394_COLOR_CODING_YUV444;
@@ -1072,18 +1073,8 @@
 }
 
     /*-----------------------------------------------------------------------
-     *  META DATA & LOOPUP TABLE ETC
+     *  REGISTERS - META DATA, HDR & LOOPUP TABLE ETC
      *-----------------------------------------------------------------------*/
-        
-    uint32_t FirewireVideo::GetHDRFlags() 
-    {
-        uint32_t value;
-        err = dc1394_get_control_register(camera, 0x1800, &value);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr flag");
-        }
-        return value;
-    }
         
     void FirewireVideo::SetMetaDataFlags( int flags ) 
     {
@@ -1094,15 +1085,126 @@
             throw VideoException("Could not set meta data flags");
         }
     }
-
+   
     uint32_t FirewireVideo::GetMetaDataFlags() 
     {
-        uint32_t value;
-        err = dc1394_get_control_register(camera, 0x12f8, &value);
+        uint32_t flags;
+        err = dc1394_get_control_register(camera, 0x12f8, &flags);
         if (err != DC1394_SUCCESS) {
             throw VideoException("Could not get meta data flags");
         }
-        return value;
+        return flags;
+    }
+
+    void FirewireVideo::SetHDRRegister(bool power){
+
+        // flip hdr bit on (6th bit)
+        uint32_t hdr_flags;
+        //uint32_t hdr_flags = 0x80000000 | 33554432;
+        
+        if( power ) {
+            hdr_flags = 0x82000000;
+            hdr_register = true;
+        } else{
+         hdr_flags = 0x8000000;
+            hdr_register = false;
+        }
+        
+        err = dc1394_set_control_register(camera, 0x1800, hdr_flags);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr flags");
+        }
+        hdr_register = true;
+    }
+     
+    uint32_t FirewireVideo::GetHDRFlags() 
+    {
+        uint32_t flags;
+        err = dc1394_get_control_register(camera, 0x1800, &flags);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr flags");
+        }
+        return flags;
+    }
+    
+    void FirewireVideo::SetHDRShutterFlags(uint32_t shut0, 
+                                           uint32_t shut1, 
+                                           uint32_t shut2, 
+                                           uint32_t shut3) 
+    {
+
+        if (dc1394_set_control_register(camera, 0x1820, 0x80000011) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr shutter0 flags");
+        }
+        if (dc1394_set_control_register(camera, 0x1840, 0x8000000 | shut1) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr shutter1 flags");
+        }
+        if (dc1394_set_control_register(camera, 0x1860, 0x8000000 | shut2) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr shutter2 flags");
+        }
+        if (dc1394_set_control_register(camera, 0x1880, 0x8000000 | shut3) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr shutter3 flags");
+        }
+    }
+
+    void FirewireVideo::GetHDRShutterFlags(uint32_t &shut0, 
+                                           uint32_t &shut1, 
+                                           uint32_t &shut2, 
+                                           uint32_t &shut3) 
+    {
+        if (dc1394_get_control_register(camera, 0x1820, &shut0) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr shutter0 flags");
+        }
+        if (dc1394_get_control_register(camera, 0x1840, &shut1) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr shutter1 flags");
+        }
+        if (dc1394_get_control_register(camera, 0x1860, &shut2) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr shutter2 flags");
+        }
+        if (dc1394_get_control_register(camera, 0x1880, &shut3) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr shutter3 flags");
+        }
+
+    }
+        
+    void FirewireVideo::SetHDRGainFlags(uint32_t gain0, 
+                                        uint32_t gain1, 
+                                        uint32_t gain2, 
+                                        uint32_t gain3) 
+    {
+        if (dc1394_set_control_register(camera, 0x1824, 0x8000000 | gain0) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr gain0 flags");
+        }
+        if (dc1394_set_control_register(camera, 0x1844, 0x8000000 | gain1) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr gain1 flags");
+        }
+        if (dc1394_set_control_register(camera, 0x1864, 0x8000000 | gain2) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr gain2 flags");
+        }
+        if (dc1394_set_control_register(camera, 0x1884, 0x8000000 | gain3) != DC1394_SUCCESS) {
+            throw VideoException("Could not set hdr gain3 flags");
+        }
+    }
+
+        
+    void FirewireVideo::GetHDRGainFlags(uint32_t &gain0, 
+                                        uint32_t &gain1, 
+                                        uint32_t &gain2, 
+                                        uint32_t &gain3) 
+    {
+        if (dc1394_get_control_register(camera, 0x1824, &gain0) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr gain0 flags");
+        }
+        if (dc1394_get_control_register(camera, 0x1844, &gain1) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr gain1 flags");
+        }
+        if (dc1394_get_control_register(camera, 0x1864, &gain2) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr gain2 flags");
+        }
+        if (dc1394_get_control_register(camera, 0x1884, &gain3) != DC1394_SUCCESS) {
+            throw VideoException("Could not get hdr gain3 flags");
+        }
+            
     }
 
     void FirewireVideo::ReadMetaData( unsigned char *image, MetaData *metaData ) {
@@ -1304,7 +1406,7 @@
         
         dc1394video_frame_t *under_frame = NULL;
         dc1394video_frame_t *over_frame = NULL;
-        StopForOneShot();
+        // StopForOneShot();
         
         // over-exposed capture
         SetFeatureValue(DC1394_FEATURE_EXPOSURE, over);

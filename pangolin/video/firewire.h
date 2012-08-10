@@ -85,7 +85,7 @@
         uint32_t timestamp, frame_count;
         uint32_t shutterQuant, gain;
         float shutterAbs;
-        bool abs_on;
+        bool abs_on; 
 
         //TODO: Add strobe, GPIO and ROI functionality if needed.
         uint32_t strobe, gpio, roi;
@@ -122,6 +122,10 @@
     META_ABS = 32678, 
     META_ALL_AND_ABS = 33791,
     } meta_flags;
+        
+    typedef enum {
+        HDR_ON = 33554432
+    } hdr_flags;
         
     class FirewireVideo : public VideoInterface
     {
@@ -202,11 +206,8 @@
     bool CheckOneShotCapable();
 
     /*-----------------------------------------------------------------------
-     * LOOPUP TABLE & META DATA ETC
+     * REGISTERS - META DATA, HDR & LOOPUP TABLE ETC
      *-----------------------------------------------------------------------*/
-        
-    //! get HDR flags
-    uint32_t GetHDRFlags();
         
     //! set the meta data flags to be included in image data
     void SetMetaDataFlags(int flags);
@@ -214,6 +215,37 @@
     //! return the current meta data flags from camera
     uint32_t GetMetaDataFlags();
     
+    //! set HDR register on/off (true/false)
+    void SetHDRRegister(bool power);
+
+    //! get HDR flags
+    uint32_t GetHDRFlags();
+
+    //! set HDR shutter flags
+    void SetHDRShutterFlags(uint32_t shut0, 
+                            uint32_t shut1, 
+                            uint32_t shut2, 
+                            uint32_t shut3);
+
+    
+    //! get HDR shutter flags
+    void GetHDRShutterFlags(uint32_t &shut0, 
+                           uint32_t &shut1, 
+                           uint32_t &shut2, 
+                           uint32_t &shut3); 
+    
+    //! set HDR gain flags
+    void SetHDRGainFlags(uint32_t gain0, 
+                         uint32_t gain1, 
+                         uint32_t gain2, 
+                         uint32_t gain3);
+    
+    //! get HDR Gain flags
+    void GetHDRGainFlags(uint32_t &gain0, 
+                         uint32_t &gain1, 
+                         uint32_t &gain2, 
+                         uint32_t &gain3); 
+        
     //! read the meta data from an image according to meta flags
     void ReadMetaData( unsigned char *image, MetaData *metaData );
         
@@ -449,6 +481,8 @@
     mutable dc1394error_t err;
 
     uint32_t meta_data_flags;
+    bool hdr_register; // 1 = on
+    
     float* shutter_lookup_table;
 
     };

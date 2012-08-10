@@ -23,7 +23,7 @@ int main( int argc, char* argv[] )
      *  SETUP SOURCE
      *-----------------------------------------------------------------------*/    
     
-    FirewireVideo video = FirewireVideo();     
+    FirewireVideo video = FirewireVideo();
     
     video.SetAllFeaturesAuto();
     video.PrintCameraReport();
