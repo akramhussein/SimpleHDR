@@ -437,6 +437,19 @@
     }
     }
 
+    bool FirewireVideo::CheckMultiShotCapable(){
+        if (camera->multi_shot_capable >0 ) return true;
+        else return false;
+    }
+    
+    void FirewireVideo::SetMultiShotOn(int num_frames){
+        
+        err = dc1394_video_set_multi_shot(camera, num_frames, DC1394_ON);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Could not turn on multi-shot mode");
+        
+    }
+    
     void FirewireVideo::StopForOneShot()
     {
         if( running )
@@ -1136,7 +1149,7 @@
                                            uint32_t shut3) 
     {
 
-        if (dc1394_set_control_register(camera, 0x1820, 0x80000011) != DC1394_SUCCESS) {
+        if (dc1394_set_control_register(camera, 0x1820, 0x8000000 | shut1) != DC1394_SUCCESS) {
             throw VideoException("Could not set hdr shutter0 flags");
         }
         if (dc1394_set_control_register(camera, 0x1840, 0x8000000 | shut1) != DC1394_SUCCESS) {
@@ -1167,7 +1180,7 @@
         if (dc1394_get_control_register(camera, 0x1880, &shut3) != DC1394_SUCCESS) {
             throw VideoException("Could not get hdr shutter3 flags");
         }
-
+        
     }
         
     void FirewireVideo::SetHDRGainFlags(uint32_t gain0, 
@@ -1233,8 +1246,12 @@
     if(meta_data_flags & META_SHUTTER) {
         metaData->shutterQuant = (data+4*offset)[3] + (((data+4*offset)[2]) << 8) + ((data+4*offset)[1] << 16);
         offset++;
+
+        // convert quantized value to absolute value from shutter map
+        if(!shutter_abs_map.empty()) metaData->shutterAbs = GetShutterMapAbs(metaData->shutterQuant);
+        
         //Convert quantized value to absolute value from lookup table
-        if(shutter_lookup_table) metaData->shutterAbs = shutter_lookup_table[metaData->shutterQuant];
+        //if(shutter_lookup_table) metaData->shutterAbs = shutter_lookup_table[metaData->shutterQuant];
     }
     if(meta_data_flags & META_BRIGHTNESS) {
         metaData->brightness = (data+4*offset)[3] + (((data+4*offset)[2]&0xf) << 8);
@@ -1296,11 +1313,47 @@
         for (int i=0; i<4096; i++) {
             SetFeatureQuant(DC1394_FEATURE_SHUTTER, i);
             shutter_lookup_table[i] = GetFeatureValue(DC1394_FEATURE_SHUTTER);
-            //cout << shutter_lookup_table[i] << endl;
         }
         cout << "Lookup Table Created" << endl;
     }
-            
+        
+    void FirewireVideo::CreateShutterMaps() {
+        cout << "Creating Lookup Maps : <quant,abs> and <abs,quant>" << endl;
+        float shutter;
+        int max_shutter = GetFeatureQuantMax(DC1394_FEATURE_SHUTTER);
+        for (int i=0 ; i <= max_shutter ; i++) {
+            SetFeatureQuant(DC1394_FEATURE_SHUTTER, i);
+            shutter = GetFeatureValue(DC1394_FEATURE_SHUTTER);
+            shutter_abs_map[i] = shutter;
+            shutter_quant_map[shutter] = i;
+        }
+        cout << "Shutter Maps Created" << endl;
+    }
+    
+    int FirewireVideo::GetShutterMapQuant(float val){    
+        return shutter_quant_map.lower_bound(val)->second;
+        // return shutter_quant_map.upper_bound(val)->second;
+    }
+        
+    float FirewireVideo::GetShutterMapAbs(int val){
+        return shutter_abs_map.lower_bound(val)->second;
+        //return shutter_abs_map.upper_bound(val)->second;
+    }
+        
+    void FirewireVideo::PrintShutterMapAbs(){
+        map<int,float>::iterator pos;
+        for(pos = shutter_abs_map.begin(); pos != shutter_abs_map.end() ; pos++){
+            cout << "Int: " << pos->first << " Float: " << pos->second << endl;
+        }
+    }
+        
+    void FirewireVideo::PrintShutterMapQuant(){
+        map<float,int>::iterator pos;
+        for(pos = shutter_quant_map.begin(); pos != shutter_quant_map.end(); pos++){
+            cout << "Float: " << pos->first << " Int: " << pos->second << endl;
+        }
+    }
+        
     /*-----------------------------------------------------------------------
      *   RECORDING/SAVING
      *-----------------------------------------------------------------------*/
@@ -1409,35 +1462,18 @@
         
         // set shutter times on register
         SetHDRShutterFlags(s0,s1,s2,s3);
+        
+        dc1394video_frame_t *frame;
                 
         if(dc1394_video_set_multi_shot(camera, 4, DC1394_ON) != DC1394_SUCCESS){
             throw VideoException("Could not turn on multi-shot mode");
         }
         
-        dc1394video_frame_t *under_frame = NULL;
-        dc1394video_frame_t *over_frame = NULL;
-        dc1394video_frame_t *under_frame2 = NULL;
-        dc1394video_frame_t *over_frame2 = NULL;
-                
-        // over-exposed capture
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &over_frame);  
-        dc1394_capture_enqueue(camera, over_frame);
-        SaveFile(0, over_frame, "hdr-frames", true);
-        
-        // under-exposed capture
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &under_frame); 
-        dc1394_capture_enqueue(camera, under_frame);
-        SaveFile(1, under_frame, "hdr-frames", true);
-
-        // over-exposed capture
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &over_frame2);  
-        dc1394_capture_enqueue(camera, over_frame2);
-        SaveFile(2, over_frame2, "hdr-frames", true);
-        
-        // under-exposed capture
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &under_frame2); 
-        dc1394_capture_enqueue(camera, under_frame2);
-        SaveFile(4, under_frame2, "hdr-frames", true);
+        for(int i = 0 ; i<4; i++){
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
+            dc1394_capture_enqueue(camera, frame);
+            SaveFile(i, frame, "hdr-frames", true);
+        }
         
         if(dc1394_video_set_multi_shot(camera, 0, DC1394_OFF) != DC1394_SUCCESS){
             throw VideoException("Could not turn off multi-shot mode");
@@ -1672,37 +1708,42 @@
     }
     
 
-        // UNFINISHED
+    // UNFINISHED
     void FirewireVideo::GetResponseFunction()
     {
-        unsigned char* image = new unsigned char[SizeBytes()];
+        dc1394video_frame_t *frame = NULL;
         FILE* file;
         char hdrgen_file[32] = "camera.hdrgen";
-        
+
         float min, max, step_size, shutter;
         int no_steps = 10; // grab 10 frames
         
+        // turn off HDR register control
+        SetHDRRegister(false);
+        
+        // set all features to automatic
         SetAllFeaturesAuto();
         
-        err = dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max);
-        if( err != DC1394_SUCCESS ){
+        // get max and min for shutter time
+        if(dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max) != DC1394_SUCCESS)
+        {
             throw VideoException("Failed to read shutter");
         }
         
         shutter = (max - min)/2; // first half of shutter range is black
-        step_size = shutter/no_steps;
+        step_size = shutter/no_steps; // calculate step size
         
         cout << "Min: " << min << endl;
         cout << "Max: " << max << endl;
         cout << "Step Size: " << step_size << endl;
         
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL);
-        if (err != DC1394_SUCCESS) {
+        if(dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL) != DC1394_SUCCESS) 
+        {
             throw VideoException("Could not set manual shutter mode");
         }
         
-        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON);
-        if (err != DC1394_SUCCESS) {
+        if(dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON) != DC1394_SUCCESS)
+        {
             throw VideoException("Could not set absolute control for shutter");
         }
         
@@ -1710,54 +1751,51 @@
         if( file == NULL) {
             perror( "Can't create hdrgen file");
         }
+ 
+        //stop camera for one shot mode
+        StopForOneShot();
         
+        // set camera to one shot
+        dc1394_video_set_one_shot( camera, DC1394_ON );
+
         for(int frame_number = 0; shutter <= max ; frame_number++){
             
             cout << "frame number: " << frame_number << endl;
             cout << "shutter value: " << shutter << endl;
             
-            err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter);
-            if (err != DC1394_SUCCESS) {
+            if(dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter) != DC1394_SUCCESS) 
+            {
                 throw VideoException("Could not set shutter value");
             }
             
-            boost::this_thread::sleep(boost::posix_time::seconds(1/30));
+            // wait 1/30th second
+            boost::this_thread::sleep(boost::posix_time::seconds(1/30));        
             
-            // capture frame
-            dc1394video_frame_t *frame = NULL;
-            
-            dc1394_video_set_one_shot( camera, DC1394_ON );
-            
-            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
-            if( frame ){
-                memcpy(image,frame->image,frame->image_bytes);
-                dc1394_capture_enqueue(camera,frame);
-            }
-            
-            // save to ppm with exif data
+            // grab image from dma
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);
+
+            // save to jpeg with exif data
             SaveFile(frame_number, frame, "response-function", true);
             
             // append line to hdrgen script for response function
             JpegToHDRGEN("response-function", file, frame_number);
             
+            // increment shutter value by step size
             shutter += step_size;
             
         }
      
+        //close hdrgen file
         fclose(file);
         
-        err = dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_AUTO);
-        if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set auto shutter mode");
-        }
+        // reset shutter to auto
+        SetFeatureAuto(DC1394_FEATURE_SHUTTER);
 
-        // run pfs calibrate
+        // generate response function 
         cout << "Generating response function" << endl;
-        
-        //run gnu plot
-        cout << "DONE" << endl;
-    
-        delete[] image;
+        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -v -s camera.response");
+
+        cout << "Camera Response Function file generated" << endl;
         
     }
         

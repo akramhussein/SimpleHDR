@@ -33,6 +33,7 @@
     #include <stdlib.h>
     #include <inttypes.h>
     #include <sys/stat.h>
+    #include <map>
 
     #include <pangolin/pangolin.h>
     #include <pangolin/video.h>
@@ -196,6 +197,12 @@
      * MULTI/ONE SHOT CONTROL
      *-----------------------------------------------------------------------*/
         
+    //! check for multi-shot
+    bool CheckMultiShotCapable();
+        
+    //! Turn Multi-shot On
+    void SetMultiShotOn(int num_frames);
+    
     //! Stop the video stream before using One-shot mode
     void StopForOneShot();
 
@@ -218,33 +225,20 @@
     //! set HDR register on/off (true/false)
     void SetHDRRegister(bool power);
 
-    //! get HDR flags
+    //! get HDR register flags
     uint32_t GetHDRFlags();
 
     //! set HDR shutter flags
-    void SetHDRShutterFlags(uint32_t shut0, 
-                            uint32_t shut1, 
-                            uint32_t shut2, 
-                            uint32_t shut3);
-
+    void SetHDRShutterFlags(uint32_t shut0, uint32_t shut1, uint32_t shut2, uint32_t shut3);
     
     //! get HDR shutter flags
-    void GetHDRShutterFlags(uint32_t &shut0, 
-                           uint32_t &shut1, 
-                           uint32_t &shut2, 
-                           uint32_t &shut3); 
+    void GetHDRShutterFlags(uint32_t &shut0, uint32_t &shut1, uint32_t &shut2, uint32_t &shut3); 
     
     //! set HDR gain flags
-    void SetHDRGainFlags(uint32_t gain0, 
-                         uint32_t gain1, 
-                         uint32_t gain2, 
-                         uint32_t gain3);
+    void SetHDRGainFlags(uint32_t gain0, uint32_t gain1, uint32_t gain2, uint32_t gain3);
     
     //! get HDR Gain flags
-    void GetHDRGainFlags(uint32_t &gain0, 
-                         uint32_t &gain1, 
-                         uint32_t &gain2, 
-                         uint32_t &gain3); 
+    void GetHDRGainFlags(uint32_t &gain0, uint32_t &gain1, uint32_t &gain2, uint32_t &gain3); 
         
     //! read the meta data from an image according to meta flags
     void ReadMetaData( unsigned char *image, MetaData *metaData );
@@ -253,7 +247,21 @@
     
     //! create lookup table to convert quantised shutter values to absolute values
     void CreateShutterLookupTable();
-            
+        
+    //! create lookup hash maps to convert quantised shutter values to absolute values and vice versa
+    void CreateShutterMaps();
+    
+    //! return quantised shutter value for corresponding absolute value   
+    int GetShutterMapQuant(float val);
+        
+    //! return absolute shutter value for corresponding quantised value
+    float GetShutterMapAbs(int val);
+    
+    //! print shutter map <int,float>
+    void PrintShutterMapAbs();
+        
+    //! print shutter map <float,int>   
+    void PrintShutterMapQuant();
     /*-----------------------------------------------------------------------
      *  FRAME GRAB
      *-----------------------------------------------------------------------*/
@@ -488,6 +496,9 @@
     
     float* shutter_lookup_table;
 
+    std::map<int,float> shutter_abs_map;
+    std::map<float,int> shutter_quant_map;  
+        
     };
 
     }

@@ -18,7 +18,8 @@ using namespace std;
 
 int main( int argc, char* argv[] )
 {
-
+    cout << "LOADING..." << endl;
+    
     /*-----------------------------------------------------------------------
      *  SETUP SOURCE
      *-----------------------------------------------------------------------*/    
@@ -41,7 +42,7 @@ int main( int argc, char* argv[] )
     
     // Create Glut window
     const int panel_width = 200;
-    pangolin::CreateGlutWindowAndBind("SimpleHDR",w + panel_width,h);
+    pangolin::CreateGlutWindowAndBind("SimpleHDR",800 + panel_width,600);
     
     // Create viewport for video with fixed aspect
     View& d_panel = pangolin::CreatePanel("ui.")
@@ -50,7 +51,7 @@ int main( int argc, char* argv[] )
     // Create viewport for video with fixed aspect
     View& vVideo = Display("Video")
     .SetBounds(0.0, 1.0, Attach::Pix(panel_width), 1.0)
-    .SetAspect((float)w/h);
+    .SetAspect((float)800/600);
     
     // OpenGl Texture for video frame
     GlTexture texVideo(w,h,GL_RGBA8);
@@ -118,6 +119,7 @@ int main( int argc, char* argv[] )
                               video.GetFeatureQuantMax(DC1394_FEATURE_SHARPNESS),false);  
                                                
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
+    static Var<bool> update("ui.Update Camera Settings",false,false);
     
     // camera brand/model info
     
@@ -130,6 +132,8 @@ int main( int argc, char* argv[] )
     bool over_exposed = true;
     bool save = false;
     video.SetHDRRegister(false);
+    
+    cout << "Camera tranmission starting..." << endl;
     
     // loop until quit
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
@@ -161,12 +165,40 @@ int main( int argc, char* argv[] )
             gamma.Reset();
             saturation.Reset();
             hue.Reset();
-            sharpness.Reset();
-            
+            sharpness.Reset();        
+        }
+        
+        // update manual camera settings according to current values
+        if(pangolin::Pushed(update)){
+            shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+            exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
+            brightness.operator=(video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS));
+            gain.operator=(video.GetFeatureValue(DC1394_FEATURE_GAIN));
+            gamma.operator=(video.GetFeatureValue(DC1394_FEATURE_GAMMA));
+            saturation.operator=(video.GetFeatureValue(DC1394_FEATURE_SATURATION));
+            hue.operator=(video.GetFeatureValue(DC1394_FEATURE_HUE));
+            sharpness.operator=(video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS));   
+        }
+        /*
+        
+        if (AEC){
+        GetAEC(image,&s);
         }
 
+        */
+        // hdr video recording mode
         if( hdr ) {
+            uint32_t s0 = 500;
+            uint32_t s1 = 1000;
+            uint32_t s2 = 500;
+            uint32_t s3 = 1000;
             
+            video.SetHDRRegister(true);
+            video.SetHDRShutterFlags(s0,s1,s2,s3);
+            long_exposure.operator=(s0);
+            short_exposure.operator=(s1);
+
+            /*
             if (over_exposed){
                 video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, 1);
                 long_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
@@ -177,11 +209,14 @@ int main( int argc, char* argv[] )
                 short_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
                 over_exposed = true;
             }
+             */
             
         }
         else {
+            video.SetHDRRegister(false);
             short_exposure.Reset();
             long_exposure.Reset();
+            
         }
         
         if ( manual && !hdr){ video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); }
