@@ -450,6 +450,14 @@
         
     }
     
+    void FirewireVideo::SetMultiShotOff(){
+        
+        err = dc1394_video_set_multi_shot(camera, 0, DC1394_ON);
+        if( err != DC1394_SUCCESS )
+            throw VideoException("Could not turn off multi-shot mode");
+        
+    }
+        
     void FirewireVideo::StopForOneShot()
     {
         if( running )
@@ -464,7 +472,7 @@
         err = dc1394_video_set_one_shot(camera, DC1394_OFF);
         if( err != DC1394_SUCCESS )
             throw VideoException("Could not set one shot to OFF");
-        FlushDMABuffer();
+        //FlushDMABuffer();
     }
 
     bool FirewireVideo::CheckOneShotCapable() {
@@ -1180,7 +1188,13 @@
         if (dc1394_get_control_register(camera, 0x1880, &shut3) != DC1394_SUCCESS) {
             throw VideoException("Could not get hdr shutter3 flags");
         }
-        
+        /*
+        cout << "Shutter Values" << endl;
+        cout << GetShutterMapAbs(shut0 - 2181038080) << endl;
+        cout << GetShutterMapAbs(shut1 - 2181038080) << endl;
+        cout << GetShutterMapAbs(shut2 - 2181038080) << endl;
+        cout << GetShutterMapAbs(shut3 - 2181038080) << endl;
+         */
     }
         
     void FirewireVideo::SetHDRGainFlags(uint32_t gain0, 
@@ -1287,26 +1301,40 @@
     }
 
     float FirewireVideo::ReadShutter( unsigned char *image ) {
-    uint8_t* data = (uint8_t*)image;
+        
+        uint8_t* data = (uint8_t*)image;
 
-    int offset = 0;
-    float ret=0;
+        int offset = 0;
+        float ret=0;
 
-    if(meta_data_flags & META_TIMESTAMP) {
-        offset++;
+        if(meta_data_flags & META_TIMESTAMP) {
+            offset++;
+        }
+        if(meta_data_flags & META_GAIN) {
+            offset++;
+        }
+        if(meta_data_flags & META_SHUTTER) {
+            int shutterQuant = (data+4*offset)[3] + (((data+4*offset)[2]) << 8) + ((data+4*offset)[1] << 16);
+            // convert quantized value to absolute value from lookup table
+            //if(shutter_lookup_table) ret = shutter_lookup_table[shutterQuant];
+            
+            // convert quantized value to absolute value from shutter map
+            if(!shutter_abs_map.empty()) ret = GetShutterMapAbs(shutterQuant);
+                }
+        return ret;
     }
-    if(meta_data_flags & META_GAIN) {
-        offset++;
-    }
-    if(meta_data_flags & META_SHUTTER) {
-        int shutterQuant = (data+4*offset)[3] + (((data+4*offset)[2]) << 8) + ((data+4*offset)[1] << 16);
-        //Convert quantized value to absolute value from lookup table
-        if(shutter_lookup_table) ret = shutter_lookup_table[shutterQuant];
+   
+    uint32_t FirewireVideo::ReadTimeStamp( unsigned char *image ){
+        
+        uint8_t* data = (uint8_t*)image;
+        
+        int offset = 0;
 
+        if(meta_data_flags & META_TIMESTAMP) {
+           return(data+4*offset)[3] + ((data+4*offset)[2] << 8) + ((data+4*offset)[1] << 16) + ((data+4*offset)[0] << 24);
+        }
     }
-    return ret;
-    }
-
+        
     void FirewireVideo::CreateShutterLookupTable() {
         cout << "Creating Lookup Table" << endl;
         shutter_lookup_table = new float[4096];

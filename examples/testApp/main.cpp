@@ -30,14 +30,16 @@ int main( int argc, char* argv[] )
                                         );
     video.SetAllFeaturesAuto();
     video.CreateShutterMaps();
-    video.SetMetaDataFlags( META_SHUTTER );
+    video.SetMetaDataFlags( META_ALL );
     video.SetMultiShotOn(100);
+    //video.SetMultiShotOff();
+    //video.StopForOneShot();
     video.SetHDRRegister(true);
     
     uint32_t s0 = video.GetShutterMapQuant(0.00450313);
     uint32_t s1 = video.GetShutterMapQuant(0.00200000);
-    uint32_t s2 = video.GetShutterMapQuant(0.00200000);
-    uint32_t s3 = video.GetShutterMapQuant(0.00450313);
+    uint32_t s2 = video.GetShutterMapQuant(0.00450313);
+    uint32_t s3 = video.GetShutterMapQuant(0.00200000);
     
     video.SetHDRShutterFlags(s0,s1,s2,s3);
     
@@ -85,7 +87,8 @@ int main( int argc, char* argv[] )
 
         video.GrabNewest(img);
         video.GetHDRShutterFlags(ss0, ss1, ss2, ss3);
-
+        cout << "SHUTTER: " << video.ReadShutter(img) << endl;
+         cout << "TIME STAMP: " << video.ReadTimeStamp(img) << endl;
         /*
         bitset<32> sh0(ss0);
         bitset<32> sh1(ss1);

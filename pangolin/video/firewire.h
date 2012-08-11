@@ -203,6 +203,9 @@
     //! Turn Multi-shot On
     void SetMultiShotOn(int num_frames);
     
+    //! Turn Multi-shot Off
+    void SetMultiShotOff();
+        
     //! Stop the video stream before using One-shot mode
     void StopForOneShot();
 
@@ -242,9 +245,13 @@
         
     //! read the meta data from an image according to meta flags
     void ReadMetaData( unsigned char *image, MetaData *metaData );
-        
-    float ReadShutter( unsigned char *image );
     
+    //! return time stamp from image data
+    uint32_t ReadTimeStamp( unsigned char *image );
+        
+    //! read image data and check map/lookup to get absolute shutter value
+    float ReadShutter( unsigned char *image );
+        
     //! create lookup table to convert quantised shutter values to absolute values
     void CreateShutterLookupTable();
         
