@@ -452,7 +452,7 @@
     
     void FirewireVideo::SetMultiShotOff(){
         
-        err = dc1394_video_set_multi_shot(camera, 0, DC1394_ON);
+        err = dc1394_video_set_multi_shot(camera, 0, DC1394_OFF);
         if( err != DC1394_SUCCESS )
             throw VideoException("Could not turn off multi-shot mode");
         
@@ -472,40 +472,218 @@
         err = dc1394_video_set_one_shot(camera, DC1394_OFF);
         if( err != DC1394_SUCCESS )
             throw VideoException("Could not set one shot to OFF");
-        //FlushDMABuffer();
+        FlushDMABuffer();
     }
 
     bool FirewireVideo::CheckOneShotCapable() {
-        if (camera->one_shot_capable >0 ) return true;
+        if (camera->one_shot_capable == DC1394_TRUE) return true;
         else return false;
     }
 
     bool FirewireVideo::GrabOneShot(unsigned char* image) {
+        
         dc1394_video_set_one_shot(camera, DC1394_ON);
-
         dc1394video_frame_t *frame;
+        
         dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);   
         if( frame )
         {
             memcpy(image,frame->image,frame->image_bytes);
             dc1394_capture_enqueue(camera,frame);
+            
+            //print time stamps
+            /*
+            time_t time_ms = (frame->timestamp);
+            time_t time_secs = (frame->timestamp)/1000000;
+            printf("Epoch: %ld Timestamp: %s", time_ms, ctime(&time_secs));
+            */
+            //dc1394_video_set_one_shot(camera, DC1394_OFF);
+            //cout << "frames behind: " << frame->frames_behind << endl;
+            
             return true;
         }
         return false;
     }
-    
+        
+    void FirewireVideo::GrabNFramesMulti(unsigned char *image, int n, float shut[]){
+         
+        dc1394video_frame_t *f1;
+        dc1394video_frame_t *f2;
+        dc1394video_frame_t *f3;
+        dc1394video_frame_t *f4;
+        
+        uint32_t under = GetShutterMapQuant(0.00450313);
+        uint32_t over = GetShutterMapQuant(0.00200000);
+        
+        SetHDRShutterFlags(over,under,over,under);
+        SetHDRRegister(true);
+  
+        Start();
+        SetMultiShotOn(4);
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f1);
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f2);
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f3);
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f4);
+        
+        if( f1 )
+        {
+            memcpy(image,f1->image,f1->image_bytes);
+            cout << "Shutter: " << ReadShutter(image) << endl;
+        }
+        
+        if( f2 )
+        {
+            memcpy(image,f2->image,f2->image_bytes);
+            cout << "Shutter: " << ReadShutter(image) << endl;
+        }            
+        
+        if( f3 )
+        {
+            memcpy(image,f3->image,f3->image_bytes);
+            cout << "Shutter: " << ReadShutter(image) << endl;
+        }
+        
+        if( f4 )
+        {
+            memcpy(image,f4->image,f4->image_bytes);
+            cout << "Shutter: " << ReadShutter(image) << endl;
+        }
+        dc1394_capture_enqueue(camera, f1);
+        dc1394_capture_enqueue(camera, f2);
+        dc1394_capture_enqueue(camera, f3);
+        dc1394_capture_enqueue(camera, f4);
+        SetMultiShotOff();
+    }
+        
+        
+    //! image updating won't work for now
+    void FirewireVideo::GrabNFrames(unsigned char *image, int n, int shut[]){
+        
+        dc1394video_frame_t *f1;
+        dc1394video_frame_t *f2;
+        dc1394video_frame_t *f3;
+        dc1394video_frame_t *f4;
+        
+        // turn off HDR register mode just in case
+        
+        SetHDRRegister(false);
+        /*
+        uint32_t under = GetShutterMapQuant(0.00450313);
+        uint32_t over = GetShutterMapQuant(0.00200000);
+
+        SetHDRShutterFlags(over,under,over,under);
+        */
+        //steps 2-3 - stop transmission and flush dma buffer
+        StopForOneShot();  
+        
+        // 4.Grab N frames
+        for(int i = 0 ; i < n; i++){
+            //cout << shut[i] << endl;
+            //set shutter value
+            //SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[i]);
+            //sleep(2/30);
+
+            // turn on one shot
+            dc1394_video_set_one_shot(camera, DC1394_ON);
+            //sleep(2/30);
+            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[0]);
+            cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
+            //sleep(2/30);
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f1); 
+
+            dc1394_video_set_one_shot(camera, DC1394_ON);
+            //sleep(2/30);
+            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[1]);
+             cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
+            //sleep(2/30);
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f2); 
+
+            dc1394_video_set_one_shot(camera, DC1394_ON);
+            //sleep(2/30);
+            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[2]);
+             cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
+            //sleep(2/30);
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f3); 
+
+            dc1394_video_set_one_shot(camera, DC1394_ON);
+            //sleep(2/30);
+            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[3]);
+             cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
+            //sleep(2/30);
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f4); 
+            
+            if( f1 )
+            {
+                memcpy(image,f1->image,f1->image_bytes);
+                cout << "Shutter: " << ReadShutter(image) << endl;
+                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
+            }
+            
+            if( f2 )
+            {
+                memcpy(image,f2->image,f2->image_bytes);
+                cout << "Shutter: " << ReadShutter(image) << endl;
+                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
+            }            
+            
+            if( f3 )
+            {
+                memcpy(image,f3->image,f3->image_bytes);
+                cout << "Shutter: " << ReadShutter(image) << endl;
+                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
+            }
+            
+            if( f4 )
+            {
+                memcpy(image,f4->image,f4->image_bytes);
+                cout << "Shutter: " << ReadShutter(image) << endl;
+                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
+            }
+            
+            // empty frames
+            // FlushDMABuffer();
+            dc1394_capture_enqueue(camera, f1);
+            dc1394_capture_enqueue(camera, f2);
+            dc1394_capture_enqueue(camera, f3);
+            dc1394_capture_enqueue(camera, f4);
+            /*
+            if( frame )
+            {
+                memcpy(image,frame->image,frame->image_bytes);
+                cout << "Shutter: " << ReadShutter(image) << endl;
+                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
+                
+                dc1394_capture_enqueue(camera, frame);
+            }
+             */
+        }
+        
+        // 6. restart transmission
+        Start();
+     
+    }
+        
+        
     void FirewireVideo::FlushDMABuffer()
     {
-    dc1394video_frame_t *frame;
-    dc1394error_t err;
+        Stop();
+        
+        dc1394video_frame_t *frame;
+        int discarded_frames = 0;
 
-    while( 1 ) {
-        err=dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_POLL, &frame);
-        if (err != DC1394_SUCCESS) break;
-        dc1394_capture_enqueue(camera, frame);
+        while( true ) {
+            
+            if( dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_POLL, &frame) != DC1394_SUCCESS){
+                throw VideoException("Could not set one shot to OFF");
+            } 
+            if (!frame) { break; }
+            dc1394_capture_enqueue(camera, frame);
+            discarded_frames++;
+        }
+ 
+        cout << "Discarded frames: " << discarded_frames << endl;
     }
-    }
-
+       
     FirewireVideo::FirewireVideo(
     Guid guid,
     dc1394video_mode_t video_mode,
@@ -1157,7 +1335,7 @@
                                            uint32_t shut3) 
     {
 
-        if (dc1394_set_control_register(camera, 0x1820, 0x8000000 | shut1) != DC1394_SUCCESS) {
+        if (dc1394_set_control_register(camera, 0x1820, 0x8000000 | shut0) != DC1394_SUCCESS) {
             throw VideoException("Could not set hdr shutter0 flags");
         }
         if (dc1394_set_control_register(camera, 0x1840, 0x8000000 | shut1) != DC1394_SUCCESS) {
@@ -1333,6 +1511,7 @@
         if(meta_data_flags & META_TIMESTAMP) {
            return(data+4*offset)[3] + ((data+4*offset)[2] << 8) + ((data+4*offset)[1] << 16) + ((data+4*offset)[0] << 24);
         }
+        else return 0;
     }
         
     void FirewireVideo::CreateShutterLookupTable() {

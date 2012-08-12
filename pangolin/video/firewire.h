@@ -33,6 +33,7 @@
     #include <stdlib.h>
     #include <inttypes.h>
     #include <sys/stat.h>
+    #include <time.h>
     #include <map>
 
     #include <pangolin/pangolin.h>
@@ -211,6 +212,12 @@
 
     //! Grab one shot (iso-transmission must be off - call StopForOneShot first)
     bool GrabOneShot(unsigned char* image);
+    
+    //! grab N frames via multi shot
+    void GrabNFramesMulti(unsigned char *image, int n, float shut[]);
+    
+    //! grab N frames
+    void GrabNFrames(unsigned char *image, int n, int shut[]);
         
     //! Check to see if camera is one-shot capable
     bool CheckOneShotCapable();
@@ -269,6 +276,7 @@
         
     //! print shutter map <float,int>   
     void PrintShutterMapQuant();
+        
     /*-----------------------------------------------------------------------
      *  FRAME GRAB
      *-----------------------------------------------------------------------*/
@@ -278,7 +286,7 @@
 
     //! Implement VideoSource::GrabNewest()
     bool GrabNewest( unsigned char* image, bool wait = true );
-
+        
     //! Return object containing reference to image data within
     //! DMA buffer. The FirewireFrame must be returned to
     //! signal that it can be reused with a corresponding PutFrame()
