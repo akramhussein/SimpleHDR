@@ -26,7 +26,7 @@ int main( int argc, char* argv[] )
                                         DC1394_VIDEO_MODE_640x480_RGB8,
                                         DC1394_FRAMERATE_30,
                                         DC1394_ISO_SPEED_400,
-                                        10
+                                        100
                                         );
     video.SetAllFeaturesAuto();
     video.CreateShutterMaps();
@@ -34,37 +34,21 @@ int main( int argc, char* argv[] )
     video.SetHDRRegister(false);
     video.Stop();
     
-    /*
-    uint32_t s0 = video.GetShutterMapQuant(0.00450313);
-    uint32_t s1 = video.GetShutterMapQuant(0.00200000);
-    uint32_t s2 = video.GetShutterMapQuant(0.00450313);
-    uint32_t s3 = video.GetShutterMapQuant(0.00200000);
-    
-    video.SetHDRShutterFlags(s0,s1,s2,s3);
-    */
-    
     unsigned char* img = new unsigned char[video.SizeBytes()];
-     
-    
+    float shut[4] = {0.03331, 0.008, 0.03331, 0.008};
     /*-----------------------------------------------------------------------
      *  CAPTURE
      *-----------------------------------------------------------------------*/     
-
-    cout << "Camera transmission starting..." << endl;
-    // uint32_t ss0,ss1,ss2,ss3;
     
-    //video.FlushDMABuffer();
-    //video.StopForOneShot();
-    video.FlushDMABuffer();
-    // loop until quit
-    for(int frame_number=0; frame_number <50 ; ++frame_number)
-    {     
-        cout << endl;
-        int shut[4] = {400,1000,400,1000};
-        //video.GrabNFrames(img, 4, shut);
-        video.GrabNFramesMulti(img,4,shut);
+    cout << "Camera transmission starting..." << endl;
 
-        
+    video.FlushDMABuffer();
+    
+    // loop until quit
+    for(int frame_number=0; frame_number < 1; ++frame_number)
+    {     
+        video.GrabNFramesMulti(img,10,shut);
+        cout << endl;
     }
     
     delete[] img;

@@ -507,52 +507,40 @@
         
     void FirewireVideo::GrabNFramesMulti(unsigned char *image, int n, float shut[]){
          
-        dc1394video_frame_t *f1;
-        dc1394video_frame_t *f2;
-        dc1394video_frame_t *f3;
-        dc1394video_frame_t *f4;
+        // frame array
+        dc1394video_frame_t *frame[n];
+        dc1394video_frame_t *discarded_frame;
         
-        uint32_t under = GetShutterMapQuant(0.00450313);
-        uint32_t over = GetShutterMapQuant(0.00200000);
-        
-        SetHDRShutterFlags(over,under,over,under);
+        SetHDRShutterFlags(
+                           GetShutterMapQuant(shut[0]),
+                           GetShutterMapQuant(shut[1]),
+                           GetShutterMapQuant(shut[2]),
+                           GetShutterMapQuant(shut[3])
+                           );
+                         
         SetHDRRegister(true);
-  
         Start();
-        SetMultiShotOn(4);
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f1);
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f2);
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f3);
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f4);
+        SetMultiShotOn(n);
         
-        if( f1 )
-        {
-            memcpy(image,f1->image,f1->image_bytes);
-            cout << "Shutter: " << ReadShutter(image) << endl;
+        //discard first frame -- not working
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &discarded_frame);
+        dc1394_capture_enqueue(camera, discarded_frame);
+        
+        for(int i = 0; i < n ; i++){
+          dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame[i]);  
         }
         
-        if( f2 )
-        {
-            memcpy(image,f2->image,f2->image_bytes);
-            cout << "Shutter: " << ReadShutter(image) << endl;
-        }            
-        
-        if( f3 )
-        {
-            memcpy(image,f3->image,f3->image_bytes);
-            cout << "Shutter: " << ReadShutter(image) << endl;
-        }
-        
-        if( f4 )
-        {
-            memcpy(image,f4->image,f4->image_bytes);
-            cout << "Shutter: " << ReadShutter(image) << endl;
-        }
-        dc1394_capture_enqueue(camera, f1);
-        dc1394_capture_enqueue(camera, f2);
-        dc1394_capture_enqueue(camera, f3);
-        dc1394_capture_enqueue(camera, f4);
         SetMultiShotOff();
+
+        for(int i = 0; i < n; i++){
+            if(frame[i]){
+                memcpy(image,frame[i]->image,frame[i]->image_bytes);
+                SaveFile(i, frame[i], "hdr-frames", true);
+                cout << "Shutter: " << ReadShutter(image) << endl;
+                dc1394_capture_enqueue(camera, frame[i]);
+            }
+        }
+    
     }
         
         
