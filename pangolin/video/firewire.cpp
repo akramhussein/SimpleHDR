@@ -41,11 +41,11 @@
     ) {
 
     if(video_mode>=DC1394_VIDEO_MODE_FORMAT7_0)
-      throw VideoException("format7 modes need to be initialized through the constructor that allows for specifying the roi");
+      throw VideoException("[ERROR]: format7 modes need to be initialized through the constructor that allows for specifying the roi");
 
     camera = dc1394_camera_new (d, guid);
     if (!camera)
-        throw VideoException("Failed to initialize camera");
+        throw VideoException("[ERROR]: Failed to initialize camera");
 
     // Attempt to stop camera if it is already running
     dc1394switch_t is_iso_on = DC1394_OFF;
@@ -56,10 +56,10 @@
 
     err = dc1394_feature_get_all(camera, &features);  
     if (err != DC1394_SUCCESS) {
-        throw VideoException("Could not get camera feature set");
+        throw VideoException("[ERROR]: Could not get camera feature set");
     }
 
-    cout << "Using camera with GUID " << camera->guid << endl;
+    cout << "[INFO]: Using camera with GUID " << camera->guid << endl;
 
     //-----------------------------------------------------------------------
     //  setup capture
@@ -69,24 +69,24 @@
     {
         err=dc1394_video_set_operation_mode(camera, DC1394_OPERATION_MODE_1394B);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not set DC1394_OPERATION_MODE_1394B");
+            throw VideoException("[ERROR]: Could not set DC1394_OPERATION_MODE_1394B");
     }
 
     err=dc1394_video_set_iso_speed(camera, iso_speed);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not set iso speed");
+        throw VideoException("[ERROR]: Could not set iso speed");
 
     err=dc1394_video_set_mode(camera, video_mode);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not set video mode");
+        throw VideoException("[ERROR]: Could not set video mode");
 
     err=dc1394_video_set_framerate(camera, framerate);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not set framerate");
+        throw VideoException("[ERROR]: Could not set framerate");
 
     err=dc1394_capture_setup(camera,dma_frames, DC1394_CAPTURE_FLAGS_DEFAULT);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not setup camera - check settings");
+        throw VideoException("[ERROR]: Could not setup camera - check settings");
 
     //-----------------------------------------------------------------------
     //  initialise width and height from mode
@@ -110,11 +110,11 @@
     ) {
 
     if(video_mode< DC1394_VIDEO_MODE_FORMAT7_0)
-        throw VideoException("roi can be specified only for format7 modes");
+        throw VideoException("[ERROR]: roi can be specified only for format7 modes");
 
     camera = dc1394_camera_new (d, guid);
     if (!camera)
-        throw VideoException("Failed to initialize camera");
+        throw VideoException("[ERROR]: Failed to initialize camera");
 
     // Attempt to stop camera if it is already running
     dc1394switch_t is_iso_on = DC1394_OFF;
@@ -123,7 +123,7 @@
         dc1394_video_set_transmission(camera, DC1394_OFF);
     }
 
-    cout << "Using camera with GUID " << camera->guid << endl;
+    cout << "[INFO]: Using camera with GUID " << camera->guid << endl;
 
     if(reset_at_boot){
       dc1394_camera_reset(camera);
@@ -137,19 +137,19 @@
     {
         err=dc1394_video_set_operation_mode(camera, DC1394_OPERATION_MODE_1394B);
         if( err != DC1394_SUCCESS )
-           throw VideoException("Could not set DC1394_OPERATION_MODE_1394B");
+           throw VideoException("[ERROR]: Could not set DC1394_OPERATION_MODE_1394B");
     }
 
     err=dc1394_video_set_iso_speed(camera, iso_speed);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not set iso speed");
+        throw VideoException("[ERROR]: Could not set iso speed");
 
     // check that the required mode is actually supported
     dc1394format7mode_t format7_info;
 
     err = dc1394_format7_get_mode_info(camera, video_mode, &format7_info);
     if( err != DC1394_SUCCESS )
-      throw VideoException("Could not get format7 mode info");
+      throw VideoException("[ERROR]: Could not get format7 mode info");
 
     // safely set the video mode
     err=dc1394_video_set_mode(camera, video_mode);
@@ -159,7 +159,7 @@
     // set position to 0,0 so that setting any size within min and max is a valid command
     err = dc1394_format7_set_image_position(camera, video_mode,0,0);
     if( err != DC1394_SUCCESS )
-      throw VideoException("Could not set format7 image position");
+      throw VideoException("[ERROR]: Could not set format7 image position");
 
     // work out the desired image size
     width = nearest_value(width, format7_info.unit_pos_x, 0, format7_info.max_size_x - left);
@@ -168,12 +168,12 @@
     // set size
     err = dc1394_format7_set_image_size(camera,video_mode,width,height);
     if( err != DC1394_SUCCESS )
-      throw VideoException("Could not set format7 size");
+      throw VideoException("[ERROR]: Could not set format7 size");
 
     // get the info again since many parameters depend on image size
     err = dc1394_format7_get_mode_info(camera, video_mode, &format7_info);
     if( err != DC1394_SUCCESS )
-      throw VideoException("Could not get format7 mode info");
+      throw VideoException("[ERROR]: Could not get format7 mode info");
 
     // work out position of roi
     left = nearest_value(left, format7_info.unit_size_x, format7_info.unit_size_x, format7_info.max_size_x - width);
@@ -182,7 +182,7 @@
     // set roi position
     err = dc1394_format7_set_image_position(camera,video_mode,left,top);
     if( err != DC1394_SUCCESS )
-      throw VideoException("Could not set format7 size");
+      throw VideoException("[ERROR]: Could not set format7 size");
 
     this->width = width;
     this->height = height;
@@ -200,14 +200,14 @@
 
       err = dc1394_format7_set_packet_size(camera,video_mode, format7_info.max_packet_size);
       if( err != DC1394_SUCCESS )
-        throw VideoException("Could not set format7 packet size");
+        throw VideoException("[ERROR]: Could not set format7 packet size");
 
     } else {
 
       // setting packet size to get the desired frame rate according to the libdc docs
       // does not do the trick, so for now we support only max frame rate
 
-        throw VideoException("In format 7 only max frame rate is currently supported");
+        throw VideoException("[ERROR]: In format 7 only max frame rate is currently supported");
       //      uint32_t depth;
       //      err = dc1394_format7_get_data_depth(camera, video_mode, &depth);
       //      if( err != DC1394_SUCCESS )
@@ -240,12 +240,12 @@
     // allowed by the shutter time)
     err = dc1394_feature_set_power(camera,DC1394_FEATURE_FRAME_RATE,DC1394_OFF);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not turn off frame rate");
+        throw VideoException("[ERROR]: Could not turn off frame rate");
 
     float value;
     err=dc1394_feature_get_absolute_value(camera,DC1394_FEATURE_FRAME_RATE,&value);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not get framerate");
+        throw VideoException("[ERROR]: Could not get framerate");
 
     cout<<" framerate(shutter permitting):"<<value<<endl;
 
@@ -255,7 +255,7 @@
 
     err=dc1394_capture_setup(camera,dma_frames, DC1394_CAPTURE_FLAGS_DEFAULT);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Could not setup camera - check settings");
+        throw VideoException("[ERROR]: Could not setup camera - check settings");
 
     Start();
 
@@ -280,7 +280,7 @@
     //        case DC1394_COLOR_CODING_RAW8 :    return "RAW8";
     //        case DC1394_COLOR_CODING_RAW16 :   return "RAW16";
         default:
-            throw VideoException("Unknown colour coding");
+            throw VideoException("[ERROR]: Unknown colour coding");
     }
     }
 
@@ -382,7 +382,7 @@
     w=1280;    h=960;    format = "YUV422P";
     break;
     default:
-      throw VideoException("Unknown colour coding");
+      throw VideoException("[ERROR]: Unknown colour coding");
     }
     }
 
@@ -420,7 +420,7 @@
     {
         err=dc1394_video_set_transmission(camera, DC1394_ON);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not start camera iso transmission");
+            throw VideoException("[ERROR]: Could not start camera iso transmission");
         running = true;
     }
     }
@@ -432,7 +432,7 @@
         // Stop transmission
         err = dc1394_video_set_transmission(camera,DC1394_OFF);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not stop the camera");
+            throw VideoException("[ERROR]: Could not stop the camera");
         running = false;
     }
     }
@@ -446,7 +446,7 @@
         
         err = dc1394_video_set_multi_shot(camera, num_frames, DC1394_ON);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not turn on multi-shot mode");
+            throw VideoException("[ERROR]: Could not turn on multi-shot mode");
         
     }
     
@@ -454,7 +454,7 @@
         
         err = dc1394_video_set_multi_shot(camera, 0, DC1394_OFF);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not turn off multi-shot mode");
+            throw VideoException("[ERROR]: Could not turn off multi-shot mode");
         
     }
         
@@ -465,13 +465,13 @@
             // Stop transmission
             err = dc1394_video_set_transmission(camera,DC1394_OFF);
             if( err != DC1394_SUCCESS )
-                throw VideoException("Could not stop the camera");
+                throw VideoException("[ERROR]: Could not stop the camera");
             running = false;
         }
         //Call to eliminate spurious frames
         err = dc1394_video_set_one_shot(camera, DC1394_OFF);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not set one shot to OFF");
+            throw VideoException("[ERROR]: Could not set one shot to OFF");
         FlushDMABuffer();
     }
 
@@ -506,7 +506,7 @@
     }
         
     void FirewireVideo::GrabNFramesMulti(unsigned char *image, int n, float shut[]){
-         
+        
         // frame array
         dc1394video_frame_t *frame[n];
         dc1394video_frame_t *discarded_frame;
@@ -534,9 +534,9 @@
 
         for(int i = 0; i < n; i++){
             if(frame[i]){
-                memcpy(image,frame[i]->image,frame[i]->image_bytes);
+                //memcpy(image,frame[i]->image,frame[i]->image_bytes);
+                //cout << "Shutter: " << ReadShutter(image) << endl;
                 SaveFile(i, frame[i], "hdr-frames", true);
-                cout << "Shutter: " << ReadShutter(image) << endl;
                 dc1394_capture_enqueue(camera, frame[i]);
             }
         }
@@ -662,14 +662,16 @@
         while( true ) {
             
             if( dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_POLL, &frame) != DC1394_SUCCESS){
-                throw VideoException("Could not set one shot to OFF");
+                throw VideoException("[ERROR]: Could not dequeue frame");
             } 
             if (!frame) { break; }
-            dc1394_capture_enqueue(camera, frame);
+                if( dc1394_capture_enqueue(camera, frame) != DC1394_SUCCESS){
+                    throw VideoException("[ERROR]: Could not enqueue frame");   
+                }
             discarded_frames++;
         }
  
-        cout << "Discarded frames: " << discarded_frames << endl;
+        cout << "[INFO]: Flushed frames: " << discarded_frames << endl;
     }
        
     FirewireVideo::FirewireVideo(
@@ -682,7 +684,7 @@
     {
     d = dc1394_new ();
     if (!d)
-        throw VideoException("Failed to get 1394 bus");
+        throw VideoException("[ERROR]: Failed to get 1394 bus");
     shutter_lookup_table = 0;
     init_camera(guid.guid,dma_buffers,iso_speed,video_mode,framerate);
     }
@@ -699,7 +701,7 @@
     {
     d = dc1394_new ();
     if (!d)
-        throw VideoException("Failed to get 1394 bus");
+        throw VideoException("[ERROR]: Failed to get 1394 bus");
     shutter_lookup_table = 0;
     init_format7_camera(guid.guid,dma_buffers,iso_speed,video_mode,framerate,width,height,left,top, reset_at_boot);
     }
@@ -714,17 +716,17 @@
         {
         d = dc1394_new ();
         if (!d)
-            throw VideoException("Failed to get 1394 bus");
+            throw VideoException("[ERROR]: Failed to get 1394 bus");
 
         err=dc1394_camera_enumerate (d, &list);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Failed to enumerate cameras");
+            throw VideoException("[ERROR]: Failed to enumerate cameras");
 
         if (list->num == 0)
-            throw VideoException("No cameras found");
+            throw VideoException("[ERROR]: No cameras found");
 
         if( deviceid >= list->num )
-            throw VideoException("Invalid camera index");
+            throw VideoException("[ERROR]: Invalid camera index");
 
         const uint64_t guid = list->ids[deviceid].guid;
 
@@ -746,17 +748,17 @@
     {
     d = dc1394_new ();
     if (!d)
-        throw VideoException("Failed to get 1394 bus");
+        throw VideoException("[ERROR]: Failed to get 1394 bus");
 
     err=dc1394_camera_enumerate (d, &list);
     if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to enumerate cameras");
+        throw VideoException("[ERROR]: Failed to enumerate cameras");
 
     if (list->num == 0)
-        throw VideoException("No cameras found");
+        throw VideoException("[ERROR]: No cameras found");
 
     if( deviceid >= list->num )
-        throw VideoException("Invalid camera index");
+        throw VideoException("[ERROR]: Invalid camera index");
 
     const uint64_t guid = list->ids[deviceid].guid;
 
@@ -860,7 +862,7 @@
      *  FEATURE CONTROL
      *-----------------------------------------------------------------------*/    
     
-    // move to header file and make vector
+    // move to header file 
     dc1394feature_t feature[] = {
         DC1394_FEATURE_BRIGHTNESS,
         DC1394_FEATURE_EXPOSURE,
@@ -886,7 +888,8 @@
         DC1394_FEATURE_CAPTURE_QUALITY
     };
         
-    void FirewireVideo::SetAllFeaturesAuto(){
+    void FirewireVideo::SetAllFeaturesAuto()
+    {
                 
     dc1394feature_modes_t modes;
         
@@ -900,7 +903,7 @@
         
         err = dc1394_feature_get_modes(camera, feature[i], &modes);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not get modes for feature ", dc1394_feature_get_string(feature[i]));
+            throw VideoException("[ERROR]: Could not get modes for feature ", dc1394_feature_get_string(feature[i]));
         }
         
   
@@ -961,12 +964,12 @@
         
         err = dc1394_feature_set_power(camera, feature, DC1394_ON);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn on ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not turn on ", dc1394_feature_get_string(feature));
         }
         
         err = dc1394_feature_set_mode(camera, feature, DC1394_FEATURE_MODE_AUTO);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set auto mode for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not set auto mode for ", dc1394_feature_get_string(feature));
         }
         
     }
@@ -975,12 +978,12 @@
         
         err = dc1394_feature_set_power(camera, feature, DC1394_ON);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn on ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not turn on ", dc1394_feature_get_string(feature));
         }
         
         err = dc1394_feature_set_mode(camera, feature, DC1394_FEATURE_MODE_MANUAL);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual mode for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not set manual mode for ", dc1394_feature_get_string(feature));
         }
         
     }
@@ -989,7 +992,7 @@
         
         err = dc1394_feature_set_power(camera, feature, DC1394_ON);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn on ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not turn on ", dc1394_feature_get_string(feature));
         }
         
     }
@@ -998,7 +1001,7 @@
         
         err = dc1394_feature_set_power(camera, feature, DC1394_OFF);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn off ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not turn off ", dc1394_feature_get_string(feature));
         }
         
     }
@@ -1009,17 +1012,17 @@
         
         err = dc1394_feature_set_mode(camera, feature, DC1394_FEATURE_MODE_MANUAL);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual mode for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not set manual mode for ", dc1394_feature_get_string(feature));
         }
         
         err = dc1394_feature_set_absolute_control(camera, feature, DC1394_ON);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn absolute mode off for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not turn absolute mode off for ", dc1394_feature_get_string(feature));
         }
              
         err = dc1394_feature_set_absolute_value(camera, feature, value);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could set absolute value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could set absolute value for ", dc1394_feature_get_string(feature));
         }
         
     }
@@ -1028,17 +1031,17 @@
         
         err = dc1394_feature_set_mode(camera, feature, DC1394_FEATURE_MODE_MANUAL);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual mode for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not set manual mode for ", dc1394_feature_get_string(feature));
         }
         
         err = dc1394_feature_set_absolute_control(camera, feature, DC1394_OFF);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not turn absolute mode off for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not turn absolute mode off for ", dc1394_feature_get_string(feature));
         }
         
         err = dc1394_feature_set_value(camera, feature, value);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could set quantised value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could set quantised value for ", dc1394_feature_get_string(feature));
         }
         
     }
@@ -1049,7 +1052,7 @@
         
         err = dc1394_feature_get_power(camera, feature, &pwr);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could check if power on/off for feature ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could check if power on/off for feature ", dc1394_feature_get_string(feature));
         }
         
         if(pwr == 1){
@@ -1064,7 +1067,7 @@
         
         err =  dc1394_feature_get_mode(camera, feature, &mode);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not check mode of feature ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not check mode of feature ", dc1394_feature_get_string(feature));
         }
         
         if (mode == 737){
@@ -1080,7 +1083,7 @@
         
         err = dc1394_feature_get_absolute_value(camera, feature, &value);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could set absolute value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could set absolute value for ", dc1394_feature_get_string(feature));
         }
 
         return value;
@@ -1093,7 +1096,7 @@
         
         err = dc1394_feature_get_value(camera, feature, &value);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not get quantised value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could not get quantised value for ", dc1394_feature_get_string(feature));
         }
         
         return value;
@@ -1106,7 +1109,7 @@
        
         err = dc1394_feature_get_absolute_boundaries(camera, feature, &min, &max);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could get max absolute value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could get max absolute value for ", dc1394_feature_get_string(feature));
         }
         
         return max;
@@ -1119,7 +1122,7 @@
         
         err = dc1394_feature_get_absolute_boundaries(camera, feature, &min, &max);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could get min absolute value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could get min absolute value for ", dc1394_feature_get_string(feature));
         }
         
         return min;
@@ -1132,7 +1135,7 @@
         
         err =  dc1394_feature_get_boundaries(camera, feature, &min, &max);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could get max quantised value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could get max quantised value for ", dc1394_feature_get_string(feature));
         }
         
         return max;
@@ -1145,7 +1148,7 @@
         
         err =  dc1394_feature_get_boundaries(camera, feature, &min, &max);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could get min quantised value for ", dc1394_feature_get_string(feature));
+            throw VideoException("[ERROR]: Could get min quantised value for ", dc1394_feature_get_string(feature));
         }
         
         return min;
@@ -1160,7 +1163,7 @@
 
         err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_ONE_PUSH_AUTO);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual white balance mode");
+            throw VideoException("[ERROR]: Could not set manual white balance mode");
         }
     }
     
@@ -1169,12 +1172,12 @@
 
         err = dc1394_feature_set_mode(camera, DC1394_FEATURE_WHITE_BALANCE, DC1394_FEATURE_MODE_MANUAL);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set manual white balance mode");
+            throw VideoException("[ERROR]: Could not set manual white balance mode");
         }
 
         err = dc1394_feature_whitebalance_set_value(camera, Blue_U_val, Red_V_val);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set white balance value");
+            throw VideoException("[ERROR]: Could not set white balance value");
         }
 
     }
@@ -1183,9 +1186,36 @@
 
     err = dc1394_feature_whitebalance_get_value(camera,Blue_U_val, Red_V_val );
     if( err != DC1394_SUCCESS )
-        throw VideoException("Failed to read white balance");
+        throw VideoException("[ERROR]: Failed to read white balance");
     }    
+    
+        
+    int FirewireVideo::GetWhiteBalanceBlueU()
+    {
+        uint32_t Blue_U_val, Red_V_val;
+        
+        err = dc1394_feature_whitebalance_get_value( camera, &Blue_U_val, &Red_V_val );
+        if( err != DC1394_SUCCESS )
+            throw VideoException("[ERROR]: Failed to read white balance");
 
+        return Blue_U_val;
+    }
+        
+    int FirewireVideo::GetWhiteBalanceRedV()
+    {
+        uint32_t Blue_U_val, Red_V_val;
+        
+        err = dc1394_feature_whitebalance_get_value( camera, &Blue_U_val, &Red_V_val );
+        if( err != DC1394_SUCCESS )
+            throw VideoException("[ERROR]: Failed to read white balance");
+        
+        return Red_V_val;
+    }
+
+    
+        
+    
+        
     /*-----------------------------------------------------------------------
      *  RESET 
      *-----------------------------------------------------------------------*/
@@ -1194,17 +1224,17 @@
     {
         err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set gamma feature on");
+            throw VideoException("[ERROR]: Could not set gamma feature on");
         }
         
         err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set absolute control for gamma");
+            throw VideoException("[ERROR]: Could not set absolute control for gamma");
         }
         
         err = dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_GAMMA, 1.0);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set absolute gamma value to 1.0");
+            throw VideoException("[ERROR]: Could not set absolute gamma value to 1.0");
         }
         
     } 
@@ -1213,12 +1243,12 @@
     {
         err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_ON);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set hue feature on");
+            throw VideoException("[ERROR]: Could not set hue feature on");
         }
         
         err = dc1394_feature_set_value(camera, DC1394_FEATURE_HUE, 2048);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set absolute hue value to 2048 i.e. 0");
+            throw VideoException("[ERROR]: Could not set absolute hue value to 2048 i.e. 0");
         }
         
     } 
@@ -1231,7 +1261,7 @@
     {
         err = dc1394_external_trigger_set_power(camera, DC1394_OFF);
         if ( err != DC1394_SUCCESS) {
-            throw VideoException("Could not set internal trigger mode");
+            throw VideoException("[ERROR]: Could not set internal trigger mode");
         }
         
     }
@@ -1240,22 +1270,22 @@
     {
     err = dc1394_external_trigger_set_polarity(camera, polarity);
     if (err != DC1394_SUCCESS) {
-        throw VideoException("Could not set external trigger polarity");
+        throw VideoException("[ERROR]: Could not set external trigger polarity");
     }
 
     err = dc1394_external_trigger_set_mode(camera, mode);
     if (err != DC1394_SUCCESS) {
-        throw VideoException("Could not set external trigger mode");
+        throw VideoException("[ERROR]: Could not set external trigger mode");
     }
 
     err = dc1394_external_trigger_set_source(camera, source);
     if (err != DC1394_SUCCESS) {
-        throw VideoException("Could not set external trigger source");
+        throw VideoException("[ERROR]: Could not set external trigger source");
     }
 
     err = dc1394_external_trigger_set_power(camera, DC1394_ON);
     if (err != DC1394_SUCCESS) {
-        throw VideoException("Could not set external trigger power");
+        throw VideoException("[ERROR]: Could not set external trigger power");
     }
 }
 
@@ -1269,7 +1299,7 @@
         
         err = dc1394_set_control_register(camera, 0x12f8, meta_data_flags);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set meta data flags");
+            throw VideoException("[ERROR]: Could not set meta data flags");
         }
     }
    
@@ -1278,7 +1308,7 @@
         uint32_t flags;
         err = dc1394_get_control_register(camera, 0x12f8, &flags);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not get meta data flags");
+            throw VideoException("[ERROR]: Could not get meta data flags");
         }
         return flags;
     }
@@ -1302,7 +1332,7 @@
         
         err = dc1394_set_control_register(camera, 0x1800, hdr_flags);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr flags");
+            throw VideoException("[ERROR]: Could not set hdr flags");
         }
         
     }
@@ -1312,7 +1342,7 @@
         uint32_t flags;
         err = dc1394_get_control_register(camera, 0x1800, &flags);
         if (err != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr flags");
+            throw VideoException("[ERROR]: Could not get hdr flags");
         }
         return flags;
     }
@@ -1324,16 +1354,16 @@
     {
 
         if (dc1394_set_control_register(camera, 0x1820, 0x8000000 | shut0) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr shutter0 flags");
+            throw VideoException("[ERROR]: Could not set hdr shutter0 flags");
         }
         if (dc1394_set_control_register(camera, 0x1840, 0x8000000 | shut1) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr shutter1 flags");
+            throw VideoException("[ERROR]: Could not set hdr shutter1 flags");
         }
         if (dc1394_set_control_register(camera, 0x1860, 0x8000000 | shut2) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr shutter2 flags");
+            throw VideoException("[ERROR]: Could not set hdr shutter2 flags");
         }
         if (dc1394_set_control_register(camera, 0x1880, 0x8000000 | shut3) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr shutter3 flags");
+            throw VideoException("[ERROR]: Could not set hdr shutter3 flags");
         }
     }
 
@@ -1343,16 +1373,16 @@
                                            uint32_t &shut3) 
     {
         if (dc1394_get_control_register(camera, 0x1820, &shut0) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr shutter0 flags");
+            throw VideoException("[ERROR]: Could not get hdr shutter0 flags");
         }
         if (dc1394_get_control_register(camera, 0x1840, &shut1) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr shutter1 flags");
+            throw VideoException("[ERROR]: Could not get hdr shutter1 flags");
         }
         if (dc1394_get_control_register(camera, 0x1860, &shut2) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr shutter2 flags");
+            throw VideoException("[ERROR]: Could not get hdr shutter2 flags");
         }
         if (dc1394_get_control_register(camera, 0x1880, &shut3) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr shutter3 flags");
+            throw VideoException("[ERROR]: Could not get hdr shutter3 flags");
         }
         /*
         cout << "Shutter Values" << endl;
@@ -1369,16 +1399,16 @@
                                         uint32_t gain3) 
     {
         if (dc1394_set_control_register(camera, 0x1824, 0x8000000 | gain0) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr gain0 flags");
+            throw VideoException("[ERROR]: Could not set hdr gain0 flags");
         }
         if (dc1394_set_control_register(camera, 0x1844, 0x8000000 | gain1) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr gain1 flags");
+            throw VideoException("[ERROR]: Could not set hdr gain1 flags");
         }
         if (dc1394_set_control_register(camera, 0x1864, 0x8000000 | gain2) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr gain2 flags");
+            throw VideoException("[ERROR]: Could not set hdr gain2 flags");
         }
         if (dc1394_set_control_register(camera, 0x1884, 0x8000000 | gain3) != DC1394_SUCCESS) {
-            throw VideoException("Could not set hdr gain3 flags");
+            throw VideoException("[ERROR]: Could not set hdr gain3 flags");
         }
     }
 
@@ -1388,19 +1418,27 @@
                                         uint32_t &gain2, 
                                         uint32_t &gain3) 
     {
+        // gain default is 178
+        
         if (dc1394_get_control_register(camera, 0x1824, &gain0) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr gain0 flags");
+            throw VideoException("[ERROR]: Could not get hdr gain0 flags");
         }
         if (dc1394_get_control_register(camera, 0x1844, &gain1) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr gain1 flags");
+            throw VideoException("[ERROR]: Could not get hdr gain1 flags");
         }
         if (dc1394_get_control_register(camera, 0x1864, &gain2) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr gain2 flags");
+            throw VideoException("[ERROR]: Could not get hdr gain2 flags");
         }
         if (dc1394_get_control_register(camera, 0x1884, &gain3) != DC1394_SUCCESS) {
-            throw VideoException("Could not get hdr gain3 flags");
+            throw VideoException("[ERROR]: Could not get hdr gain3 flags");
         }
-            
+        /*
+        cout << "Gain flags" << endl;
+        cout << gain0 - 2181038080 << endl;
+        cout << gain1 - 2181038080 << endl;
+        cout << gain2 - 2181038080 << endl; 
+        cout << gain3 - 2181038080 << endl;
+        */
     }
 
     void FirewireVideo::ReadMetaData( unsigned char *image, MetaData *metaData ) {
@@ -1503,17 +1541,17 @@
     }
         
     void FirewireVideo::CreateShutterLookupTable() {
-        cout << "Creating Lookup Table" << endl;
+        cout << "[INFO]: Creating Shutter Lookup Table" << endl;
         shutter_lookup_table = new float[4096];
         for (int i=0; i<4096; i++) {
             SetFeatureQuant(DC1394_FEATURE_SHUTTER, i);
             shutter_lookup_table[i] = GetFeatureValue(DC1394_FEATURE_SHUTTER);
         }
-        cout << "Lookup Table Created" << endl;
+        cout << "[INFO]: Shutter Lookup Table Created" << endl;
     }
         
     void FirewireVideo::CreateShutterMaps() {
-        cout << "Creating Lookup Maps : <quant,abs> and <abs,quant>" << endl;
+        cout << "[INFO]: Creating Shutter Lookup Maps : <quant,abs> and <abs,quant>" << endl;
         float shutter;
         int max_shutter = GetFeatureQuantMax(DC1394_FEATURE_SHUTTER);
         for (int i=0 ; i <= max_shutter ; i++) {
@@ -1522,7 +1560,7 @@
             shutter_abs_map[i] = shutter;
             shutter_quant_map[shutter] = i;
         }
-        cout << "Shutter Maps Created" << endl;
+        cout << "[INFO]: Shutter Shutter Maps Created" << endl;
     }
     
     int FirewireVideo::GetShutterMapQuant(float val){    
@@ -1650,39 +1688,110 @@
         
     }
 
-    void FirewireVideo::CaptureHDRFrame(uint32_t s0, uint32_t s1, uint32_t s2, uint32_t s3)
+    void FirewireVideo::CaptureHDRFrame(int n, float shutter[])
     {
-        // turn on hdr register control
+        cout << "[HDR] Starting HDR frame capture" << endl;
+        // frame array
+        dc1394video_frame_t *frame[n];
+        //dc1394video_frame_t *discarded_frame;
+        
+        //stop camera transmission
+        cout << "[HDR] Stopping camera transmission" << endl;
+        Stop();
+        
+        // discard images from DMA buffer
+        cout << "[HDR] Flushing camera DMA buffer" << endl;
+        FlushDMABuffer();
+
+        // embed to hdr register shutter values (abs->quant)
+        SetHDRShutterFlags(
+                           GetShutterMapQuant(shutter[0]),
+                           GetShutterMapQuant(shutter[1]),
+                           GetShutterMapQuant(shutter[2]),
+                           GetShutterMapQuant(shutter[3])
+                           );
+    
+        // turn hdr register on
+        cout << "[HDR] HDR register turned ON" << endl;
         SetHDRRegister(true);
         
-        // set shutter times on register
-        SetHDRShutterFlags(s0,s1,s2,s3);
         
-        dc1394video_frame_t *frame;
-                
-        if(dc1394_video_set_multi_shot(camera, 4, DC1394_ON) != DC1394_SUCCESS){
-            throw VideoException("Could not turn on multi-shot mode");
+        // enable multi-shot mode
+        SetMultiShotOn(n);
+        // start transmission again
+        Start();
+
+        //discard first frame -- not working
+        //dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &discarded_frame);
+        //dc1394_capture_enqueue(camera, discarded_frame);
+        
+        // grab n frames from dma
+        for(int i = 0; i < n ; i++){
+            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame[i]);  
         }
         
-        for(int i = 0 ; i<4; i++){
-            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
-            dc1394_capture_enqueue(camera, frame);
-            SaveFile(i, frame, "hdr-frames", true);
-        }
+        // disable multi-shot mode
+        SetMultiShotOff();
         
-        if(dc1394_video_set_multi_shot(camera, 0, DC1394_OFF) != DC1394_SUCCESS){
-            throw VideoException("Could not turn off multi-shot mode");
-        }
-        
+        // turn off hdr register
         SetHDRRegister(false);
-          
-        // run hdr script
-        //  system("pfsinme ./hdr-frames/jpeg/*.jpeg | pfshdrcalibrate -v -f camera.response | pfsoutexr hdr.exr");
+        cout << "[HDR] HDR register turned OFF" << endl;
         
-        cout << "DONE" << endl;
+        // save each frame to jpeg and return frames to dma to requeue the buffer
+        for(int i = 0; i < n; i++){
+            if(frame[i]){
+                //memcpy(image,frame[i]->image,frame[i]->image_bytes);
+                //cout << "Shutter: " << ReadShutter(image) << endl;
+                SaveFile(i, frame[i], "hdr-image", true);
+                dc1394_capture_enqueue(camera, frame[i]);
+            }
+        }
+    
+        cout << "[HDR] Generating HDR frame" << endl;
+        
+        // run hdr script
+        //  system("pfsinme ./hdr-image/jpeg/*.jpeg | pfshdrcalibrate -v -f camera.response | pfsoutexr hdr.exr");
+        
+        cout << "[HDR] HDR Frame Generated" << endl;
         
     }
-
+        
+    void FirewireVideo::SaveSingleFrame(unsigned char *image){
+        
+        dc1394video_frame_t *frame = NULL;
+        
+        dc1394_video_set_one_shot( camera, DC1394_ON );
+        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
+        if( frame ){
+            memcpy(image,frame->image,frame->image_bytes);
+            dc1394_capture_enqueue(camera,frame);
+        }
+        
+        char filename[128];
+        char date_time[128];
+        MetaData metaData;
+        dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8;
+        
+        // create directories
+        mkdir("single-frames", 0755);
+        mkdir("single-frames/jpeg/", 0755);
+        
+        // get time stamp
+        time_t rawtime;
+        struct tm * timeinfo;
+        time ( &rawtime );
+        timeinfo = localtime ( &rawtime );
+        strftime(date_time,128,"%d%b%Y_%H-%M-%S",timeinfo);
+        sprintf(filename, "./single-frames/jpeg/%s%s", date_time, ".jpeg");
+        
+        CreateJPEG(frame, filename, video_mode);
+        ReadMetaData(frame->image, &metaData);
+        WriteExifData( &metaData, filename);
+        
+        cout << "[SAVE] Saved image: " << filename << endl;
+    }
+        
+        
     bool FirewireVideo::SaveFile(
                                  int frame_number, 
                                  dc1394video_frame_t *frame, 
@@ -1724,7 +1833,7 @@
             
         }
         
-        cout << "Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpeg) << endl;      
+        cout << "[INFO]: Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpeg) << endl;      
 
         return true;
     }
@@ -1744,14 +1853,14 @@
                                               &height
                                               );
         if (err != DC1394_SUCCESS){
-            throw VideoException("Could not get image size from video mode");
+            throw VideoException("[ERROR]: Could not get image size from video mode");
         }
         
         uint64_t numPixels = height*width;
         imagefile = fopen(filename, "wb");
         
         if( imagefile == NULL) {
-            perror( "Can't create output file");
+            perror( "[ERROR]: Can't create output file");
         }
         
         fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
@@ -1775,7 +1884,7 @@
                                                     &height
                                                     );
         if ( err != DC1394_SUCCESS ) {
-            throw VideoException("Could not get image size from video mode");
+            throw VideoException("[ERROR]: Could not get image size from video mode");
         }
         
         struct jpeg_compress_struct cinfo;
@@ -1786,7 +1895,7 @@
         FILE *outfile = fopen( filename, "wb" );
         
         if ( !outfile ) {
-            printf("Error opening output jpeg file %s\n!", filename );
+            printf("[ERROR]: Error opening output jpeg file %s\n!", filename );
             return false;
         }
         
@@ -1867,7 +1976,7 @@
         // get video modes:
         err = dc1394_video_get_supported_modes( camera, &video_modes );
             if( err != DC1394_SUCCESS )
-                throw VideoException("Could not get supported modes");
+                throw VideoException("[ERROR]: Could not get supported modes");
         
         // select highest res mode:
         for (i = video_modes.num-1;i>=0;i--) {
@@ -1886,17 +1995,17 @@
         }
             
         if (i < 0) {
-            dc1394_log_error("Could not get a valid RGB8 mode");
+            dc1394_log_error("[ERROR]: Could not get a valid RGB8 mode");
         }
         
         err = dc1394_get_color_coding_from_video_mode(camera, video_mode, &coding);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not get colour coding");
+            throw VideoException("[ERROR]: Could not get colour coding");
         
         // get highest framerate
         err = dc1394_video_get_supported_framerates(camera, video_mode, &framerates);
         if( err != DC1394_SUCCESS )
-            throw VideoException("Could not get frame rates");
+            throw VideoException("[ERROR]: Could not get frame rates");
             
         framerate = framerates.framerates[framerates.num-1]; // best video_mode set
         
@@ -1922,7 +2031,7 @@
         // get max and min for shutter time
         if(dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max) != DC1394_SUCCESS)
         {
-            throw VideoException("Failed to read shutter");
+            throw VideoException("[ERROR]: Failed to read shutter");
         }
         
         shutter = (max - min)/2; // first half of shutter range is black
@@ -1934,25 +2043,22 @@
         
         if(dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL) != DC1394_SUCCESS) 
         {
-            throw VideoException("Could not set manual shutter mode");
+            throw VideoException("[ERROR]: Could not set manual shutter mode");
         }
         
         if(dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON) != DC1394_SUCCESS)
         {
-            throw VideoException("Could not set absolute control for shutter");
+            throw VideoException("[ERROR]: Could not set absolute control for shutter");
         }
         
         file = fopen(hdrgen_file, "wb");
         if( file == NULL) {
-            perror( "Can't create hdrgen file");
+            perror( "[ERROR]: Can't create hdrgen file");
         }
  
         //stop camera for one shot mode
-        StopForOneShot();
+        //StopForOneShot();
         
-        // set camera to one shot
-        dc1394_video_set_one_shot( camera, DC1394_ON );
-
         for(int frame_number = 0; shutter <= max ; frame_number++){
             
             cout << "frame number: " << frame_number << endl;
@@ -1960,11 +2066,14 @@
             
             if(dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter) != DC1394_SUCCESS) 
             {
-                throw VideoException("Could not set shutter value");
+                throw VideoException("[ERROR]: Could not set shutter value");
             }
             
             // wait 1/30th second
             boost::this_thread::sleep(boost::posix_time::seconds(1/30));        
+            
+            // set camera to one shot
+            dc1394_video_set_one_shot( camera, DC1394_ON );
             
             // grab image from dma
             dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);
@@ -1987,11 +2096,18 @@
         SetFeatureAuto(DC1394_FEATURE_SHUTTER);
 
         // generate response function 
-        cout << "Generating response function" << endl;
-        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -v -s camera.response");
+        cout << "[INFO]: Generating response function" << endl;
+        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -v -s camera.response > /dev/null");
 
-        cout << "Camera Response Function file generated" << endl;
+        cout << "[INFO]: Camera Response Function file generated" << endl;
         
+    }
+        
+    bool FirewireVideo::CheckResponseFunction(){
+        
+        ifstream file("camera.response");
+        return file;
+
     }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
@@ -2035,7 +2151,7 @@
            bus_period = 500e-6;
            break;
         default:
-          throw VideoException("iso speed not valid");
+          throw VideoException("[ERROR]: iso speed not valid");
         }
 
         return bus_period;

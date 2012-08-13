@@ -29,21 +29,29 @@ int main( int argc, char* argv[] )
                                         100
                                         );
     video.SetAllFeaturesAuto();
-    video.CreateShutterMaps();
     video.SetMetaDataFlags( META_ALL );
     video.SetHDRRegister(false);
-    video.Stop();
     
-    unsigned char* img = new unsigned char[video.SizeBytes()];
-    float shut[4] = {0.03331, 0.008, 0.03331, 0.008};
+    /*
+    video.CreateShutterMaps();
+       
+    video.Stop();
+    */
+    //unsigned char* img = new unsigned char[video.SizeBytes()];
+    // float shut[4] = {0.03331, 0.008, 0.03331, 0.008};
     /*-----------------------------------------------------------------------
      *  CAPTURE
      *-----------------------------------------------------------------------*/     
     
     cout << "Camera transmission starting..." << endl;
 
-    video.FlushDMABuffer();
+    //video.FlushDMABuffer();
     
+    uint32_t g0,g1,g2,g3;
+    
+    video.GetHDRGainFlags(g0, g1, g2, g3);
+    
+    /*
     // loop until quit
     for(int frame_number=0; frame_number < 1; ++frame_number)
     {     
@@ -52,7 +60,7 @@ int main( int argc, char* argv[] )
     }
     
     delete[] img;
-    
+    */
     return 0;
 }
 

@@ -124,11 +124,7 @@
     META_ABS = 32678, 
     META_ALL_AND_ABS = 33791,
     } meta_flags;
-        
-    typedef enum {
-        HDR_ON = 33554432
-    } hdr_flags;
-        
+   
     class FirewireVideo : public VideoInterface
     {
     public:
@@ -140,7 +136,7 @@
     dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8,
     dc1394framerate_t framerate = DC1394_FRAMERATE_30,
     dc1394speed_t iso_speed = DC1394_ISO_SPEED_400,
-    int dma_buffers = 10
+    int dma_buffers = 100
     );
 
     FirewireVideo(
@@ -148,7 +144,7 @@
     dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8,
     dc1394framerate_t framerate = DC1394_FRAMERATE_30,
     dc1394speed_t iso_speed = DC1394_ISO_SPEED_400,
-    int dma_buffers = 10
+    int dma_buffers = 100
     );
 
     FirewireVideo(
@@ -371,6 +367,12 @@
 
     //! get the white balance
     void GetWhiteBalance(unsigned int *Blue_U_val, unsigned int *Red_V_val);
+     
+    //! get white balance blue/U value
+    int GetWhiteBalanceBlueU();
+   
+    //! get white balance red/V value
+    int GetWhiteBalanceRedV();
         
     /*-----------------------------------------------------------------------
      *  TRIGGERS
@@ -423,10 +425,10 @@
                       );
         
     //! Automatic HDR Frame Capture
-    void CaptureHDRFrame(uint32_t s0, 
-                         uint32_t s1, 
-                         uint32_t s2, 
-                         uint32_t s3);
+    void CaptureHDRFrame(int n, float shutter[]);
+        
+    //! grab and save indidivdual frame with time stamp 
+    void SaveSingleFrame(unsigned char* image);
         
     //! save image file to ppm or jpeg
     bool SaveFile(    
@@ -477,6 +479,9 @@
     //! generate camera response function and save to file
     void GetResponseFunction();
     
+    //! check if response function exists
+    bool CheckResponseFunction();
+        
     protected:
 
     void init_camera(
@@ -512,7 +517,7 @@
     float* shutter_lookup_table;
 
     std::map<int,float> shutter_abs_map;
-    std::map<float,int> shutter_quant_map;  
+    std::map<float,int> shutter_quant_map; 
         
     };
 

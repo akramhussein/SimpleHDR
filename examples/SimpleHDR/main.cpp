@@ -18,31 +18,32 @@ using namespace std;
 
 int main( int argc, char* argv[] )
 {
-    cout << "LOADING..." << endl;
-    
     /*-----------------------------------------------------------------------
      *  SETUP SOURCE
      *-----------------------------------------------------------------------*/    
     
     FirewireVideo video = FirewireVideo();
-    video.CreateShutterLookupTable();
+    video.SetHDRRegister(false);
+    video.SetMetaDataFlags( META_ALL );
+    video.CreateShutterMaps();
     video.SetAllFeaturesAuto();
-    video.PrintCameraReport();
-    video.SetMetaDataFlags( META_SHUTTER );
+    video.FlushDMABuffer();//remove spurious frames
+    //video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
-    
-    VideoPixelFormat vid_fmt = VideoFormatFromString(video.PixFormat());
-    const unsigned w = video.Width();
-    const unsigned h = video.Height();
     
     /*-----------------------------------------------------------------------
      *  GUI
      *-----------------------------------------------------------------------*/    
+   
+    VideoPixelFormat vid_fmt = VideoFormatFromString(video.PixFormat());
+    const unsigned w = video.Width();
+    const unsigned h = video.Height();
     
     // Create Glut window
     const int panel_width = 200;
-    pangolin::CreateGlutWindowAndBind("SimpleHDR",800 + panel_width,600);
+    double scale = 1.25;
+    pangolin::CreateGlutWindowAndBind("SimpleHDR",w*scale + panel_width,h*scale);
     
     // Create viewport for video with fixed aspect
     View& d_panel = pangolin::CreatePanel("ui.")
@@ -51,12 +52,15 @@ int main( int argc, char* argv[] )
     // Create viewport for video with fixed aspect
     View& vVideo = Display("Video")
     .SetBounds(0.0, 1.0, Attach::Pix(panel_width), 1.0)
-    .SetAspect((float)800/600);
+    .SetAspect((float)w/h);
     
     // OpenGl Texture for video frame
     GlTexture texVideo(w,h,GL_RGBA8);
+    
+    /*-----------------------------------------------------------------------
+     *  KEYBOARD SHORCUTS
+     *-----------------------------------------------------------------------*/ 
 
-    //keyboard shortcuts
     pangolin::RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));                 // hdr mode 
     pangolin::RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                // normal mode
     pangolin::RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // grab multiple frames in ppm & jpeg
@@ -66,17 +70,26 @@ int main( int argc, char* argv[] )
     pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));    // reset settings
     //pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                  // print settings
     
+    /*-----------------------------------------------------------------------
+     *  CONTROL PANEL
+     *-----------------------------------------------------------------------*/ 
+    
+    // camera brand/model info
+    
+    static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
+    static Var<string> camera("ui.Camera", video.GetCameraModel());
+    
     // capture options
     static Var<bool> record("ui.Record",false,false);
+    // hdr controls
+    static Var<bool> hdr("ui.HDR Mode",false,true);
+    
     static Var<int> recorded_frames("ui.Recorded Frames",0);
+    static Var<int> recorded_time("ui.Recorded (secs)", 0);
+    
     static Var<bool> capture("ui.Capture Frame",false,false);
     static Var<bool> capture_hdr("ui.Capture HDR Frame",false,false);
     static Var<bool> response_function("ui.Get Response Function",false,false);
-    
-    // hdr controls
-    static Var<bool> hdr("ui.HDR Mode",false,true);
-    static Var<float> short_exposure("ui.Short Exposure (s)",0.00);
-    static Var<float> long_exposure("ui.Long Exposure (s)",0.00);
     
     //static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
     //static Var<bool> motion("ui.Motion Correction",false,true);
@@ -117,45 +130,46 @@ int main( int argc, char* argv[] )
     static Var<int> sharpness("ui.Sharpness",video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS),
                               video.GetFeatureQuantMin(DC1394_FEATURE_SHARPNESS),
                               video.GetFeatureQuantMax(DC1394_FEATURE_SHARPNESS),false);  
-                                               
+    
+    static Var<int> whitebalance_B_U("ui.White Balance (Blue/U)",video.GetWhiteBalanceBlueU(),
+                                     video.GetFeatureQuantMin(DC1394_FEATURE_WHITE_BALANCE),
+                                     video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
+    
+    static Var<int> whitebalance_R_V("ui.White Balance (Red/V)",video.GetWhiteBalanceRedV(),
+                                     video.GetFeatureQuantMin(DC1394_FEATURE_WHITE_BALANCE),
+                                     video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
+                                             
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
     static Var<bool> update("ui.Update Camera Settings",false,false);
-    
-    // camera brand/model info
-    
-    static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
-    static Var<string> camera("ui.Camera", video.GetCameraModel());
+
      
     /*-----------------------------------------------------------------------
-     *  CAPTURE
+     *  CAPTURE LOOP
      *-----------------------------------------------------------------------*/     
-    bool over_exposed = true;
+    
     bool save = false;
-    video.SetHDRRegister(false);
-    
-    cout << "Camera tranmission starting..." << endl;
-    
+    time_t start, end;
+    uint32_t s0 = video.GetShutterMapQuant(0.038);
+    uint32_t s1 = video.GetShutterMapQuant(0.001);  
+
     // loop until quit
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {     
-        //Screen refresh -- thread?
+        // Screen refresh
         if(pangolin::HasResized())
             DisplayBase().ActivateScissorAndClear();
 
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
         
         /*-----------------------------------------------------------------------
-         *  Auxillary Options
+         *  AUXILLARY CONTROLS
          *-----------------------------------------------------------------------*/ 
         
         if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); }
         
         /*-----------------------------------------------------------------------
-         *  Control logic
+         *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
-        
-        //cout << "Shutter float: " << video.GetFeatureValue(DC1394_FEATURE_SHUTTER) << endl;
-        //cout << "Exposure float: " << video.GetFeatureValue(DC1394_FEATURE_EXPOSURE) << endl;
 
         if(pangolin::Pushed(reset)){
             shutter.Reset();
@@ -165,7 +179,9 @@ int main( int argc, char* argv[] )
             gamma.Reset();
             saturation.Reset();
             hue.Reset();
-            sharpness.Reset();        
+            sharpness.Reset(); 
+            whitebalance_B_U.Reset();
+            whitebalance_R_V.Reset();
         }
         
         // update manual camera settings according to current values
@@ -177,49 +193,28 @@ int main( int argc, char* argv[] )
             gamma.operator=(video.GetFeatureValue(DC1394_FEATURE_GAMMA));
             saturation.operator=(video.GetFeatureValue(DC1394_FEATURE_SATURATION));
             hue.operator=(video.GetFeatureValue(DC1394_FEATURE_HUE));
-            sharpness.operator=(video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS));   
+            sharpness.operator=(video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS));  
+            whitebalance_B_U.operator=(video.GetWhiteBalanceBlueU());
+            whitebalance_R_V.operator=(video.GetWhiteBalanceRedV());
         }
-        /*
         
+        /*
         if (AEC){
         GetAEC(image,&s);
+         
         }
-
         */
-        // hdr video recording mode
-        if( hdr ) {
-            uint32_t s0 = 500;
-            uint32_t s1 = 1000;
-            uint32_t s2 = 500;
-            uint32_t s3 = 1000;
-            
+        
+        // hdr video recording mode - alternate between shutter times
+        if( hdr ) {          
             video.SetHDRRegister(true);
-            video.SetHDRShutterFlags(s0,s1,s2,s3);
-            long_exposure.operator=(s0);
-            short_exposure.operator=(s1);
-
-            /*
-            if (over_exposed){
-                video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, 1);
-                long_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
-                over_exposed = false;
-            }
-            else {
-                video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, -1);
-                short_exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
-                over_exposed = true;
-            }
-             */
-            
+            video.SetHDRShutterFlags(s0,s1,s0,s1);
         }
         else {
             video.SetHDRRegister(false);
-            short_exposure.Reset();
-            long_exposure.Reset();
-            
         }
         
-        if ( manual && !hdr){ video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); }
+        if ( manual && !hdr ) { video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); }
         
         if ( manual ){    
             video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);             
@@ -230,16 +225,23 @@ int main( int argc, char* argv[] )
             video.SetFeatureValue(DC1394_FEATURE_SATURATION, saturation);
             video.SetFeatureValue(DC1394_FEATURE_HUE, hue); 
             video.SetFeatureQuant(DC1394_FEATURE_SHARPNESS, sharpness);
+            video.SetWhiteBalance(whitebalance_B_U, whitebalance_R_V);
         } 
 
-        else if( !manual && !hdr){ video.SetAllFeaturesAuto(); }
+        else if( !manual && !hdr ) { video.SetAllFeaturesAuto(); }
         
-        if( pangolin::Pushed(capture) ){ video.CaptureFrameOneShot(1, img); } 
+        if( pangolin::Pushed(capture) ) { video.SaveSingleFrame(img); } 
         
-        if( pangolin::Pushed(capture_hdr) ){ 
-            // float exposure = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
-            //cout << exposure << endl;
-            video.CaptureHDRFrame(400,800,400,800); 
+        if( pangolin::Pushed(capture_hdr) ){
+            
+            // see if response function has already been generated
+            if (!video.CheckResponseFunction()) {
+                cout << "[HDR] No response function found, generating one" << endl;
+                video.GetResponseFunction();
+            } 
+            // float current_shutter = video.GetFeatureValue(DC1394_FEATURE_SHUTTER);
+            float shutter[4] = {0.038, 0.001, 0.038, 0.001};
+            video.CaptureHDRFrame(4, shutter);
         } 
     
         /*-----------------------------------------------------------------------
@@ -251,18 +253,24 @@ int main( int argc, char* argv[] )
 
         if ( !save && pangolin::Pushed(record) ){ 
             save = true; 
+            time (&start); // get current time
             frame_number = 0; 
             recorded_frames.operator=(frame_number);
+            recorded_time.operator=(0);
         }
 
         // save mode
         if ( save && hdr ){
             video.RecordFramesOneShot(frame_number, img, true, hdr); 
             recorded_frames.operator=(frame_number);
+            time (&end);
+            recorded_time.operator=(difftime(end,start));
         } 
         else if ( save ){
             video.RecordFrames(frame_number, img, true, true, hdr); 
             recorded_frames.operator=(frame_number);
+            time (&end);
+            recorded_time.operator=(difftime(end,start));
         } 
         else if ( hdr ){
             video.GrabOneShot(img);
@@ -270,8 +278,7 @@ int main( int argc, char* argv[] )
         else{
             video.GrabOneShot(img);
         }
-
-        
+       
         // refresh screen 
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
         // Activate video viewport and render texture
@@ -280,7 +287,6 @@ int main( int argc, char* argv[] )
         // Swap back buffer with front and process window events via GLUT
         d_panel.Render();
         pangolin::FinishGlutFrame();
-        
     }
 
     delete[] img;
