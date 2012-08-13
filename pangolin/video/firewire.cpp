@@ -1750,9 +1750,9 @@
         cout << "[HDR] Generating HDR frame" << endl;
         
         // run hdr script
-        //  system("pfsinme ./hdr-image/jpeg/*.jpeg | pfshdrcalibrate -v -f camera.response | pfsoutexr hdr.exr");
+        boost::thread(system, "pfsinme ./hdr-image/jpeg/*.jpeg | pfshdrcalibrate -v -f camera.response | pfsoutexr hdr.exr");
         
-        cout << "[HDR] HDR Frame Generated" << endl;
+        cout << "[HDR] HDR Frame generated" << endl;
         
     }
         
@@ -2061,8 +2061,8 @@
         
         for(int frame_number = 0; shutter <= max ; frame_number++){
             
-            cout << "frame number: " << frame_number << endl;
-            cout << "shutter value: " << shutter << endl;
+            cout << endl << "[INFO]: Frame number: " << frame_number << endl;
+            cout << "[INFO]: Shutter value: " << shutter << endl;
             
             if(dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter) != DC1394_SUCCESS) 
             {
@@ -2075,29 +2075,37 @@
             // set camera to one shot
             dc1394_video_set_one_shot( camera, DC1394_ON );
             
-            // grab image from dma
+            // grab image from DMA
             dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);
-
-            // save to jpeg with exif data
-            SaveFile(frame_number, frame, "response-function", true);
+                       
             
-            // append line to hdrgen script for response function
-            JpegToHDRGEN("response-function", file, frame_number);
+            if ( frame ) {
+                
+                // save to jpeg with exif data
+                SaveFile(frame_number, frame, "response-function", true);
+                
+                // append line to hdrgen script for response function
+                boost::thread(JpegToHDRGEN, "response-function", file, frame_number);
+                
+            }
+
+            // return frame to DMA
+            dc1394_capture_enqueue(camera, frame);
             
             // increment shutter value by step size
             shutter += step_size;
-            
         }
      
         //close hdrgen file
-        fclose(file);
+        cout << "[INFO]: Closing hdrgen script" << endl;
+        boost::thread(fclose,file);
         
         // reset shutter to auto
         SetFeatureAuto(DC1394_FEATURE_SHUTTER);
 
         // generate response function 
         cout << "[INFO]: Generating response function" << endl;
-        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -v -s camera.response > /dev/null");
+        boost::thread(system,"pfsinhdrgen camera.hdrgen | pfshdrcalibrate -v -s camera.response > /dev/null");
 
         cout << "[INFO]: Camera Response Function file generated" << endl;
         

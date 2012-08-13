@@ -27,7 +27,8 @@ int main( int argc, char* argv[] )
     video.SetMetaDataFlags( META_ALL );
     video.CreateShutterMaps();
     video.SetAllFeaturesAuto();
-    video.FlushDMABuffer();//remove spurious frames
+    //video.Stop();
+    //video.FlushDMABuffer();//remove spurious frames
     //video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
@@ -149,9 +150,9 @@ int main( int argc, char* argv[] )
     
     bool save = false;
     time_t start, end;
-    uint32_t s0 = video.GetShutterMapQuant(0.038);
-    uint32_t s1 = video.GetShutterMapQuant(0.001);  
-
+    uint32_t s0 = video.GetShutterMapQuant(0.004857);
+    uint32_t s1 = video.GetShutterMapQuant(0.01392);  
+    //video.Start();
     // loop until quit
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {     
@@ -204,7 +205,7 @@ int main( int argc, char* argv[] )
          
         }
         */
-        
+  
         // hdr video recording mode - alternate between shutter times
         if( hdr ) {          
             video.SetHDRRegister(true);
@@ -213,7 +214,7 @@ int main( int argc, char* argv[] )
         else {
             video.SetHDRRegister(false);
         }
-        
+
         if ( manual && !hdr ) { video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); }
         
         if ( manual ){    
