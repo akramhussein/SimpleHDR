@@ -23,6 +23,7 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/    
     
     FirewireVideo video = FirewireVideo();
+    //video.ReadConfigFile();
     video.SetHDRRegister(false);
     video.SetMetaDataFlags( META_ALL );
     video.CreateShutterMaps();
@@ -44,7 +45,7 @@ int main( int argc, char* argv[] )
     // Create Glut window
     const int panel_width = 200;
     double scale = 1.25;
-    pangolin::CreateGlutWindowAndBind("SimpleHDR",w*scale + panel_width,h*scale);
+    pangolin::CreateGlutWindowAndBind("SimpleHDR", w*scale + panel_width, h*scale);
     
     // Create viewport for video with fixed aspect
     View& d_panel = pangolin::CreatePanel("ui.")
@@ -69,7 +70,7 @@ int main( int argc, char* argv[] )
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
     pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));    // reset settings
-    //pangolin::RegisterKeyPressCallback( 'p', SetVarFunctor<bool>("ui.Print", true));                  // print settings
+    pangolin::RegisterKeyPressCallback( 'f', SetVarFunctor<bool>("ui.Get Response Function", true));    // get response function
     
     /*-----------------------------------------------------------------------
      *  CONTROL PANEL
@@ -93,12 +94,10 @@ int main( int argc, char* argv[] )
     static Var<bool> response_function("ui.Get Response Function",false,false);
     
     //static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
-    //static Var<bool> motion("ui.Motion Correction",false,true);
     
     //other options
     static Var<bool> manual("ui.Manual Camera Settings",false,true);
 
-    
     // camera settings
     static Var<float> shutter("ui.Shutter (s)", video.GetFeatureValue(DC1394_FEATURE_SHUTTER),
                                video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER),
@@ -141,19 +140,17 @@ int main( int argc, char* argv[] )
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
                                              
     static Var<bool> reset("ui.Reset Camera Settings",false,false);
-    static Var<bool> update("ui.Update Camera Settings",false,false);
-
      
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
      *-----------------------------------------------------------------------*/     
     
-    bool save = false;
+    bool save = false;    
     time_t start, end;
     uint32_t s0 = video.GetShutterMapQuant(0.004857);
-    uint32_t s1 = video.GetShutterMapQuant(0.01392);  
-    //video.Start();
-    // loop until quit
+    uint32_t s1 = video.GetShutterMapQuant(0.01392); 
+
+    // loop until quit (ESC key)
     for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
     {     
         // Screen refresh
@@ -172,6 +169,7 @@ int main( int argc, char* argv[] )
          *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
 
+        // reset feature settings
         if(pangolin::Pushed(reset)){
             shutter.Reset();
             exposure.Reset();
@@ -184,21 +182,7 @@ int main( int argc, char* argv[] )
             whitebalance_B_U.Reset();
             whitebalance_R_V.Reset();
         }
-        
-        // update manual camera settings according to current values
-        if(pangolin::Pushed(update)){
-            shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
-            exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
-            brightness.operator=(video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS));
-            gain.operator=(video.GetFeatureValue(DC1394_FEATURE_GAIN));
-            gamma.operator=(video.GetFeatureValue(DC1394_FEATURE_GAMMA));
-            saturation.operator=(video.GetFeatureValue(DC1394_FEATURE_SATURATION));
-            hue.operator=(video.GetFeatureValue(DC1394_FEATURE_HUE));
-            sharpness.operator=(video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS));  
-            whitebalance_B_U.operator=(video.GetWhiteBalanceBlueU());
-            whitebalance_R_V.operator=(video.GetWhiteBalanceRedV());
-        }
-        
+
         /*
         if (AEC){
         GetAEC(image,&s);
@@ -206,20 +190,43 @@ int main( int argc, char* argv[] )
         }
         */
   
-        // hdr video recording mode - alternate between shutter times
-        if( hdr ) {      
-            video.SetHDRRegister(true);
-            video.SetHDRShutterFlags(s0,s1,s0,s1);
+        // HDR MODE
+        
+        // checks if hdr mode has been switched and sets register on
+        if(pangolin::Pushed(hdr.var->meta_gui_changed)){
+            hdr ? video.SetHDRRegister(true) : video.SetHDRRegister(false);
         }
-        else {
-            video.SetHDRRegister(false);
+        // shutter settings set seperately for AEC mode capabilities
+        if (hdr){ video.SetHDRShutterFlags(s0,s1,s0,s1); }
+        
+        //with AEC controls
+        //if (hdr && !AEC){ video.SetHDRShutterFlags(s0,s1,s0,s1); }
+        //if (hdr && AEC){ video.SetHDRShutterFlags(aec1,aec2,aec1,aec2);
+
+        
+        // MANUAL SETTINGS
+
+        if ( manual && !hdr ) { 
+            
+            /* 
+             * exposure & shutter inter-linked, therefore need special logic control
+             *  if: exposure val is changed, shutter val is changed (camera works out new value)
+             *  else: shutter val is set to gui value 
+             */
+            
+            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); 
+            
+            if(pangolin::Pushed(exposure.var->meta_gui_changed)){
+                video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
+                shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+            }
+            else{
+                video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
+            }
+            
         }
 
-        if ( manual && !hdr ) { video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); }
-        
         if ( manual ){    
-            video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);             
-            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure);
             video.SetFeatureValue(DC1394_FEATURE_BRIGHTNESS, brightness);
             video.SetFeatureValue(DC1394_FEATURE_GAIN, gain);
             video.SetFeatureValue(DC1394_FEATURE_GAMMA, gamma); 
@@ -229,7 +236,23 @@ int main( int argc, char* argv[] )
             video.SetWhiteBalance(whitebalance_B_U, whitebalance_R_V);
         } 
 
-        else if( !manual && !hdr ) { video.SetAllFeaturesAuto(); }
+        // resets all features to automatic mode
+        else if( !manual && !hdr ) { 
+            
+            video.SetAllFeaturesAuto(); 
+            
+            // updates all trackbars upon switching back to automatic mode
+            exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
+            shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+            brightness.operator=(video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS));
+            gain.operator=(video.GetFeatureValue(DC1394_FEATURE_GAIN));
+            gamma.operator=(video.GetFeatureValue(DC1394_FEATURE_GAMMA));
+            saturation.operator=(video.GetFeatureValue(DC1394_FEATURE_SATURATION));
+            hue.operator=(video.GetFeatureValue(DC1394_FEATURE_HUE));
+            sharpness.operator=(video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS));
+            whitebalance_B_U.operator=(video.GetWhiteBalanceBlueU());
+            whitebalance_R_V.operator=(video.GetWhiteBalanceRedV());
+        }
         
         if( pangolin::Pushed(capture) ) { video.SaveSingleFrame(img); } 
         
@@ -237,7 +260,7 @@ int main( int argc, char* argv[] )
             
             // see if response function has already been generated
             if (!video.CheckResponseFunction()) {
-                cout << "[HDR] No response function found, generating one" << endl;
+                cout << "[HDR]: No response function found, generating one" << endl;
                 video.GetResponseFunction();
             } 
             // float current_shutter = video.GetFeatureValue(DC1394_FEATURE_SHUTTER);
@@ -245,12 +268,32 @@ int main( int argc, char* argv[] )
             video.CaptureHDRFrame(img, 4, shutter);
         } 
     
+
         /*-----------------------------------------------------------------------
          *  Save options
          *-----------------------------------------------------------------------*/    
         
         // start/stop recording
-        if ( save && pangolin::Pushed(record) ){ save = false; }
+        if ( save && pangolin::Pushed(record) ){ 
+            
+            char time_stamp[32];
+            char command[64];
+            
+            // set save flag to false
+            save = false;
+            
+            // get time stamp for file name
+            video.GetTimeStamp(time_stamp);
+            
+            const char *new_stamp = time_stamp;
+            cout << new_stamp << endl;
+            // create command string: convert video, remove files and then echo completed - should be thread safe this way
+            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s && rm -rf ./video/ppm/ && echo '[VIDEO]: Video saved to ./video/'", time_stamp, "mpeg");
+
+            // run video conversion in seperate thread (may take a while so lets us continue)
+            boost::thread(system,command);  
+            
+        }
 
         if ( !save && pangolin::Pushed(record) ){ 
             save = true; 
@@ -268,7 +311,7 @@ int main( int argc, char* argv[] )
             recorded_time.operator=(difftime(end,start));
         } 
         else if ( save ){
-            video.RecordFrames(frame_number, img, true, true, hdr); 
+            video.RecordFrames(frame_number, img, true, false, hdr); 
             recorded_frames.operator=(frame_number);
             time (&end);
             recorded_time.operator=(difftime(end,start));

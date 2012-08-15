@@ -65,10 +65,12 @@ namespace pangolin
             exifData["Exif.Photo.ExposureBiasValue"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_EXPOSURE)); // Exposure Value (EV)
             exifData["Exif.Photo.ColorSpace"] = uint16_t(1); //sRGB   
             exifData["Exif.Photo.WhiteBalance"] = uint16_t(video->GetFeatureMode(DC1394_FEATURE_WHITE_BALANCE));   // 0=auto,1=man
+                                                                                                                  
+            /*
             exifData["Exif.Photo.GainControl"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_GAIN));
             exifData["Exif.Photo.Saturation"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SATURATION));
             exifData["Exif.Photo.Sharpness"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SHARPNESS));
-            
+            */
             
             Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
             assert(image.get() != 0);
@@ -81,7 +83,7 @@ namespace pangolin
             cout << "Exiv error: '" << e << "'\n";
         }
         
-
+        cout << "[IMAGE]: Exif data written from camera settings" << endl;
     }
 
     void WriteExifDataFromImageMetaData(MetaData *metaData, const std::string& filename)
@@ -123,6 +125,7 @@ namespace pangolin
             cout << "Exiv error: '" << e << "'\n";
         }
         
+        cout << "[IMAGE]: Exif data written from meta data" << endl;
         
     }
     
@@ -235,7 +238,7 @@ namespace pangolin
         }
     }
     
-    void CopyExifData(const std::string& from, const std::string& to,  bool dont_overwrite)
+    void CopyExifData(const std::string& from, const std::string& to, bool dont_overwrite)
     {
         
         Exiv2::Image::AutoPtr sourceimage = Exiv2::ImageFactory::open(from);

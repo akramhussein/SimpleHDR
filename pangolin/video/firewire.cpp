@@ -536,7 +536,7 @@
             if(frame[i]){
                 //memcpy(image,frame[i]->image,frame[i]->image_bytes);
                 //cout << "Shutter: " << ReadShutter(image) << endl;
-                SaveFile(i, frame[i], "hdr-frames", true);
+                boost::thread(&FirewireVideo::SaveFile, this, i, *frame[i], "hdr-frames", true);
                 dc1394_capture_enqueue(camera, frame[i]);
             }
         }
@@ -1320,12 +1320,12 @@
         //uint32_t hdr_flags = 0x80000000 | 33554432;
         
         if( power ) {
-            cout << "[HDR] HDR register enabled" << endl;
+            cout << "[HDR]: HDR register enabled" << endl;
             hdr_flags = 0x82000000;
             hdr_register = true;
 
         } else{
-            cout << "[HDR] HDR register disabled" << endl;
+            cout << "[HDR]: HDR register disabled" << endl;
             hdr_flags = 0x8000000;
             hdr_register = false;
             // reset shutter flags
@@ -1604,6 +1604,7 @@
 
         dc1394video_frame_t *frame = NULL;
         
+        //wait or not -- usually yes otherwise likely to return empty frame
         const dc1394capture_policy_t policy =
         wait ? DC1394_CAPTURE_POLICY_WAIT : DC1394_CAPTURE_POLICY_POLL;
 
@@ -1614,7 +1615,7 @@
             dc1394_capture_enqueue(camera,frame);
         }
  
-        hdr ? SaveFile(frame_number, frame, "hdr-video", jpeg) : SaveFile(frame_number, frame, "video", jpeg);
+        hdr ? boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "hdr-video", jpeg) : boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "video", jpeg);
         
         return true;       
         
@@ -1637,7 +1638,7 @@
         dc1394_capture_enqueue(camera,frame);
     }
 
-    hdr ? SaveFile(frame_number, frame, "hdr-video", jpeg) : SaveFile(frame_number, frame, "video", jpeg);
+    hdr ? boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "hdr-video", jpeg) : boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "video", jpeg);
 
     return true;       
 
@@ -1662,7 +1663,7 @@
                 dc1394_capture_enqueue(camera,frame);
             }
             
-            SaveFile(frame_number, frame, "single-frames", jpeg);
+            boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "single-frames", jpeg);
             
             return true;     
            
@@ -1684,7 +1685,7 @@
             dc1394_capture_enqueue(camera,frame);
         }
         
-        SaveFile(frame_number, frame, "single-frames", jpeg);
+        boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "single-frames", jpeg);
         
         return true;     
         
@@ -1692,17 +1693,17 @@
 
     void FirewireVideo::CaptureHDRFrame(unsigned char* image, int n, float shutter[])
     {
-        cout << "[HDR] Starting HDR frame capture" << endl;
+        cout << "[HDR]: Starting HDR frame capture" << endl;
         // frame array
         dc1394video_frame_t *frame[n];
         //dc1394video_frame_t *discarded_frame;
         
         //stop camera transmission
-        cout << "[HDR] Stopping camera transmission" << endl;
+        cout << "[HDR]: Stopping camera transmission" << endl;
         Stop();
 
         // discard images from DMA buffer
-        cout << "[HDR] Flushing camera DMA buffer" << endl;
+        cout << "[HDR]: Flushing camera DMA buffer" << endl;
         FlushDMABuffer();
         
         // embed to hdr register shutter values (abs->quant)
@@ -1714,7 +1715,6 @@
                            );
     
         // turn hdr register on
-        cout << "[HDR] HDR register turned ON" << endl;
         SetHDRRegister(true);
         
         // enable multi-shot mode
@@ -1739,26 +1739,25 @@
         
         // turn off hdr register
         SetHDRRegister(false);
-        cout << "[HDR] HDR register turned OFF" << endl;
        
         // save each frame to jpeg and return frames to dma to requeue the buffer
         for(int i = 0; i < n; i++){
             if(frame[i]){
                 memcpy(image,frame[i]->image,frame[i]->image_bytes);
                 cout << "Shutter: " << ReadShutter(image) << endl;
-                SaveFile(i, frame[i], "hdr-image", true);
+                boost::thread(&FirewireVideo::SaveFile, this, i, *frame[i], "hdr-image", true);
                 if(dc1394_capture_enqueue(camera, frame[i]) != DC1394_SUCCESS){
                     throw VideoException("[DC1394 ERROR]: Could not enqueue frame");
                 }
             }
         }
     
-        cout << "[HDR] Generating HDR frame" << endl;
+        cout << "[HDR]: Generating HDR frame" << endl;
         
         // run hdr script
         //boost::thread(system, "pfsinme ./hdr-image/jpeg/*.jpeg | pfshdrcalibrate -f camera.response | pfsoutexr hdr.exr");
         
-        cout << "[HDR] HDR Frame generated" << endl;
+        cout << "[HDR]: HDR Frame generated" << endl;
         
     }
         
@@ -1788,59 +1787,87 @@
         time ( &rawtime );
         timeinfo = localtime ( &rawtime );
         strftime(date_time,128,"%d%b%Y_%H-%M-%S",timeinfo);
+        
         sprintf(filename, "./single-frames/jpeg/%s%s", date_time, ".jpeg");
         
         CreateJPEG(frame, filename, video_mode);
         ReadMetaData(frame->image, &metaData);
-        WriteExifDataFromImageMetaData(&metaData, filename);
+        
+        // write exif data from image meta data if abs table exists, else from camera
+        !shutter_abs_map.empty() 
+        ? WriteExifDataFromImageMetaData(&metaData, filename)
+        : WriteExifData(this, filename);
         
         cout << "[SAVE]: JPEG image saved to " << filename << endl;
     }
-        
-        
+    
+    void FirewireVideo::GetTimeStamp(char* time_stamp){
+        time_t rawtime;
+        struct tm * timeinfo;
+        time ( &rawtime );
+        timeinfo = localtime ( &rawtime );
+        strftime(time_stamp,32,"%d%b%Y_%H-%M-%S",timeinfo);
+    }
+
     bool FirewireVideo::SaveFile(
                                  int frame_number, 
-                                 dc1394video_frame_t *frame, 
+                                 dc1394video_frame_t frame, 
                                  const char* folder, 
                                  bool jpeg
                                  )
     {
-        char filename_ppm[128];
-        char filename_jpeg[128];
+        char filename[128];
+        char dir[128];
         MetaData metaData;
         dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8;
 
         // create top directory
         mkdir(folder, 0755);
         
+        // pad file names -- ugly but works
+        stringstream ps;
+        ps << frame_number;
+        std::string padding = ps.str();
+        padding.insert(padding.begin(), 6 - padding.size(), '0');
+        char * padded_frame_number = new char[padding.size()];
+        std::copy(padding.begin(), padding.end(), padded_frame_number);
+        
         // save to jpeg or ppm
         if( jpeg ){  
             
             // create jpeg folder
-            char jpeg_folder[128];
-            sprintf(jpeg_folder, "%s/jpeg", folder);
-            mkdir(jpeg_folder, 0755);
+            sprintf(dir, "%s/jpeg", folder);
+            mkdir(dir, 0755);
             
-            sprintf(filename_jpeg, "./%s/jpeg/%s%d%s", folder, "image0000", frame_number, ".jpeg");
-            CreateJPEG(frame, filename_jpeg, video_mode);
-            ReadMetaData(frame->image, &metaData);
-            WriteExifDataFromImageMetaData(&metaData, filename_jpeg);
-            cout << "[SAVE]: JPEG image saved to " << filename_jpeg << endl;
-          
-        } else{   
+            sprintf(filename, "./%s/jpeg/%s%s%s", folder, "image", padded_frame_number, ".jpeg");
+           
+            CreateJPEG(&frame, filename, video_mode);
+            ReadMetaData(frame.image, &metaData);
+
+            // write exif data from image meta data if abs table exists, else from camera
+            !shutter_abs_map.empty() 
+            ? WriteExifDataFromImageMetaData(&metaData, filename)
+            : WriteExifData(this, filename);
+
+            cout << "[SAVE]: JPEG image saved to " << filename << endl;
+
+            //cout << "[IMAGE]: Image average luminance cd/m^2: " << GetAvgLuminance(filename) << endl;  
+
+        } 
+        else{   
             
             // create ppm folder
-            char ppm_folder[128];
-            sprintf(ppm_folder, "%s/ppm", folder);
-            mkdir(ppm_folder, 0755);
+            sprintf(dir, "%s/ppm", folder);
+            mkdir(dir, 0755);
             
             // create path for ppm
-            sprintf(filename_ppm, "./%s/ppm/%s%d%s", folder, "image0000", frame_number, ".ppm");
-            CreatePPM(frame, filename_ppm, video_mode);
-            cout << "[SAVE]: PPM image saved to " << filename_ppm << endl;
+            sprintf(filename, "./%s/ppm/%s%s%s", folder, "image", padded_frame_number, ".ppm");
+            CreatePPM(&frame, filename, video_mode);
+            cout << "[SAVE]: PPM image saved to " << filename << endl;
+            
         }
         
-        cout << "[IMAGE]: Image Average Luminance cd/m^2: " << GetAvgLuminance(filename_jpeg) << endl;      
+        delete[] padded_frame_number;
 
         return true;
     }
@@ -1849,7 +1876,7 @@
                                   const char* filename, 
                                   dc1394video_mode_t video_mode)
         {
-        
+       
         FILE* imagefile;
         unsigned int width, height;
         
@@ -2089,7 +2116,7 @@
             if ( frame ) {
                 
                 // save to jpeg with exif data
-                SaveFile(frame_number, frame, "response-function", true);
+                boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "response-function", true);
                 
                 // append line to hdrgen script for response function
                 JpegToHDRGEN("response-function", file, frame_number);
@@ -2104,7 +2131,7 @@
         }
      
         //close hdrgen file
-        cout << "[INFO]: Closing hdrgen script" << endl;
+        cout << "[FILE]: Closing hdrgen script file" << endl;
         fclose(file);
         
         // reset shutter to auto

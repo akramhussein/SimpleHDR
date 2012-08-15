@@ -391,6 +391,9 @@
     /*-----------------------------------------------------------------------
      *  RECORDING/SAVING
      *-----------------------------------------------------------------------*/
+        
+    //return time stamped string
+    void GetTimeStamp(char* time_stamp);
 
     //! records multiple frames
     bool RecordFrames(     
@@ -433,7 +436,7 @@
     //! save image file to ppm or jpeg
     bool SaveFile(    
                     int frame_number,           // current frame number
-                    dc1394video_frame_t *frame, // frame buffer
+                    dc1394video_frame_t frame, // frame buffer (copy - threading)
                     const char* path,           // folder name
                     bool jpeg = true                // true = jpeg, false = ppm
                 );
@@ -510,7 +513,7 @@
     dc1394_t * d;
     dc1394camera_list_t * list;
     mutable dc1394error_t err;
-
+        
     uint32_t meta_data_flags;
     bool hdr_register; // 1 = on
     

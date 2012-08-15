@@ -51,10 +51,10 @@ namespace pangolin
     void CopyFormatToFormat(const char* from_filename, const char* to_filename);
     
     //! write current camera data to exif on jpeg image -- quicker & more accurate 
-    void WriteExifData(MetaData *metaData, const std::string& filename);
+    void WriteExifData(const pangolin::FirewireVideo* video, const std::string& filename);
 
     //! write image metadata to exif on jpeg image
-    void WriteExifDataFromImageMetaData(MetaData *metaData, const std::string& filename)
+    void WriteExifDataFromImageMetaData(MetaData *metaData, const std::string& filename);
     
     //! copy exif data from one jpeg to another
     void CopyExifData(const std::string& from, const std::string& to,  bool dont_overwrite);
