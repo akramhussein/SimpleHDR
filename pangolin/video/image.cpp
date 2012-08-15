@@ -51,30 +51,24 @@ namespace pangolin
 
     }
 
-    //void WriteExifData(const pangolin::FirewireVideo* video, const std::string& filename)
-    void WriteExifData(MetaData *metaData, const std::string& filename)
+    void WriteExifData(const pangolin::FirewireVideo* video, const std::string& filename)
     {
       
         Exiv2::ExifData exifData;
         
         try {
             
-            // turned off camera getting because its slow
-            
-            //exifData["Exif.Image.Make"] = video->GetCameraVendor();
-            //exifData["Exif.Image.Model"] = video->GetCameraModel();
-            exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded
-            exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(metaData->shutterAbs);	
-            //exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_SHUTTER));	
-            //exifData["Exif.Photo.ExposureBiasValue"] = Exiv2::floatToRationalCast(metaData->); 
-            exifData["Exif.Photo.ColorSpace"] = uint16_t(1); //sRGB
-            
-            /*
+            exifData["Exif.Image.Make"] = video->GetCameraVendor();
+            exifData["Exif.Image.Model"] = video->GetCameraModel();
+            //exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(metaData->shutterAbs);	
+            exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_SHUTTER));	
+            exifData["Exif.Photo.ExposureBiasValue"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_EXPOSURE)); // Exposure Value (EV)
+            exifData["Exif.Photo.ColorSpace"] = uint16_t(1); //sRGB   
             exifData["Exif.Photo.WhiteBalance"] = uint16_t(video->GetFeatureMode(DC1394_FEATURE_WHITE_BALANCE));   // 0=auto,1=man
             exifData["Exif.Photo.GainControl"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_GAIN));
             exifData["Exif.Photo.Saturation"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SATURATION));
             exifData["Exif.Photo.Sharpness"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SHARPNESS));
-             */
+            
             
             Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
             assert(image.get() != 0);
@@ -90,6 +84,48 @@ namespace pangolin
 
     }
 
+    void WriteExifDataFromImageMetaData(MetaData *metaData, const std::string& filename)
+    {
+        
+        Exiv2::ExifData exifData;
+        
+        try {
+            
+            // turned off camera getting because its slow
+            
+            //exifData["Exif.Image.Make"] = video->GetCameraVendor();
+            //exifData["Exif.Image.Model"] = video->GetCameraModel();
+            
+            exifData["Exif.Photo.FNumber"] = Exiv2::Rational(7, 5); // hard coded -- change to config file later
+            exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(metaData->shutterAbs);	
+            
+            /*
+             exifData["Exif.Photo.ExposureTime"] = Exiv2::floatToRationalCast(video->GetFeatureValue(DC1394_FEATURE_SHUTTER));	
+             exifData["Exif.Photo.ExposureBiasValue"] = Exiv2::floatToRationalCast(metaData->);
+             exifData["Exif.Photo.WhiteBalance"] = uint16_t(video->GetFeatureMode(DC1394_FEATURE_WHITE_BALANCE));   // 0=auto,1=man
+             exifData["Exif.Photo.GainControl"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_GAIN));
+             exifData["Exif.Photo.Saturation"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SATURATION));
+             exifData["Exif.Photo.Sharpness"] = uint16_t(video->GetFeatureValue(DC1394_FEATURE_SHARPNESS));
+             */
+            
+            exifData["Exif.Photo.ColorSpace"] = uint16_t(1); //sRGB
+            
+
+            
+            Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename);
+            assert(image.get() != 0);
+            
+            image->setExifData(exifData);
+            image->writeMetadata();
+            
+        }
+        catch (Exiv2::AnyError& e) {
+            cout << "Exiv error: '" << e << "'\n";
+        }
+        
+        
+    }
+    
     /* Borrowed from LuminanceHDR package
      * 
      * Credits to Giuseppe Rota <grota@users.sourceforge.net>

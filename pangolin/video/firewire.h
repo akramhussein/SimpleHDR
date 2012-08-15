@@ -425,7 +425,7 @@
                       );
         
     //! Automatic HDR Frame Capture
-    void CaptureHDRFrame(int n, float shutter[]);
+    void CaptureHDRFrame(unsigned char* image, int n, float shutter[]);
         
     //! grab and save indidivdual frame with time stamp 
     void SaveSingleFrame(unsigned char* image);

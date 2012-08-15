@@ -207,7 +207,7 @@ int main( int argc, char* argv[] )
         */
   
         // hdr video recording mode - alternate between shutter times
-        if( hdr ) {          
+        if( hdr ) {      
             video.SetHDRRegister(true);
             video.SetHDRShutterFlags(s0,s1,s0,s1);
         }
@@ -242,7 +242,7 @@ int main( int argc, char* argv[] )
             } 
             // float current_shutter = video.GetFeatureValue(DC1394_FEATURE_SHUTTER);
             float shutter[4] = {0.038, 0.001, 0.038, 0.001};
-            video.CaptureHDRFrame(4, shutter);
+            video.CaptureHDRFrame(img, 4, shutter);
         } 
     
         /*-----------------------------------------------------------------------
