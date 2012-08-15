@@ -922,6 +922,9 @@
         }
     }
         
+        ResetGamma();
+        ResetHue();
+        
     }
         
     void FirewireVideo::SetAllFeaturesManual(){
@@ -1212,14 +1215,25 @@
         return Red_V_val;
     }
 
+    void FirewireVideo::ResetBrightness()
+    {
+        err = dc1394_feature_set_power(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_ON);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("[DC1394 ERROR]: Could not set brightness feature on");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_BRIGHTNESS, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("[DC1394 ERROR]: Could not set absolute control for brightness off");
+        }
+        
+        err = dc1394_feature_set_value(camera, DC1394_FEATURE_BRIGHTNESS, 0);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("[DC1394 ERROR]: Could not set absolute gamma value to 0");
+        }
+        
+    } 
     
-        
-    
-        
-    /*-----------------------------------------------------------------------
-     *  RESET 
-     *-----------------------------------------------------------------------*/
-        
     void FirewireVideo::ResetGamma()
     {
         err = dc1394_feature_set_power(camera, DC1394_FEATURE_GAMMA, DC1394_ON);
@@ -1238,12 +1252,17 @@
         }
         
     } 
-    
+
     void FirewireVideo::ResetHue()
     {
         err = dc1394_feature_set_power(camera, DC1394_FEATURE_HUE, DC1394_ON);
         if (err != DC1394_SUCCESS) {
             throw VideoException("[DC1394 ERROR]: Could not set hue feature on");
+        }
+        
+        err = dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_HUE, DC1394_OFF);
+        if (err != DC1394_SUCCESS) {
+            throw VideoException("[DC1394 ERROR]: Could not set absolute control for hue off");
         }
         
         err = dc1394_feature_set_value(camera, DC1394_FEATURE_HUE, 2048);

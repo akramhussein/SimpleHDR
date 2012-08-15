@@ -349,10 +349,13 @@
     //! get feature min quantised value
     int GetFeatureQuantMin(dc1394feature_t feature) const;
     
+    //! Reset brightness to 0
+    void ResetBrightness();
+        
     //! Reset gamma to 1.0
     void ResetGamma();
     
-    //! Reset gamma to 0
+    //! Reset hue to 0
     void ResetHue();
 
     /*-----------------------------------------------------------------------

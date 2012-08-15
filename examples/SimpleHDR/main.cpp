@@ -30,7 +30,7 @@ int main( int argc, char* argv[] )
     video.SetAllFeaturesAuto();
     //video.Stop();
     //video.FlushDMABuffer();//remove spurious frames
-    //video.PrintCameraReport();
+    video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
     
@@ -236,12 +236,16 @@ int main( int argc, char* argv[] )
             video.SetWhiteBalance(whitebalance_B_U, whitebalance_R_V);
         } 
 
-        // resets all features to automatic mode
+        // resets all features to automatic mode and update trackbars
         else if( !manual && !hdr ) { 
             
+            // set auto mode for all features and reset gamma and hue
             video.SetAllFeaturesAuto(); 
+            video.ResetBrightness();
+            video.ResetHue();
+            video.ResetGamma();
             
-            // updates all trackbars upon switching back to automatic mode
+            // update all trackbars upon switching back to automatic mode
             exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
             shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
             brightness.operator=(video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS));
@@ -252,6 +256,7 @@ int main( int argc, char* argv[] )
             sharpness.operator=(video.GetFeatureQuant(DC1394_FEATURE_SHARPNESS));
             whitebalance_B_U.operator=(video.GetWhiteBalanceBlueU());
             whitebalance_R_V.operator=(video.GetWhiteBalanceRedV());
+
         }
         
         if( pangolin::Pushed(capture) ) { video.SaveSingleFrame(img); } 
@@ -267,7 +272,6 @@ int main( int argc, char* argv[] )
             float shutter[4] = {0.038, 0.001, 0.038, 0.001};
             video.CaptureHDRFrame(img, 4, shutter);
         } 
-    
 
         /*-----------------------------------------------------------------------
          *  Save options
