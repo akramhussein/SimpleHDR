@@ -1784,40 +1784,44 @@
         
         dc1394video_frame_t *frame = NULL;
         
-        dc1394_video_set_one_shot( camera, DC1394_ON );
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);  
+        // set one shot mode
+        if(dc1394_video_set_one_shot( camera, DC1394_ON ) != DC1394_SUCCESS)
+            throw VideoException("[DC1394 ERROR]: Could not set one shot mode");
+        
+        // dequeue frame
+        if(dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame) != DC1394_SUCCESS)
+            throw VideoException("[DC1394 ERROR]: Could not dequeue frame");
+        
         if( frame ){
+        
+            // for purpose of updating gui -- can be swapped with frame->image
             memcpy(image,frame->image,frame->image_bytes);
             dc1394_capture_enqueue(camera,frame);
+            
+            char filename[128];
+            char date_time[128];
+            MetaData metaData;
+            dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8; // place in constructor
+            
+            // create directories
+            mkdir("single-frames", 0755);
+            mkdir("single-frames/jpeg/", 0755);
+            
+            // get time stamp
+            GetTimeStamp(date_time);
+            // create filename
+            sprintf(filename, "./single-frames/jpeg/%s%s", date_time, ".jpeg");
+            
+            CreateJPEG(frame, filename, video_mode);
+            ReadMetaData(frame->image, &metaData);
+            
+            // write exif data from image meta data if abs table exists, else get from camera
+            !shutter_abs_map.empty() 
+            ? WriteExifDataFromImageMetaData(&metaData, filename)
+            : WriteExifData(this, filename);
+           
+            cout << "[SAVE]: JPEG image saved to " << filename << endl;
         }
-        
-        char filename[128];
-        char date_time[128];
-        MetaData metaData;
-        dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8;
-        
-        // create directories
-        mkdir("single-frames", 0755);
-        mkdir("single-frames/jpeg/", 0755);
-        
-        // get time stamp
-        time_t rawtime;
-        struct tm * timeinfo;
-        time ( &rawtime );
-        timeinfo = localtime ( &rawtime );
-        strftime(date_time,128,"%d%b%Y_%H-%M-%S",timeinfo);
-        
-        sprintf(filename, "./single-frames/jpeg/%s%s", date_time, ".jpeg");
-        
-        CreateJPEG(frame, filename, video_mode);
-        ReadMetaData(frame->image, &metaData);
-        
-        // write exif data from image meta data if abs table exists, else from camera
-        !shutter_abs_map.empty() 
-        ? WriteExifDataFromImageMetaData(&metaData, filename)
-        : WriteExifData(this, filename);
-        
-        cout << "[SAVE]: JPEG image saved to " << filename << endl;
     }
     
     void FirewireVideo::GetTimeStamp(char* time_stamp){
@@ -2135,7 +2139,7 @@
             if ( frame ) {
                 
                 // save to jpeg with exif data
-                boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "response-function", true);
+                SaveFile(frame_number, *frame, "response-function", true);
                 
                 // append line to hdrgen script for response function
                 JpegToHDRGEN("response-function", file, frame_number);
@@ -2159,8 +2163,11 @@
         // generate response function 
         cout << "[INFO]: Generating response function" << endl;
         system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s camera.response");
-
         cout << "[INFO]: Camera Response Function file generated" << endl;
+        
+        // saving plot for reference
+        system("gnuplot response_plotting_script.plt");
+        cout << "[INFO]: Camera Response Function plot saved to camera_response.jpeg" << endl;
         
     }
         

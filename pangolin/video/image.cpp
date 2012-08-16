@@ -286,9 +286,16 @@ namespace pangolin
 
     bool JpegToHDRGEN(const char* filename, FILE* hdrgen, int frame_number)
     {
-        
+        // pad file names -- ugly but works
+        stringstream ps;
+        ps << frame_number;
+        std::string padding = ps.str();
+        padding.insert(padding.begin(), 6 - padding.size(), '0');
+        char * padded_frame_number = new char[padding.size()];
+        std::copy(padding.begin(), padding.end(), padded_frame_number);
+          
         char file_path[128];
-        sprintf(file_path, "./%s/jpeg/image0000%d.jpeg", filename, frame_number);
+        sprintf(file_path, "./%s/jpeg/%s%s%s", filename, "image", padded_frame_number, ".jpeg");
         
         try
         {

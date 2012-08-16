@@ -30,7 +30,7 @@ int main( int argc, char* argv[] )
     video.SetAllFeaturesAuto();
     //video.Stop();
     //video.FlushDMABuffer();//remove spurious frames
-    video.PrintCameraReport();
+    //video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
     
@@ -69,7 +69,7 @@ int main( int argc, char* argv[] )
     pangolin::RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single frame in ppm & jpeg
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
-    pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));    // reset settings
+    // pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));  // reset settings
     pangolin::RegisterKeyPressCallback( 'f', SetVarFunctor<bool>("ui.Get Response Function", true));    // get response function
     
     /*-----------------------------------------------------------------------
@@ -77,7 +77,6 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/ 
     
     // camera brand/model info
-    
     static Var<string> vendor("ui.Vendor", video.GetCameraVendor());
     static Var<string> camera("ui.Camera", video.GetCameraModel());
     
@@ -86,7 +85,7 @@ int main( int argc, char* argv[] )
     // hdr controls
     static Var<bool> hdr("ui.HDR Mode",false,true);
     
-    static Var<int> recorded_frames("ui.Recorded Frames",0);
+    static Var<int> recorded_frames("ui.Recorded Frames", 0);
     static Var<int> recorded_time("ui.Recorded (secs)", 0);
     
     static Var<bool> capture("ui.Capture Frame",false,false);
@@ -139,7 +138,7 @@ int main( int argc, char* argv[] )
                                      video.GetFeatureQuantMin(DC1394_FEATURE_WHITE_BALANCE),
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
                                              
-    static Var<bool> reset("ui.Reset Camera Settings",false,false);
+    //static Var<bool> reset("ui.Reset Camera Settings",false,false);
      
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
@@ -147,11 +146,20 @@ int main( int argc, char* argv[] )
     
     bool save = false;    
     time_t start, end;
+    
     uint32_t s0 = video.GetShutterMapQuant(0.004857);
     uint32_t s1 = video.GetShutterMapQuant(0.01392); 
-
-    // loop until quit (ESC key)
-    for(int frame_number=0; !pangolin::ShouldQuit(); ++frame_number)
+    
+    uint32_t hdr_shutter[3];
+    for (int i = 0; i <= 2 ; i++){
+        video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, i-1);
+        hdr_shutter[i] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
+        cout << video.GetFeatureValue(DC1394_FEATURE_SHUTTER) << endl;
+        cout << hdr_shutter[i] << endl;
+    }
+    
+    // loop until quit (e.g ESC key)
+    for(int frame_number = 0; !pangolin::ShouldQuit(); ++frame_number)
     {     
         // Screen refresh
         if(pangolin::HasResized())
@@ -168,7 +176,8 @@ int main( int argc, char* argv[] )
         /*-----------------------------------------------------------------------
          *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
-
+        
+        /*
         // reset feature settings
         if(pangolin::Pushed(reset)){
             shutter.Reset();
@@ -182,7 +191,8 @@ int main( int argc, char* argv[] )
             whitebalance_B_U.Reset();
             whitebalance_R_V.Reset();
         }
-
+        */
+        
         /*
         if (AEC){
         GetAEC(image,&s);
@@ -197,7 +207,9 @@ int main( int argc, char* argv[] )
             hdr ? video.SetHDRRegister(true) : video.SetHDRRegister(false);
         }
         // shutter settings set seperately for AEC mode capabilities
-        if (hdr){ video.SetHDRShutterFlags(s0,s1,s0,s1); }
+        if (hdr){ 
+            video.SetHDRShutterFlags(s0,s1,s0,s1); 
+        }
         
         //with AEC controls
         //if (hdr && !AEC){ video.SetHDRShutterFlags(s0,s1,s0,s1); }
@@ -341,4 +353,3 @@ int main( int argc, char* argv[] )
 
     return 0;
 }
-
