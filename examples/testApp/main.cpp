@@ -32,15 +32,8 @@ int main( int argc, char* argv[] )
     //video.PrintCameraReport();
     video.SetMetaDataFlags( 0 );
     video.SetHDRRegister(false);
-    
-    unsigned char* img = new unsigned char[video.SizeBytes()];
-    
-    video.GrabOneShot(img);
-    float st = 0.005;
-    bool over_under = true;
-    cout << video.AEC(img, st, over_under) << endl;
-    
-    delete[] img;
+        
+    float exposure_tick = (video.GetFeatureValueMax(DC1394_FEATURE_SHUTTER) - video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER)) / (video.GetFeatureQuantMax(DC1394_FEATURE_SHUTTER)+1);
     
     return 0;
 }

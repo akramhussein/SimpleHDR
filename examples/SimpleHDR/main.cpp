@@ -30,10 +30,10 @@ int main( int argc, char* argv[] )
     video.SetAllFeaturesAuto();
     //video.Stop();
     //video.FlushDMABuffer();//remove spurious frames
-    //video.PrintCameraReport();
+    video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
-    
+
     /*-----------------------------------------------------------------------
      *  GUI
      *-----------------------------------------------------------------------*/    
@@ -69,7 +69,7 @@ int main( int argc, char* argv[] )
     pangolin::RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single frame in ppm & jpeg
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
-    // pangolin::RegisterKeyPressCallback( 'r', SetVarFunctor<bool>("ui.Reset Camera Settings", true));  // reset settings
+    pangolin::RegisterKeyPressCallback( 'e', SetVarFunctor<bool>("ui.Automatic Exposure Control", true));  // AEC on
     pangolin::RegisterKeyPressCallback( 'f', SetVarFunctor<bool>("ui.Get Response Function", true));    // get response function
     
     /*-----------------------------------------------------------------------
@@ -82,19 +82,18 @@ int main( int argc, char* argv[] )
     
     // capture options
     static Var<bool> record("ui.Record",false,false);
-    // hdr controls
     static Var<bool> hdr("ui.HDR Mode",false,true);
+    static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
     
+    // recording info
     static Var<int> recorded_frames("ui.Recorded Frames", 0);
     static Var<int> recorded_time("ui.Recorded (secs)", 0);
     
+    // single frame
     static Var<bool> capture("ui.Capture Frame",false,false);
     static Var<bool> capture_hdr("ui.Capture HDR Frame",false,false);
-    static Var<bool> response_function("ui.Get Response Function",false,false);
-    
-    //static Var<bool> AEC("ui.Automatic Exposure Control",false,true);
-    
-    //other options
+
+    // manual control
     static Var<bool> manual("ui.Manual Camera Settings",false,true);
 
     // camera settings
@@ -137,18 +136,15 @@ int main( int argc, char* argv[] )
     static Var<int> whitebalance_R_V("ui.White Balance (Red/V)",video.GetWhiteBalanceRedV(),
                                      video.GetFeatureQuantMin(DC1394_FEATURE_WHITE_BALANCE),
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
-                                             
-    //static Var<bool> reset("ui.Reset Camera Settings",false,false);
-     
+
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
      *-----------------------------------------------------------------------*/     
     
     bool save = false;    
+    bool under_over = true;
     time_t start, end;
     uint32_t hdr_shutter[3];    
-    //uint32_t s0 = video.GetShutterMapQuant(0.004857);
-    //uint32_t s1 = video.GetShutterMapQuant(0.01392); 
 
     // loop until quit (e.g ESC key)
     for(int frame_number = 0; !pangolin::ShouldQuit(); ++frame_number)
@@ -160,45 +156,18 @@ int main( int argc, char* argv[] )
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
         
         /*-----------------------------------------------------------------------
-         *  AUXILLARY CONTROLS
-         *-----------------------------------------------------------------------*/ 
-        
-        if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); }
-        
-        /*-----------------------------------------------------------------------
          *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
         
-        /*
-        // reset feature settings
-        if(pangolin::Pushed(reset)){
-            shutter.Reset();
-            exposure.Reset();
-            brightness.Reset();
-            gain.Reset();
-            gamma.Reset();
-            saturation.Reset();
-            hue.Reset();
-            sharpness.Reset(); 
-            whitebalance_B_U.Reset();
-            whitebalance_R_V.Reset();
-        }
-        */
-        
-        /*
-        if (AEC){
-        GetAEC(image,&s);
-         
-        }
-        */
-
         // HDR MODE
         
         // checks if hdr mode has been switched and sets register on
         if(pangolin::Pushed(hdr.var->meta_gui_changed)){
+            
             if( hdr ){
                     
                 video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
+                
                 // get EV -1, 0 , +1 corresponding shutter values
                 for (int i = 0; i <= 2 ; i++){
                     video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, i-1);
@@ -206,25 +175,26 @@ int main( int argc, char* argv[] )
                     hdr_shutter[i] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
                 } 
                 // set shutter values
-                video.SetHDRShutterFlags(hdr_shutter[0],hdr_shutter[0],hdr_shutter[1],hdr_shutter[2]); 
+                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[0], hdr_shutter[1], hdr_shutter[2]); 
                 video.SetHDRRegister(true);
             } else {
                 video.SetHDRRegister(false);
             }
         }
         
-        // shutter settings set seperately for AEC mode capabilities
-        /*
-        if (hdr){ 
-            video.SetHDRShutterFlags(hdr_shutter[0],hdr_shutter[0],hdr_shutter[1],hdr_shutter[2]); 
+        // switch under over flag
+        under_over = under_over ? false : true;
+        
+        // shutter settings when AEC mode activated        
+        if (hdr && AEC){
+            if(under_over){
+                hdr_shutter[0] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[0]), under_over);
+            } else {
+                hdr_shutter[2] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[2]), under_over);
+            }
+            video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[0], hdr_shutter[1], hdr_shutter[2]);
         }
-        */
-        
-        //with AEC controls
-        //if (hdr && !AEC){ video.SetHDRShutterFlags(s0,s1,s0,s1); }
-        //if (hdr && AEC){ video.SetHDRShutterFlags(aec1,aec2,aec1,aec2);
-
-        
+      
         // MANUAL SETTINGS
 
         if ( manual && !hdr ) { 
@@ -289,19 +259,21 @@ int main( int argc, char* argv[] )
                 cout << "[HDR]: No response function found, generating one" << endl;
                 video.GetResponseFunction();
             } 
-            // float current_shutter = video.GetFeatureValue(DC1394_FEATURE_SHUTTER);
             
             video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
             float EV = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
             for (int i = -1; i <= 1 ; i++){
                 video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, EV+i);
                 sleep(1);
-                cout << EV+i << endl;
+                cout << "[HDR]: image " << i+1 << " @  " << EV+i << "EV" << endl;
                 hdr_shutter[i+1] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
-                cout << hdr_shutter[i+1] << endl;
             } 
             
+            cout << "[HDR]: EV range calibrated" << endl;
+            
+            // capture HDR images
             video.CaptureHDRFrame(img, 3, hdr_shutter);
+            
         } 
 
         /*-----------------------------------------------------------------------
@@ -321,7 +293,7 @@ int main( int argc, char* argv[] )
             video.GetTimeStamp(time_stamp);
             cout << time_stamp << endl;
             // create command string: convert video, remove files and then echo completed - should be thread safe this way
-            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s",time_stamp, "mpeg"); /*, time_stamp, "mpeg"*/
+            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s", time_stamp, "mpeg"); /*, time_stamp, "mpeg"*/
                             //&& echo '[VIDEO]: Video saved to ./video/%s.%s'",
                               
             cout << command << endl;

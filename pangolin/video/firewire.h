@@ -467,8 +467,10 @@
     //! generate image pixel intensity count in map
     void CreatePixIntensityMap(dc1394video_frame_t frame);
         
-    //! returns change (multiplier) to shutter time for next frame
-    //float AEC(dc1394video_frame_t frame, float st, bool under_over); 
+    //! accepts dc1394 frame, returns change (multiplier) to shutter time for next frame
+    float AEC(dc1394video_frame_t frame, float st, bool under_over); 
+        
+    //! accepts image buffer, returns change (multiplier) to shutter time for next frame
     float AEC(unsigned char *image, float st, bool under_over);
               
     /*-----------------------------------------------------------------------
