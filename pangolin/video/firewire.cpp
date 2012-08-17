@@ -1785,16 +1785,27 @@
 
         char time_stamp[32];
         char command[1024];
-        char tmo[32] = "pfstmo_drago03";
+        char *tmo;
+        char *format;
+        
+        // set attributes from config or if not loaded, to defaults
+        if(!config.empty()){
+            tmo = (char*) config.find("HDR_TMO")->second.c_str();
+            format = (char*) config.find("HDR_FORMAT")->second.c_str();
+        } else {
+            tmo = (char *) "drago03";
+            format = (char *) "jpeg";
+        }
+        
         GetTimeStamp(time_stamp);
         
         sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                 | pfshdrcalibrate -f camera.response \
                 | pfsoutexr ./hdr-image/hdr.exr && pfsinexr ./hdr-image/hdr.exr \
-                | %s | pfsout ./hdr-image/%s-HDR.jpeg \
+                | pfstmo_%s | pfsout ./hdr-image/%s-HDR.jpeg \
                 | rm -rf ./hdr-image/jpeg && rm -rf ./hdr-image/hdr.exr \
-                && echo '[HDR]: HDR frame generated: ./hdr-image/%s-HDR.jpeg'", 
-                tmo, time_stamp, time_stamp);
+                && echo '[HDR]: HDR frame generated: ./hdr-image/%s-HDR.%s'", 
+                tmo, time_stamp, time_stamp, format);
 
         //don't run final command until all other threads finish
         thread_group.join_all();
@@ -2386,6 +2397,38 @@
         
         return offset;
         
+    }
+    
+    void FirewireVideo::LoadConfig(){
+
+        try {
+            
+            boost::property_tree::ptree pt;
+            boost::property_tree::ini_parser::read_ini("config.ini", pt);
+            
+            // HDR
+            config.insert( pair<string,string>( "HDR_TMO", pt.get<string>("HDR.tone_mapping_operator") ) );
+            config.insert( pair<string,string>( "HDR_FORMAT", pt.get<string>("HDR.format") ) );
+            
+            // VIDEO
+            config.insert( pair<string,string>( "VIDEO_FORMAT", pt.get<string>("VIDEO.format") ) );
+            
+        } catch (exception& e){
+            cerr << "[CONFIG ERROR]:" << e.what() << endl;
+        }
+
+    }
+        
+    string FirewireVideo::GetConfigValue(string attribute){ 
+        return config.find(attribute)->second;
+    }
+        
+    void FirewireVideo::SetConfigValue(string attribute, string value){        
+        config[attribute] = value;
+    }
+    
+    bool FirewireVideo::CheckConfigLoaded(){
+        return config.empty();
     }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {

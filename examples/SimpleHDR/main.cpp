@@ -23,9 +23,9 @@ int main( int argc, char* argv[] )
      *-----------------------------------------------------------------------*/    
     
     FirewireVideo video = FirewireVideo();
-    //video.ReadConfigFile();
+    video.LoadConfig();
     video.SetHDRRegister(false);
-    video.SetMetaDataFlags( META_ALL );
+    video.SetMetaDataFlags( META_SHUTTER );
     video.CreateShutterMaps();
     video.SetAllFeaturesAuto();
     //video.Stop();
@@ -284,21 +284,29 @@ int main( int argc, char* argv[] )
         if ( save && pangolin::Pushed(record) ){ 
             
             char time_stamp[32];
-            char command[64];
-            
+            char command[128];
+            char *format;
             // set save flag to false
             save = false;
-            
+        
+            // set output video format from config or if not loaded, to default (mpeg)
+            if (!video.CheckConfigLoaded()){
+                format = (char *) video.GetConfigValue("VIDEO_FORMAT").c_str();
+            } else {
+                format = (char *) "mpeg" ;
+            }
+
             // get time stamp for file name
             video.GetTimeStamp(time_stamp);
-            cout << time_stamp << endl;
+            
             // create command string: convert video, remove files and then echo completed - should be thread safe this way
-            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s", time_stamp, "mpeg"); /*, time_stamp, "mpeg"*/
-                            //&& echo '[VIDEO]: Video saved to ./video/%s.%s'",
-                              
-            cout << command << endl;
+            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s \
+                              && rm -rf ./video/ppm/  \
+                              && echo '[VIDEO]: Video saved to ./video/%s.%s'", 
+                              time_stamp, format, time_stamp, format); 
+
             // run video conversion in seperate thread (may take a while so lets us continue)
-            boost::thread(system,command);  
+            boost::thread(system, command);  
             
         }
 

@@ -44,6 +44,8 @@
     #include <jpeglib.h>
 
     #include <boost/thread/thread.hpp>
+    #include <boost/property_tree/ptree.hpp>
+    #include <boost/property_tree/ini_parser.hpp>
 
     #ifndef _WIN32
     #include <unistd.h>
@@ -499,6 +501,18 @@
         
     //! return number of bytes to skip when scanning frame
     int GetMetaOffset(); 
+            
+    //! load configuration file
+    void LoadConfig();
+        
+    //! get loaded configuration file attribute value
+    std::string GetConfigValue(std::string attribute);  
+        
+    //! set loaded configuration file attribute value
+    void SetConfigValue(std::string attribute, std::string value); 
+        
+    //! check if config map is loaded
+    bool CheckConfigLoaded();
         
     protected:
 
@@ -528,6 +542,7 @@
     dc1394_t * d;
     dc1394camera_list_t * list;
     mutable dc1394error_t err;
+    dc1394video_mode_t video_mode;
         
     uint32_t meta_data_flags;
     bool hdr_register; // 1 = on
@@ -536,6 +551,8 @@
 
     std::map<int,float> shutter_abs_map;
     std::map<float,int> shutter_quant_map; 
+        
+    std::map<std::string, std::string> config;
         
     };
 
