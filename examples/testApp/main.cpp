@@ -36,7 +36,9 @@ int main( int argc, char* argv[] )
     unsigned char* img = new unsigned char[video.SizeBytes()];
     
     video.GrabOneShot(img);
-   
+    float st = 0.005;
+    bool over_under = true;
+    cout << video.AEC(img, st, over_under) << endl;
     
     delete[] img;
     
