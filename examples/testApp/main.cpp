@@ -29,17 +29,11 @@ int main( int argc, char* argv[] )
                                         100
                                         );
     video.SetAllFeaturesAuto();
-    video.PrintCameraReport();
+    //video.PrintCameraReport();
     video.SetMetaDataFlags( 0 );
     video.SetHDRRegister(false);
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
-    
-    map<int,int> image_pixel_intensity_count;
-
-    for(int i = 0 ; i < 256 ; i++){
-        image_pixel_intensity_count[i]=0;
-    }
     
     video.GrabOneShot(img);
    

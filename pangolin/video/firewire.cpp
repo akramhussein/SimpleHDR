@@ -503,6 +503,10 @@
             //dc1394_video_set_one_shot(camera, DC1394_OFF);
             //cout << "frames behind: " << frame->frames_behind << endl;
             CreatePixIntensityMap(*frame);
+            
+            float st = 1;
+            cout << "shutter multiplier = " <<  AEC(*frame, st, true) << endl;
+            
             return true;
         }
         return false;
@@ -2060,14 +2064,88 @@
         }
 
         map<int,int>::iterator pos;
-        //int saturated_count = 0;
+        int saturation_count = 0;
+        int count;
+        
         for(pos = image_pixel_intensity_count.begin(); pos != image_pixel_intensity_count.end() ; pos++){
-            cout << "Int: " << pos->first << " Count: " << pos->second << endl;
-            //saturated_count += pos->second;
+            
+            count = pos->second;
+            if( count == 0 || count == 255 )
+            {
+                saturation_count++;
+            }
+
         }
 
     }
         
+        float FirewireVideo::AEC(dc1394video_frame_t frame, float st, bool under_over){
+
+            int colours = 3;
+            int num_pixels = frame.size[0] * frame.size[1] * colours;
+            int bit_depth = 2 << (frame.data_depth-1);
+            float shutter_optimum = under_over ? 0.0005 : 0.0005 ;
+            
+            int stop = num_pixels - colours;
+            int intensity;
+            int saturation_count = 0;
+            
+            map<int,int> image_pixel_intensity_count;
+            map<int,int>::iterator pos; 
+            
+            // over/under exposed specific criteria
+            int start, finish, saturation;
+            
+            // hard coded for speed
+            if( under_over ){
+                start = 0;    
+                finish = 127; // finish = (bit_depth / 2 ) - 1
+                saturation = 0; 
+            } else {
+                start = 128;  // finish = (bit_depth + 1) / 2
+                finish = 255; // finish = bit_depth - 1
+                saturation = 255; // finish = bit_depth - 1
+            }
+            
+            for(int i = 0 ; i < bit_depth ; i++){
+                image_pixel_intensity_count[i] = 0;
+            }
+            
+            int i = -1;
+            while( i < stop ){
+                
+                // get greyscale value once for speed
+                intensity = 
+                  ( (int)frame.image[++i] * 0.299 ) 
+                + ( (int)frame.image[++i] * 0.587 )
+                + ( (int)frame.image[++i] * 0.114 );
+                
+                //increment value in map
+                image_pixel_intensity_count[intensity]++;    
+                
+                // if saturated, increment
+                // if( saturation == 0 || saturation == bit_depth )
+                if( intensity == saturation )
+                {
+                    saturation_count++;
+                }
+   
+            }
+            
+            int num_pixels_minus_saturation = num_pixels - saturation_count;
+            double proportion;
+            
+            for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
+        
+                proportion += pos->second/num_pixels_minus_saturation;
+                
+            }
+            
+            return st * ( shutter_optimum / proportion );
+
+        }
+                                    
+                                
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/
