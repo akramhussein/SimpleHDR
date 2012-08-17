@@ -431,7 +431,7 @@
                       );
         
     //! Automatic HDR Frame Capture
-    void CaptureHDRFrame(unsigned char* image, int n, float shutter[]);
+    void CaptureHDRFrame(unsigned char* image, int n, uint32_t shutter[]);
         
     //! grab and save indidivdual frame with time stamp 
     void SaveSingleFrame(unsigned char* image);
@@ -464,6 +464,9 @@
     //! print full camera features and current settings report
     void PrintCameraReport();
     
+    //! generate image pixel intensity count in map
+    void CreatePixIntensityMap(dc1394video_frame_t *frame);
+        
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/

@@ -427,6 +427,9 @@
 
     void FirewireVideo::Stop()
     {
+
+    cout << "[INFO]: Stopping camera transmission" << endl;
+
     if( running )
     {
         // Stop transmission
@@ -499,7 +502,7 @@
             */
             //dc1394_video_set_one_shot(camera, DC1394_OFF);
             //cout << "frames behind: " << frame->frames_behind << endl;
-            
+            CreatePixIntensityMap(frame);
             return true;
         }
         return false;
@@ -654,6 +657,7 @@
         
     void FirewireVideo::FlushDMABuffer()
     {
+        cout << "[INFO]: Flushing camera DMA buffer" << endl;
         Stop();
         
         dc1394video_frame_t *frame;
@@ -1377,15 +1381,19 @@
         if (dc1394_set_control_register(camera, 0x1820, 0x8000000 | shut0) != DC1394_SUCCESS) {
             throw VideoException("[DC1394 ERROR]: Could not set hdr shutter0 flags");
         }
+        //cout << "[HDR]: Shutter 0 set to: " << shut0 << endl;
         if (dc1394_set_control_register(camera, 0x1840, 0x8000000 | shut1) != DC1394_SUCCESS) {
             throw VideoException("[DC1394 ERROR]: Could not set hdr shutter1 flags");
         }
+        //cout << "[HDR]: Shutter 1 set to: " << shut1 << endl;
         if (dc1394_set_control_register(camera, 0x1860, 0x8000000 | shut2) != DC1394_SUCCESS) {
             throw VideoException("[DC1394 ERROR]: Could not set hdr shutter2 flags");
         }
+        //cout << "[HDR]: Shutter 2 set to: " << shut2 << endl;
         if (dc1394_set_control_register(camera, 0x1880, 0x8000000 | shut3) != DC1394_SUCCESS) {
             throw VideoException("[DC1394 ERROR]: Could not set hdr shutter3 flags");
         }
+        //cout << "[HDR]: Shutter 3 set to: " << shut3 << endl;
     }
 
     void FirewireVideo::GetHDRShutterFlags(uint32_t &shut0, 
@@ -1634,7 +1642,7 @@
             dc1394_capture_enqueue(camera,frame);
         }
  
-        hdr ? boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "hdr-video", jpeg) : boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "video", jpeg);
+        hdr ? SaveFile(frame_number, *frame, "hdr-video", jpeg) : SaveFile(frame_number, *frame, "video", jpeg);
         
         return true;       
         
@@ -1657,7 +1665,7 @@
         dc1394_capture_enqueue(camera,frame);
     }
 
-    hdr ? boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "hdr-video", jpeg) : boost::thread(&FirewireVideo::SaveFile, this, frame_number, *frame, "video", jpeg);
+    hdr ? SaveFile(frame_number, *frame, "hdr-video", jpeg) : SaveFile(frame_number, *frame, "video", jpeg);
 
     return true;       
 
@@ -1710,7 +1718,7 @@
         
     }
 
-    void FirewireVideo::CaptureHDRFrame(unsigned char* image, int n, float shutter[])
+    void FirewireVideo::CaptureHDRFrame(unsigned char* image, int n, uint32_t shutter[])
     {
         cout << "[HDR]: Starting HDR frame capture" << endl;
         // frame array
@@ -1718,19 +1726,17 @@
         //dc1394video_frame_t *discarded_frame;
         
         //stop camera transmission
-        cout << "[HDR]: Stopping camera transmission" << endl;
-        Stop();
+        //Stop();
 
         // discard images from DMA buffer
-        cout << "[HDR]: Flushing camera DMA buffer" << endl;
         FlushDMABuffer();
         
         // embed to hdr register shutter values (abs->quant)
         SetHDRShutterFlags(
-                           GetShutterMapQuant(shutter[0]),
-                           GetShutterMapQuant(shutter[1]),
-                           GetShutterMapQuant(shutter[2]),
-                           GetShutterMapQuant(shutter[3])
+                           shutter[0],
+                           shutter[0],
+                           shutter[1],
+                           shutter[2]
                            );
     
         // turn hdr register on
@@ -1751,33 +1757,49 @@
             if(dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame[i]) != DC1394_SUCCESS){
                 throw VideoException("[DC1394 ERROR]: Could not dequeue frame");
             }
-        }
+        }   
         
         // disable multi-shot mode
         SetMultiShotOff();
         
         // turn off hdr register
         SetHDRRegister(false);
-       
+        
+        boost::thread_group thread_group;
+        
         // save each frame to jpeg and return frames to dma to requeue the buffer
         for(int i = 0; i < n; i++){
             if(frame[i]){
-                memcpy(image,frame[i]->image,frame[i]->image_bytes);
-                cout << "Shutter: " << ReadShutter(image) << endl;
-                boost::thread(&FirewireVideo::SaveFile, this, i, *frame[i], "hdr-image", true);
-                if(dc1394_capture_enqueue(camera, frame[i]) != DC1394_SUCCESS){
+                // copy to image buffer -- remove later
+                //memcpy(image,frame[i]->image,frame[i]->image_bytes);
+                //cout << "Shutter: " << ReadShutter(image) << endl;
+                
+                // add to thread group
+                thread_group.create_thread(boost::bind(&FirewireVideo::SaveFile, this, i, *frame[i], "hdr-image", true)); 
+                
+                if(dc1394_capture_enqueue(camera, frame[i]) != DC1394_SUCCESS)
                     throw VideoException("[DC1394 ERROR]: Could not enqueue frame");
-                }
             }
         }
     
         cout << "[HDR]: Generating HDR frame" << endl;
+
+        char time_stamp[32];
+        char command[1024];
+        char tmo[32] = "pfstmo_drago03";
+        GetTimeStamp(time_stamp);
         
-        // run hdr script
-        //boost::thread(system, "pfsinme ./hdr-image/jpeg/*.jpeg | pfshdrcalibrate -f camera.response | pfsoutexr hdr.exr");
-        
-        cout << "[HDR]: HDR Frame generated" << endl;
-        
+        sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg \
+                | pfshdrcalibrate -f camera.response \
+                | pfsoutexr ./hdr-image/hdr.exr && pfsinexr ./hdr-image/hdr.exr \
+                | %s | pfsout ./hdr-image/%s-HDR.jpeg \
+                && rm -rf ./hdr-image/jpeg/ && rm -f ./hdr-image/hdr.exr \
+                && echo '[HDR]: HDR frame generated: ./hdr-image/%s-HDR.jpeg'", 
+                tmo, time_stamp, time_stamp);
+
+        //don't run final command until all other threads finish
+        thread_group.join_all();
+        boost::thread(system, command);
     }
         
     void FirewireVideo::SaveSingleFrame(unsigned char *image){
@@ -2006,7 +2028,7 @@
     void FirewireVideo::PrintCameraReport() 
     {
         // print unique id of camera(not node/slot on chipset)
-        cout << camera->guid << endl; 
+        //cout << camera->guid << endl; 
         
         // print camera details
         dc1394_camera_print_info(camera, stdout); 
@@ -2014,6 +2036,35 @@
         // print camera features
         dc1394_feature_print_all(&features, stdout);
         
+    }
+        
+    void FirewireVideo::CreatePixIntensityMap(dc1394video_frame_t *frame){
+
+        int colours = 3;
+        int numPixels = frame->size[0] * frame->size[1] * colours;
+        int bit_depth = 2 << (frame->data_depth-1);
+        map<int,int> image_pixel_intensity_count;
+        
+        for(int i = 0 ; i < bit_depth ; i++){
+            image_pixel_intensity_count[i]=0;
+        }
+        
+        int i = -1;
+        int stop = numPixels - colours;
+        
+        while(i<stop){
+            image_pixel_intensity_count[((int)frame->image[++i] * 0.299) 
+                                        + ((int)frame->image[++i] * 0.587) 
+                                        + ((int)frame->image[++i] * 0.114)]++;                        
+        }
+
+        map<int,int>::iterator pos;
+        //int saturated_count = 0;
+        for(pos = image_pixel_intensity_count.begin(); pos != image_pixel_intensity_count.end() ; pos++){
+            cout << "Int: " << pos->first << " Count: " << pos->second << endl;
+            //saturated_count += pos->second;
+        }
+
     }
         
     /*-----------------------------------------------------------------------
@@ -2087,9 +2138,7 @@
         
         // get max and min for shutter time
         if(dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max) != DC1394_SUCCESS)
-        {
             throw VideoException("[DC1394 ERROR]: Failed to read shutter");
-        }
         
         shutter = (max - min)/2; // first half of shutter range is black
         step_size = shutter/no_steps; // calculate step size
@@ -2099,14 +2148,10 @@
         cout << "Step Size: " << step_size << endl;
         
         if(dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL) != DC1394_SUCCESS) 
-        {
             throw VideoException("[DC1394 ERROR]: Could not set manual shutter mode");
-        }
-        
+
         if(dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON) != DC1394_SUCCESS)
-        {
             throw VideoException("[DC1394 ERROR]: Could not set absolute control for shutter");
-        }
         
         file = fopen(hdrgen_file, "wb");
         if( file == NULL) {
@@ -2122,9 +2167,8 @@
             cout << "[INFO]: Shutter value: " << shutter << endl;
             
             if(dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter) != DC1394_SUCCESS) 
-            {
                 throw VideoException("[DC1394 ERROR]: Could not set shutter value");
-            }
+            
             
             // wait 1/30th second
             boost::this_thread::sleep(boost::posix_time::seconds(1/30));        

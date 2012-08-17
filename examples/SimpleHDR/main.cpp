@@ -146,18 +146,10 @@ int main( int argc, char* argv[] )
     
     bool save = false;    
     time_t start, end;
-    
-    uint32_t s0 = video.GetShutterMapQuant(0.004857);
-    uint32_t s1 = video.GetShutterMapQuant(0.01392); 
-    
-    uint32_t hdr_shutter[3];
-    for (int i = 0; i <= 2 ; i++){
-        video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, i-1);
-        hdr_shutter[i] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
-        cout << video.GetFeatureValue(DC1394_FEATURE_SHUTTER) << endl;
-        cout << hdr_shutter[i] << endl;
-    }
-    
+    uint32_t hdr_shutter[3];    
+    //uint32_t s0 = video.GetShutterMapQuant(0.004857);
+    //uint32_t s1 = video.GetShutterMapQuant(0.01392); 
+
     // loop until quit (e.g ESC key)
     for(int frame_number = 0; !pangolin::ShouldQuit(); ++frame_number)
     {     
@@ -199,17 +191,34 @@ int main( int argc, char* argv[] )
          
         }
         */
-  
+
         // HDR MODE
         
         // checks if hdr mode has been switched and sets register on
         if(pangolin::Pushed(hdr.var->meta_gui_changed)){
-            hdr ? video.SetHDRRegister(true) : video.SetHDRRegister(false);
+            if( hdr ){
+                    
+                video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
+                // get EV -1, 0 , +1 corresponding shutter values
+                for (int i = 0; i <= 2 ; i++){
+                    video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, i-1);
+                    sleep(1);
+                    hdr_shutter[i] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
+                } 
+                // set shutter values
+                video.SetHDRShutterFlags(hdr_shutter[0],hdr_shutter[0],hdr_shutter[1],hdr_shutter[2]); 
+                video.SetHDRRegister(true);
+            } else {
+                video.SetHDRRegister(false);
+            }
         }
+        
         // shutter settings set seperately for AEC mode capabilities
+        /*
         if (hdr){ 
-            video.SetHDRShutterFlags(s0,s1,s0,s1); 
+            video.SetHDRShutterFlags(hdr_shutter[0],hdr_shutter[0],hdr_shutter[1],hdr_shutter[2]); 
         }
+        */
         
         //with AEC controls
         //if (hdr && !AEC){ video.SetHDRShutterFlags(s0,s1,s0,s1); }
@@ -281,8 +290,18 @@ int main( int argc, char* argv[] )
                 video.GetResponseFunction();
             } 
             // float current_shutter = video.GetFeatureValue(DC1394_FEATURE_SHUTTER);
-            float shutter[4] = {0.038, 0.001, 0.038, 0.001};
-            video.CaptureHDRFrame(img, 4, shutter);
+            
+            video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
+            float EV = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
+            for (int i = -1; i <= 1 ; i++){
+                video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, EV+i);
+                sleep(1);
+                cout << EV+i << endl;
+                hdr_shutter[i+1] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
+                cout << hdr_shutter[i+1] << endl;
+            } 
+            
+            video.CaptureHDRFrame(img, 3, hdr_shutter);
         } 
 
         /*-----------------------------------------------------------------------
@@ -300,12 +319,12 @@ int main( int argc, char* argv[] )
             
             // get time stamp for file name
             video.GetTimeStamp(time_stamp);
-            
-            const char *new_stamp = time_stamp;
-            cout << new_stamp << endl;
+            cout << time_stamp << endl;
             // create command string: convert video, remove files and then echo completed - should be thread safe this way
-            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s && rm -rf ./video/ppm/ && echo '[VIDEO]: Video saved to ./video/'", time_stamp, "mpeg");
-
+            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s",time_stamp, "mpeg"); /*, time_stamp, "mpeg"*/
+                            //&& echo '[VIDEO]: Video saved to ./video/%s.%s'",
+                              
+            cout << command << endl;
             // run video conversion in seperate thread (may take a while so lets us continue)
             boost::thread(system,command);  
             
@@ -324,13 +343,13 @@ int main( int argc, char* argv[] )
             video.RecordFramesOneShot(frame_number, img, true, hdr); 
             recorded_frames.operator=(frame_number);
             time (&end);
-            recorded_time.operator=(difftime(end,start));
+            recorded_time.operator=(difftime(end, start));
         } 
         else if ( save ){
             video.RecordFrames(frame_number, img, true, false, hdr); 
             recorded_frames.operator=(frame_number);
             time (&end);
-            recorded_time.operator=(difftime(end,start));
+            recorded_time.operator=(difftime(end, start));
         } 
         else if ( hdr ){
             video.GrabOneShot(img);

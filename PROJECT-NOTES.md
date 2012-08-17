@@ -1,53 +1,63 @@
 HDR PROJECT
 ===========
 
-Last updated: 01/08/2012
+Last updated: 16/08/2012
 
 TO DO
 =====
-
-Extract Radiance Map
-------------------------
-See notes/Ask Jan
-
-Tone map
-------------------------
-pfstools/mo/calibrate
-
-Motion correction
-------------------------
-flowlib
 
 Automatic Exposure Control
 -------------------------
 extract histogram and adjust
 
+
+Config file for output
+-------------------------
+can't use dropdowns, so use config file for video format, tmo etc
+
+EV
+---
+calculate EV values based on ticks not by calling getters each time
+
+Video Mode
+----------
+Move video mode to constructor
+
 OPTIMISATIONS
 =============
 
-Threading
----------
-Add threading for all file writing operations
+Clean string usage
+------------------
+Using all sorts of strings/const * etc -> pick one and use it
 
 
 REFACTORING
 ===========
+
+NICE TO HAVES
+=============
+
+COMPLETED
+=========
 
 SaveFile()
 ----------
 Find appropriate  way to implement functionality to save files and for better workflow
 Currently running grab frame --> save frame in loop, a bit inefficient
 
-
-NICE TO HAVES
-=============
-
 Better Error Handling for my functions
 --------------------------------------
 Currently have a mixed method to handle errors
 
-COMPLETED
-=========
+
+Tone map
+------------------------
+pfstools/mo/calibrate
+
+Threading
+---------
+Add threading for all file writing operations
+
 
 Save to JPEG 
 ------------
