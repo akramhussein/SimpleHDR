@@ -497,6 +497,9 @@
     //! check if response function exists
     bool CheckResponseFunction();
         
+    //! return number of bytes to skip when scanning frame
+    int GetMetaOffset(); 
+        
     protected:
 
     void init_camera(

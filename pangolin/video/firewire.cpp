@@ -1722,12 +1722,10 @@
     void FirewireVideo::CaptureHDRFrame(unsigned char* image, int n, uint32_t shutter[])
     {
         cout << "[HDR]: Starting HDR frame capture" << endl;
+        
         // frame array
         dc1394video_frame_t *frame[n];
         //dc1394video_frame_t *discarded_frame;
-        
-        //stop camera transmission
-        //Stop();
 
         // discard images from DMA buffer
         FlushDMABuffer();
@@ -2076,8 +2074,11 @@
     }
     //float FirewireVideo::AEC(dc1394video_frame_t frame, float st, bool under_over){
     float FirewireVideo::AEC(unsigned char *image, float st, bool under_over){
+        
+        //int i = GetMetaOffset() - 1;
+        
         int colours = 3;
-        int num_pixels = 921600;
+        int num_pixels = 921600 - GetMetaOffset();
         //int num_pixels = frame.size[0] * frame.size[1] * colours;
         int bit_depth = 2 << 7;
         //int bit_depth = 2 << (frame.data_depth-1);
@@ -2108,6 +2109,7 @@
             image_pixel_intensity_count[i] = 0;
         }
         
+
         int i = -1;
         while( i < stop ){
             
@@ -2129,7 +2131,7 @@
 
         }
         
-        int num_pixels_minus_saturation = num_pixels - saturation_count;
+        int num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;
         double proportion;
         
         for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
@@ -2143,13 +2145,14 @@
     }
                                     
     float FirewireVideo::AEC(dc1394video_frame_t frame, float st, bool under_over){
-   
+       
+        int i = GetMetaOffset() - 1;
         int colours = 3;
-        int num_pixels = frame.size[0] * frame.size[1] * colours;
+        int num_pixels = (frame.size[0] * frame.size[1] * colours) - GetMetaOffset();
         int bit_depth = 2 << (frame.data_depth-1);
         float shutter_optimum = under_over ? 0.0005 : 0.0005 ;
         
-        int stop = num_pixels - colours;
+        int stop = num_pixels - GetMetaOffset() - colours;
         int intensity;
         int saturation_count = 0;
         
@@ -2174,7 +2177,7 @@
             image_pixel_intensity_count[i] = 0;
         }
         
-        int i = -1;
+        //int i = -1;
         while( i < stop ){
             
             // get greyscale value once for speed
@@ -2195,7 +2198,7 @@
             
         }
         
-        int num_pixels_minus_saturation = num_pixels - saturation_count;
+        int num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;
         double proportion;
         
         for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
@@ -2364,6 +2367,25 @@
         ifstream file("camera.response");
         return file;
 
+    }
+    
+    int FirewireVideo::GetMetaOffset(){
+        
+        int offset = 0;
+        
+        if(meta_data_flags & META_TIMESTAMP) { offset++; }
+        if(meta_data_flags & META_GAIN) { offset++; }
+        if(meta_data_flags & META_SHUTTER) { offset++; }
+        if(meta_data_flags & META_BRIGHTNESS) { offset++; }
+        if(meta_data_flags & META_EXPOSURE) { offset++; }
+        if(meta_data_flags & META_WHITE_BALANCE) { offset++; }
+        if(meta_data_flags & META_FRAME_COUNTER) { offset++; }
+        if(meta_data_flags & META_STROBE) { offset++; }
+        if(meta_data_flags & META_GPIO_PIN_STATE) { offset++; }
+        if(meta_data_flags & META_ROI_POSITION) { offset++; }
+        
+        return offset;
+        
     }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
