@@ -465,7 +465,7 @@
     void PrintCameraReport();
     
     //! generate image pixel intensity count in map
-    void CreatePixIntensityMap(dc1394video_frame_t *frame);
+    void CreatePixIntensityMap(dc1394video_frame_t frame);
         
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES

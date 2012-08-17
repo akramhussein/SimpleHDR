@@ -502,7 +502,7 @@
             */
             //dc1394_video_set_one_shot(camera, DC1394_OFF);
             //cout << "frames behind: " << frame->frames_behind << endl;
-            CreatePixIntensityMap(frame);
+            CreatePixIntensityMap(*frame);
             return true;
         }
         return false;
@@ -2038,11 +2038,12 @@
         
     }
         
-    void FirewireVideo::CreatePixIntensityMap(dc1394video_frame_t *frame){
-
+    void FirewireVideo::CreatePixIntensityMap(dc1394video_frame_t frame){
+        // copy frame instead of taking pointer
+        
         int colours = 3;
-        int numPixels = frame->size[0] * frame->size[1] * colours;
-        int bit_depth = 2 << (frame->data_depth-1);
+        int numPixels = frame.size[0] * frame.size[1] * colours;
+        int bit_depth = 2 << (frame.data_depth-1);
         map<int,int> image_pixel_intensity_count;
         
         for(int i = 0 ; i < bit_depth ; i++){
@@ -2053,9 +2054,9 @@
         int stop = numPixels - colours;
         
         while(i<stop){
-            image_pixel_intensity_count[((int)frame->image[++i] * 0.299) 
-                                        + ((int)frame->image[++i] * 0.587) 
-                                        + ((int)frame->image[++i] * 0.114)]++;                        
+            image_pixel_intensity_count[((int)frame.image[++i] * 0.299) 
+                                        + ((int)frame.image[++i] * 0.587) 
+                                        + ((int)frame.image[++i] * 0.114)]++;                        
         }
 
         map<int,int>::iterator pos;
