@@ -2332,7 +2332,7 @@
         cout << "[RESPONSE FUNCTION]: Generating response function" << endl;
         
         // don't thread because HDR Capture uses output and will call this function
-        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s ./config/camera.response > /dev/null 2>&1");
+        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s ./config/camera.m > /dev/null 2>&1");
         cout << "[RESPONSE FUNCTION]: Camera Response Function file generated" << endl;
         
         // output jpeg of response function (non-critical, so can be threaded)
