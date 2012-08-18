@@ -97,3 +97,9 @@ __CUDA Toolkit__ (>= 3.2)
 __Cg Library__ (some small Cg utils)
 
 * (deb) sudo apt-get install nvidia-cg-toolkit
+
+__gnuplot__ (for plotting response curve)
+
+* (win) http://www.gnuplot.info/
+* (deb) sudo apt-get install gnuplot
+* (mac) sudo port install gnuplot
