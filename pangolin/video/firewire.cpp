@@ -2331,9 +2331,17 @@
         // generate response function 
         cout << "[RESPONSE FUNCTION]: Generating response function" << endl;
         
+        string calibration = config.find("HDR_RESPONSE_CALIBRATION")->second;
+        
+        // set attributes from config or if not loaded, to defaults
         // don't thread because HDR Capture uses output and will call this function
-        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s ./config/camera.m > /dev/null 2>&1");
-        cout << "[RESPONSE FUNCTION]: Camera Response Function file generated" << endl;
+        if(calibration.compare("mitsunaga") || calibration.compare("MITSUNAGA") ){
+            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -c mitsunaga -s ./config/camera.m > /dev/null 2>&1");
+            cout << "[RESPONSE FUNCTION]: Camera Response Function file generated using Mitsunaga calibration technique" << endl;
+        } else {
+            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s ./config/camera.m > /dev/null 2>&1");
+            cout << "[RESPONSE FUNCTION]: Camera Response Function file generated using Robertson calibration technique" << endl;
+        }
         
         // output jpeg of response function (non-critical, so can be threaded)
         boost::thread(system, "gnuplot ./config/response_plotting_script.plt \
@@ -2380,6 +2388,7 @@
             // HDR
             config.insert( pair<string,string>( "HDR_TMO", pt.get<string>("HDR.tone_mapping_operator") ) );
             config.insert( pair<string,string>( "HDR_FORMAT", pt.get<string>("HDR.format") ) );
+            config.insert( pair<string,string>( "HDR_RESPONSE_CALIBRATION", pt.get<string>("HDR.response_calibration") ) );
             
             // VIDEO
             config.insert( pair<string,string>( "VIDEO_FORMAT", pt.get<string>("VIDEO.format") ) );
