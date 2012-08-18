@@ -49,7 +49,6 @@ int main( int argc, char* argv[] )
     double scale = 1.25;
     pangolin::CreateGlutWindowAndBind("SimpleHDR", w*scale + panel_width, h*scale);
     
-    
     // Create viewport for video with fixed aspect
     View& d_panel = pangolin::CreatePanel("ui.")
     .SetBounds(0.0, 1.0, 0.0, Attach::Pix(panel_width));
