@@ -43,6 +43,8 @@
     if(video_mode>=DC1394_VIDEO_MODE_FORMAT7_0)
       throw VideoException("[DC1394 ERROR]: format7 modes need to be initialized through the constructor that allows for specifying the roi");
 
+    this->video_mode = video_mode;
+        
     camera = dc1394_camera_new (d, guid);
     if (!camera)
         throw VideoException("[DC1394 ERROR]: Failed to initialize camera");
@@ -906,29 +908,27 @@
             break;
         }
         
-        err = dc1394_feature_get_modes(camera, feature[i], &modes);
-        if (err != DC1394_SUCCESS) {
+        if( dc1394_feature_get_modes(camera, feature[i], &modes) != DC1394_SUCCESS){
             throw VideoException("[DC1394 ERROR]: Could not get modes for feature ", dc1394_feature_get_string(feature[i]));
         }
         
   
         if (modes.modes[1] == DC1394_FEATURE_MODE_AUTO){
             
-            err = dc1394_feature_set_power(camera, feature[i], DC1394_ON);
-            if (err != DC1394_SUCCESS) {
+            if( dc1394_feature_set_power(camera, feature[i], DC1394_ON) != DC1394_SUCCESS) {
                 break;
             }
             
-            err = dc1394_feature_set_mode(camera, feature[i], DC1394_FEATURE_MODE_AUTO);
-            if (err != DC1394_SUCCESS) {
+            if( dc1394_feature_set_mode(camera, feature[i], DC1394_FEATURE_MODE_AUTO) != DC1394_SUCCESS){
                 break;
             }
             
         }
     }
-        
+        // reset non-auto capable features
         ResetGamma();
         ResetHue();
+        ResetBrightness();
         
     }
         
@@ -944,21 +944,18 @@
                 break;
             }
             
-            err = dc1394_feature_get_modes(camera, feature[i], &modes);
-            if (err != DC1394_SUCCESS) {
+            if (dc1394_feature_get_modes(camera, feature[i], &modes) != DC1394_SUCCESS) {
                 break;
             }
             
         
             if (modes.modes[0] == DC1394_FEATURE_MODE_MANUAL){
                 
-                err = dc1394_feature_set_power(camera, feature[i], DC1394_ON);
-                if (err != DC1394_SUCCESS) {
+                if (dc1394_feature_set_power(camera, feature[i], DC1394_ON) != DC1394_SUCCESS) {
                     break;
                 }
                 
-                err = dc1394_feature_set_mode(camera, feature[i], DC1394_FEATURE_MODE_MANUAL);
-                if (err != DC1394_SUCCESS) {
+                if (dc1394_feature_set_mode(camera, feature[i], DC1394_FEATURE_MODE_MANUAL) != DC1394_SUCCESS) {
                     break;
                 }
                 
@@ -1800,7 +1797,7 @@
         GetTimeStamp(time_stamp);
         
         sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
-                | pfshdrcalibrate -f camera.response \
+                | pfshdrcalibrate -f ./config/camera.response \
                 | pfsoutexr ./hdr-image/hdr.exr && pfsinexr ./hdr-image/hdr.exr \
                 | pfstmo_%s | pfsout ./hdr-image/%s-HDR.jpeg \
                 | rm -rf ./hdr-image/jpeg && rm -rf ./hdr-image/hdr.exr \
@@ -1833,7 +1830,6 @@
             char filename[128];
             char date_time[128];
             MetaData metaData;
-            dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8; // place in constructor
             
             // create directories
             mkdir("single-frames", 0755);
@@ -1844,7 +1840,7 @@
             // create filename
             sprintf(filename, "./single-frames/jpeg/%s%s", date_time, ".jpeg");
             
-            CreateJPEG(frame, filename, video_mode);
+            CreateJPEG(frame, filename);
             ReadMetaData(frame->image, &metaData);
             
             // write exif data from image meta data if abs table exists, else get from camera
@@ -1874,7 +1870,6 @@
         char filename[128];
         char dir[128];
         MetaData metaData;
-        dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8;
 
         // create top directory
         mkdir(folder, 0755);
@@ -1896,7 +1891,7 @@
             
             sprintf(filename, "./%s/jpeg/%s%s%s", folder, "image", padded_frame_number, ".jpeg");
            
-            CreateJPEG(&frame, filename, video_mode);
+            CreateJPEG(&frame, filename);
             ReadMetaData(frame.image, &metaData);
 
             // write exif data from image meta data if abs table exists, else from camera
@@ -1904,8 +1899,7 @@
             ? WriteExifDataFromImageMetaData(&metaData, filename)
             : WriteExifData(this, filename);
 
-            cout << "[SAVE]: JPEG image saved to " << filename << endl;
-
+            //cout << "[SAVE]: JPEG image saved to " << filename << endl;
             //cout << "[IMAGE]: Image average luminance cd/m^2: " << GetAvgLuminance(filename) << endl;  
 
         } 
@@ -1917,7 +1911,7 @@
             
             // create path for ppm
             sprintf(filename, "./%s/ppm/%s%s%s", folder, "image", padded_frame_number, ".ppm");
-            CreatePPM(&frame, filename, video_mode);
+            CreatePPM(&frame, filename);
             cout << "[SAVE]: PPM image saved to " << filename << endl;
             
         }
@@ -1928,8 +1922,7 @@
     }
     
     void FirewireVideo::CreatePPM(dc1394video_frame_t *frame, 
-                                  const char* filename, 
-                                  dc1394video_mode_t video_mode)
+                                  const char* filename)
         {
        
         FILE* imagefile;
@@ -1960,8 +1953,7 @@
         
 
     bool FirewireVideo::CreateJPEG(dc1394video_frame_t *frame, 
-                                 const char *filename,  
-                                 dc1394video_mode_t video_mode)
+                                 const char *filename)
     {            
         unsigned int width, height;
         
@@ -2151,6 +2143,8 @@
             
         }
         
+        cout << "proportion: " << proportion << endl;
+        
         return st * ( shutter_optimum / proportion );
 
     }
@@ -2277,105 +2271,82 @@
         
     }
     
-
-    // UNFINISHED
     void FirewireVideo::GetResponseFunction()
     {
-        dc1394video_frame_t *frame = NULL;
         FILE* file;
         char hdrgen_file[32] = "camera.hdrgen";
-
-        float min, max, step_size, shutter;
-        int no_steps = 10; // grab 10 frames
+        dc1394video_frame_t *frame = NULL;
         
         // turn off HDR register control
         SetHDRRegister(false);
-        
-        // set all features to automatic
         SetAllFeaturesAuto();
-        
-        // get max and min for shutter time
-        if(dc1394_feature_get_absolute_boundaries(camera, DC1394_FEATURE_SHUTTER, &min, &max) != DC1394_SUCCESS)
-            throw VideoException("[DC1394 ERROR]: Failed to read shutter");
-        
-        shutter = (max - min)/2; // first half of shutter range is black
-        step_size = shutter/no_steps; // calculate step size
-        
-        cout << "Min: " << min << endl;
-        cout << "Max: " << max << endl;
-        cout << "Step Size: " << step_size << endl;
-        
-        if(dc1394_feature_set_mode(camera, DC1394_FEATURE_SHUTTER, DC1394_FEATURE_MODE_MANUAL) != DC1394_SUCCESS) 
-            throw VideoException("[DC1394 ERROR]: Could not set manual shutter mode");
+        FlushDMABuffer();
 
-        if(dc1394_feature_set_absolute_control(camera, DC1394_FEATURE_SHUTTER, DC1394_ON) != DC1394_SUCCESS)
-            throw VideoException("[DC1394 ERROR]: Could not set absolute control for shutter");
-        
+        // open hdrgen file
         file = fopen(hdrgen_file, "wb");
         if( file == NULL) {
             perror( "[ERROR]: Can't create hdrgen file");
         }
- 
-        //stop camera for one shot mode
-        //StopForOneShot();
         
-        for(int frame_number = 0; shutter <= max ; frame_number++){
+        float EV = GetFeatureValue(DC1394_FEATURE_EXPOSURE);
+        float exposure_max = GetFeatureValueMax(DC1394_FEATURE_EXPOSURE);
+        double i = -2;
+        int j = 0;
+        
+        while (EV + i <= exposure_max){
+
+            cout << "[RESPONSE FUNCTION]: " << j << " @ " << EV+i << "EV" << endl;
+            SetFeatureValue(DC1394_FEATURE_EXPOSURE, EV + i);
+            sleep(1);
             
-            cout << endl << "[INFO]: Frame number: " << frame_number << endl;
-            cout << "[INFO]: Shutter value: " << shutter << endl;
+            // set one shot mode
+            if(dc1394_video_set_one_shot( camera, DC1394_ON ) != DC1394_SUCCESS)
+                throw VideoException("[DC1394 ERROR]: Could not set one shot mode");
             
-            if(dc1394_feature_set_absolute_value(camera, DC1394_FEATURE_SHUTTER, shutter) != DC1394_SUCCESS) 
-                throw VideoException("[DC1394 ERROR]: Could not set shutter value");
-            
-            
-            // wait 1/30th second
-            boost::this_thread::sleep(boost::posix_time::seconds(1/30));        
-            
-            // set camera to one shot
-            dc1394_video_set_one_shot( camera, DC1394_ON );
-            
-            // grab image from DMA
-            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame);
-                       
+            // dequeue frame
+            if(dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame) != DC1394_SUCCESS)
+                throw VideoException("[DC1394 ERROR]: Could not dequeue frame");
             
             if ( frame ) {
                 
                 // save to jpeg with exif data
-                SaveFile(frame_number, *frame, "response-function", true);
+                SaveFile(j, *frame, "response-function", true);
                 
                 // append line to hdrgen script for response function
-                JpegToHDRGEN("response-function", file, frame_number);
+                JpegToHDRGEN("response-function", file, j);
                 
             }
+            // enque frame
+            if(dc1394_capture_enqueue(camera, frame) != DC1394_SUCCESS)
+                throw VideoException("[DC1394 ERROR]: Could not enqueue frame");
 
-            // return frame to DMA
-            dc1394_capture_enqueue(camera, frame);
-            
-            // increment shutter value by step size
-            shutter += step_size;
+            i += 0.25;
+            j++;
         }
-     
+             
         //close hdrgen file
-        cout << "[FILE]: Closing hdrgen script file" << endl;
+        cout << "[RESPONSE FUNCTION]: Closing hdrgen script file" << endl;
         fclose(file);
-        
-        // reset shutter to auto
-        SetFeatureAuto(DC1394_FEATURE_SHUTTER);
-
+            
         // generate response function 
-        cout << "[INFO]: Generating response function" << endl;
-        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s camera.response");
-        cout << "[INFO]: Camera Response Function file generated" << endl;
+        cout << "[RESPONSE FUNCTION]: Generating response function" << endl;
         
-        // saving plot for reference
-        system("gnuplot response_plotting_script.plt");
-        cout << "[INFO]: Camera Response Function plot saved to camera_response.jpeg" << endl;
+        // don't thread because HDR Capture uses output and will call this function
+        system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s ./config/camera.response > /dev/null 2>&1");
+        cout << "[RESPONSE FUNCTION]: Camera Response Function file generated" << endl;
+        
+        // output jpeg of response function (non-critical, so can be threaded)
+        boost::thread(system, "gnuplot ./config/response_plotting_script.plt \
+                               && echo '[RESPONSE FUNCTION]: Camera Response Function plot saved to camera_response.jpeg' "); 
+    
+        // clear outputs
+        boost::thread(system, "rm -rf ./response-function/ && rm -rf camera.hdrgen > /dev/null 2>&1");
         
     }
         
     bool FirewireVideo::CheckResponseFunction(){
         
-        ifstream file("camera.response");
+        ifstream file("./config/camera.response");
         return file;
 
     }
@@ -2404,7 +2375,7 @@
         try {
             
             boost::property_tree::ptree pt;
-            boost::property_tree::ini_parser::read_ini("config.ini", pt);
+            boost::property_tree::ini_parser::read_ini("./config/config.ini", pt);
             
             // HDR
             config.insert( pair<string,string>( "HDR_TMO", pt.get<string>("HDR.tone_mapping_operator") ) );
@@ -2472,7 +2443,7 @@
            bus_period = 500e-6;
            break;
         default:
-          throw VideoException("[DC1394 ERROR]: iso speed not valid");
+          throw VideoException("[DC1394 ERROR]: ISO speed not valid");
         }
 
         return bus_period;

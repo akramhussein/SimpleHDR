@@ -6,10 +6,12 @@
 
 #include <sys/stat.h>
 #include <iostream>
+#include <limits>
 
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
 #include <pangolin/video/firewire.h>
+#include <pangolin/display_internal.h>
 
 #include <boost/thread.hpp>  
 
@@ -25,12 +27,12 @@ int main( int argc, char* argv[] )
     FirewireVideo video = FirewireVideo();
     video.LoadConfig();
     video.SetHDRRegister(false);
-    video.SetMetaDataFlags( META_SHUTTER );
+    video.SetMetaDataFlags( META_ALL_AND_ABS );
     video.CreateShutterMaps();
     video.SetAllFeaturesAuto();
     //video.Stop();
     //video.FlushDMABuffer();//remove spurious frames
-    video.PrintCameraReport();
+    //video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
 
@@ -46,6 +48,7 @@ int main( int argc, char* argv[] )
     const int panel_width = 200;
     double scale = 1.25;
     pangolin::CreateGlutWindowAndBind("SimpleHDR", w*scale + panel_width, h*scale);
+    
     
     // Create viewport for video with fixed aspect
     View& d_panel = pangolin::CreatePanel("ui.")
@@ -137,6 +140,8 @@ int main( int argc, char* argv[] )
                                      video.GetFeatureQuantMin(DC1394_FEATURE_WHITE_BALANCE),
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
 
+    static Var<bool> response_function("ui.Get Response Function",false,false);
+
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
      *-----------------------------------------------------------------------*/     
@@ -159,42 +164,54 @@ int main( int argc, char* argv[] )
          *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
         
+        if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); }        
+        
         // HDR MODE
         
         // checks if hdr mode has been switched and sets register on
         if(pangolin::Pushed(hdr.var->meta_gui_changed)){
             
             if( hdr ){
-                    
+                              
                 video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
+                float EV = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
                 
-                // get EV -1, 0 , +1 corresponding shutter values
-                for (int i = 0; i <= 2 ; i++){
-                    video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, i-1);
+                cout << "[HDR]: HDR mode bracket range set at: " << endl;
+                for (int i = -1; i <= 1 ; i++){
+                    video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, EV+i);
                     sleep(1);
-                    hdr_shutter[i] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
+                    cout << i << ": " << EV+i << " EV" << endl;
+                    hdr_shutter[i+1] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
                 } 
+
                 // set shutter values
                 video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[0], hdr_shutter[1], hdr_shutter[2]); 
                 video.SetHDRRegister(true);
+                
             } else {
                 video.SetHDRRegister(false);
             }
         }
         
         // switch under over flag
-        under_over = under_over ? false : true;
+        under_over = under_over ? false : true ;
         
-        // shutter settings when AEC mode activated        
-        if (hdr && AEC){
-            if(under_over){
-                hdr_shutter[0] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[0]), under_over);
+        // shutter settings when AEC mode activated   
+        if(pangolin::Pushed(AEC.var->meta_gui_changed)){
+
+            if (hdr && AEC){
+                cout << "[AEC]: AEC enabled" << endl;
+                if(under_over){
+                    hdr_shutter[0] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[0]), under_over);
+                } else {
+                    hdr_shutter[2] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[2]), under_over);
+                }
+                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[0], hdr_shutter[1], hdr_shutter[2]);
             } else {
-                hdr_shutter[2] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[2]), under_over);
+                cout << "[AEC]: AEC disabled" << endl;                
             }
-            video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[0], hdr_shutter[1], hdr_shutter[2]);
+            
         }
-      
         // MANUAL SETTINGS
 
         if ( manual && !hdr ) { 
@@ -204,10 +221,9 @@ int main( int argc, char* argv[] )
              *  if: exposure val is changed, shutter val is changed (camera works out new value)
              *  else: shutter val is set to gui value 
              */
-            
-            video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); 
-            
+
             if(pangolin::Pushed(exposure.var->meta_gui_changed)){
+                video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); 
                 video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
                 shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
             }
@@ -265,7 +281,7 @@ int main( int argc, char* argv[] )
             for (int i = -1; i <= 1 ; i++){
                 video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, EV+i);
                 sleep(1);
-                cout << "[HDR]: image " << i+1 << " @  " << EV+i << "EV" << endl;
+                cout << "[HDR]: image " << i+1 << " @ " << EV+i << "EV" << endl;
                 hdr_shutter[i+1] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
             } 
             
@@ -283,34 +299,45 @@ int main( int argc, char* argv[] )
         // start/stop recording
         if ( save && pangolin::Pushed(record) ){ 
             
+            save = false; // set save flag to false
+            
             char time_stamp[32];
             char command[128];
             char *format;
-            // set save flag to false
-            save = false;
-        
+
             // set output video format from config or if not loaded, to default (mpeg)
             if (!video.CheckConfigLoaded()){
                 format = (char *) video.GetConfigValue("VIDEO_FORMAT").c_str();
             } else {
                 format = (char *) "mpeg" ;
             }
-
             // get time stamp for file name
             video.GetTimeStamp(time_stamp);
             
-            // create command string: convert video, remove files and then echo completed - should be thread safe this way
-            sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s \
-                              && rm -rf ./video/ppm/  \
-                              && echo '[VIDEO]: Video saved to ./video/%s.%s'", 
-                              time_stamp, format, time_stamp, format); 
+            if(hdr){
+                       
+                cout << "[VIDEO]: Processing HDR video" << endl;
 
+                
+            } else {
+                
+                cout << "[VIDEO]: Processing video" << endl;
+                
+                // create command string: convert video, remove files and then echo completed - should be thread safe this way
+                sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s \
+                        && rm -rf ./video/ppm/  \
+                        && echo '[VIDEO]: Video saved'", 
+                        time_stamp, format); 
+
+            }
+            
             // run video conversion in seperate thread (may take a while so lets us continue)
             boost::thread(system, command);  
             
         }
 
         if ( !save && pangolin::Pushed(record) ){ 
+            cout << "[VIDEO]: Recording video" << endl;
             save = true; 
             time (&start); // get current time
             frame_number = 0; 
@@ -346,6 +373,8 @@ int main( int argc, char* argv[] )
         // Swap back buffer with front and process window events via GLUT
         d_panel.Render();
         pangolin::FinishGlutFrame();
+        
+
     }
 
     delete[] img;

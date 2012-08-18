@@ -448,13 +448,11 @@
     
     //! create ppm from raw frame buffer
     void CreatePPM(dc1394video_frame_t *frame, 
-                   const char* filename, 
-                   dc1394video_mode_t video_mode);
+                   const char* filename);
         
     //! create jpeg from raw frame buffer 
     bool CreateJPEG(dc1394video_frame_t *frame, 
-                   const char *filename,  
-                   dc1394video_mode_t video_mode);
+                   const char *filename);
         
     //! returns video frame in RGB format (e.g. from YUV to RGB)
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);

@@ -9,15 +9,12 @@ TO DO
 Automatic Exposure Control
 -------------------------
 extract histogram and adjust
-
-
-Config file for output
--------------------------
-can't use dropdowns, so use config file for video format, tmo etc
+--> nearly done
 
 EV
 ---
 calculate EV values based on ticks not by calling getters each time
+--> doesn't seem to work
 
 Video Mode
 ----------
@@ -25,11 +22,6 @@ Move video mode to constructor
 
 OPTIMISATIONS
 =============
-
-Clean string usage
-------------------
-Using all sorts of strings/const * etc -> pick one and use it
-
 
 REFACTORING
 ===========
@@ -39,6 +31,11 @@ NICE TO HAVES
 
 COMPLETED
 =========
+
+Config file for output
+-------------------------
+can't use dropdowns, so use config file for video format, tmo etc
+
 
 SaveFile()
 ----------
