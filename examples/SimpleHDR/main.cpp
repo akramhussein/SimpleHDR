@@ -274,7 +274,7 @@ int main( int argc, char* argv[] )
                 cout << "[HDR]: No response function found, generating one" << endl;
                 video.GetResponseFunction();
             } 
-            
+            sleep(1);
             video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
             float EV = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
             for (int i = -1; i <= 1 ; i++){

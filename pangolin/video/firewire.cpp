@@ -2277,6 +2277,10 @@
         char hdrgen_file[32] = "camera.hdrgen";
         dc1394video_frame_t *frame = NULL;
         
+        if(CheckResponseFunction()){
+            system("rm -rf ./config/camera.response");
+        }
+        
         // turn off HDR register control
         SetHDRRegister(false);
         SetAllFeaturesAuto();
@@ -2335,18 +2339,27 @@
         
         // set attributes from config or if not loaded, to defaults
         // don't thread because HDR Capture uses output and will call this function
-        if(calibration.compare("mitsunaga") || calibration.compare("MITSUNAGA") ){
-            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -c mitsunaga -s ./config/camera.m > /dev/null 2>&1");
+        if(!calibration.compare("mitsunaga") || !calibration.compare("MITSUNAGA") ){
+            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -c mitsunaga -s ./config/camera.response > /dev/null 2>&1");
             cout << "[RESPONSE FUNCTION]: Camera Response Function file generated using Mitsunaga calibration technique" << endl;
+        } else if (!calibration.compare("linear") || !calibration.compare("LINEAR")){
+            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -r linear -s ./config/camera.response > /dev/null 2>&1");
+            cout << "[RESPONSE FUNCTION]: Linear camera response function generated." << endl;
+        } else if (!calibration.compare("gamma") || !calibration.compare("GAMMA")){
+            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -r gamma -s ./config/camera.response > /dev/null 2>&1");
+            cout << "[RESPONSE FUNCTION]: Gamma camera response function generated." << endl;
+        } else if (!calibration.compare("log") || !calibration.compare("LOG")){
+            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -r log -s ./config/camera.response > /dev/null 2>&1");
+            cout << "[RESPONSE FUNCTION]: Log camera response function generated." << endl;
         } else {
-            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s ./config/camera.m > /dev/null 2>&1");
+            system("pfsinhdrgen camera.hdrgen | pfshdrcalibrate -s ./config/camera.response > /dev/null 2>&1");
             cout << "[RESPONSE FUNCTION]: Camera Response Function file generated using Robertson calibration technique" << endl;
         }
         
-        // output jpeg of response function (non-critical, so can be threaded)
+        // output png of response function (non-critical, so can be threaded)
         boost::thread(system, "gnuplot ./config/response_plotting_script.plt \
-                               && echo '[RESPONSE FUNCTION]: Camera Response Function plot saved to camera_response.jpeg' "); 
-    
+                      && echo '[RESPONSE FUNCTION]: Camera Response Function plot saved to camera_response.jpeg' "); 
+        
         // clear outputs
         boost::thread(system, "rm -rf ./response-function/ && rm -rf camera.hdrgen > /dev/null 2>&1");
         
