@@ -443,6 +443,12 @@
                     bool jpeg = true                // true = jpeg, false = ppm
                 );
     
+    //! save normal video
+    void SaveVideo();
+        
+    // saves HDR video 
+    void SaveHDRVideo(int frame_number);
+        
     //! create ppm from raw frame buffer
     void CreatePPM(dc1394video_frame_t *frame, 
                    const char* filename);

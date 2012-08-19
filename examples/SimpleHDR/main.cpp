@@ -302,125 +302,14 @@ int main( int argc, char* argv[] )
             
             save = false; // set save flag to false
             
-            char time_stamp[32];
-            char command[128];
-            char *format;
-
-            // set output video format from config or if not loaded, to default (mpeg)
-            if (!video.CheckConfigLoaded()){
-                format = (char *) video.GetConfigValue("VIDEO_FORMAT").c_str();
-            } else {
-                format = (char *) "mpeg" ;
-            }
-            // get time stamp for file name
-            video.GetTimeStamp(time_stamp);
-            
-            if(hdr){
-                       
+            if(hdr){          
                 cout << "[VIDEO]: Processing HDR video" << endl;
-                
-                // see if response function has already been generated
-                if (!video.CheckResponseFunction()) {
-                    cout << "[HDR]: No response function found, generating one" << endl;
-                    video.SetAllFeaturesAuto();
-                    sleep(1);
-                    video.GetResponseFunction();
-                    sleep(1);
-                }
-                
-                // temp directories to hold exr and jpeg intermediate outputs
-                mkdir("./hdr-video/temp-exr/", 0755);
-                mkdir("./hdr-video/temp-jpeg/", 0755);
-                
-                char time_stamp[32];
-                char convert_command[1024];
-                char video_command[1024];
-                char *tmo;
-                char *format;
-                
-                // set tone mapping operator if config loaded, otherwise default
-                if (!video.CheckConfigLoaded()){
-                    tmo = (char *) video.GetConfigValue("HDR_TMO").c_str();
-                    format = (char *) video.GetConfigValue("VIDEO_FORMAT").c_str();
-                } else {
-                    tmo = (char *) "drago03";
-                    format = (char *) "mpeg";
-                }
-                                
-                int j = 0;
-                
-                for ( int i = 0 ; i < frame_number-1 ; i++){
-                    cout << "[HDR]: processing frame " << i << endl;
-                    
-                    stringstream ps, ps2, ps_j;
-                    
-                    // under exposed file padding
-                    ps << i;
-                    string pad = ps.str();
-                    pad.insert(pad.begin(), 6 - pad.size(), '0');
-                    char * pf = new char[pad.size()];
-                    copy(pad.begin(), pad.end(), pf);
-                    
-                    // over exposed file padding
-                    ps2 << i+1;
-                    string pad2 = ps2.str();
-                    pad2.insert(pad2.begin(), 6 - pad2.size(), '0');
-                    char * pf2 = new char[pad2.size()];
-                    copy(pad2.begin(), pad2.end(), pf2);
-
-                    // output file padding
-                    ps_j << j;
-                    string pad_j = ps_j.str();
-                    pad_j.insert(pad_j.begin(), 6 - pad_j.size(), '0');
-                    char * pf_j = new char[pad_j.size()];
-                    copy(pad_j.begin(), pad_j.end(), pf_j);
-                    
-                    sprintf(convert_command, "pfsinme ./hdr-video/jpeg/image%s.jpeg ./hdr-video/jpeg/image%s.jpeg \
-                                     | pfshdrcalibrate -f ./config/camera.response \
-                                     | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
-                                     && pfsinexr ./hdr-video/temp-exr/image%s.exr \
-                                     | pfstmo_%s | pfsout ./hdr-video/temp-jpeg/image%s.jpeg",
-                                     pf, pf2, pf_j, pf_j, tmo, pf_j);
-                    
-                    // convert pair of frames to exr
-                    system(convert_command);
-                    
-                    i++; // increment by 2 - jump over next frame
-                    j++; // increment by 1 - final file name
-                }
-                
-                // delete original files and exr files
-                boost::thread(system,"rm -rf ./hdr-video/jpeg/ ./hdr-video/temp-exr");
-                
-                cout << "[HDR]: Processing HDR video" << endl;
-                video.GetTimeStamp(time_stamp);
-                
-                // create command string: convert video, remove files and then echo completed - should be thread safe this way
-                sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s.%s \
-                        && rm -rf ./hdr-video/temp-jpeg/ \
-                        && echo '[HDR]: HDR Video saved to ./hdr-video/' ", 
-                        time_stamp, format); 
-                
-                // run final video conversion in seperate thread (may take a while so lets us continue)
-                boost::thread(system, video_command);  
-                
+                boost::thread(&FirewireVideo::SaveHDRVideo, &video, frame_number);    
             } else {
-                
                 cout << "[VIDEO]: Processing video" << endl;
-                
-                // create command string: convert video, remove files and then echo completed - should be thread safe this way
-                sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s \
-                        && rm -rf ./video/ppm/  \
-                        && echo '[VIDEO]: Video saved'", 
-                        time_stamp, format); 
-                
-                // run video conversion in seperate thread (may take a while so lets us continue)
-                boost::thread(system, command);  
-     
+                boost::thread(&FirewireVideo::SaveVideo, &video);
             }
-            
-
-            
+         
         }
 
         if ( !save && pangolin::Pushed(record) ){ 
