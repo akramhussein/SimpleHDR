@@ -138,7 +138,7 @@
     dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8,
     dc1394framerate_t framerate = DC1394_FRAMERATE_30,
     dc1394speed_t iso_speed = DC1394_ISO_SPEED_400,
-    int dma_buffers = 10
+    int dma_buffers = 100
     );
 
     FirewireVideo(
@@ -146,7 +146,7 @@
     dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8,
     dc1394framerate_t framerate = DC1394_FRAMERATE_30,
     dc1394speed_t iso_speed = DC1394_ISO_SPEED_400,
-    int dma_buffers = 10
+    int dma_buffers = 100
     );
 
     FirewireVideo(
@@ -397,9 +397,6 @@
      *  RECORDING/SAVING
      *-----------------------------------------------------------------------*/
         
-    //return time stamped string
-    void GetTimeStamp(char* time_stamp);
-
     //! records multiple frames
     bool RecordFrames(     
                       int frame_number,      // current frame number
@@ -511,6 +508,12 @@
         
     //! check if config map is loaded
     bool CheckConfigLoaded();
+    
+    //return time stamped string
+    void GetTimeStamp(char* time_stamp);
+        
+    // return padded frame number
+    void PadNumber(int frame_number, char* string);
         
     protected:
 

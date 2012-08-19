@@ -7,6 +7,10 @@
 #include <sys/stat.h>
 #include <iostream>
 #include <limits>
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <inttypes.h>
 
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
@@ -170,8 +174,9 @@ int main( int argc, char* argv[] )
         // checks if hdr mode has been switched and sets register on
         if(pangolin::Pushed(hdr.var->meta_gui_changed)){
             
+            
             if( hdr ){
-                              
+                cout << "[HDR]: HDR mode enabled" << endl;        
                 video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
                 float EV = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
                 
@@ -184,12 +189,14 @@ int main( int argc, char* argv[] )
                 } 
 
                 // set shutter values
-                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[0], hdr_shutter[1], hdr_shutter[2]); 
+                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[2], hdr_shutter[0], hdr_shutter[2]); 
                 video.SetHDRRegister(true);
                 
             } else {
+                cout << "[HDR]: HDR mode disabled" << endl;    
                 video.SetHDRRegister(false);
             }
+        
         }
         
         // switch under over flag
@@ -198,16 +205,16 @@ int main( int argc, char* argv[] )
         // shutter settings when AEC mode activated   
         if(pangolin::Pushed(AEC.var->meta_gui_changed)){
 
+            AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
+            
             if (hdr && AEC){
-                cout << "[AEC]: AEC enabled" << endl;
+                
                 if(under_over){
                     hdr_shutter[0] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[0]), under_over);
                 } else {
                     hdr_shutter[2] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[2]), under_over);
                 }
-                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[0], hdr_shutter[1], hdr_shutter[2]);
-            } else {
-                cout << "[AEC]: AEC disabled" << endl;                
+                
             }
             
         }
@@ -273,7 +280,8 @@ int main( int argc, char* argv[] )
             if (!video.CheckResponseFunction()) {
                 cout << "[HDR]: No response function found, generating one" << endl;
                 video.GetResponseFunction();
-            } 
+            }
+            video.SetAllFeaturesAuto();
             sleep(1);
             video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
             float EV = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
@@ -316,7 +324,90 @@ int main( int argc, char* argv[] )
             if(hdr){
                        
                 cout << "[VIDEO]: Processing HDR video" << endl;
+                
+                // see if response function has already been generated
+                if (!video.CheckResponseFunction()) {
+                    cout << "[HDR]: No response function found, generating one" << endl;
+                    video.SetAllFeaturesAuto();
+                    sleep(1);
+                    video.GetResponseFunction();
+                    sleep(1);
+                }
+                
+                // temp directories to hold exr and jpeg intermediate outputs
+                mkdir("./hdr-video/temp-exr/", 0755);
+                mkdir("./hdr-video/temp-jpeg/", 0755);
+                
+                char time_stamp[32];
+                char convert_command[1024];
+                char video_command[1024];
+                char *tmo;
+                char *format;
+                
+                // set tone mapping operator if config loaded, otherwise default
+                if (!video.CheckConfigLoaded()){
+                    tmo = (char *) video.GetConfigValue("HDR_TMO").c_str();
+                    format = (char *) video.GetConfigValue("VIDEO_FORMAT").c_str();
+                } else {
+                    tmo = (char *) "drago03";
+                    format = (char *) "mpeg";
+                }
+                                
+                int j = 0;
+                
+                for ( int i = 0 ; i < frame_number ; i++){
+                    cout << "[HDR]: processing frame " << i << endl;
+                    
+                    stringstream ps, ps2, ps_j;
+                    
+                    // under exposed file padding
+                    ps << i;
+                    string pad = ps.str();
+                    pad.insert(pad.begin(), 6 - pad.size(), '0');
+                    char * pf = new char[pad.size()];
+                    copy(pad.begin(), pad.end(), pf);
+                    
+                    // over exposed file padding
+                    ps2 << i+1;
+                    string pad2 = ps2.str();
+                    pad2.insert(pad2.begin(), 6 - pad2.size(), '0');
+                    char * pf2 = new char[pad2.size()];
+                    copy(pad2.begin(), pad2.end(), pf2);
 
+                    // output file padding
+                    ps_j << j;
+                    string pad_j = ps_j.str();
+                    pad_j.insert(pad_j.begin(), 6 - pad_j.size(), '0');
+                    char * pf_j = new char[pad_j.size()];
+                    copy(pad_j.begin(), pad_j.end(), pf_j);
+                    
+                    sprintf(convert_command, "pfsinme ./hdr-video/jpeg/image%s.jpeg ./hdr-video/jpeg/image%s.jpeg \
+                                     | pfshdrcalibrate -f ./config/camera.response \
+                                     | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
+                                     && pfsinexr ./hdr-video/temp-exr/image%s.exr \
+                                     | pfstmo_%s | pfsout ./hdr-video/temp-jpeg/image%s.jpeg > /dev/null 2>&1",
+                                     pf, pf2, pf_j, pf_j, tmo, pf_j);
+                    
+                    // convert pair of frames to exr
+                    system(convert_command);
+                    
+                    i++; // increment by 2 - jump over next frame
+                    j++; // increment by 1 - final file name
+                }
+                
+                // delete original files and exr files
+                boost::thread(system,"rm -rf ./hdr-video/jpeg/ ./hdr-video/temp-exr");
+                
+                cout << "[HDR]: Processing HDR video" << endl;
+                video.GetTimeStamp(time_stamp);
+                
+                // create command string: convert video, remove files and then echo completed - should be thread safe this way
+                sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s.%s \
+                        && echo '[HDR]: HDR Video saved'", 
+                        time_stamp, format); 
+                
+                // run video conversion in seperate thread (may take a while so lets us continue)
+                boost::thread(system, video_command);  
                 
             } else {
                 
@@ -327,11 +418,13 @@ int main( int argc, char* argv[] )
                         && rm -rf ./video/ppm/  \
                         && echo '[VIDEO]: Video saved'", 
                         time_stamp, format); 
-
+                
+                // run video conversion in seperate thread (may take a while so lets us continue)
+                boost::thread(system, command);  
+                
             }
             
-            // run video conversion in seperate thread (may take a while so lets us continue)
-            boost::thread(system, command);  
+
             
         }
 
@@ -357,14 +450,14 @@ int main( int argc, char* argv[] )
             time (&end);
             recorded_time.operator=(difftime(end, start));
         } 
-        else if ( hdr ){
-            video.GrabOneShot(img);
-        }
         else{
             video.GrabOneShot(img);
         }
        
-        // refresh screen 
+        /*-----------------------------------------------------------------------
+         *  Refresh screen
+         *-----------------------------------------------------------------------*/    
+        
         texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
         // Activate video viewport and render texture
         vVideo.ActivateScissorAndClear();
@@ -372,7 +465,6 @@ int main( int argc, char* argv[] )
         // Swap back buffer with front and process window events via GLUT
         d_panel.Render();
         pangolin::FinishGlutFrame();
-        
 
     }
 

@@ -98,7 +98,6 @@
     Start();
     }
 
-
     // Note:
     // the following was tested on a IIDC camera over USB therefore might not work as
     // well on a camera over proper firewire transport
@@ -1341,12 +1340,12 @@
         //uint32_t hdr_flags = 0x80000000 | 33554432;
         
         if( power ) {
-            cout << "[HDR]: HDR register enabled" << endl;
+            cout << "[DC1394]: HDR register enabled" << endl;
             hdr_flags = 0x82000000;
             hdr_register = true;
 
         } else{
-            cout << "[HDR]: HDR register disabled" << endl;
+            cout << "[DC1394]: HDR register disabled" << endl;
             hdr_flags = 0x8000000;
             hdr_register = false;
             // reset shutter flags
@@ -1851,14 +1850,6 @@
             cout << "[SAVE]: JPEG image saved to " << filename << endl;
         }
     }
-    
-    void FirewireVideo::GetTimeStamp(char* time_stamp){
-        time_t rawtime;
-        struct tm * timeinfo;
-        time ( &rawtime );
-        timeinfo = localtime ( &rawtime );
-        strftime(time_stamp,32,"%d%b%Y_%H-%M-%S",timeinfo);
-    }
 
     bool FirewireVideo::SaveFile(
                                  int frame_number, 
@@ -2075,7 +2066,7 @@
         }
 
     }
-    //float FirewireVideo::AEC(dc1394video_frame_t frame, float st, bool under_over){
+
     float FirewireVideo::AEC(unsigned char *image, float st, bool under_over){
         
         //int i = GetMetaOffset() - 1;
@@ -2422,6 +2413,25 @@
     
     bool FirewireVideo::CheckConfigLoaded(){
         return config.empty();
+    }
+      
+    void FirewireVideo::GetTimeStamp(char* time_stamp){
+        time_t rawtime;
+        struct tm * timeinfo;
+        time ( &rawtime );
+        timeinfo = localtime ( &rawtime );
+        strftime(time_stamp,32,"%d%b%Y_%H-%M-%S",timeinfo);
+    }
+    
+    void FirewireVideo::PadNumber(int frame_number, char *string){
+       
+        stringstream ps;
+    
+        ps << frame_number;
+        std::string pad = ps.str();
+        pad.insert(pad.begin(), 6 - pad.size(), '0');
+        std::copy(pad.begin(), pad.end(), string);
+        
     }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
