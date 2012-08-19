@@ -83,7 +83,7 @@ namespace pangolin
             cout << "Exiv error: '" << e << "'\n";
         }
         
-        cout << "[IMAGE]: Exif data written from camera settings" << endl;
+        //cout << "[IMAGE]: Exif data written from camera settings" << endl;
     }
 
     void WriteExifDataFromImageMetaData(MetaData *metaData, const std::string& filename)
@@ -125,7 +125,7 @@ namespace pangolin
             cout << "Exiv error: '" << e << "'\n";
         }
         
-        cout << "[IMAGE]: Exif data written from meta data" << endl;
+        //cout << "[IMAGE]: Exif data written from meta data" << endl;
         
     }
     

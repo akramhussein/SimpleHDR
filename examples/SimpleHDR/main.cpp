@@ -6,16 +6,10 @@
 
 #include <sys/stat.h>
 #include <iostream>
-#include <limits>
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <inttypes.h>
 
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
 #include <pangolin/video/firewire.h>
-#include <pangolin/display_internal.h>
 
 #include <boost/thread.hpp>  
 
@@ -355,7 +349,7 @@ int main( int argc, char* argv[] )
                                 
                 int j = 0;
                 
-                for ( int i = 0 ; i < frame_number ; i++){
+                for ( int i = 0 ; i < frame_number-1 ; i++){
                     cout << "[HDR]: processing frame " << i << endl;
                     
                     stringstream ps, ps2, ps_j;
@@ -385,7 +379,7 @@ int main( int argc, char* argv[] )
                                      | pfshdrcalibrate -f ./config/camera.response \
                                      | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
                                      && pfsinexr ./hdr-video/temp-exr/image%s.exr \
-                                     | pfstmo_%s | pfsout ./hdr-video/temp-jpeg/image%s.jpeg > /dev/null 2>&1",
+                                     | pfstmo_%s | pfsout ./hdr-video/temp-jpeg/image%s.jpeg",
                                      pf, pf2, pf_j, pf_j, tmo, pf_j);
                     
                     // convert pair of frames to exr
@@ -403,10 +397,11 @@ int main( int argc, char* argv[] )
                 
                 // create command string: convert video, remove files and then echo completed - should be thread safe this way
                 sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s.%s \
-                        && echo '[HDR]: HDR Video saved'", 
+                        && rm -rf ./hdr-video/temp-jpeg/ \
+                        && echo '[HDR]: HDR Video saved to ./hdr-video/' ", 
                         time_stamp, format); 
                 
-                // run video conversion in seperate thread (may take a while so lets us continue)
+                // run final video conversion in seperate thread (may take a while so lets us continue)
                 boost::thread(system, video_command);  
                 
             } else {
@@ -421,7 +416,7 @@ int main( int argc, char* argv[] )
                 
                 // run video conversion in seperate thread (may take a while so lets us continue)
                 boost::thread(system, command);  
-                
+     
             }
             
 
