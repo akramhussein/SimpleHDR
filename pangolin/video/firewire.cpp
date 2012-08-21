@@ -1955,15 +1955,15 @@
         char convert_command[1024];
         char video_command[1024];
         char *tmo;
-        char *format;
+        string format;
         
         // set tone mapping operator if config loaded, otherwise default
         if (!CheckConfigLoaded()){
             tmo = (char *) GetConfigValue("HDR_TMO").c_str();
-            format = (char *) GetConfigValue("VIDEO_FORMAT").c_str();
+            format = GetConfigValue("VIDEO_FORMAT");
         } else {
             tmo = (char *) "drago03";
-            format = (char *) "mpeg";
+            format = "avi";
         }
         
         int j = 0;
@@ -1995,6 +1995,7 @@
             char * pf_j = new char[pad_j.size()];
             copy(pad_j.begin(), pad_j.end(), pf_j);
             
+           
             sprintf(convert_command, "pfsinme ./hdr-video/jpeg/image%s.jpeg ./hdr-video/jpeg/image%s.jpeg \
                     | pfshdrcalibrate -f ./config/camera.response \
                     | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
@@ -2012,18 +2013,30 @@
         cout << "[HDR]: Processing HDR video" << endl;
         
         GetTimeStamp(time_stamp);
+                
+        if(!format.compare("avi") || !format.compare("AVI") ){
+
+            // create command string: convert video, remove files and then echo completed - should be thread safe this way
+            sprintf(video_command, "mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
+                                    && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o ./hdr-video/%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
+                                    && rm -rf ./hdr-video/temp-jpeg/ divx2pass.log \
+                                    && echo '[HDR]: HDR Video saved to ./hdr-video/%s.avi'", 
+                                    time_stamp, time_stamp); 
         
-        char output[1024];
-        sprintf(output, "%s.%s", time_stamp, format);
-        
-        // create command string: convert video, remove files and then echo completed - should be thread safe this way
-        sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s \
-                                && rm -rf ./hdr-video/temp-jpeg/ \
-                                && echo '[HDR]: HDR Video saved to ./hdr-video/%s' ", 
-                                output, output); 
-        
-        // run final video conversion in seperate thread (may take a while so lets us continue)
-        system(video_command);  
+            // run final video conversion
+            system(video_command);  
+            
+        } else {
+            
+            sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s.mpeg \
+                    && rm -rf ./hdr-video/temp-jpeg/ \
+                    && echo '[HDR]: HDR Video saved to ./hdr-video/%s.mpeg' ", 
+                    time_stamp, time_stamp); 
+            
+            // run final video conversion 
+            system(video_command);  
+
+        }
         
         // delete original files and exr files
         system("rm -rf ./hdr-video/jpeg/ ./hdr-video/temp-exr");
@@ -2408,7 +2421,7 @@
         
         while (EV + i <= exposure_max){
 
-            cout << "[RESPONSE FUNCTION]: " << j << " @ " << EV+i << "EV" << endl;
+            cout << "[RESPONSE FUNCTION]: " << j << " @ " << EV+i << " EV" << endl;
             SetFeatureValue(DC1394_FEATURE_EXPOSURE, EV + i);
             sleep(1);
             
