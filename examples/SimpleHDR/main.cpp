@@ -178,7 +178,7 @@ int main( int argc, char* argv[] )
                 for (int i = -1; i <= 1 ; i++){
                     video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, EV+i);
                     sleep(1);
-                    cout << i << ": " << EV+i << " EV" << endl;
+                    cout << "> " << i << ": " << EV+i << " EV" << endl;
                     hdr_shutter[i+1] = video.GetFeatureQuant(DC1394_FEATURE_SHUTTER);
                 } 
 
