@@ -1,7 +1,12 @@
-    /* This file is part of the Pangolin Project.
-    * http://github.com/stevenlovegrove/Pangolin
+   /* This file is part of the Pangolin HDR extension project
     *
-    * Copyright (c) 2011 Steven Lovegrove
+    * http://github.com/akramhussein/hdr
+    *
+    * Copyright (c) 2012 Akram Hussein
+    *
+    * Original source code by Steven Lovegrove
+    *
+    * http://github.com/stevenlovegrove/Pangolin
     *
     * Permission is hereby granted, free of charge, to any person
     * obtaining a copy of this software and associated documentation
@@ -1799,13 +1804,13 @@
                 | pfshdrcalibrate -f ./config/camera.response \
                 | pfsoutexr ./hdr-image/hdr.exr && pfsinexr ./hdr-image/hdr.exr \
                 | pfstmo_%s | pfsout ./hdr-image/%s-HDR.jpeg \
-                | rm -rf ./hdr-image/jpeg && rm -rf ./hdr-image/hdr.exr \
+                && rm -rf ./hdr-image/jpeg ./hdr-image/hdr.exr \
                 && echo '[HDR]: HDR frame generated: ./hdr-image/%s-HDR.%s'", 
                 tmo, time_stamp, time_stamp, format);
-
-        //don't run final command until all other threads finish
+      
+            //don't run final command until all other threads finish
         thread_group.join_all();
-        boost::thread(system, command);
+        system(command);
     }
         
     void FirewireVideo::SaveSingleFrame(unsigned char *image){
@@ -1847,7 +1852,7 @@
             ? WriteExifDataFromImageMetaData(&metaData, filename)
             : WriteExifData(this, filename);
            
-            //cout << "[SAVE]: JPEG image saved to " << filename << endl;
+            cout << "[SAVE]: JPEG image saved to " << filename << endl;
         }
     }
 
@@ -1916,6 +1921,7 @@
         
         char time_stamp[32];
         char command[128];
+        char output[1024];
         char *format;
         
         // set output video format from config or if not loaded, to default (mpeg)
@@ -1927,11 +1933,13 @@
         // get time stamp for file name
         GetTimeStamp(time_stamp);
 
+        sprintf(output, "%s.%s", time_stamp, format);
+        
         // create command string: convert video, remove files and then echo completed - should be thread safe this way
-        sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s.%s \
+        sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
                 && rm -rf ./video/ppm/  \
                 && echo '[VIDEO]: Video saved'", 
-                time_stamp, format); 
+                output); 
         
         // run video conversion
         system(command);  
@@ -1961,8 +1969,8 @@
         int j = 0;
         
         for ( int i = 0 ; i < frame_number-1 ; i++){
+           
             cout << "[HDR]: processing frame " << j << endl;
-            
             
             stringstream ps, ps2, ps_j;
             
@@ -2005,11 +2013,14 @@
         
         GetTimeStamp(time_stamp);
         
+        char output[1024];
+        sprintf(output, "%s.%s", time_stamp, format);
+        
         // create command string: convert video, remove files and then echo completed - should be thread safe this way
-        sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s.%s \
+        sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s \
                                 && rm -rf ./hdr-video/temp-jpeg/ \
-                                && echo '[HDR]: HDR Video saved to ./hdr-video/' ", 
-                                time_stamp, "mpeg"); 
+                                && echo '[HDR]: HDR Video saved to ./hdr-video/%s' ", 
+                                output, output); 
         
         // run final video conversion in seperate thread (may take a while so lets us continue)
         system(video_command);  
@@ -2337,7 +2348,7 @@
                 throw VideoException("[DC1394 ERROR]: Could not get supported modes");
         
         // select highest res mode:
-        for (i = video_modes.num-1;i>=0;i--) {
+        for (i = video_modes.num-1; i >= 0 ;i--) {
            
             if (!dc1394_is_video_mode_scalable(video_modes.modes[i])) {
                 dc1394_get_color_coding_from_video_mode(camera,video_modes.modes[i], &coding);
@@ -2530,15 +2541,15 @@
         strftime(time_stamp,32,"%d%b%Y_%H-%M-%S",timeinfo);
     }
     
-    void FirewireVideo::PadNumber(int frame_number, char *string){
+    void FirewireVideo::PadNumber(int frame_number, char *padded_string){
        
         stringstream ps;
     
         ps << frame_number;
-        std::string pad = ps.str();
+        string pad = ps.str();
         pad.insert(pad.begin(), 6 - pad.size(), '0');
-        std::copy(pad.begin(), pad.end(), string);
-        
+        copy(pad.begin(), pad.end(), padded_string);
+
     }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
