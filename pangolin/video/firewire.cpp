@@ -2074,9 +2074,7 @@
     }
         
 
-    bool FirewireVideo::CreateJPEG(dc1394video_frame_t *frame, 
-                                 const char *filename)
-    {            
+    bool FirewireVideo::CreateJPEG(dc1394video_frame_t *frame, const char *filename) {            
         unsigned int width, height;
         
         // get width & height
@@ -2131,6 +2129,46 @@
         jpeg_finish_compress( &cinfo );
         jpeg_destroy_compress( &cinfo );
         fclose( outfile );
+        
+        return true;
+    }
+        
+    bool LoadJPEG(unsigned char* image_buffer, char* filename){
+        
+        struct jpeg_decompress_struct cinfo;
+        struct jpeg_error_mgr jerr;
+        
+        FILE *infile;		
+        JSAMPARRAY buffer;	
+        int row_stride;		
+        
+        if ((infile = fopen(filename, "rb")) == NULL)
+        {
+            printf("[ERROR]: Error opening input jpeg file %s\n!", filename );
+            return false;
+        }
+        
+        cinfo.err = jpeg_std_error( &jerr );
+        jpeg_create_decompress(&cinfo);
+        
+        jpeg_stdio_src(&cinfo, infile);
+        
+        (void) jpeg_read_header(&cinfo, TRUE);
+        (void) jpeg_start_decompress(&cinfo);
+        row_stride = cinfo.output_width *cinfo.output_components;
+        
+        buffer = (*cinfo.mem->alloc_sarray)
+        ((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
+        
+        while (cinfo.output_scanline < cinfo.output_height)
+        {
+            JDIMENSION read_now = jpeg_read_scanlines(&cinfo, buffer, 1);
+            memcpy(&image_buffer[(cinfo.output_scanline - read_now) *cinfo.output_width *cinfo.output_components], buffer[0], row_stride);
+        }
+        
+        jpeg_finish_decompress(&cinfo);
+        jpeg_destroy_decompress(&cinfo);
+        fclose(infile);
         
         return true;
     }

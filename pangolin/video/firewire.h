@@ -461,6 +461,9 @@
     //! create jpeg from raw frame buffer 
     bool CreateJPEG(dc1394video_frame_t *frame, 
                    const char *filename);
+    
+    //! load jpeg in to image buffer
+    bool LoadJPEG(unsigned char *image_buffer, char *filename);
         
     //! returns video frame in RGB format (e.g. from YUV to RGB)
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
