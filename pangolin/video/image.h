@@ -46,12 +46,20 @@
 
 namespace pangolin
 {
-
-    //! Copy ppm to jpeg
+    //! create ppm from frame buffer
+    bool CreatePPM(unsigned char* image, int width, int height, const char* filename);
+    
+    //! create jpeg from frame buffer
+    bool CreateJPEG(unsigned char* image, int width, int height, const char* filename);
+    
+    //! load jpeg in to image buffer
+    bool LoadJPEG(unsigned char* image, const char* filename);
+    
+    //! copy ppm to jpeg
     void CopyFormatToFormat(const char* from_filename, const char* to_filename);
     
     //! write current camera data to exif on jpeg image -- quicker & more accurate 
-    void WriteExifData(const pangolin::FirewireVideo* video, const std::string& filename);
+    void WriteExifData(const pangolin::FirewireVideo *video, const std::string& filename);
 
     //! write image metadata to exif on jpeg image
     void WriteExifDataFromImageMetaData(MetaData *metaData, const std::string& filename);
@@ -68,4 +76,5 @@ namespace pangolin
     //! saves image histogram to file
     void SaveImageHistogram(const char* filename);
 }
+
 #endif

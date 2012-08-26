@@ -36,6 +36,117 @@ using namespace std;
 
 namespace pangolin
 {
+    // bool CreatePPM(unsigned char* image, int w, int h, const char* filename)
+    bool CreatePPM(unsigned char* image, int width, int height, const char* filename)
+    {
+        
+        FILE* imagefile;
+        
+        uint64_t numPixels = height*width;
+        imagefile = fopen(filename, "wb");
+        
+        if( imagefile == NULL) {
+            perror( "[IMAGE ERROR]: Can't create output file");
+            return false;
+        }
+        
+        fprintf(imagefile,"P6\n%u %u\n255\n", width, height);
+        fwrite(image, 1, numPixels*3, imagefile);
+        fclose(imagefile);
+        
+        return true;
+        
+    }
+    
+    bool CreateJPEG(unsigned char* image, int width, int height, const char* filename)
+    {            
+    
+        // this is a pointer to one row of image data
+        JSAMPROW row_pointer[1];
+        FILE *imagefile = fopen( filename, "wb" );
+
+        struct jpeg_compress_struct cinfo;
+        struct jpeg_error_mgr jerr;
+             
+        if ( !imagefile ) {
+            printf("[IMAGE ERROR]: Error opening output jpeg file %s\n!", filename );
+            return false;
+        }
+        
+        cinfo.err = jpeg_std_error( &jerr );
+        jpeg_create_compress(&cinfo);
+        jpeg_stdio_dest(&cinfo, imagefile);
+        
+        // Setting the parameters of the output file here 
+        cinfo.image_width = width;  
+        cinfo.image_height = height;
+        cinfo.input_components = 3;
+        cinfo.in_color_space = JCS_RGB;
+        
+        // default compression parameters
+        jpeg_set_defaults( &cinfo );
+        
+        // set quality to 100%
+        jpeg_set_quality ( &cinfo, 100, TRUE);
+        
+        // Now do the compression
+        jpeg_start_compress( &cinfo, TRUE );
+        
+        // like reading a file, this time write one row at a time
+        while( cinfo.next_scanline < cinfo.image_height )
+        {
+            row_pointer[0] = &image[ cinfo.next_scanline * cinfo.image_width *  cinfo.input_components];
+            jpeg_write_scanlines( &cinfo, row_pointer, 1 );
+        }
+        // similar to read file, clean up after we're done compressing 
+        jpeg_finish_compress( &cinfo );
+        jpeg_destroy_compress( &cinfo );
+        fclose( imagefile );
+        
+        return true;
+    }
+    
+    bool LoadJPEG(unsigned char* image_buffer, const char* filename){
+        
+        struct jpeg_decompress_struct cinfo;
+        struct jpeg_error_mgr jerr;
+        
+        FILE *infile;		
+        JSAMPARRAY buffer;	
+        int row_stride;		
+        
+        if ((infile = fopen(filename, "rb")) == NULL)
+        {
+            printf("[IMAGE ERROR]: Error opening input jpeg file %s\n!", filename );
+            return false;
+        }
+        
+        cinfo.err = jpeg_std_error( &jerr );
+        jpeg_create_decompress(&cinfo);
+        
+        jpeg_stdio_src(&cinfo, infile);
+        
+        (void) jpeg_read_header(&cinfo, TRUE);
+        (void) jpeg_start_decompress(&cinfo);
+        row_stride = cinfo.output_width *cinfo.output_components;
+        
+        buffer = (*cinfo.mem->alloc_sarray)
+        ((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
+        
+        while (cinfo.output_scanline < cinfo.output_height)
+        {
+            JDIMENSION read_now = jpeg_read_scanlines(&cinfo, buffer, 1);
+            memcpy(&image_buffer[(cinfo.output_scanline - read_now) *cinfo.output_width *cinfo.output_components], buffer[0], row_stride);
+        }
+        
+        jpeg_finish_decompress(&cinfo);
+        jpeg_destroy_decompress(&cinfo);
+        fclose(infile);
+        
+        return true;
+        
+    }
+    
     void CopyFormatToFormat(const char* from_filename, const char* to_filename)
     {
         
@@ -46,7 +157,7 @@ namespace pangolin
         } 
         catch( Magick::ErrorFileOpen &error ) {
             // Process Magick++ file open error
-            cerr << "Error: " << error.what() << endl;
+            cerr << "[IMAGE ERROR]: " << error.what() << endl;
         }
 
     }
@@ -80,7 +191,7 @@ namespace pangolin
             
         }
         catch (Exiv2::AnyError& e) {
-            cout << "Exiv error: '" << e << "'\n";
+            cout << "[IMAGE] Exiv error - '" << e << "'\n";
         }
         
         //cout << "[IMAGE]: Exif data written from camera settings" << endl;
@@ -122,7 +233,7 @@ namespace pangolin
             
         }
         catch (Exiv2::AnyError& e) {
-            cout << "Exiv error: '" << e << "'\n";
+            cout << "[IMAGE ERROR]: Exiv error- '" << e << "'\n";
         }
         
         //cout << "[IMAGE]: Exif data written from meta data" << endl;
@@ -166,7 +277,7 @@ namespace pangolin
             exifData = image->exifData();
             
             if (exifData.empty()){
-                throw VideoException("Exiv Error: No Exif Data in image");
+                throw VideoException("[IMAGE ERROR]: Exiv Error - No Exif Data in image");
             }
 
             Exiv2::ExifData::const_iterator _expo = exifData.findKey(Exiv2::ExifKey("Exif.Photo.ExposureTime"));

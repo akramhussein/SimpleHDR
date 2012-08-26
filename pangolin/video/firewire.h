@@ -443,9 +443,9 @@
     //! save image file to ppm or jpeg
     bool SaveFile(    
                     int frame_number,           // current frame number
-                    dc1394video_frame_t frame, // frame buffer (copy - threading)
+                    dc1394video_frame_t frame,  // frame buffer (copy - threading)
                     const char* path,           // folder name
-                    bool jpeg = true                // true = jpeg, false = ppm
+                    bool jpeg = true            // true = jpeg, false = ppm
                 );
     
     //! save normal video
@@ -454,26 +454,12 @@
     // saves HDR video 
     void SaveHDRVideo(int frame_number);
         
-    //! create ppm from raw frame buffer
-    void CreatePPM(dc1394video_frame_t *frame, 
-                   const char* filename);
-        
-    //! create jpeg from raw frame buffer 
-    bool CreateJPEG(dc1394video_frame_t *frame, 
-                   const char *filename);
-    
-    //! load jpeg in to image buffer
-    bool LoadJPEG(unsigned char *image_buffer, char *filename);
-        
     //! returns video frame in RGB format (e.g. from YUV to RGB)
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
     
     /*-----------------------------------------------------------------------
      *  REPORTING
      *-----------------------------------------------------------------------*/
-    
-    //! print full camera features and current settings report
-    void PrintCameraReport();
     
     //! generate image pixel intensity count in map
     void CreatePixIntensityMap(dc1394video_frame_t frame);
@@ -485,23 +471,34 @@
     float AEC(unsigned char *image, float st, bool under_over);
               
     /*-----------------------------------------------------------------------
-     *  UTILITIES
+     *  CAMERA UTILITIES
      *-----------------------------------------------------------------------*/
     
-    //! get the best video mode and highest framerate for camera (default colour RGB8)
-    void GetBestSettings( dc1394video_mode_t &video_mode, 
-                          dc1394framerate_t &framerate 
-                         );
-    
+    //! get camera pointer
+    dc1394camera_t *GetCamera() { return camera; }
+        
     //! get camera feature set
     dc1394featureset_t *GetFeatures() { return &features; }
+    
+    //! get video mode
+    dc1394video_mode_t *GetVideoMode() { return &video_mode; }
         
     //! get camera vendor
     std::string GetCameraVendor() const { return camera->vendor; }
     
     //! get camera model
     std::string GetCameraModel() const { return camera->model; }
-     
+        
+    //! print full camera features and current settings report
+    void PrintCameraReport();
+    
+    //! get the best video mode and highest framerate for camera (default colour RGB8)
+    void GetBestSettings(dc1394video_mode_t &video_mode, dc1394framerate_t &framerate);
+        
+    /*-----------------------------------------------------------------------
+     *  FILE UTILITIES
+     *-----------------------------------------------------------------------*/
+        
     //! generate camera response function and save to file
     void GetResponseFunction();
     

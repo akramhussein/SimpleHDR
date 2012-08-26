@@ -1,4 +1,5 @@
 /**
+ * SimpleHDR
  * @author  Akram Hussein
  * Copyright (C) 2012  Akram Hussein
  *                     Imperial College London
@@ -28,9 +29,7 @@ int main( int argc, char* argv[] )
     video.SetMetaDataFlags( META_ALL_AND_ABS );
     video.CreateShutterMaps();
     video.SetAllFeaturesAuto();
-    //video.Stop();
-    //video.FlushDMABuffer();//remove spurious frames
-    //video.PrintCameraReport();
+    video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
 
@@ -46,7 +45,8 @@ int main( int argc, char* argv[] )
     const int panel_width = 200;
     double scale = 1.25;
     pangolin::CreateGlutWindowAndBind("SimpleHDR", w*scale + panel_width, h*scale);
-    
+    int win = glutGetWindow();
+
     // Create viewport for video with fixed aspect
     View& d_panel = pangolin::CreatePanel("ui.")
     .SetBounds(0.0, 1.0, 0.0, Attach::Pix(panel_width));
@@ -62,16 +62,15 @@ int main( int argc, char* argv[] )
     /*-----------------------------------------------------------------------
      *  KEYBOARD SHORCUTS
      *-----------------------------------------------------------------------*/ 
-
+    
     pangolin::RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));                 // hdr mode 
     pangolin::RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                // normal mode
-    pangolin::RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // grab multiple frames in ppm & jpeg
-    pangolin::RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single frame in ppm & jpeg
+    pangolin::RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // start/stop recording
+    pangolin::RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single image
     pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
     pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
     pangolin::RegisterKeyPressCallback( 'e', SetVarFunctor<bool>("ui.Automatic Exposure Control", true));  // AEC on
-    pangolin::RegisterKeyPressCallback( 'f', SetVarFunctor<bool>("ui.Get Response Function", true));    // get response function
-    
+
     /*-----------------------------------------------------------------------
      *  CONTROL PANEL
      *-----------------------------------------------------------------------*/ 
@@ -137,8 +136,8 @@ int main( int argc, char* argv[] )
                                      video.GetFeatureQuantMin(DC1394_FEATURE_WHITE_BALANCE),
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
 
-    static Var<bool> response_function("ui.Get Response Function",false,false);
-
+    //static Var<bool> response_function("ui.Get Response Function",false,false);
+    
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
      *-----------------------------------------------------------------------*/     
@@ -160,8 +159,9 @@ int main( int argc, char* argv[] )
         /*-----------------------------------------------------------------------
          *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
+                
+        //if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); } 
         
-        if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); }        
         
         // HDR MODE
         
@@ -348,6 +348,7 @@ int main( int argc, char* argv[] )
         texVideo.RenderToViewportFlipY();
         // Swap back buffer with front and process window events via GLUT
         d_panel.Render();
+        glutSetWindow(win);
         pangolin::FinishGlutFrame();
 
     }

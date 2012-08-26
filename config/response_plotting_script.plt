@@ -1,8 +1,8 @@
 # response function plotting script
 #set terminal pdf
-#set output "response_function.pdf"
+#set output "response-function.pdf"
 set terminal png
-set output "response_function.png"
+set output "response-function.png"
 
 set title "Camera Response Function"
 
