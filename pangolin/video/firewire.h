@@ -274,10 +274,14 @@
     //! return absolute shutter value for corresponding quantised value
     float GetShutterMapAbs(int val);
     
-    //! print shutter map <int,float>
+    /**
+     print shutter absolute map <int,float>
+     */   
     void PrintShutterMapAbs();
         
-    //! print shutter map <float,int>   
+    /**
+     print shutter quantised map <float,int> 
+     */
     void PrintShutterMapQuant();
         
     /*-----------------------------------------------------------------------
@@ -308,80 +312,177 @@
      *  FEATURE CONTROL
      *-----------------------------------------------------------------------*/    
 
-    //!Set all to auto
+    /**
+     set all features to auto mode
+     @exception dc1394 error
+     */
     void SetAllFeaturesAuto();
      
-    //!Set all to manual
+    /**
+     set all features to manual mode
+     @exception dc1394 error
+     */
     void SetAllFeaturesManual();
-        
-    //! set feature to auto mode
+
+    /**
+     set feature to auto mode
+     @param feature
+     @exception dc1394 error
+     */
     void SetFeatureAuto(dc1394feature_t feature);
-    
-    //! set feature to manual mode
+
+    /**
+     set feature to manual mode
+     @param feature
+     @exception dc1394 error
+     */
     void SetFeatureManual(dc1394feature_t feature);
     
-    //! set feature on
+    /**
+     set feature to on
+     @param feature
+     @exception dc1394 error
+     */
     void SetFeatureOn(dc1394feature_t feature);
     
-    //! set feature off
+    /**
+     set feature to off
+     @param feature
+     */
     void SetFeatureOff(dc1394feature_t feature);
            
-    //! set feature absolute value
+    /**
+     set feature absolute value
+     @param feature
+     @param value
+          @exception dc1394 error
+     */
     void SetFeatureValue(dc1394feature_t feature, float value);
     
-    //! set feature quantised value
+    /**
+     set feature quantised value
+     @param feature
+     @param value
+     @exception dc1394 error
+    */
     void SetFeatureQuant(dc1394feature_t feature, int value);
     
-    //! check if feature is on or off
+    /**
+     get feature on/off
+     @param feature
+     @return bool flag (on/off)
+     @exception dc1394 error
+     */
     bool GetFeaturePower(dc1394feature_t feature);
         
-    //! check current mode (auto [0] or manual [1])
+    /**
+     get feature enabled mode (auto [0] or manual [1])
+     @param feature
+     @param mode
+     @exception dc1394 error
+     */
     int GetFeatureMode(dc1394feature_t feature) const;
         
-    //! get feature absolute value
+    /**
+     get feature absolute value
+     @param feature
+     @return absolute value
+     @exception dc1394 error
+     */
     float GetFeatureValue(dc1394feature_t feature) const;
     
-    //! get feature quantised value
+    /**
+     get feature quantised value
+     @param feature
+     @return quantised value
+     @exception dc1394 error
+     */    
     int GetFeatureQuant(dc1394feature_t feature) const;
     
-    //! get feature max absolute value
+
+    /**
+     get feature absolute max value
+     @param feature
+     @return max absolute value
+     @exception dc1394 error
+     */
     float GetFeatureValueMax(dc1394feature_t feature) const;
 
-    //! get feature min absolute value
+    /**
+     get feature absolute min value
+     @param feature
+     @return min absolute value
+          @exception dc1394 error
+     */
     float GetFeatureValueMin(dc1394feature_t feature) const;
-    
-    //! get feature max quantised value
+        
+    /**
+     get feature quantised max value
+     @param feature
+     @return max quantised value
+     @exception dc1394 error
+     */
     int GetFeatureQuantMax(dc1394feature_t feature) const;
     
-    //! get feature min quantised value
+    /**
+     get feature quantised min value
+     @param feature
+     @return min quantised value
+     @exception dc1394 error
+     */
     int GetFeatureQuantMin(dc1394feature_t feature) const;
     
-    //! Reset brightness to 0
+    /**
+     reset brightness to 0
+     @exception dc1394 error
+     */
     void ResetBrightness();
         
-    //! Reset gamma to 1.0
+    /**
+     reset gamma to 1.0
+     @exception dc1394 error
+     */
     void ResetGamma();
     
-    //! Reset hue to 0
+    /**
+    reset hue to 0
+    @exception dc1394 error
+     */
     void ResetHue();
 
     /*-----------------------------------------------------------------------
      *  WHITE BALANCE CONTROLS
      *-----------------------------------------------------------------------*/
       
-    //! set the white balance to single shot auto
+    /**
+     set white balance to auto mode
+     */
     void SetSingleAutoWhiteBalance();
            
-    //! set the white balance
+    /**
+     set white balance blue/U value and red/v value
+     @param blue/u value
+     @param red/v value
+     */
     void SetWhiteBalance(unsigned int u_b_value, unsigned int v_r_value);
 
-    //! get the white balance
+    /**
+     get white balance blue/U value and red/v value
+     @param pass by reference blue/u value 
+     @param pass by reference red/v value
+     */
     void GetWhiteBalance(unsigned int *Blue_U_val, unsigned int *Red_V_val);
      
-    //! get white balance blue/U value
+    /**
+     get white balance blue/U value
+     @returns white balance blue/u value
+     */
     int GetWhiteBalanceBlueU();
    
-    //! get white balance red/V value
+    /**
+     get white balance red/V value
+     @returns white balance red/v value
+     */
     int GetWhiteBalanceRedV();
         
     /*-----------------------------------------------------------------------
@@ -402,7 +503,15 @@
      *  RECORDING/SAVING
      *-----------------------------------------------------------------------*/
         
-    //! records multiple frames
+    /**
+     record multiple frames
+     @param frame number
+     @param image buffer
+     @param wait or poll for image from dma
+     @param jpeg or not
+     @param hdr frame or not
+     @returns bool flag
+     */
     bool RecordFrames(     
                       int frame_number,      // current frame number
                       unsigned char* image,  // empty image buffer -- to go in future
@@ -524,7 +633,7 @@
     void GetTimeStamp(char* time_stamp);
         
     // return padded frame number
-    void PadNumber(int frame_number, char *padded_string);
+    char* PadNumber(int frame_number);
         
     protected:
 

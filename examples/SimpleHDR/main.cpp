@@ -135,8 +135,10 @@ int main( int argc, char* argv[] )
     static Var<int> whitebalance_R_V("ui.White Balance (Red/V)",video.GetWhiteBalanceRedV(),
                                      video.GetFeatureQuantMin(DC1394_FEATURE_WHITE_BALANCE),
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
-
-    //static Var<bool> response_function("ui.Get Response Function",false,false);
+    
+    // loaded options
+    static Var<string> response("ui.Response Technique", video.GetConfigValue("HDR_RESPONSE_CALIBRATION"));
+    static Var<string> tmo("ui.TMO", video.GetConfigValue("HDR_TMO"));
     
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
@@ -146,6 +148,7 @@ int main( int argc, char* argv[] )
     bool under_over = true;
     time_t start, end;
     uint32_t hdr_shutter[3];    
+    uint32_t aec_shutter[3];    
 
     // loop until quit (e.g ESC key)
     for(int frame_number = 0; !pangolin::ShouldQuit(); ++frame_number)
@@ -159,15 +162,45 @@ int main( int argc, char* argv[] )
         /*-----------------------------------------------------------------------
          *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
-                
-        //if( pangolin::Pushed(response_function) ){ video.GetResponseFunction(); } 
-        
         
         // HDR MODE
         
+        // switch under over flag
+        under_over = under_over ? false : true ;
+        
+        // shutter settings when AEC mode activated   
+        if(pangolin::Pushed(AEC.var->meta_gui_changed)){
+            
+            AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
+            
+            // copy, don't modify original hdr shutter values 
+            for(int i = 0; i < 4; i++){
+                aec_shutter[i] = hdr_shutter[i];
+            }
+            
+            if(!AEC){
+                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[2], hdr_shutter[0], hdr_shutter[2]); 
+            }
+        } 
+        
+        // will only modify values if HDR mode is on
+        if (hdr && AEC){
+            
+            // calculate new shutter values
+            if(under_over){
+                aec_shutter[0] = video.AEC(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
+                cout << "under shutter: " << video.GetShutterMapAbs(aec_shutter[0]) << endl;
+            } else {
+                aec_shutter[2] = video.AEC(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
+                cout << "over shutter: " << video.GetShutterMapAbs(aec_shutter[2]) << endl;
+            }
+            
+            // set new shutter values
+            video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); 
+        } 
+        
         // checks if hdr mode has been switched and sets register on
         if(pangolin::Pushed(hdr.var->meta_gui_changed)){
-            
             
             if( hdr ){
                 cout << "[HDR]: HDR mode enabled" << endl;        
@@ -192,26 +225,7 @@ int main( int argc, char* argv[] )
             }
         
         }
-        
-        // switch under over flag
-        under_over = under_over ? false : true ;
-        
-        // shutter settings when AEC mode activated   
-        if(pangolin::Pushed(AEC.var->meta_gui_changed)){
-
-            AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
-            
-            if (hdr && AEC){
-                
-                if(under_over){
-                    hdr_shutter[0] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[0]), under_over);
-                } else {
-                    hdr_shutter[2] = video.AEC(img, video.GetShutterMapAbs(hdr_shutter[2]), under_over);
-                }
-                
-            }
-            
-        }
+           
         // MANUAL SETTINGS
 
         if ( manual && !hdr ) { 
@@ -306,8 +320,33 @@ int main( int argc, char* argv[] )
                 cout << "[VIDEO]: Processing HDR video" << endl;
                 boost::thread(&FirewireVideo::SaveHDRVideo, &video, frame_number);    
             } else {
+                // refactor
                 cout << "[VIDEO]: Processing video" << endl;
-                boost::thread(&FirewireVideo::SaveVideo, &video);
+                char time_stamp[32];
+                char command[128];
+                char output[1024];
+                char *video_format;
+                
+                // set output video format from config or if not loaded, to default (mpeg)
+                if (!video.CheckConfigLoaded()){
+                    video_format = (char*) video.GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
+                } else {
+                    video_format = (char *) "mpeg" ;
+                }
+                // get time stamp for file name
+                video.GetTimeStamp(time_stamp);
+                
+                sprintf(output, "%s.%s", time_stamp, video_format);
+                
+                // create command string: convert video, remove files and then echo completed - should be thread safe this way
+                sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
+                        && rm -rf ./video/ppm/  \
+                        && echo '[VIDEO]: Video saved to ./video/%s'", 
+                        output, output); 
+                
+                // run video conversion
+                 boost::thread(system,command);  
+                //boost::thread(&FirewireVideo::SaveVideo, &video);
             }
          
         }

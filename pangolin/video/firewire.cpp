@@ -1786,27 +1786,33 @@
 
         char time_stamp[32];
         char command[1024];
+        char output[1024];
         char *tmo;
-        char *format;
-        
+        char *image_format;
+
         // set attributes from config or if not loaded, to defaults
         if(!config.empty()){
             tmo = (char*) config.find("HDR_TMO")->second.c_str();
-            format = (char*) config.find("HDR_FORMAT")->second.c_str();
+            image_format = (char*) config.find("HDR_IMAGE_FORMAT")->second.c_str();
         } else {
             tmo = (char *) "drago03";
-            format = (char *) "jpeg";
+            image_format = (char *) "jpeg";
         }
         
         GetTimeStamp(time_stamp);
+        sprintf(output, "%s-%s.%s", time_stamp, tmo, image_format);
         
         sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                 | pfshdrcalibrate -f ./config/camera.response \
-                | pfsoutexr ./hdr-image/hdr.exr && pfsinexr ./hdr-image/hdr.exr \
-                | pfstmo_%s | pfsout ./hdr-image/%s-HDR.jpeg \
+                | pfsoutexr ./hdr-image/hdr.exr \
+                && pfsin ./hdr-video/temp-exr/hdr.exr \
+                | pfsclamp --min 0.001 -p \
+                | pfsoutexr ./hdr-video/temp-exr/hdr.exr \
+                && pfsinexr ./hdr-image/hdr.exr \
+                | pfstmo_%s | pfsout ./hdr-image/%s \
                 && rm -rf ./hdr-image/jpeg ./hdr-image/hdr.exr \
-                && echo '[HDR]: HDR frame generated: ./hdr-image/%s-HDR.%s'", 
-                tmo, time_stamp, time_stamp, format);
+                && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
+                tmo, output, output);
       
             //don't run final command until all other threads finish
         thread_group.join_all();
@@ -1870,14 +1876,8 @@
         // create top directory
         mkdir(folder, 0755);
         
-        // pad file names -- ugly but works
-        stringstream ps;
-        ps << frame_number;
-        std::string padding = ps.str();
-        padding.insert(padding.begin(), 6 - padding.size(), '0');
-        char * padded_frame_number = new char[padding.size()];
-        std::copy(padding.begin(), padding.end(), padded_frame_number);
-        
+        char *padded_frame_number = PadNumber(frame_number);
+
         // save to jpeg or ppm
         if( jpeg ){  
             
@@ -1912,9 +1912,7 @@
             // cout << "[SAVE]: PPM image saved to " << filename << endl;
             
         }
-        
-        delete[] padded_frame_number;
-
+    
         return true;
     }
         
@@ -1923,24 +1921,24 @@
         char time_stamp[32];
         char command[128];
         char output[1024];
-        char *format;
+        char *video_format;
         
         // set output video format from config or if not loaded, to default (mpeg)
         if (!CheckConfigLoaded()){
-            format = (char *) GetConfigValue("VIDEO_FORMAT").c_str();
+           video_format = (char *) GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
         } else {
-            format = (char *) "mpeg" ;
+           video_format = (char *) "mpeg" ;
         }
         // get time stamp for file name
         GetTimeStamp(time_stamp);
 
-        sprintf(output, "%s.%s", time_stamp, format);
+        sprintf(output, "%s.%s", time_stamp, video_format);
         
         // create command string: convert video, remove files and then echo completed - should be thread safe this way
         sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
                 && rm -rf ./video/ppm/  \
-                && echo '[VIDEO]: Video saved'", 
-                output); 
+                && echo '[VIDEO]: Video saved to ./video/%s'", 
+                output, output); 
         
         // run video conversion
         system(command);  
@@ -1961,7 +1959,7 @@
         // set tone mapping operator if config loaded, otherwise default
         if (!CheckConfigLoaded()){
             tmo = (char *) GetConfigValue("HDR_TMO").c_str();
-            format = GetConfigValue("VIDEO_FORMAT");
+            format = GetConfigValue("HDR_VIDEO_FORMAT");
         } else {
             tmo = (char *) "drago03";
             format = "avi";
@@ -1975,34 +1973,20 @@
             
             stringstream ps, ps2, ps_j;
             
-            // under exposed file padding
-            ps << i;
-            string pad = ps.str();
-            pad.insert(pad.begin(), 6 - pad.size(), '0');
-            char * pf = new char[pad.size()];
-            copy(pad.begin(), pad.end(), pf);
+            // padded file numbers
+            char *pf = PadNumber(i);
+            char *pf2 = PadNumber(i+1);
+            char *pf_j = PadNumber(j);
             
-            // over exposed file padding
-            ps2 << i+1;
-            string pad2 = ps2.str();
-            pad2.insert(pad2.begin(), 6 - pad2.size(), '0');
-            char * pf2 = new char[pad2.size()];
-            copy(pad2.begin(), pad2.end(), pf2);
-            
-            // output file padding
-            ps_j << j;
-            string pad_j = ps_j.str();
-            pad_j.insert(pad_j.begin(), 6 - pad_j.size(), '0');
-            char * pf_j = new char[pad_j.size()];
-            copy(pad_j.begin(), pad_j.end(), pf_j);
-            
-           
             sprintf(convert_command, "pfsinme ./hdr-video/jpeg/image%s.jpeg ./hdr-video/jpeg/image%s.jpeg \
                     | pfshdrcalibrate -f ./config/camera.response \
                     | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
+                    && pfsin ./hdr-video/temp-exr/image%s.exr \
+                    | pfsclamp --min 0.001 -p \
+                    | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
                     && pfsinexr ./hdr-video/temp-exr/image%s.exr \
                     | pfstmo_%s | pfsout ./hdr-video/temp-jpeg/image%s.jpeg",
-                    pf, pf2, pf_j, pf_j, tmo, pf_j);
+                    pf, pf2, pf_j, pf_j, pf_j, pf_j, tmo, pf_j);
             
             // convert pair of frames to exr
             system(convert_command);
@@ -2019,20 +2003,20 @@
 
             // create command string: convert video, remove files and then echo completed - should be thread safe this way
             sprintf(video_command, "mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
-                                    && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o ./hdr-video/%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
+                                    && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o ./hdr-video/%s-%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
                                     && rm -rf ./hdr-video/temp-jpeg/ divx2pass.log \
-                                    && echo '[HDR]: HDR Video saved to ./hdr-video/%s.avi'", 
-                                    time_stamp, time_stamp); 
+                                    && echo '[HDR]: HDR Video saved to ./hdr-video/%s-%s.avi'", 
+                                    time_stamp, tmo, time_stamp, tmo); 
         
             // run final video conversion
             system(video_command);  
             
         } else {
             
-            sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s.mpeg \
+            sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s-%s.mpeg \
                     && rm -rf ./hdr-video/temp-jpeg/ \
-                    && echo '[HDR]: HDR Video saved to ./hdr-video/%s.mpeg' ", 
-                    time_stamp, time_stamp); 
+                    && echo '[HDR]: HDR Video saved to ./hdr-video/%s-%s.mpeg' ", 
+                    time_stamp,tmo, time_stamp,tmo); 
             
             // run final video conversion 
             system(video_command);  
@@ -2051,7 +2035,6 @@
         dc1394_convert_frames(original_frame, new_frame);
         
         return new_frame;
-    
     }
          
     /*-----------------------------------------------------------------------
@@ -2121,6 +2104,8 @@
         int stop = num_pixels - colours;
         int intensity;
         int saturation_count = 0;
+        float proportion = 0;
+        float threshold = 0.0005;
         
         map<int,int> image_pixel_intensity_count;
         map<int,int>::iterator pos; 
@@ -2134,16 +2119,15 @@
             finish = 127; // finish = (bit_depth / 2 ) - 1
             saturation = 0; 
         } else {
-            start = 128;  // finish = (bit_depth + 1) / 2
+            start = 128;  // start = (bit_depth + 1) / 2
             finish = 255; // finish = bit_depth - 1
-            saturation = 255; // finish = bit_depth - 1
+            saturation = 255; // saturation = bit_depth - 1
         }
         
         for(int i = 0 ; i < bit_depth ; i++){
             image_pixel_intensity_count[i] = 0;
         }
         
-
         int i = -1;
         while( i < stop ){
             
@@ -2165,18 +2149,20 @@
 
         }
         
-        int num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;
-        double proportion;
+        float num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;     
         
         for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
-    
-            proportion += pos->second/num_pixels_minus_saturation;
-            
+            proportion += (pos->second)/num_pixels_minus_saturation;
         }
         
-        cout << "proportion: " << proportion << endl;
+        // if new shutter - old shutter difference less than threshold, return original value
+        // i.e. don't change 
+        if ( (st * (st * ( shutter_optimum / proportion ) ) ) - st  < threshold){
+            return st;
+        } 
         
-        return st * ( shutter_optimum / proportion );
+        // return new shutter time
+        return st * (st * ( shutter_optimum / proportion ) ); 
 
     }
                                     
@@ -2191,6 +2177,8 @@
         int stop = num_pixels - GetMetaOffset() - colours;
         int intensity;
         int saturation_count = 0;
+        float proportion = 0;
+        float threshold = 0.00005;
         
         map<int,int> image_pixel_intensity_count;
         map<int,int>::iterator pos; 
@@ -2227,25 +2215,27 @@
             
             // if saturated, increment
             // if( saturation == 0 || saturation == bit_depth )
-            if( intensity == saturation )
-            {
+            if( intensity == saturation ) {
                 saturation_count++;
             }
             
         }
         
-        int num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;
-        double proportion;
+        float num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;     
         
         for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
-            
-            proportion += pos->second/num_pixels_minus_saturation;
-            
+            proportion += (pos->second)/num_pixels_minus_saturation;
         }
         
-        cout << "proportion: " << proportion << endl;
+        cout << "Proportion: " << proportion << endl;
         
-        return st * ( shutter_optimum / proportion );
+        // if new shutter - old shutter difference less than threshold, return original value
+        // i.e. don't change
+        if ( (st * ( shutter_optimum / proportion ) ) - st < threshold){
+            return st;
+        } 
+        
+        return st * ( shutter_optimum / proportion ); 
         
         }
 
@@ -2429,17 +2419,23 @@
             boost::property_tree::ptree pt;
             boost::property_tree::ini_parser::read_ini("./config/config.ini", pt);
             
+            
+            // NORMAL
+            config.insert( pair<string,string>( "NORMAL_IMAGE_FORMAT", pt.get<string>("NORMAL.image_format") ) );
+            config.insert( pair<string,string>( "NORMAL_VIDEO_FORMAT", pt.get<string>("NORMAL.video_format") ) );
+            
             // HDR
             config.insert( pair<string,string>( "HDR_TMO", pt.get<string>("HDR.tone_mapping_operator") ) );
-            config.insert( pair<string,string>( "HDR_FORMAT", pt.get<string>("HDR.format") ) );
+            config.insert( pair<string,string>( "HDR_IMAGE_FORMAT", pt.get<string>("HDR.image_format") ) );
+            config.insert( pair<string,string>( "HDR_VIDEO_FORMAT", pt.get<string>("HDR.video_format") ) );
             config.insert( pair<string,string>( "HDR_RESPONSE_CALIBRATION", pt.get<string>("HDR.response_calibration") ) );
-            
-            // VIDEO
-            config.insert( pair<string,string>( "VIDEO_FORMAT", pt.get<string>("VIDEO.format") ) );
+
             
         } catch (exception& e){
             cerr << "[CONFIG ERROR]:" << e.what() << endl;
         }
+        
+        cout << "[INFO]: Config loaded" << endl;
 
     }
         
@@ -2456,22 +2452,29 @@
     }
       
     void FirewireVideo::GetTimeStamp(char* time_stamp){
+        
         time_t rawtime;
         struct tm * timeinfo;
+        
         time ( &rawtime );
         timeinfo = localtime ( &rawtime );
-        strftime(time_stamp,32,"%d%b%Y_%H-%M-%S",timeinfo);
+        strftime(time_stamp, 32, "%d%b%Y_%H-%M-%S" , timeinfo);
+        
     }
-    
-    void FirewireVideo::PadNumber(int frame_number, char *padded_string){
-       
+            
+    char* FirewireVideo::PadNumber(int frame_number){
+        
         stringstream ps;
-    
+        
         ps << frame_number;
         string pad = ps.str();
         pad.insert(pad.begin(), 6 - pad.size(), '0');
-        copy(pad.begin(), pad.end(), padded_string);
-
+        
+        char *padded_frame_number = new char[pad.size()];
+        copy(pad.begin(),pad.end(),padded_frame_number);
+        
+        return padded_frame_number;
+        
     }
         
     int FirewireVideo::nearest_value(int value, int step, int min, int max) {
