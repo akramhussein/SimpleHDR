@@ -44,11 +44,11 @@ int main( int argc, char* argv[] )
     // Create Glut window
     const int panel_width = 200;
     double scale = 1.25;
-    pangolin::CreateGlutWindowAndBind("SimpleHDR", w*scale + panel_width, h*scale);
+    CreateGlutWindowAndBind("SimpleHDR", w*scale + panel_width, h*scale);
     int win = glutGetWindow();
 
     // Create viewport for video with fixed aspect
-    View& d_panel = pangolin::CreatePanel("ui.")
+    View& d_panel = CreatePanel("ui.")
     .SetBounds(0.0, 1.0, 0.0, Attach::Pix(panel_width));
     
     // Create viewport for video with fixed aspect
@@ -63,13 +63,13 @@ int main( int argc, char* argv[] )
      *  KEYBOARD SHORCUTS
      *-----------------------------------------------------------------------*/ 
     
-    pangolin::RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));                 // hdr mode 
-    pangolin::RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                // normal mode
-    pangolin::RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // start/stop recording
-    pangolin::RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single image
-    pangolin::RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
-    pangolin::RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
-    pangolin::RegisterKeyPressCallback( 'e', SetVarFunctor<bool>("ui.Automatic Exposure Control", true));  // AEC on
+    RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));                 // hdr mode 
+    RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                // normal mode
+    RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // start/stop recording
+    RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single image
+    RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
+    RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
+    RegisterKeyPressCallback( 'e', SetVarFunctor<bool>("ui.Automatic Exposure Control", true));  // AEC on
 
     /*-----------------------------------------------------------------------
      *  CONTROL PANEL
@@ -151,10 +151,10 @@ int main( int argc, char* argv[] )
     uint32_t aec_shutter[3];    
 
     // loop until quit (e.g ESC key)
-    for(int frame_number = 0; !pangolin::ShouldQuit(); ++frame_number)
+    for(int frame_number = 0; !ShouldQuit(); ++frame_number)
     {     
         // Screen refresh
-        if(pangolin::HasResized())
+        if(HasResized())
             DisplayBase().ActivateScissorAndClear();
 
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -169,7 +169,7 @@ int main( int argc, char* argv[] )
         under_over = under_over ? false : true ;
         
         // shutter settings when AEC mode activated   
-        if(pangolin::Pushed(AEC.var->meta_gui_changed)){
+        if(Pushed(AEC.var->meta_gui_changed)){
             
             AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
             
@@ -200,7 +200,7 @@ int main( int argc, char* argv[] )
         } 
         
         // checks if hdr mode has been switched and sets register on
-        if(pangolin::Pushed(hdr.var->meta_gui_changed)){
+        if(Pushed(hdr.var->meta_gui_changed)){
             
             if( hdr ){
                 cout << "[HDR]: HDR mode enabled" << endl;        
@@ -236,7 +236,7 @@ int main( int argc, char* argv[] )
              *  else: shutter val is set to gui value 
              */
 
-            if(pangolin::Pushed(exposure.var->meta_gui_changed)){
+            if(Pushed(exposure.var->meta_gui_changed)){
                 video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); 
                 video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
                 shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
@@ -280,9 +280,9 @@ int main( int argc, char* argv[] )
 
         }
         
-        if( pangolin::Pushed(capture) ) { video.SaveSingleFrame(img); } 
+        if( Pushed(capture) ) { video.SaveSingleFrame(img); } 
         
-        if( pangolin::Pushed(capture_hdr) ){
+        if( Pushed(capture_hdr) ){
             
             // see if response function has already been generated
             if (!video.CheckResponseFunction()) {
@@ -312,7 +312,7 @@ int main( int argc, char* argv[] )
          *-----------------------------------------------------------------------*/    
         
         // start/stop recording
-        if ( save && pangolin::Pushed(record) ){ 
+        if ( save && Pushed(record) ){ 
             
             save = false; // set save flag to false
             
@@ -351,7 +351,7 @@ int main( int argc, char* argv[] )
          
         }
 
-        if ( !save && pangolin::Pushed(record) ){ 
+        if ( !save && Pushed(record) ){ 
             cout << "[VIDEO]: Recording video" << endl;
             save = true; 
             time (&start); // get current time
@@ -388,7 +388,7 @@ int main( int argc, char* argv[] )
         // Swap back buffer with front and process window events via GLUT
         d_panel.Render();
         glutSetWindow(win);
-        pangolin::FinishGlutFrame();
+        FinishGlutFrame();
 
     }
 
