@@ -37,7 +37,7 @@ ENDIF()
 
 FIND_PACKAGE(OpenGL REQUIRED QUIET)
 FIND_PACKAGE(GLEW REQUIRED)
-FIND_PACKAGE(Boost COMPONENTS thread program_options REQUIRED QUIET)
+FIND_PACKAGE(Boost COMPONENTS system filesystem thread program_options REQUIRED QUIET)
 FIND_PACKAGE(ImageMagick COMPONENTS Magick++ REQUIRED QUIET)
   
 ## Apply required dependencies settings

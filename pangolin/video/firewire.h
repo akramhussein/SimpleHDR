@@ -489,7 +489,10 @@
      *  TRIGGERS
      *-----------------------------------------------------------------------*/
 
-    //! set the trigger to internal, i.e. determined by video mode
+
+    /**
+     set the trigger to internal, i.e. determined by video mode
+     */
     void SetInternalTrigger();
 
     //! set the trigger to external
@@ -560,7 +563,7 @@
     //! save normal video
     void SaveVideo();
         
-    // saves HDR video 
+    //! saves HDR video 
     void SaveHDRVideo(int frame_number);
         
     //! returns video frame in RGB format (e.g. from YUV to RGB)
