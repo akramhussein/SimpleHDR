@@ -1790,43 +1790,74 @@
         char *tmo;
         char *image_format;
         char *radiance_format;
+        char *keep_radiance;
 
         // set attributes from config or if not loaded, to defaults
         if(!config.empty()){
             tmo = (char*) config.find("HDR_TMO")->second.c_str();
             image_format = (char *) config.find("HDR_IMAGE_FORMAT")->second.c_str();
             radiance_format = (char *) config.find("HDR_RADIANCE_FORMAT")->second.c_str();
+            keep_radiance = (char *) config.find("HDR_KEEP_RADIANCE")->second.c_str();
 
         } else {
             tmo = (char *) "drago03";
             image_format = (char *) "jpeg";
             radiance_format = (char *) "exr";
+            keep_radiance = (char *) "no";
         }
         
         GetTimeStamp(time_stamp);
         sprintf(output, "%s-%s.%s", time_stamp, tmo, image_format);
+      
         
         if(!strcmp(GetConfigValue("HDR_RADIANCE_FORMAT").c_str(), "rgbe") || !strcmp(GetConfigValue("HDR_RADIANCE_FORMAT").c_str(), "RGBE") ){
             
+            if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") ){
+
+            // don't create radiance map
             sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                     | pfshdrcalibrate -f ./config/camera.response \
-                    | pfsoutrgbe ./hdr-image/hdr.rgbe \
-                    && pfsinrgbe ./hdr-image/hdr.rgbe \
                     | pfstmo_%s | pfsout ./hdr-image/%s \
-                    && rm -rf ./hdr-image/jpeg ./hdr-image/hdr.rgbe \
+                    && rm -rf ./hdr-image/jpeg \
                     && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                     tmo, output, output);
+            } else {
+                
+                sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
+                        | pfshdrcalibrate -f ./config/camera.response \
+                        | pfsoutrgbe ./hdr-image/%s.rgbe \
+                        && pfsinrgbe ./hdr-image/%s.rgbe \
+                        | pfstmo_%s | pfsout ./hdr-image/%s \
+                        && rm -rf ./hdr-image/jpeg \
+                        && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
+                        time_stamp, time_stamp, tmo, output, output);
+            }
+            
         }
         else {
-            sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
-                    | pfshdrcalibrate -f ./config/camera.response \
-                    | pfsoutexr ./hdr-image/hdr.exr \
-                    && pfsinexr ./hdr-image/hdr.exr \
-                    | pfsclamp --min 0.001 -p \
-                    | pfstmo_%s | pfsout ./hdr-image/%s \
-                    && rm -rf ./hdr-image/jpeg ./hdr-image/hdr.exr \
-                    && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
-                    tmo, output, output);
+            
+            if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") ){
+
+                // don't create radiance map
+                sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
+                        | pfshdrcalibrate -f ./config/camera.response \
+                        | pfstmo_%s | pfsout ./hdr-image/%s \
+                        && rm -rf ./hdr-image/jpeg \
+                        && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
+                        tmo, output, output);
+            }
+            else {
+                sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
+                        | pfshdrcalibrate -f ./config/camera.response \
+                        | pfsoutexr ./hdr-image/%s.exr \
+                        && pfsinexr ./hdr-image/%s.exr \
+                        | pfstmo_%s | pfsout ./hdr-image/%s \
+                        && rm -rf ./hdr-image/jpeg \
+                        && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
+                        time_stamp, time_stamp, tmo, output, output);
+            }
+                    
+            
         }
             //don't run final command until all other threads finish
         thread_group.join_all();
@@ -2521,6 +2552,7 @@
             
             // HDR
             config.insert( pair<string,string>( "HDR_RADIANCE_FORMAT", pt.get<string>("HDR.radiance_format") ) );
+            config.insert( pair<string,string>( "HDR_KEEP_RADIANCE", pt.get<string>("HDR.keep_radiance") ) );
             config.insert( pair<string,string>( "HDR_TMO", pt.get<string>("HDR.tone_mapping_operator") ) );
             config.insert( pair<string,string>( "HDR_IMAGE_FORMAT", pt.get<string>("HDR.image_format") ) );
             config.insert( pair<string,string>( "HDR_VIDEO_FORMAT", pt.get<string>("HDR.video_format") ) );
