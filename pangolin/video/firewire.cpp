@@ -1789,34 +1789,75 @@
         char output[1024];
         char *tmo;
         char *image_format;
+        char *radiance_format;
 
         // set attributes from config or if not loaded, to defaults
         if(!config.empty()){
             tmo = (char*) config.find("HDR_TMO")->second.c_str();
-            image_format = (char*) config.find("HDR_IMAGE_FORMAT")->second.c_str();
+            image_format = (char *) config.find("HDR_IMAGE_FORMAT")->second.c_str();
+            radiance_format = (char *) config.find("HDR_RADIANCE_FORMAT")->second.c_str();
+
         } else {
             tmo = (char *) "drago03";
             image_format = (char *) "jpeg";
+            radiance_format = (char *) "exr";
         }
         
         GetTimeStamp(time_stamp);
         sprintf(output, "%s-%s.%s", time_stamp, tmo, image_format);
         
-        sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
-                | pfshdrcalibrate -f ./config/camera.response \
-                | pfsoutexr ./hdr-image/hdr.exr \
-                && pfsin ./hdr-video/temp-exr/hdr.exr \
-                | pfsclamp --min 0.001 -p \
-                | pfsoutexr ./hdr-video/temp-exr/hdr.exr \
-                && pfsinexr ./hdr-image/hdr.exr \
-                | pfstmo_%s | pfsout ./hdr-image/%s \
-                && rm -rf ./hdr-image/jpeg ./hdr-image/hdr.exr \
-                && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
-                tmo, output, output);
-      
+        if(!strcmp(GetConfigValue("HDR_RADIANCE_FORMAT").c_str(), "rgbe") || !strcmp(GetConfigValue("HDR_RADIANCE_FORMAT").c_str(), "RGBE") ){
+            
+            sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
+                    | pfshdrcalibrate -f ./config/camera.response \
+                    | pfsoutrgbe ./hdr-image/hdr.rgbe \
+                    && pfsinrgbe ./hdr-image/hdr.rgbe \
+                    | pfstmo_%s | pfsout ./hdr-image/%s \
+                    && rm -rf ./hdr-image/jpeg ./hdr-image/hdr.rgbe \
+                    && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
+                    tmo, output, output);
+        }
+        else {
+            sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
+                    | pfshdrcalibrate -f ./config/camera.response \
+                    | pfsoutexr ./hdr-image/hdr.exr \
+                    && pfsinexr ./hdr-image/hdr.exr \
+                    | pfsclamp --min 0.001 -p \
+                    | pfstmo_%s | pfsout ./hdr-image/%s \
+                    && rm -rf ./hdr-image/jpeg ./hdr-image/hdr.exr \
+                    && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
+                    tmo, output, output);
+        }
             //don't run final command until all other threads finish
         thread_group.join_all();
         system(command);
+        
+        if (
+            CheckConfigLoaded() 
+            && strcmp(GetConfigValue("NORMAL_IMAGE_FORMAT").c_str(), "jpeg")
+            ){
+            char filename[256];
+            char convert_filename[256];
+            char delete_command[256];
+            
+            sprintf(filename, "./hdr-image/%s", output);
+            
+            sprintf(convert_filename, ".hdr-image/%s-%s.%s", 
+                    time_stamp,
+                    tmo,
+                    GetConfigValue("NORMAL_IMAGE_FORMAT").c_str()
+                    );
+            
+            CopyFormatToFormat(filename, convert_filename);
+            
+            sprintf(delete_command, "rm -rf %s", filename);
+            system(delete_command);
+            
+            cout << "[SAVE]: " << GetConfigValue("NORMAL_IMAGE_FORMAT").c_str() << " image saved to " << convert_filename << endl;
+        }
+
+        
+        
     }
         
     void FirewireVideo::SaveSingleFrame(unsigned char *image){
@@ -1858,8 +1899,37 @@
             ? WriteExifDataFromImageMetaData(&metaData, filename)
             : WriteExifData(this, filename);
            
-            cout << "[SAVE]: JPEG image saved to " << filename << endl;
+            if (
+                CheckConfigLoaded() 
+                && strcmp(GetConfigValue("NORMAL_IMAGE_FORMAT").c_str(), "jpeg")
+                && strcmp(GetConfigValue("NORMAL_IMAGE_FORMAT").c_str(), "ppm")
+                ){
+                
+                char convert_dir[256];
+                char convert_filename[256];
+                char delete_command[256];
+                
+                sprintf(convert_dir, "./single-frames/%s", GetConfigValue("NORMAL_IMAGE_FORMAT").c_str());
+                mkdir(convert_dir, 0755);
+                
+                sprintf(convert_filename, "./single-frames/%s/%s.%s", 
+                        GetConfigValue("NORMAL_IMAGE_FORMAT").c_str(), 
+                        date_time,
+                        GetConfigValue("NORMAL_IMAGE_FORMAT").c_str()
+                        );
+                
+                CopyFormatToFormat(filename, convert_filename);
+                
+                sprintf(delete_command, "rm -rf %s", filename);
+                system(delete_command);
+                
+                cout << "[SAVE]: " << GetConfigValue("NORMAL_IMAGE_FORMAT").c_str() << " image saved to " << convert_filename << endl;
+            }
+            else {
+                cout << "[SAVE]: JPEG image saved to " << filename << endl;
+            }
         }
+        
     }
 
     bool FirewireVideo::SaveFile(
@@ -1912,7 +1982,32 @@
             // cout << "[SAVE]: PPM image saved to " << filename << endl;
             
         }
-    
+        if (
+            CheckConfigLoaded() 
+            && strcmp(GetConfigValue("NORMAL_IMAGE_FORMAT").c_str(), "jpeg")
+            && strcmp(GetConfigValue("NORMAL_IMAGE_FORMAT").c_str(), "ppm")
+            ){
+            
+            char convert_dir[256];
+            char convert_filename[256];
+            char delete_command[256];
+               
+            sprintf(convert_dir, "%s/%s", folder, GetConfigValue("NORMAL_IMAGE_FORMAT").c_str());
+            mkdir(convert_dir, 0755);
+            
+            sprintf(convert_filename, "./%s/%s/%s%s.%s", folder, 
+                    GetConfigValue("NORMAL_IMAGE_FORMAT").c_str(), 
+                    "image", 
+                    padded_frame_number,
+                    GetConfigValue("NORMAL_IMAGE_FORMAT").c_str()
+                    );
+
+            CopyFormatToFormat(filename, convert_filename);
+         
+            sprintf(delete_command, "rm -rf %s", filename);
+            system(delete_command);
+        }
+
         return true;
     }
         
@@ -1924,7 +2019,7 @@
         char *video_format;
         
         // set output video format from config or if not loaded, to default (mpeg)
-        if (!CheckConfigLoaded()){
+        if (CheckConfigLoaded()){
            video_format = (char *) GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
         } else {
            video_format = (char *) "mpeg" ;
@@ -1957,7 +2052,7 @@
         string format;
         
         // set tone mapping operator if config loaded, otherwise default
-        if (!CheckConfigLoaded()){
+        if (CheckConfigLoaded()){
             tmo = (char *) GetConfigValue("HDR_TMO").c_str();
             format = GetConfigValue("HDR_VIDEO_FORMAT");
         } else {
@@ -2298,7 +2393,7 @@
         char hdrgen_file[32] = "camera.hdrgen";
         dc1394video_frame_t *frame = NULL;
         
-        if(CheckResponseFunction()){
+        if(!CheckResponseFunction()){
             system("rm -rf ./config/camera.response");
         }
         
@@ -2425,6 +2520,7 @@
             config.insert( pair<string,string>( "NORMAL_VIDEO_FORMAT", pt.get<string>("NORMAL.video_format") ) );
             
             // HDR
+            config.insert( pair<string,string>( "HDR_RADIANCE_FORMAT", pt.get<string>("HDR.radiance_format") ) );
             config.insert( pair<string,string>( "HDR_TMO", pt.get<string>("HDR.tone_mapping_operator") ) );
             config.insert( pair<string,string>( "HDR_IMAGE_FORMAT", pt.get<string>("HDR.image_format") ) );
             config.insert( pair<string,string>( "HDR_VIDEO_FORMAT", pt.get<string>("HDR.video_format") ) );
@@ -2448,7 +2544,7 @@
     }
     
     bool FirewireVideo::CheckConfigLoaded(){
-        return config.empty();
+        return !config.empty();
     }
       
     void FirewireVideo::GetTimeStamp(char* time_stamp){

@@ -137,9 +137,9 @@ int main( int argc, char* argv[] )
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
     
     // loaded options
-    static Var<string> response("ui.Response Technique", video.GetConfigValue("HDR_RESPONSE_CALIBRATION"));
+    static Var<string> response("ui.Response:", video.GetConfigValue("HDR_RESPONSE_CALIBRATION"));
     static Var<string> tmo("ui.TMO", video.GetConfigValue("HDR_TMO"));
-    
+  
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
      *-----------------------------------------------------------------------*/     
@@ -328,7 +328,7 @@ int main( int argc, char* argv[] )
                 char *video_format;
                 
                 // set output video format from config or if not loaded, to default (mpeg)
-                if (!video.CheckConfigLoaded()){
+                if (video.CheckConfigLoaded()){
                     video_format = (char*) video.GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
                 } else {
                     video_format = (char *) "mpeg" ;

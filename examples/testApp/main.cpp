@@ -9,9 +9,7 @@
 
 #include <pangolin/pangolin.h>
 #include <pangolin/video.h>
-#include <pangolin/video/firewire.h>
-
-#include <boost/filesystem.hpp>
+#include <pangolin/widgets.h>
 
 using namespace pangolin;
 using namespace std;
@@ -21,8 +19,7 @@ int main( int argc, char* argv[] )
     /*-----------------------------------------------------------------------
      *  SETUP SOURCE
      *-----------------------------------------------------------------------*/    
-    
-    cout << boost::filesystem::current_path().string() << endl;
+
     
     return 0;
 }
