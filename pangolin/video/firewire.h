@@ -569,18 +569,28 @@
     //! returns video frame in RGB format (e.g. from YUV to RGB)
     dc1394video_frame_t* ConvertToRGB(dc1394video_frame_t *original_frame);
     
-    /*-----------------------------------------------------------------------
-     *  REPORTING
-     *-----------------------------------------------------------------------*/
     
-    //! generate image pixel intensity count in map from frame
-    void CreatePixIntensityMap(dc1394video_frame_t frame);
+    /*-----------------------------------------------------------------------
+     *  AUTOMATIC EXPOSURE CONTROL
+     *-----------------------------------------------------------------------*/
         
-    //! accepts dc1394 frame, returns change (multiplier) to shutter time for next frame
-    float AEC_Lapray(dc1394video_frame_t frame, float st, bool under_over); 
+    /**
+     returns updated shutter time using SimpleHDR AEC algorithm for HDR mode
+     @param dc1394 frame
+     @param current shutter time in us (abs)
+     @param under or over bool flag
+     @returns new shutter time
+     */
+    float AEC(dc1394video_frame_t frame, float st, bool under_over); 
         
-    //! returns next shutter time for next frame
-    float AEC_Lapray(unsigned char *image, float st, bool under_over);
+    /**
+     returns updated shutter time using SimpleHDR AEC algorithm for HDR mode
+     @param image buffer
+     @param current shutter time in us (abs)
+     @param under or over bool flag
+     @returns new shutter time
+     */
+    float AEC(unsigned char *image, float st, bool under_over);
               
     /*-----------------------------------------------------------------------
      *  CAMERA UTILITIES

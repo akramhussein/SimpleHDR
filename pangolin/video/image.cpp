@@ -487,4 +487,28 @@ namespace pangolin
         }
 
     }
-}
+    
+    void CreatePixIntensityMap(unsigned char* image, int offset){
+        
+        int colours = 3;
+        int numPixels = (640 * 480) * colours;
+        int bit_depth = 2 << 7;
+        
+        map<int,int> image_pixel_intensity_count;
+        
+        for(int i = 0 ; i < bit_depth ; i++){
+            image_pixel_intensity_count[i]=0;
+        }
+        
+        int i = -1;
+        int stop = numPixels - colours;
+        
+        while(i<stop){
+            image_pixel_intensity_count[  ((int)image[++i] * 0.299) 
+                                        + ((int)image[++i] * 0.587) 
+                                        + ((int)image[++i] * 0.114) ]++;                        
+        }
+        
+    }
+    
+   }

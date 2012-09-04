@@ -1766,25 +1766,11 @@
         SetHDRRegister(false);
         
         boost::thread_group thread_group;
-        /*
-        struct timeval tim;
-        double time;
-        */
+
         // save each frame to jpeg and return frames to dma to requeue the buffer
         for(int i = 0; i < n; i++){
             if(frame[i]){
-                // copy to image buffer -- remove later
-                //memcpy(image,frame[i]->image,frame[i]->image_bytes);
-                
-                //cout << "Shutter: " << ReadShutter(image) << endl;
-                CreatePixIntensityMap(*frame[i]);
-                
-                /*
-                tim.tv_usec = ReadTimeStamp(frame[i]->image);
-                time = tim.tv_sec+(tim.tv_usec/1000000.0);
-                printf("Microsecond: %.6lf \n", time);
-                */
-                
+
                 // add to thread group
                 thread_group.create_thread(boost::bind(&FirewireVideo::SaveFile, this, i, *frame[i], "hdr-image", true)); 
                 
@@ -2073,9 +2059,10 @@
         
         // create command string: convert video, remove files and then echo completed - should be thread safe this way
         sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
+                && rm -rf ./video/ppm/  \
                 && echo '[VIDEO]: Video saved to ./video/%s'", 
                 output, output); 
-        // && rm -rf ./video/ppm/  
+        
         // run video conversion
         system(command);  
     }
@@ -2134,10 +2121,9 @@
             // create command string: convert video, remove files and then echo completed - should be thread safe this way
             sprintf(video_command, "mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
                                     && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o ./hdr-video/%s-%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
-                                    && rm -rf  divx2pass.log \
+                                    && rm -rf  divx2pass.log ./hdr-video/temp-jpeg/ \
                                     && echo '[HDR]: HDR Video saved to ./hdr-video/%s-%s.avi'", 
                                     time_stamp, tmo, time_stamp, tmo); 
-            //./hdr-video/temp-jpeg/
             // run final video conversion
             system(video_command);  
             
@@ -2153,7 +2139,7 @@
         }
         
         // delete original files and exr files
-        //system("rm -rf ./hdr-video/jpeg/");
+        system("rm -rf ./hdr-video/jpeg/");
         
     }
        
@@ -2167,9 +2153,141 @@
     }
          
     /*-----------------------------------------------------------------------
-     *  REPORTING
+     *  AUTOMATIC EXPOSURE CONTROL
      *-----------------------------------------------------------------------*/
     
+    float FirewireVideo::AEC(unsigned char *image, float st, bool under_over){
+        
+        // image details
+        int colours = 3;
+        int pixels_skip = GetMetaOffset();
+        int num_pixels = (640 * 480) - pixels_skip;
+
+        // variables 
+        int start = 0, finish = 0, pixel_intensity = 0;
+        float t_opt = 1, count = 0;
+        
+        // loop start/stop pixels
+        int i = pixels_skip - 1; // starting pixel
+        int stop = num_pixels - colours; // stopping pixel
+        
+        // data structure
+        map<int,int> image_pixel_intensity_count; //intensity map/histogram
+
+        //Over/Under Specific Criteria:
+        if( under_over ){
+            start = 0;    
+            finish = 127; // finish = (bit_depth / 2 ) - 1
+
+        } else {
+            start = 128;  // start = (bit_depth + 1) / 2
+            finish = 255; // finish = bit_depth - 1
+        }
+        
+        // loop through entire image matrix and count each intensity
+        while( i < stop ){
+            
+            // get luminance value for each RGB triplet
+            // Y = R * 0.299 + G * 0.587 + B * 0.144
+            pixel_intensity = 
+              ( (int) image[++i] * 0.299 ) 
+            + ( (int) image[++i] * 0.587 )
+            + ( (int) image[++i] * 0.114 );
+            
+            // count if in half of histogram
+            if( (pixel_intensity >= start) && (pixel_intensity <= finish) ){
+                count++;
+            }
+
+        }
+
+        float percent_in_half = (float) count / (float) (num_pixels - pixels_skip);
+        
+        if(percent_in_half <= 0.15){
+            t_opt = under_over ?  0.8 : 1.2 ; 
+        }
+        else if(percent_in_half >= 0.85){
+            t_opt = under_over ?  1.2 : 0.8 ; 
+        }
+
+        return st * t_opt;
+
+    }
+                                    
+    float FirewireVideo::AEC(dc1394video_frame_t frame, float st, bool under_over){
+       
+        // image details
+        int colours = 3;
+        int pixels_skip = GetMetaOffset();
+        int num_pixels = (frame.size[0] * frame.size[1]) - pixels_skip;
+        
+        // variables 
+        int start = 0, finish = 0, pixel_intensity = 0;
+        float t_opt = 1, count = 0;
+        
+        // loop start/stop pixels
+        int i = pixels_skip - 1; // starting pixel
+        int stop = num_pixels - colours; // stopping pixel
+        
+        // data structure
+        //map<int,int> image_pixel_intensity_count; //intensity map/histogram
+        
+        /* Over/Under Specific Criteria:
+         *
+         * Set start and stop pixels
+         * > lower half of image for under, upper half for over exposed.
+         */
+        if( under_over ){
+            start = 0;    
+            finish = 127; // finish = (bit_depth / 2 ) - 1
+            
+        } else {
+            start = 128;  // start = (bit_depth + 1) / 2
+            finish = 255; // finish = bit_depth - 1
+        }
+        
+//        // zero pass the entire map 
+//        for(int i = 0 ; i < bit_depth ; i++){
+//            image_pixel_intensity_count[i] = 0;
+//        }
+//        
+        // loop through entire image matrix and count each intensity
+        while( i < stop ){
+            
+            // get luminance value for each RGB triplet
+            // Y = R * 0.299 + G * 0.587 + B * 0.144
+            pixel_intensity = 
+            ( (int)frame.image[++i] * 0.299 ) 
+            + ( (int)frame.image[++i] * 0.587 )
+            + ( (int)frame.image[++i] * 0.114 );
+            
+            // increment position in map
+            //image_pixel_intensity_count[pixel_intensity]++;    
+            
+            // count if in half of histogram
+            if( (pixel_intensity >= start) && (pixel_intensity <= finish) ){
+                count++;
+            }
+            
+        }
+        
+        float percent_in_half = (float) count / (float) (num_pixels - pixels_skip);
+        
+        if(percent_in_half <= 0.15){
+            t_opt = under_over ?  0.8 : 1.2 ; 
+        }
+        else if(percent_in_half >= 0.85){
+            t_opt = under_over ?  1.2 : 0.8 ; 
+        }
+        
+        return st * t_opt;
+    }
+
+        
+    /*-----------------------------------------------------------------------
+     *  CONVENIENCE UTILITIES
+     *-----------------------------------------------------------------------*/
+        
     void FirewireVideo::PrintCameraReport() 
     {
         // print unique id of camera(not node/slot on chipset)
@@ -2182,231 +2300,7 @@
         dc1394_feature_print_all(&features, stdout);
         
     }
-        
-    void FirewireVideo::CreatePixIntensityMap(dc1394video_frame_t frame){
-        
-        int colours = 3;
-        int numPixels = frame.size[0] * frame.size[1] * colours;
-        int bit_depth = 2 << (frame.data_depth-1);
-        map<int,int> image_pixel_intensity_count;
-        
-        for(int i = 0 ; i < bit_depth ; i++){
-            image_pixel_intensity_count[i]=0;
-        }
-        
-        int i = -1;
-        int stop = numPixels - colours;
-        
-        while(i<stop){
-            image_pixel_intensity_count[((int)frame.image[++i] * 0.299) 
-                                        + ((int)frame.image[++i] * 0.587) 
-                                        + ((int)frame.image[++i] * 0.114)]++;                        
-        }
-
-        map<int,int>::iterator pos;
-        //int saturation_count = 0;
-        //int count;
-        
-        for(pos = image_pixel_intensity_count.begin(); pos != image_pixel_intensity_count.end() ; pos++){
-            cout << pos->first << " " << pos->second << endl;
-            /*
-            count = pos->second;
-            if( count == 0 || count == 255 )
-            {
-                saturation_count++;
-            }
-             */
-        }
-
-    }
-        
-    float FirewireVideo::AEC_Lapray(unsigned char *image, float st, bool under_over){
-        
-        // image details
-        int colours = 3;
-        int pixels_skip = GetMetaOffset();
-        int num_pixels = (640 * 480) - pixels_skip;
-        int bit_depth = 2 << 7; //e.g. 256 (2^8)
-
-        // variables 
-        int start = 0, finish = 0, pixel_intensity = 0;
-        int saturation = 0, saturation_count = 0, saturation_threshold = 0, saturation_threshold_count = 0;
-        float t_opt = 1;
-        float count = 0;
-        
-        // loop start/stop pixels
-        int i = GetMetaOffset() - 1; // starting pixel
-        int stop = num_pixels - colours; // stopping pixel
-        
-        // data structure
-        map<int,int> image_pixel_intensity_count; //intensity map/histogram
-        map<int,int>::iterator pos; // map iterator
-        
-        // update threshold (micro-seconds)
-        // float threshold = 0.0005;
-        
-        /* Over/Under Specific Criteria:
-         *
-         * Set start and stop pixels
-         * > lower half of image for under, upper half for over exposed.
-         *
-         * Set saturation value
-         * > 0 (dark) for under, 255 (bright, bit depth - 1) for over exposed.
-         *
-         * Set t_opt constants
-         * >
-         *
-         * ! hard coded for speed
-         */
-        if( under_over ){
-            start = 0;    
-            finish = 127; // finish = (bit_depth / 2 ) - 1
-            saturation = 0; 
-            saturation_threshold = 63; 
-        } else {
-            start = 128;  // start = (bit_depth + 1) / 2
-            finish = 255; // finish = bit_depth - 1
-            saturation = 255; // saturation = bit_depth - 1
-            saturation_threshold = 191; 
-        }
-        
-        
-        // zero pass the entire map 
-        for(int i = 0 ; i < bit_depth ; i++){
-            image_pixel_intensity_count[i] = 0;
-        }
-        
-        // loop through entire image matrix and count each intensity
-        while( i < stop ){
-            
-            // get luminance value for each RGB triplet
-            // Y = R * 0.299 + G * 0.587 + B * 0.144
-            pixel_intensity = 
-              ( (int)image[++i] * 0.299 ) 
-            + ( (int)image[++i] * 0.587 )
-            + ( (int)image[++i] * 0.114 );
-            
-            // increment position in map
-            image_pixel_intensity_count[pixel_intensity]++;    
-            
-            if( (pixel_intensity >= start) && (pixel_intensity <= finish){
-                count++;
-            }
-//            // increment number of saturated pixels if == 0 (under) or 255 (over)
-//            if( pixel_intensity == saturation )
-//            {
-//                saturation_count++;
-//            }
-//            
-//            if (under_over){
-//                if(pixel_intensity <= saturation_threshold){
-//                    saturation_threshold_count++;
-//                }
-//            } else{
-//                if(pixel_intensity >= saturation_threshold){
-//                    saturation_threshold_count++;
-//                }
-//            }
-            
-        }
-           
-        /*
-        // loop through lower or upper half of map and sum number of pixels
-        for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
-            count += (pos->second);
-        }
-        */
-        float percent_in_half = (float) count / (float) (num_pixels - pixels_skip);
-        
-        if(percent_in_half <= 0.25){
-            t_opt = under_over ?  0.9 : 1.1 ; 
-        }
-        else if(percent_in_half >= 0.75){
-            t_opt = under_over ?  1.1 : 0.9 ; 
-        }
-
-        return st * t_opt;
-
-    }
-                                    
-    float FirewireVideo::AEC_Lapray(dc1394video_frame_t frame, float st, bool under_over){
-       
-        int i = GetMetaOffset() - 1;
-        int colours = 3;
-        int num_pixels = (frame.size[0] * frame.size[1] * colours) - GetMetaOffset();
-        int bit_depth = 2 << (frame.data_depth-1);
-        float shutter_optimum = under_over ? 0.0005 : 0.0005 ;
-        
-        int stop = num_pixels - GetMetaOffset() - colours;
-        int intensity;
-        int saturation_count = 0;
-        float proportion = 0;
-        float threshold = 0.00005;
-        
-        map<int,int> image_pixel_intensity_count;
-        map<int,int>::iterator pos; 
-        
-        // over/under exposed specific criteria
-        int start, finish, saturation;
-        
-        // hard coded for speed
-        if( under_over ){
-            start = 0;    
-            finish = 127; // finish = (bit_depth / 2 ) - 1
-            saturation = 0; 
-        } else {
-            start = 128;  // finish = (bit_depth + 1) / 2
-            finish = 255; // finish = bit_depth - 1
-            saturation = 255; // finish = bit_depth - 1
-        }
-        
-        for(int i = 0 ; i < bit_depth ; i++){
-            image_pixel_intensity_count[i] = 0;
-        }
-        
-        //int i = -1;
-        while( i < stop ){
-            
-            // get greyscale value once for speed
-            intensity = 
-            ( (int)frame.image[++i] * 0.299 ) 
-            + ( (int)frame.image[++i] * 0.587 )
-            + ( (int)frame.image[++i] * 0.114 );
-            
-            //increment value in map
-            image_pixel_intensity_count[intensity]++;    
-            
-            // if saturated, increment
-            // if( saturation == 0 || saturation == bit_depth )
-            if( intensity == saturation ) {
-                saturation_count++;
-            }
-            
-        }
-        
-        float num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;     
-        
-        for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
-            proportion += (pos->second)/num_pixels_minus_saturation;
-        }
-        
-        cout << "Proportion: " << proportion << endl;
-        
-        // if new shutter - old shutter difference less than threshold, return original value
-        // i.e. don't change
-        if ( (st * ( shutter_optimum / proportion ) ) - st < threshold){
-            return st;
-        } 
-        
-        return st * ( shutter_optimum / proportion ); 
-        
-        }
-
-        
-    /*-----------------------------------------------------------------------
-     *  CONVENIENCE UTILITIES
-     *-----------------------------------------------------------------------*/
-        
+    
     void FirewireVideo::GetBestSettings( dc1394video_mode_t &video_mode, 
                                          dc1394framerate_t &framerate 
                                        )
@@ -2593,8 +2487,6 @@
             config.insert( pair<string,string>( "HDR_IMAGE_FORMAT", pt.get<string>("HDR.image_format") ) );
             config.insert( pair<string,string>( "HDR_VIDEO_FORMAT", pt.get<string>("HDR.video_format") ) );
             config.insert( pair<string,string>( "HDR_RESPONSE_CALIBRATION", pt.get<string>("HDR.response_calibration") ) );
-            config.insert( pair<string,string>( "HDR_AEC", pt.get<string>("HDR.aec") ) );
-
             
         } catch (exception& e){
             cerr << "[CONFIG ERROR]:" << e.what() << endl;

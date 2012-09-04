@@ -125,7 +125,6 @@ int main( int argc, char* argv[] )
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
     
     // loaded options
-    static Var<string> aec_choice("ui.AEC", video.GetConfigValue("HDR_AEC"));
     static Var<string> response("ui.Response", video.GetConfigValue("HDR_RESPONSE_CALIBRATION"));
     static Var<string> tmo("ui.TMO", video.GetConfigValue("HDR_TMO"));
 
@@ -161,7 +160,7 @@ int main( int argc, char* argv[] )
      */
     
     // AEC constants
-    float threshold = 0.001; // micro-seconds - 1 second
+    float threshold = 0.00075; // micro-seconds - 3/4 second
     
     //AEC Variables -- use to plot as well
     float new_under_shutter_time, new_over_shutter_time = 0;
@@ -212,15 +211,13 @@ int main( int argc, char* argv[] )
 
         // will only modify values if HDR mode is on
         if (hdr && AEC){
-
-            // LAPRAY ET AL AEC ALGORITHM
              
             // calculate new shutter values and set them if >= threshold
             if(under_over){
                 
                 //cout << "[AEC]: Current under shutter " << video.GetShutterMapAbs(aec_shutter[0]) * 1000<< endl;
                 
-                new_under_shutter_time = video.AEC_Lapray(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
+                new_under_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
                 
                 // if new shutter time >= threshold
                 if ( (video.GetShutterMapAbs(aec_shutter[0]) - new_under_shutter_time) >= threshold){
@@ -232,7 +229,7 @@ int main( int argc, char* argv[] )
                 
                 //cout << "[AEC]: Current over shutter" << video.GetShutterMapAbs(aec_shutter[2]) * 1000 << endl;
                 
-                new_over_shutter_time = video.AEC_Lapray(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
+                new_over_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
                 
                 // if new shutter time >= threshold
                 if ( (video.GetShutterMapAbs(aec_shutter[2]) - new_over_shutter_time) >= threshold){
@@ -243,11 +240,6 @@ int main( int argc, char* argv[] )
                 
             }
   
-            /* KANG ET AL AEC ALGORITHM
-             *
-             *
-             */
-            
             // print AEC telemtry
             if ( frame_number != 0) {
                 cout << frame_number << " " << new_under_shutter_time * 1000;

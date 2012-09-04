@@ -140,6 +140,15 @@ namespace pangolin
      @param file path
      */
     void SaveImageHistogram(const char* filename);
+    
+    /**
+     generates pixel intensity map
+     @param image buffer
+     @returns pointer to map
+     */ 
+    void CreatePixIntensityMap(unsigned char *image, int offset);
+    
+    
 }
 
 #endif
