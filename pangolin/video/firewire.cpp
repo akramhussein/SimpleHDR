@@ -434,7 +434,7 @@
     void FirewireVideo::Stop()
     {
 
-    cout << "[INFO]: Stopping camera transmission" << endl;
+        //cout << "[INFO]: Stopping camera transmission" << endl;
 
     if( running )
     {
@@ -664,7 +664,7 @@
         
     void FirewireVideo::FlushDMABuffer()
     {
-        cout << "[INFO]: Flushing camera DMA buffer" << endl;
+        // cout << "[INFO]: Flushing camera DMA buffer" << endl;
         Stop();
         
         dc1394video_frame_t *frame;
@@ -682,7 +682,7 @@
             discarded_frames++;
         }
  
-        cout << "[INFO]: Flushed frames: " << discarded_frames << endl;
+        // cout << "[INFO]: Flushed frames: " << discarded_frames << endl;
     }
        
     FirewireVideo::FirewireVideo(
@@ -1766,13 +1766,24 @@
         SetHDRRegister(false);
         
         boost::thread_group thread_group;
-        
+        /*
+        struct timeval tim;
+        double time;
+        */
         // save each frame to jpeg and return frames to dma to requeue the buffer
         for(int i = 0; i < n; i++){
             if(frame[i]){
                 // copy to image buffer -- remove later
                 //memcpy(image,frame[i]->image,frame[i]->image_bytes);
+                
                 //cout << "Shutter: " << ReadShutter(image) << endl;
+                CreatePixIntensityMap(*frame[i]);
+                
+                /*
+                tim.tv_usec = ReadTimeStamp(frame[i]->image);
+                time = tim.tv_sec+(tim.tv_usec/1000000.0);
+                printf("Microsecond: %.6lf \n", time);
+                */
                 
                 // add to thread group
                 thread_group.create_thread(boost::bind(&FirewireVideo::SaveFile, this, i, *frame[i], "hdr-image", true)); 
@@ -1817,7 +1828,7 @@
             // don't create radiance map
             sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                     | pfshdrcalibrate -f ./config/camera.response \
-                    | pfstmo_%s | pfsout ./hdr-image/%s \
+                    | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
                     && rm -rf ./hdr-image/jpeg \
                     && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                     tmo, output, output);
@@ -1827,7 +1838,7 @@
                         | pfshdrcalibrate -f ./config/camera.response \
                         | pfsoutrgbe ./hdr-image/%s.rgbe \
                         && pfsinrgbe ./hdr-image/%s.rgbe \
-                        | pfstmo_%s | pfsout ./hdr-image/%s \
+                        | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
                         && rm -rf ./hdr-image/jpeg \
                         && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                         time_stamp, time_stamp, tmo, output, output);
@@ -1841,7 +1852,7 @@
                 // don't create radiance map
                 sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                         | pfshdrcalibrate -f ./config/camera.response \
-                        | pfstmo_%s | pfsout ./hdr-image/%s \
+                        | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
                         && rm -rf ./hdr-image/jpeg \
                         && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                         tmo, output, output);
@@ -1851,7 +1862,7 @@
                         | pfshdrcalibrate -f ./config/camera.response \
                         | pfsoutexr ./hdr-image/%s.exr \
                         && pfsinexr ./hdr-image/%s.exr \
-                        | pfstmo_%s | pfsout ./hdr-image/%s \
+                        | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
                         && rm -rf ./hdr-image/jpeg \
                         && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                         time_stamp, time_stamp, tmo, output, output);
@@ -2049,7 +2060,7 @@
         char output[1024];
         char *video_format;
         
-        // set output video format from config or if not loaded, to default (mpeg)
+        // set output video format from config or if not loaded, to default (mpg)
         if (CheckConfigLoaded()){
            video_format = (char *) GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
         } else {
@@ -2062,18 +2073,16 @@
         
         // create command string: convert video, remove files and then echo completed - should be thread safe this way
         sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
-                && rm -rf ./video/ppm/  \
                 && echo '[VIDEO]: Video saved to ./video/%s'", 
                 output, output); 
-        
+        // && rm -rf ./video/ppm/  
         // run video conversion
         system(command);  
     }
         
     void FirewireVideo::SaveHDRVideo(int frame_number){
         
-        // temp directories to hold exr and jpeg intermediate outputs
-        mkdir("./hdr-video/temp-exr/", 0755);
+        // temp directories for jpeg intermediate outputs
         mkdir("./hdr-video/temp-jpeg/", 0755);
         
         char time_stamp[32];
@@ -2095,7 +2104,7 @@
         
         for ( int i = 0 ; i < frame_number-1 ; i++){
            
-            cout << "[HDR]: processing frame " << j << endl;
+            cout << "[HDR]: Processing frame " << j << endl;
             
             stringstream ps, ps2, ps_j;
             
@@ -2106,13 +2115,8 @@
             
             sprintf(convert_command, "pfsinme ./hdr-video/jpeg/image%s.jpeg ./hdr-video/jpeg/image%s.jpeg \
                     | pfshdrcalibrate -f ./config/camera.response \
-                    | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
-                    && pfsin ./hdr-video/temp-exr/image%s.exr \
-                    | pfsclamp --min 0.001 -p \
-                    | pfsoutexr ./hdr-video/temp-exr/image%s.exr \
-                    && pfsinexr ./hdr-video/temp-exr/image%s.exr \
-                    | pfstmo_%s | pfsout ./hdr-video/temp-jpeg/image%s.jpeg",
-                    pf, pf2, pf_j, pf_j, pf_j, pf_j, tmo, pf_j);
+                    | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-video/temp-jpeg/image%s.jpeg",
+                    pf, pf2, tmo, pf_j);
             
             // convert pair of frames to exr
             system(convert_command);
@@ -2130,19 +2134,18 @@
             // create command string: convert video, remove files and then echo completed - should be thread safe this way
             sprintf(video_command, "mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
                                     && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o ./hdr-video/%s-%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
-                                    && rm -rf ./hdr-video/temp-jpeg/ divx2pass.log \
+                                    && rm -rf  divx2pass.log \
                                     && echo '[HDR]: HDR Video saved to ./hdr-video/%s-%s.avi'", 
                                     time_stamp, tmo, time_stamp, tmo); 
-        
+            //./hdr-video/temp-jpeg/
             // run final video conversion
             system(video_command);  
             
         } else {
-            
+            // && rm -rf ./hdr-video/temp-jpeg/           
             sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s-%s.mpeg \
-                    && rm -rf ./hdr-video/temp-jpeg/ \
                     && echo '[HDR]: HDR Video saved to ./hdr-video/%s-%s.mpeg' ", 
-                    time_stamp,tmo, time_stamp,tmo); 
+                    time_stamp, tmo, time_stamp, tmo); 
             
             // run final video conversion 
             system(video_command);  
@@ -2150,7 +2153,7 @@
         }
         
         // delete original files and exr files
-        system("rm -rf ./hdr-video/jpeg/ ./hdr-video/temp-exr");
+        //system("rm -rf ./hdr-video/jpeg/");
         
     }
        
@@ -2201,98 +2204,132 @@
         }
 
         map<int,int>::iterator pos;
-        int saturation_count = 0;
-        int count;
+        //int saturation_count = 0;
+        //int count;
         
         for(pos = image_pixel_intensity_count.begin(); pos != image_pixel_intensity_count.end() ; pos++){
-            
+            cout << pos->first << " " << pos->second << endl;
+            /*
             count = pos->second;
             if( count == 0 || count == 255 )
             {
                 saturation_count++;
             }
-
+             */
         }
 
     }
-
-    float FirewireVideo::AEC(unsigned char *image, float st, bool under_over){
         
-        //int i = GetMetaOffset() - 1;
+    float FirewireVideo::AEC_Lapray(unsigned char *image, float st, bool under_over){
         
+        // image details
         int colours = 3;
-        int num_pixels = 921600 - GetMetaOffset();
-        //int num_pixels = frame.size[0] * frame.size[1] * colours;
-        int bit_depth = 2 << 7;
-        //int bit_depth = 2 << (frame.data_depth-1);
-        float shutter_optimum = under_over ? 0.0005 : 0.0005 ;
+        int pixels_skip = GetMetaOffset();
+        int num_pixels = (640 * 480) - pixels_skip;
+        int bit_depth = 2 << 7; //e.g. 256 (2^8)
+
+        // variables 
+        int start = 0, finish = 0, pixel_intensity = 0;
+        int saturation = 0, saturation_count = 0, saturation_threshold = 0, saturation_threshold_count = 0;
+        float t_opt = 1;
+        float count = 0;
         
-        int stop = num_pixels - colours;
-        int intensity;
-        int saturation_count = 0;
-        float proportion = 0;
-        float threshold = 0.0005;
+        // loop start/stop pixels
+        int i = GetMetaOffset() - 1; // starting pixel
+        int stop = num_pixels - colours; // stopping pixel
         
-        map<int,int> image_pixel_intensity_count;
-        map<int,int>::iterator pos; 
+        // data structure
+        map<int,int> image_pixel_intensity_count; //intensity map/histogram
+        map<int,int>::iterator pos; // map iterator
         
-        // over/under exposed specific criteria
-        int start, finish, saturation;
+        // update threshold (micro-seconds)
+        // float threshold = 0.0005;
         
-        // hard coded for speed
+        /* Over/Under Specific Criteria:
+         *
+         * Set start and stop pixels
+         * > lower half of image for under, upper half for over exposed.
+         *
+         * Set saturation value
+         * > 0 (dark) for under, 255 (bright, bit depth - 1) for over exposed.
+         *
+         * Set t_opt constants
+         * >
+         *
+         * ! hard coded for speed
+         */
         if( under_over ){
             start = 0;    
             finish = 127; // finish = (bit_depth / 2 ) - 1
             saturation = 0; 
+            saturation_threshold = 63; 
         } else {
             start = 128;  // start = (bit_depth + 1) / 2
             finish = 255; // finish = bit_depth - 1
             saturation = 255; // saturation = bit_depth - 1
+            saturation_threshold = 191; 
         }
         
+        
+        // zero pass the entire map 
         for(int i = 0 ; i < bit_depth ; i++){
             image_pixel_intensity_count[i] = 0;
         }
         
-        int i = -1;
+        // loop through entire image matrix and count each intensity
         while( i < stop ){
             
-            // get greyscale value once for speed
-            intensity = 
+            // get luminance value for each RGB triplet
+            // Y = R * 0.299 + G * 0.587 + B * 0.144
+            pixel_intensity = 
               ( (int)image[++i] * 0.299 ) 
             + ( (int)image[++i] * 0.587 )
             + ( (int)image[++i] * 0.114 );
             
-            //increment value in map
-            image_pixel_intensity_count[intensity]++;    
+            // increment position in map
+            image_pixel_intensity_count[pixel_intensity]++;    
             
-            // if saturated, increment
-            // if( saturation == 0 || saturation == bit_depth )
-            if( intensity == saturation )
-            {
-                saturation_count++;
+            if( (pixel_intensity >= start) && (pixel_intensity <= finish){
+                count++;
             }
-
+//            // increment number of saturated pixels if == 0 (under) or 255 (over)
+//            if( pixel_intensity == saturation )
+//            {
+//                saturation_count++;
+//            }
+//            
+//            if (under_over){
+//                if(pixel_intensity <= saturation_threshold){
+//                    saturation_threshold_count++;
+//                }
+//            } else{
+//                if(pixel_intensity >= saturation_threshold){
+//                    saturation_threshold_count++;
+//                }
+//            }
+            
         }
-        
-        float num_pixels_minus_saturation = ( num_pixels - GetMetaOffset() ) - saturation_count;     
-        
+           
+        /*
+        // loop through lower or upper half of map and sum number of pixels
         for( pos = image_pixel_intensity_count.find(start); pos->first <= image_pixel_intensity_count.find(finish)->first ; pos++ ){
-            proportion += (pos->second)/num_pixels_minus_saturation;
+            count += (pos->second);
         }
+        */
+        float percent_in_half = (float) count / (float) (num_pixels - pixels_skip);
         
-        // if new shutter - old shutter difference less than threshold, return original value
-        // i.e. don't change 
-        if ( (st * (st * ( shutter_optimum / proportion ) ) ) - st  < threshold){
-            return st;
-        } 
-        
-        // return new shutter time
-        return st * (st * ( shutter_optimum / proportion ) ); 
+        if(percent_in_half <= 0.25){
+            t_opt = under_over ?  0.9 : 1.1 ; 
+        }
+        else if(percent_in_half >= 0.75){
+            t_opt = under_over ?  1.1 : 0.9 ; 
+        }
+
+        return st * t_opt;
 
     }
                                     
-    float FirewireVideo::AEC(dc1394video_frame_t frame, float st, bool under_over){
+    float FirewireVideo::AEC_Lapray(dc1394video_frame_t frame, float st, bool under_over){
        
         int i = GetMetaOffset() - 1;
         int colours = 3;
@@ -2544,8 +2581,7 @@
             
             boost::property_tree::ptree pt;
             boost::property_tree::ini_parser::read_ini("./config/config.ini", pt);
-            
-            
+                        
             // NORMAL
             config.insert( pair<string,string>( "NORMAL_IMAGE_FORMAT", pt.get<string>("NORMAL.image_format") ) );
             config.insert( pair<string,string>( "NORMAL_VIDEO_FORMAT", pt.get<string>("NORMAL.video_format") ) );
@@ -2557,6 +2593,7 @@
             config.insert( pair<string,string>( "HDR_IMAGE_FORMAT", pt.get<string>("HDR.image_format") ) );
             config.insert( pair<string,string>( "HDR_VIDEO_FORMAT", pt.get<string>("HDR.video_format") ) );
             config.insert( pair<string,string>( "HDR_RESPONSE_CALIBRATION", pt.get<string>("HDR.response_calibration") ) );
+            config.insert( pair<string,string>( "HDR_AEC", pt.get<string>("HDR.aec") ) );
 
             
         } catch (exception& e){

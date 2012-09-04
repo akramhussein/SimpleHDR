@@ -29,7 +29,7 @@ int main( int argc, char* argv[] )
     video.SetMetaDataFlags( META_ALL_AND_ABS );
     video.CreateShutterMaps();
     video.SetAllFeaturesAuto();
-    video.PrintCameraReport();
+    //video.PrintCameraReport();
     
     unsigned char* img = new unsigned char[video.SizeBytes()];
 
@@ -60,18 +60,6 @@ int main( int argc, char* argv[] )
     GlTexture texVideo(w,h,GL_RGBA8);
     
     /*-----------------------------------------------------------------------
-     *  KEYBOARD SHORCUTS
-     *-----------------------------------------------------------------------*/ 
-    
-    RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true));                 // hdr mode 
-    RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                // normal mode
-    RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                   // start/stop recording
-    RegisterKeyPressCallback( 'c', SetVarFunctor<bool>("ui.Capture Frame", true));            // grab single image
-    RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));   // manual on
-    RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));  // manual off
-    RegisterKeyPressCallback( 'e', SetVarFunctor<bool>("ui.Automatic Exposure Control", true));  // AEC on
-
-    /*-----------------------------------------------------------------------
      *  CONTROL PANEL
      *-----------------------------------------------------------------------*/ 
     
@@ -96,9 +84,9 @@ int main( int argc, char* argv[] )
     static Var<bool> manual("ui.Manual Camera Settings",false,true);
 
     // camera settings
-    static Var<float> shutter("ui.Shutter (s)", video.GetFeatureValue(DC1394_FEATURE_SHUTTER),
-                               video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER),
-                               video.GetFeatureValueMax(DC1394_FEATURE_SHUTTER), true);
+    static Var<float> shutter("ui.Shutter (s)", video.GetFeatureValue(DC1394_FEATURE_SHUTTER)*1000,
+                               video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER)*1000,
+                               video.GetFeatureValueMax(DC1394_FEATURE_SHUTTER)*1000, true);
 
     static Var<float> exposure("ui.Exposure (EV)", video.GetFeatureValue(DC1394_FEATURE_EXPOSURE),
                                 video.GetFeatureValueMin(DC1394_FEATURE_EXPOSURE),
@@ -137,27 +125,67 @@ int main( int argc, char* argv[] )
                                      video.GetFeatureQuantMax(DC1394_FEATURE_WHITE_BALANCE),false);  
     
     // loaded options
-    static Var<string> response("ui.Response:", video.GetConfigValue("HDR_RESPONSE_CALIBRATION"));
+    static Var<string> aec_choice("ui.AEC", video.GetConfigValue("HDR_AEC"));
+    static Var<string> response("ui.Response", video.GetConfigValue("HDR_RESPONSE_CALIBRATION"));
     static Var<string> tmo("ui.TMO", video.GetConfigValue("HDR_TMO"));
-  
+
+    /*-----------------------------------------------------------------------
+     *  KEYBOARD SHORCUTS
+     *-----------------------------------------------------------------------*/ 
+    
+    RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                     // start/stop recording
+    RegisterKeyPressCallback( 13, SetVarFunctor<bool>("ui.Capture Frame", true));               // grab single image
+    RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.Capture HDR Frame", true));          // capture hdr frame
+    
+//    RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true ));                   // hdr mode 
+//    RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                  // normal mode
+//    
+//    RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));     // manual mode on
+//    RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));    // manual off
+//    RegisterKeyPressCallback( 'e', SetVarFunctor<bool>("ui.Automatic Exposure Control", true)); // AEC on
+        
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
      *-----------------------------------------------------------------------*/     
     
+    // Loop Variables
     bool save = false;    
     bool under_over = true;
     time_t start, end;
     uint32_t hdr_shutter[3];    
     uint32_t aec_shutter[3];    
-
+    
+    /*
+     struct timeval tim;
+     double old_time, new_time;
+     */
+    
+    // AEC constants
+    float threshold = 0.001; // micro-seconds - 1 second
+    
+    //AEC Variables -- use to plot as well
+    float new_under_shutter_time, new_over_shutter_time = 0;
+    
     // loop until quit (e.g ESC key)
     for(int frame_number = 0; !ShouldQuit(); ++frame_number)
     {     
+        
+         /*
+        if(hdr){
+            
+            // print frame time gap in micro-seconds
+            tim.tv_usec = video.ReadTimeStamp(img);
+            new_time = tim.tv_sec+(tim.tv_usec/1000000.0);
+            printf("%d %.6lf \n", frame_number, new_time - old_time);
+            old_time = new_time;
+        }
+         */
+        
         // Screen refresh
-        if(HasResized())
-            DisplayBase().ActivateScissorAndClear();
+        if(HasResized()){ DisplayBase().ActivateScissorAndClear(); }
 
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
         
         /*-----------------------------------------------------------------------
          *  CONTROL LOGIC
@@ -167,42 +195,74 @@ int main( int argc, char* argv[] )
         
         // switch under over flag
         under_over = under_over ? false : true ;
-        
+
         // shutter settings when AEC mode activated   
         if(Pushed(AEC.var->meta_gui_changed)){
-            
+            frame_number = 0;
             AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
             
-            // copy, don't modify original hdr shutter values 
-            for(int i = 0; i < 4; i++){
-                aec_shutter[i] = hdr_shutter[i];
-            }
-            
+            // copy, don't modify original hdr shutter values so we can reset them
+            memcpy(aec_shutter, hdr_shutter, sizeof(aec_shutter));
+
             if(!AEC){
+                
                 video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[2], hdr_shutter[0], hdr_shutter[2]); 
             }
         } 
-        
+
         // will only modify values if HDR mode is on
         if (hdr && AEC){
-            
-            // calculate new shutter values
+
+            // LAPRAY ET AL AEC ALGORITHM
+             
+            // calculate new shutter values and set them if >= threshold
             if(under_over){
-                aec_shutter[0] = video.AEC(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
-                cout << "under shutter: " << video.GetShutterMapAbs(aec_shutter[0]) << endl;
+                
+                //cout << "[AEC]: Current under shutter " << video.GetShutterMapAbs(aec_shutter[0]) * 1000<< endl;
+                
+                new_under_shutter_time = video.AEC_Lapray(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
+                
+                // if new shutter time >= threshold
+                if ( (video.GetShutterMapAbs(aec_shutter[0]) - new_under_shutter_time) >= threshold){
+                    aec_shutter[0] = video.GetShutterMapQuant(new_under_shutter_time); // replace new shutter time in array
+                    video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
+                }
+                          
             } else {
-                aec_shutter[2] = video.AEC(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
-                cout << "over shutter: " << video.GetShutterMapAbs(aec_shutter[2]) << endl;
+                
+                //cout << "[AEC]: Current over shutter" << video.GetShutterMapAbs(aec_shutter[2]) * 1000 << endl;
+                
+                new_over_shutter_time = video.AEC_Lapray(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
+                
+                // if new shutter time >= threshold
+                if ( (video.GetShutterMapAbs(aec_shutter[2]) - new_over_shutter_time) >= threshold){
+                    aec_shutter[2] = video.GetShutterMapQuant(new_over_shutter_time); // replace new shutter time in array
+                    video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
+                }
+
+                
+            }
+  
+            /* KANG ET AL AEC ALGORITHM
+             *
+             *
+             */
+            
+            // print AEC telemtry
+            if ( frame_number != 0) {
+                cout << frame_number << " " << new_under_shutter_time * 1000;
+                cout << " " << new_over_shutter_time * 1000;
+                cout << " " << (new_over_shutter_time - new_under_shutter_time) * 1000 << endl;
             }
             
-            // set new shutter values
-            video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); 
+            
         } 
         
         // checks if hdr mode has been switched and sets register on
         if(Pushed(hdr.var->meta_gui_changed)){
             
             if( hdr ){
+
                 cout << "[HDR]: HDR mode enabled" << endl;        
                 video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
                 float EV = video.GetFeatureValue(DC1394_FEATURE_EXPOSURE);
@@ -239,10 +299,10 @@ int main( int argc, char* argv[] )
             if(Pushed(exposure.var->meta_gui_changed)){
                 video.SetFeatureValue(DC1394_FEATURE_EXPOSURE, exposure); 
                 video.SetFeatureAuto(DC1394_FEATURE_SHUTTER);
-                shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+                shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER)*1000);
             }
             else{
-                video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter);
+                video.SetFeatureValue(DC1394_FEATURE_SHUTTER, shutter/1000);
             }
             
         }
@@ -268,7 +328,7 @@ int main( int argc, char* argv[] )
             
             // update all trackbars upon switching back to automatic mode
             exposure.operator=(video.GetFeatureValue(DC1394_FEATURE_EXPOSURE));
-            shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER));
+            shutter.operator=(video.GetFeatureValue(DC1394_FEATURE_SHUTTER)*1000);
             brightness.operator=(video.GetFeatureValue(DC1394_FEATURE_BRIGHTNESS));
             gain.operator=(video.GetFeatureValue(DC1394_FEATURE_GAIN));
             gamma.operator=(video.GetFeatureValue(DC1394_FEATURE_GAMMA));
@@ -313,7 +373,7 @@ int main( int argc, char* argv[] )
         
         // start/stop recording
         if ( save && Pushed(record) ){ 
-            
+
             save = false; // set save flag to false
             
             if(hdr){          

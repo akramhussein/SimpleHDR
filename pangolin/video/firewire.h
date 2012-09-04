@@ -143,7 +143,7 @@
     dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8,
     dc1394framerate_t framerate = DC1394_FRAMERATE_30,
     dc1394speed_t iso_speed = DC1394_ISO_SPEED_400,
-    int dma_buffers = 100
+    int dma_buffers = 75
     );
 
     FirewireVideo(
@@ -151,7 +151,7 @@
     dc1394video_mode_t video_mode = DC1394_VIDEO_MODE_640x480_RGB8,
     dc1394framerate_t framerate = DC1394_FRAMERATE_30,
     dc1394speed_t iso_speed = DC1394_ISO_SPEED_400,
-    int dma_buffers = 100
+    int dma_buffers = 75
     );
 
     FirewireVideo(
@@ -573,14 +573,14 @@
      *  REPORTING
      *-----------------------------------------------------------------------*/
     
-    //! generate image pixel intensity count in map
+    //! generate image pixel intensity count in map from frame
     void CreatePixIntensityMap(dc1394video_frame_t frame);
         
     //! accepts dc1394 frame, returns change (multiplier) to shutter time for next frame
-    float AEC(dc1394video_frame_t frame, float st, bool under_over); 
+    float AEC_Lapray(dc1394video_frame_t frame, float st, bool under_over); 
         
-    //! accepts image buffer, returns change (multiplier) to shutter time for next frame
-    float AEC(unsigned char *image, float st, bool under_over);
+    //! returns next shutter time for next frame
+    float AEC_Lapray(unsigned char *image, float st, bool under_over);
               
     /*-----------------------------------------------------------------------
      *  CAMERA UTILITIES
