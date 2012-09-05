@@ -404,7 +404,6 @@
         dc1394_camera_free(camera);
         dc1394_free (d);
     }
-
         
     std::string FirewireVideo::PixFormat() const
     {
@@ -434,7 +433,7 @@
     void FirewireVideo::Stop()
     {
 
-        //cout << "[INFO]: Stopping camera transmission" << endl;
+    cout << "[INFO]: Stopping camera transmission" << endl;
 
     if( running )
     {
@@ -498,173 +497,16 @@
         if( frame )
         {
             memcpy(image,frame->image,frame->image_bytes);
-            dc1394_capture_enqueue(camera,frame);
-            
-            //print time stamps
-            /*
-            time_t time_ms = (frame->timestamp);
-            time_t time_secs = (frame->timestamp)/1000000;
-            printf("Epoch: %ld Timestamp: %s", time_ms, ctime(&time_secs));
-            */
-            //dc1394_video_set_one_shot(camera, DC1394_OFF);
-            //cout << "frames behind: " << frame->frames_behind << endl;
-            //CreatePixIntensityMap(*frame);
-                    
+            dc1394_capture_enqueue(camera,frame);                    
             return true;
         }
         return false;
     }
         
-    void FirewireVideo::GrabNFramesMulti(unsigned char *image, int n, float shut[]){
-        
-        // frame array
-        dc1394video_frame_t *frame[n];
-        dc1394video_frame_t *discarded_frame;
-        
-        SetHDRShutterFlags(
-                           GetShutterMapQuant(shut[0]),
-                           GetShutterMapQuant(shut[1]),
-                           GetShutterMapQuant(shut[2]),
-                           GetShutterMapQuant(shut[3])
-                           );
-                         
-        SetHDRRegister(true);
-        Start();
-        SetMultiShotOn(n);
-        
-        //discard first frame -- not working
-        dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &discarded_frame);
-        dc1394_capture_enqueue(camera, discarded_frame);
-        
-        for(int i = 0; i < n ; i++){
-          dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame[i]);  
-        }
-        
-        SetMultiShotOff();
-
-        for(int i = 0; i < n; i++){
-            if(frame[i]){
-                //memcpy(image,frame[i]->image,frame[i]->image_bytes);
-                //cout << "Shutter: " << ReadShutter(image) << endl;
-                boost::thread(&FirewireVideo::SaveFile, this, i, *frame[i], "hdr-frames", true);
-                dc1394_capture_enqueue(camera, frame[i]);
-            }
-        }
-    
-    }
-        
-        
-    //! image updating won't work for now
-    void FirewireVideo::GrabNFrames(unsigned char *image, int n, int shut[]){
-        
-        dc1394video_frame_t *f1;
-        dc1394video_frame_t *f2;
-        dc1394video_frame_t *f3;
-        dc1394video_frame_t *f4;
-        
-        // turn off HDR register mode just in case
-        
-        SetHDRRegister(false);
-        /*
-        uint32_t under = GetShutterMapQuant(0.00450313);
-        uint32_t over = GetShutterMapQuant(0.00200000);
-
-        SetHDRShutterFlags(over,under,over,under);
-        */
-        //steps 2-3 - stop transmission and flush dma buffer
-        StopForOneShot();  
-        
-        // 4.Grab N frames
-        for(int i = 0 ; i < n; i++){
-            //cout << shut[i] << endl;
-            //set shutter value
-            //SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[i]);
-            //sleep(2/30);
-
-            // turn on one shot
-            dc1394_video_set_one_shot(camera, DC1394_ON);
-            //sleep(2/30);
-            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[0]);
-            cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
-            //sleep(2/30);
-            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f1); 
-
-            dc1394_video_set_one_shot(camera, DC1394_ON);
-            //sleep(2/30);
-            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[1]);
-             cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
-            //sleep(2/30);
-            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f2); 
-
-            dc1394_video_set_one_shot(camera, DC1394_ON);
-            //sleep(2/30);
-            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[2]);
-             cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
-            //sleep(2/30);
-            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f3); 
-
-            dc1394_video_set_one_shot(camera, DC1394_ON);
-            //sleep(2/30);
-            SetFeatureQuant(DC1394_FEATURE_SHUTTER, shut[3]);
-             cout << "get shutter: " << GetFeatureQuant(DC1394_FEATURE_SHUTTER) << endl;
-            //sleep(2/30);
-            dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &f4); 
-            
-            if( f1 )
-            {
-                memcpy(image,f1->image,f1->image_bytes);
-                cout << "Shutter: " << ReadShutter(image) << endl;
-                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
-            }
-            
-            if( f2 )
-            {
-                memcpy(image,f2->image,f2->image_bytes);
-                cout << "Shutter: " << ReadShutter(image) << endl;
-                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
-            }            
-            
-            if( f3 )
-            {
-                memcpy(image,f3->image,f3->image_bytes);
-                cout << "Shutter: " << ReadShutter(image) << endl;
-                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
-            }
-            
-            if( f4 )
-            {
-                memcpy(image,f4->image,f4->image_bytes);
-                cout << "Shutter: " << ReadShutter(image) << endl;
-                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
-            }
-            
-            // empty frames
-            // FlushDMABuffer();
-            dc1394_capture_enqueue(camera, f1);
-            dc1394_capture_enqueue(camera, f2);
-            dc1394_capture_enqueue(camera, f3);
-            dc1394_capture_enqueue(camera, f4);
-            /*
-            if( frame )
-            {
-                memcpy(image,frame->image,frame->image_bytes);
-                cout << "Shutter: " << ReadShutter(image) << endl;
-                cout << "Time stamp: " << ReadTimeStamp(image) << endl;
                 
-                dc1394_capture_enqueue(camera, frame);
-            }
-             */
-        }
-        
-        // 6. restart transmission
-        Start();
-     
-    }
-        
-        
     void FirewireVideo::FlushDMABuffer()
     {
-        // cout << "[INFO]: Flushing camera DMA buffer" << endl;
+        cout << "[INFO]: Flushing camera DMA buffer" << endl;
         Stop();
         
         dc1394video_frame_t *frame;
@@ -682,7 +524,7 @@
             discarded_frames++;
         }
  
-        // cout << "[INFO]: Flushed frames: " << discarded_frames << endl;
+        cout << "[INFO]: Flushed frames: " << discarded_frames << endl;
     }
        
     FirewireVideo::FirewireVideo(
@@ -1415,13 +1257,6 @@
         if (dc1394_get_control_register(camera, 0x1880, &shut3) != DC1394_SUCCESS) {
             throw VideoException("[DC1394 ERROR]: Could not get hdr shutter3 flags");
         }
-        /*
-        cout << "Shutter Values" << endl;
-        cout << GetShutterMapAbs(shut0 - 2181038080) << endl;
-        cout << GetShutterMapAbs(shut1 - 2181038080) << endl;
-        cout << GetShutterMapAbs(shut2 - 2181038080) << endl;
-        cout << GetShutterMapAbs(shut3 - 2181038080) << endl;
-         */
     }
         
     void FirewireVideo::SetHDRGainFlags(uint32_t gain0, 
@@ -1464,11 +1299,8 @@
             throw VideoException("[DC1394 ERROR]: Could not get hdr gain3 flags");
         }
         /*
-        cout << "Gain flags" << endl;
+        // to check gain flags
         cout << gain0 - 2181038080 << endl;
-        cout << gain1 - 2181038080 << endl;
-        cout << gain2 - 2181038080 << endl; 
-        cout << gain3 - 2181038080 << endl;
         */
     }
 
@@ -1722,6 +1554,7 @@
 
     void FirewireVideo::CaptureHDRFrame(unsigned char* image, int n, uint32_t shutter[])
     {
+ 
         cout << "[HDR]: Starting HDR frame capture" << endl;
         
         // frame array
@@ -1748,10 +1581,6 @@
         // start transmission again
         Start();
 
-        //discard first frame -- not working
-        //dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &discarded_frame);
-        //dc1394_capture_enqueue(camera, discarded_frame);
-        
         // grab n frames from dma
         for(int i = 0; i < n ; i++){
             if(dc1394_capture_dequeue(camera, DC1394_CAPTURE_POLICY_WAIT, &frame[i]) != DC1394_SUCCESS){
@@ -1799,8 +1628,6 @@
         } else {
             tmo = (char *) "drago03";
             image_format = (char *) "jpeg";
-            radiance_format = (char *) "exr";
-            keep_radiance = (char *) "no";
         }
         
         GetTimeStamp(time_stamp);
@@ -1809,7 +1636,7 @@
         
         if(!strcmp(GetConfigValue("HDR_RADIANCE_FORMAT").c_str(), "rgbe") || !strcmp(GetConfigValue("HDR_RADIANCE_FORMAT").c_str(), "RGBE") ){
             
-            if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") ){
+            if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "NO") ){
 
             // don't create radiance map
             sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
@@ -1833,7 +1660,7 @@
         }
         else {
             
-            if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") ){
+            if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "NO") ){
 
                 // don't create radiance map
                 sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
@@ -1883,8 +1710,6 @@
             
             cout << "[SAVE]: " << GetConfigValue("NORMAL_IMAGE_FORMAT").c_str() << " image saved to " << convert_filename << endl;
         }
-
-        
         
     }
         
@@ -1957,6 +1782,7 @@
                 cout << "[SAVE]: JPEG image saved to " << filename << endl;
             }
         }
+
         
     }
 
@@ -1992,9 +1818,6 @@
             !shutter_abs_map.empty() 
             ? WriteExifDataFromImageMetaData(&metaData, filename)
             : WriteExifData(this, filename);
-
-            //cout << "[SAVE]: JPEG image saved to " << filename << endl;
-            //cout << "[IMAGE]: Image average luminance cd/m^2: " << GetAvgLuminance(filename) << endl;  
 
         } 
         else{   
@@ -2064,7 +1887,8 @@
                 output, output); 
         
         // run video conversion
-        system(command);  
+        system(command);
+
     }
         
     void FirewireVideo::SaveHDRVideo(int frame_number){
@@ -2139,7 +1963,7 @@
         }
         
         // delete original files and exr files
-        system("rm -rf ./hdr-video/jpeg/");
+        system("rm -rf ./hdr-video/jpeg/");  
         
     }
        
@@ -2160,19 +1984,16 @@
         
         // image details
         int colours = 3;
-        int pixels_skip = GetMetaOffset();
-        int num_pixels = (640 * 480) - pixels_skip;
+        int points_skip = GetMetaOffset();
+        int num_pixels = (width * height) - (points_skip / colours);
 
         // variables 
         int start = 0, finish = 0, pixel_intensity = 0;
-        float t_opt = 1, count = 0;
+        float C_multiplier = 1, count = 0;
         
         // loop start/stop pixels
-        int i = pixels_skip - 1; // starting pixel
-        int stop = num_pixels - colours; // stopping pixel
-        
-        // data structure
-        map<int,int> image_pixel_intensity_count; //intensity map/histogram
+        int i = points_skip - 1; // starting pixel
+        int stop = (width * height * colours) - colours; // stopping point in matrix
 
         //Over/Under Specific Criteria:
         if( under_over ){
@@ -2201,89 +2022,61 @@
 
         }
 
-        float percent_in_half = (float) count / (float) (num_pixels - pixels_skip);
+        float percent_in_half = (float) count / (float) (num_pixels);
         
-        if(percent_in_half <= 0.15){
-            t_opt = under_over ?  0.8 : 1.2 ; 
-        }
-        else if(percent_in_half >= 0.85){
-            t_opt = under_over ?  1.2 : 0.8 ; 
-        }
+        // based on config values
+        if(CheckConfigLoaded()){
 
-        return st * t_opt;
-
-    }
-                                    
-    float FirewireVideo::AEC(dc1394video_frame_t frame, float st, bool under_over){
-       
-        // image details
-        int colours = 3;
-        int pixels_skip = GetMetaOffset();
-        int num_pixels = (frame.size[0] * frame.size[1]) - pixels_skip;
-        
-        // variables 
-        int start = 0, finish = 0, pixel_intensity = 0;
-        float t_opt = 1, count = 0;
-        
-        // loop start/stop pixels
-        int i = pixels_skip - 1; // starting pixel
-        int stop = num_pixels - colours; // stopping pixel
-        
-        // data structure
-        //map<int,int> image_pixel_intensity_count; //intensity map/histogram
-        
-        /* Over/Under Specific Criteria:
-         *
-         * Set start and stop pixels
-         * > lower half of image for under, upper half for over exposed.
-         */
-        if( under_over ){
-            start = 0;    
-            finish = 127; // finish = (bit_depth / 2 ) - 1
-            
-        } else {
-            start = 128;  // start = (bit_depth + 1) / 2
-            finish = 255; // finish = bit_depth - 1
-        }
-        
-//        // zero pass the entire map 
-//        for(int i = 0 ; i < bit_depth ; i++){
-//            image_pixel_intensity_count[i] = 0;
-//        }
-//        
-        // loop through entire image matrix and count each intensity
-        while( i < stop ){
-            
-            // get luminance value for each RGB triplet
-            // Y = R * 0.299 + G * 0.587 + B * 0.144
-            pixel_intensity = 
-            ( (int)frame.image[++i] * 0.299 ) 
-            + ( (int)frame.image[++i] * 0.587 )
-            + ( (int)frame.image[++i] * 0.114 );
-            
-            // increment position in map
-            //image_pixel_intensity_count[pixel_intensity]++;    
-            
-            // count if in half of histogram
-            if( (pixel_intensity >= start) && (pixel_intensity <= finish) ){
-                count++;
+            if (under_over){
+                
+                // under exposed values
+                if(percent_in_half <= GetAECValue("AEC_U_MIN")){
+                    C_multiplier = GetAECValue("AEC_M_U_MIN");
+                }
+                else if(percent_in_half >= GetAECValue("AEC_U_MAX")){
+                    C_multiplier = GetAECValue("AEC_M_U_MAX"); 
+                }
+                
+            } else {
+                
+                // over exposed values
+                if(percent_in_half <= GetAECValue("AEC_O_MIN")){
+                    C_multiplier = GetAECValue("AEC_M_O_MIN");
+                }
+                else if(percent_in_half >= GetAECValue("AEC_O_MAX")){
+                    C_multiplier = GetAECValue("AEC_M_O_MAX"); 
+                }
+                
             }
-            
-        }
         
-        float percent_in_half = (float) count / (float) (num_pixels - pixels_skip);
-        
-        if(percent_in_half <= 0.15){
-            t_opt = under_over ?  0.8 : 1.2 ; 
+        } else { 
+                if (under_over){
+                
+                // under exposed values
+                if(percent_in_half <= 0.15){
+                    C_multiplier = 0.8;
+                }
+                else if(percent_in_half >= 0.85){
+                    C_multiplier = 1.2; 
+                }
+                
+            } else {
+                
+                // over exposed values
+                if(percent_in_half <= 0.15){
+                    C_multiplier = 1.2;
+                }
+                else if(percent_in_half >= 0.85){
+                    C_multiplier = 0.8; 
+                }
+                
+            }
         }
-        else if(percent_in_half >= 0.85){
-            t_opt = under_over ?  1.2 : 0.8 ; 
-        }
-        
-        return st * t_opt;
-    }
 
-        
+        return st * C_multiplier;
+
+    }
+                                            
     /*-----------------------------------------------------------------------
      *  CONVENIENCE UTILITIES
      *-----------------------------------------------------------------------*/
@@ -2488,6 +2281,19 @@
             config.insert( pair<string,string>( "HDR_VIDEO_FORMAT", pt.get<string>("HDR.video_format") ) );
             config.insert( pair<string,string>( "HDR_RESPONSE_CALIBRATION", pt.get<string>("HDR.response_calibration") ) );
             
+            // AEC values
+            aec_values.insert( pair<string,float>( "AEC_THRESHOLD", pt.get<float>("AEC.threshold") ) );
+            
+            aec_values.insert( pair<string,float>( "AEC_U_MIN", pt.get<float>("AEC.u_min_threshold") ) );
+            aec_values.insert( pair<string,float>( "AEC_U_MAX", pt.get<float>("AEC.u_max_threshold") ) );
+            aec_values.insert( pair<string,float>( "AEC_M_U_MIN", pt.get<float>("AEC.m_u_min") ) );
+            aec_values.insert( pair<string,float>( "AEC_M_U_MAX", pt.get<float>("AEC.m_u_max") ) );
+
+            aec_values.insert( pair<string,float>( "AEC_O_MIN", pt.get<float>("AEC.o_min_threshold") ) );
+            aec_values.insert( pair<string,float>( "AEC_O_MAX", pt.get<float>("AEC.o_max_threshold") ) );
+            aec_values.insert( pair<string,float>( "AEC_M_O_MIN", pt.get<float>("AEC.m_o_min") ) );
+            aec_values.insert( pair<string,float>( "AEC_M_O_MAX", pt.get<float>("AEC.m_o_max") ) );
+            
         } catch (exception& e){
             cerr << "[CONFIG ERROR]:" << e.what() << endl;
         }
@@ -2506,6 +2312,11 @@
     
     bool FirewireVideo::CheckConfigLoaded(){
         return !config.empty();
+    }
+        
+        
+    float FirewireVideo::GetAECValue(string attribute){ 
+        return aec_values.find(attribute)->second;
     }
       
     void FirewireVideo::GetTimeStamp(char* time_stamp){
