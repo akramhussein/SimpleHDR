@@ -151,9 +151,10 @@ int main( int argc, char* argv[] )
     time_t start, end;
     uint32_t hdr_shutter[3];    
     uint32_t aec_shutter[3];    
-    float max = video.GetFeatureValueMax(DC1394_FEATURE_SHUTTER);
-    float min = video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER);
-    
+    float max = video.GetFeatureQuantMax(DC1394_FEATURE_SHUTTER);
+    float min = video.GetFeatureQuantMin(DC1394_FEATURE_SHUTTER);
+
+    int frame_count = 0;
     // AEC constants
     float threshold = video.CheckConfigLoaded() 
                     ? video.GetAECValue("AEC_THRESHOLD") / 1000 
@@ -188,65 +189,19 @@ int main( int argc, char* argv[] )
         FinishGlutFrame();
         
         // HDR MODE
-        
+
         // switch under over flag
-        under_over = under_over ? false : true ;
+        under_over = under_over ? false : true;
 
-        // shutter settings when AEC mode activated   
-        if(Pushed(AEC.var->meta_gui_changed)){
-            
-            frame_number = 0;
-            
-            AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
-        
-            // copy, don't modify original hdr shutter values so we can reset them
-            memcpy(aec_shutter, hdr_shutter, sizeof(aec_shutter));
-
-            if(!AEC){
-                
-                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[2], hdr_shutter[0], hdr_shutter[2]); 
-                
-                //update aec values in gui
-                ue_time.operator=(video.GetShutterMapAbs(hdr_shutter[0]));
-                oe_time.operator=(video.GetShutterMapAbs(hdr_shutter[2]));
-            }
-        } 
-
-        // will only modify values if HDR mode is on
-        if (hdr && AEC){
-             
-            // calculate new shutter values and set them if >= threshold
-            if(under_over){
-                
-                //cout << "[AEC]: Current under shutter " << video.GetShutterMapAbs(aec_shutter[0]) << endl;
-                
-                new_under_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
-                
-                // if new shutter under time >= threshold
-                if ( abs(video.GetShutterMapAbs(aec_shutter[0]) - new_under_shutter_time) >= threshold && new_under_shutter_time < max && new_under_shutter_time > min ){
-                    aec_shutter[0] = video.GetShutterMapQuant(new_under_shutter_time); // replace new shutter time in array
-                    video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
-                }
-                          
-            } else {
-                
-                new_over_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
-                
-                // if new shutter over time >= threshold
-                if ( abs(video.GetShutterMapAbs(aec_shutter[2]) - new_over_shutter_time) >= threshold && new_over_shutter_time < max && new_over_shutter_time > min ){
-                    aec_shutter[2] = video.GetShutterMapQuant(new_over_shutter_time); // replace new shutter time in array
-                    video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
-                }
-            }
-            
-            //update aec values in gui
-            ue_time.operator=(new_under_shutter_time);
-            oe_time.operator=(new_over_shutter_time);
-            
-        } 
+        //switch under over flag to under at frame sync
+        if (hdr && (frame_number == frame_count+100) ){
+            under_over = true;
+        }
         
         // checks if hdr mode has been switched and sets register on
         if(Pushed(hdr.var->meta_gui_changed)){
+            
+            frame_count = frame_number;
             
             if( hdr ){
 
@@ -280,6 +235,64 @@ int main( int argc, char* argv[] )
             }
         
         }
+        
+        // shutter settings when AEC mode activated   
+        if(Pushed(AEC.var->meta_gui_changed)){
+
+            // printing
+            frame_number = 0;
+            
+            AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
+            
+            // copy, don't modify original hdr shutter values so we can reset them
+            memcpy(aec_shutter, hdr_shutter, sizeof(aec_shutter));
+            
+            if(!AEC){
+                
+                video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[2], hdr_shutter[0], hdr_shutter[2]); 
+                
+                //update aec values in gui
+                ue_time.operator=(video.GetShutterMapAbs(hdr_shutter[0]));
+                oe_time.operator=(video.GetShutterMapAbs(hdr_shutter[2]));
+            }
+        } 
+        
+        
+        // will only modify values if HDR mode is on
+        if (hdr && AEC){
+            
+            
+            // calculate new shutter values and set them if >= threshold
+            if(under_over){
+                
+                //cout << "[AEC]: Current under shutter " << video.GetShutterMapAbs(aec_shutter[0]) << endl;
+                
+                new_under_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
+                
+                if( (new_under_shutter_time < new_over_shutter_time) && (new_under_shutter_time > min) ){
+                    aec_shutter[0] = video.GetShutterMapQuant(new_under_shutter_time); // replace new shutter time in array
+                    video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
+                }
+                
+            } else {
+                
+                new_over_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
+                
+                if( (new_over_shutter_time > new_under_shutter_time) && (new_over_shutter_time < max) ){
+                    aec_shutter[2] = video.GetShutterMapQuant(new_over_shutter_time); // replace new shutter time in array
+                    video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
+                }
+                
+            }   
+            
+            //update aec values in gui
+            ue_time.operator=(new_under_shutter_time);
+            oe_time.operator=(new_over_shutter_time);
+            
+            if (frame_number != 0){
+                cout << frame_number << " " << new_under_shutter_time << " " << new_over_shutter_time << endl;
+            }
+        } 
            
         // MANUAL SETTINGS
 
@@ -375,36 +388,8 @@ int main( int argc, char* argv[] )
                 cout << "[VIDEO]: Processing HDR video" << endl;
                 boost::thread(&FirewireVideo::SaveHDRVideo, &video, frame_number);    
             } else {
-                // refactor
-                cout << "[VIDEO]: Processing video" << endl;
-                char time_stamp[32];
-                char command[128];
-                char output[1024];
-                char *video_format;
-                
-                // set output video format from config or if not loaded, to default (mpeg)
-                if (video.CheckConfigLoaded()){
-                    video_format = (char*) video.GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
-                } else {
-                    video_format = (char *) "mpeg" ;
-                }
-                // get time stamp for file name
-                video.GetTimeStamp(time_stamp);
-                
-                sprintf(output, "%s.%s", time_stamp, video_format);
-                
-                // create command string: convert video, remove files and then echo completed - should be thread safe this way
-            
-                sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
-                        && rm -rf ./video/ppm/  \
-                        && echo '[VIDEO]: Video saved to ./video/%s'", 
-                        output, output); 
-                
-                // run video conversion
-                 boost::thread(system,command);  
-                
-                //boost::thread(&FirewireVideo::SaveVideo, &video);
-
+                 cout << "[VIDEO]: Processing LDR video" << endl;
+                boost::thread(&FirewireVideo::SaveVideo, &video);
             }
          
         }
@@ -416,16 +401,11 @@ int main( int argc, char* argv[] )
             frame_number = 0; 
             recorded_frames.operator=(frame_number);
             recorded_time.operator=(0);
+            //boost::pool tp(10);
         }
 
         // save mode
-        if ( save && hdr ){
-            video.RecordFramesOneShot(frame_number, img, true, hdr); 
-            recorded_frames.operator=(frame_number);
-            time (&end);
-            recorded_time.operator=(difftime(end, start));
-        } 
-        else if ( save ){
+        if ( save ){
             video.RecordFrames(frame_number, img, true, true, hdr); 
             recorded_frames.operator=(frame_number);
             time (&end);
@@ -435,7 +415,6 @@ int main( int argc, char* argv[] )
             video.GrabOneShot(img);
         }
        
-
 
     }
 

@@ -1863,30 +1863,42 @@
         
     void FirewireVideo::SaveVideo(){
         
-        char time_stamp[32];
-        char command[128];
+        cout << "[VIDEO]: Processing video" << endl;
+        char time_stamp[64];
+        char command[2048];
         char output[1024];
-        char *video_format;
+        char *format;
         
-        // set output video format from config or if not loaded, to default (mpg)
-        if (CheckConfigLoaded()){
-           video_format = (char *) GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
-        } else {
-           video_format = (char *) "mpeg" ;
-        }
         // get time stamp for file name
         GetTimeStamp(time_stamp);
-
-        sprintf(output, "%s.%s", time_stamp, video_format);
         
-        // create command string: convert video, remove files and then echo completed - should be thread safe this way
-        sprintf(command, "convert -q 100 ./video/ppm/*.ppm ./video/%s \
-                && rm -rf ./video/ppm/  \
-                && echo '[VIDEO]: Video saved to ./video/%s'", 
-                output, output); 
+        // set output video format from config or if not loaded, to default (mpeg)
+        if (CheckConfigLoaded()){
+            format = (char*) GetConfigValue("NORMAL_VIDEO_FORMAT").c_str();
+        } else {
+            format = (char *) "mpeg" ;
+            
+        }
         
-        // run video conversion
-        system(command);
+        if(!strcmp(format, "avi") || !strcmp(format, "AVI") ){
+            
+            // create command string: convert video, remove files and then echo completedy
+            sprintf(command, "mencoder \"mf://./video/jpeg/image*.jpeg\" -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
+                    && mencoder \"mf://./video/jpeg/image*.jpeg\" -o ./video/%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
+                    && rm -rf  divx2pass.log ./video/jpeg/  \
+                    && echo '[VIDEO]: Video saved to ./video/%s' > /dev/null 2>&1", 
+                    time_stamp, time_stamp); 
+            
+        } else {
+            sprintf(output, "%s.%s", time_stamp, format);
+            sprintf(command, "convert -quality 100 ./video/jpeg/*.jpeg ./video/%s \
+                    && rm -rf ./video/jpeg/  \
+                    && echo '[VIDEO]: Video saved to ./video/%s'", 
+                    output, output); 
+            
+        }
+        // run final video conversion 
+        system(command);  
 
     }
         
@@ -1895,7 +1907,7 @@
         // temp directories for jpeg intermediate outputs
         mkdir("./hdr-video/temp-jpeg/", 0755);
         
-        char time_stamp[32];
+        char time_stamp[64];
         char convert_command[1024];
         char video_command[1024];
         char *tmo;
