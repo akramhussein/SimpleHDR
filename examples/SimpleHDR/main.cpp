@@ -140,14 +140,6 @@ int main( int argc, char* argv[] )
     RegisterKeyPressCallback( 32 , SetVarFunctor<bool>("ui.Record", true));                     // start/stop recording
     RegisterKeyPressCallback( 13, SetVarFunctor<bool>("ui.Capture Frame", true));               // grab single image
     RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.Capture HDR Frame", true));          // capture hdr frame
-    
-//    RegisterKeyPressCallback( 'h', SetVarFunctor<bool>("ui.HDR Mode", true ));                   // hdr mode 
-//    RegisterKeyPressCallback( 'n', SetVarFunctor<bool>("ui.HDR Mode", false));                  // normal mode
-//    
-//    RegisterKeyPressCallback( 'm', SetVarFunctor<bool>("ui.Manual Camera Settings", true));     // manual mode on
-//    RegisterKeyPressCallback( 'a', SetVarFunctor<bool>("ui.Manual Camera Settings", false));    // manual off
-//    RegisterKeyPressCallback( 'e', SetVarFunctor<bool>("ui.Automatic Exposure Control", true)); // AEC on
-        
         
     /*-----------------------------------------------------------------------
      *  CAPTURE LOOP
@@ -162,10 +154,6 @@ int main( int argc, char* argv[] )
     float max = video.GetFeatureValueMax(DC1394_FEATURE_SHUTTER);
     float min = video.GetFeatureValueMin(DC1394_FEATURE_SHUTTER);
     
-    /*
-    struct timeval tim;
-    double old_time, new_time;
-     */
     // AEC constants
     float threshold = video.CheckConfigLoaded() 
                     ? video.GetAECValue("AEC_THRESHOLD") / 1000 
@@ -177,15 +165,6 @@ int main( int argc, char* argv[] )
     // loop until quit (e.g ESC key)
     for(int frame_number = 0; !ShouldQuit(); ++frame_number)
     {     
-        /*
-        if(hdr){
-            // print frame time gap in milli-seconds
-            tim.tv_usec = video.ReadTimeStamp(img);
-            new_time = (tim.tv_usec/1000000.0);
-            printf("%d %.6lf \n", frame_number, new_time - old_time);
-            old_time = new_time;
-        }
-         */
         // Screen refresh
         if(HasResized()){ DisplayBase().ActivateScissorAndClear(); }
 
@@ -194,6 +173,19 @@ int main( int argc, char* argv[] )
         /*-----------------------------------------------------------------------
          *  CONTROL LOGIC
          *-----------------------------------------------------------------------*/
+        
+        /*-----------------------------------------------------------------------
+         *  Refresh screen
+         *-----------------------------------------------------------------------*/    
+        
+        texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
+        // Activate video viewport and render texture
+        vVideo.ActivateScissorAndClear();
+        texVideo.RenderToViewportFlipY();
+        // Swap back buffer with front and process window events via GLUT
+        d_panel.Render();
+        glutSetWindow(win);
+        FinishGlutFrame();
         
         // HDR MODE
         
@@ -206,9 +198,7 @@ int main( int argc, char* argv[] )
             frame_number = 0;
             
             AEC ? cout << "[AEC]: AEC enabled" << endl : cout << "[AEC]: AEC disabled" << endl;  
-            
-
-            
+        
             // copy, don't modify original hdr shutter values so we can reset them
             memcpy(aec_shutter, hdr_shutter, sizeof(aec_shutter));
 
@@ -216,7 +206,7 @@ int main( int argc, char* argv[] )
                 
                 video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[2], hdr_shutter[0], hdr_shutter[2]); 
                 
-                //update gui
+                //update aec values in gui
                 ue_time.operator=(video.GetShutterMapAbs(hdr_shutter[0]));
                 oe_time.operator=(video.GetShutterMapAbs(hdr_shutter[2]));
             }
@@ -232,7 +222,7 @@ int main( int argc, char* argv[] )
                 
                 new_under_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[0]), under_over);
                 
-                // if new shutter time >= threshold
+                // if new shutter under time >= threshold
                 if ( abs(video.GetShutterMapAbs(aec_shutter[0]) - new_under_shutter_time) >= threshold && new_under_shutter_time < max && new_under_shutter_time > min ){
                     aec_shutter[0] = video.GetShutterMapQuant(new_under_shutter_time); // replace new shutter time in array
                     video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
@@ -240,26 +230,18 @@ int main( int argc, char* argv[] )
                           
             } else {
                 
-                //cout << "[AEC]: Current over shutter" << video.GetShutterMapAbs(aec_shutter[2]) << endl;
-                
                 new_over_shutter_time = video.AEC(img, video.GetShutterMapAbs(aec_shutter[2]), under_over);
                 
-                // if new shutter time >= threshold
+                // if new shutter over time >= threshold
                 if ( abs(video.GetShutterMapAbs(aec_shutter[2]) - new_over_shutter_time) >= threshold && new_over_shutter_time < max && new_over_shutter_time > min ){
                     aec_shutter[2] = video.GetShutterMapQuant(new_over_shutter_time); // replace new shutter time in array
                     video.SetHDRShutterFlags(aec_shutter[0], aec_shutter[2], aec_shutter[0], aec_shutter[2]); // set registers
                 }
             }
             
+            //update aec values in gui
             ue_time.operator=(new_under_shutter_time);
             oe_time.operator=(new_over_shutter_time);
-            
-            // print AEC telemtry
-            if ( frame_number != 0) {
-                cout << frame_number << " " << new_under_shutter_time;
-                cout << " " << new_over_shutter_time;
-                cout << " " << (new_over_shutter_time - new_under_shutter_time)<< endl;
-            }
             
         } 
         
@@ -284,13 +266,15 @@ int main( int argc, char* argv[] )
                 video.SetHDRShutterFlags(hdr_shutter[0], hdr_shutter[2], hdr_shutter[0], hdr_shutter[2]); 
                 video.SetHDRRegister(true);
                 
-                //update GUI
-                ue_time.operator=(video.GetShutterMapAbs(hdr_shutter[0]));
-                oe_time.operator=(video.GetShutterMapAbs(hdr_shutter[2]));
+               //update aec values in gui
+               ue_time.operator=(video.GetShutterMapAbs(hdr_shutter[0]));
+               oe_time.operator=(video.GetShutterMapAbs(hdr_shutter[2]));
                 
             } else {
                 cout << "[HDR]: HDR mode disabled" << endl;    
                 video.SetHDRRegister(false);
+                
+                //update aec values in gui
                 ue_time.operator=(0);
                 oe_time.operator=(0);
             }
@@ -375,7 +359,6 @@ int main( int argc, char* argv[] )
             
             // capture HDR images
             video.CaptureHDRFrame(img, 3, hdr_shutter);
-            
                    
         } 
 
@@ -411,6 +394,7 @@ int main( int argc, char* argv[] )
                 sprintf(output, "%s.%s", time_stamp, video_format);
                 
                 // create command string: convert video, remove files and then echo completed - should be thread safe this way
+            
                 sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
                         && rm -rf ./video/ppm/  \
                         && echo '[VIDEO]: Video saved to ./video/%s'", 
@@ -418,6 +402,7 @@ int main( int argc, char* argv[] )
                 
                 // run video conversion
                  boost::thread(system,command);  
+                
                 //boost::thread(&FirewireVideo::SaveVideo, &video);
 
             }
@@ -441,7 +426,7 @@ int main( int argc, char* argv[] )
             recorded_time.operator=(difftime(end, start));
         } 
         else if ( save ){
-            video.RecordFrames(frame_number, img, true, false, hdr); 
+            video.RecordFrames(frame_number, img, true, true, hdr); 
             recorded_frames.operator=(frame_number);
             time (&end);
             recorded_time.operator=(difftime(end, start));
@@ -450,18 +435,7 @@ int main( int argc, char* argv[] )
             video.GrabOneShot(img);
         }
        
-        /*-----------------------------------------------------------------------
-         *  Refresh screen
-         *-----------------------------------------------------------------------*/    
-        
-        texVideo.Upload(img, vid_fmt.channels==1 ? GL_LUMINANCE:GL_RGB, GL_UNSIGNED_BYTE);
-        // Activate video viewport and render texture
-        vVideo.ActivateScissorAndClear();
-        texVideo.RenderToViewportFlipY();
-        // Swap back buffer with front and process window events via GLUT
-        d_panel.Render();
-        glutSetWindow(win);
-        FinishGlutFrame();
+
 
     }
 

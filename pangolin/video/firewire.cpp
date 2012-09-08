@@ -1639,20 +1639,19 @@
             if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "NO") ){
 
             // don't create radiance map
+            //                    && rm -rf ./hdr-image/jpeg 
             sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                     | pfshdrcalibrate -f ./config/camera.response \
                     | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
-                    && rm -rf ./hdr-image/jpeg \
                     && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                     tmo, output, output);
             } else {
-                
+                // && rm -rf ./hdr-image/jpeg 
                 sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                         | pfshdrcalibrate -f ./config/camera.response \
                         | pfsoutrgbe ./hdr-image/%s.rgbe \
                         && pfsinrgbe ./hdr-image/%s.rgbe \
                         | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
-                        && rm -rf ./hdr-image/jpeg \
                         && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                         time_stamp, time_stamp, tmo, output, output);
             }
@@ -1663,20 +1662,20 @@
             if(!strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "no") || !strcmp(GetConfigValue("HDR_KEEP_RADIANCE").c_str(), "NO") ){
 
                 // don't create radiance map
+                //                        && rm -rf ./hdr-image/jpeg 
                 sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                         | pfshdrcalibrate -f ./config/camera.response \
                         | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
-                        && rm -rf ./hdr-image/jpeg \
                         && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                         tmo, output, output);
             }
             else {
+                //                        && rm -rf ./hdr-image/jpeg 
                 sprintf(command, "pfsinme ./hdr-image/jpeg/*1.jpeg ./hdr-image/jpeg/*2.jpeg\
                         | pfshdrcalibrate -f ./config/camera.response \
                         | pfsoutexr ./hdr-image/%s.exr \
                         && pfsinexr ./hdr-image/%s.exr \
                         | pfstmo_%s | pfsoutimgmagick -q 100 ./hdr-image/%s \
-                        && rm -rf ./hdr-image/jpeg \
                         && echo '[HDR]: HDR frame generated: ./hdr-image/%s'", 
                         time_stamp, time_stamp, tmo, output, output);
             }
@@ -1881,7 +1880,7 @@
         sprintf(output, "%s.%s", time_stamp, video_format);
         
         // create command string: convert video, remove files and then echo completed - should be thread safe this way
-        sprintf(command, "convert -quality 100 ./video/ppm/*.ppm ./video/%s \
+        sprintf(command, "convert -q 100 ./video/ppm/*.ppm ./video/%s \
                 && rm -rf ./video/ppm/  \
                 && echo '[VIDEO]: Video saved to ./video/%s'", 
                 output, output); 
@@ -1942,7 +1941,7 @@
                 
         if(!format.compare("avi") || !format.compare("AVI") ){
 
-            // create command string: convert video, remove files and then echo completed - should be thread safe this way
+            // create command string: convert video, remove files and then echo completedy
             sprintf(video_command, "mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
                                     && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o ./hdr-video/%s-%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
                                     && rm -rf  divx2pass.log ./hdr-video/temp-jpeg/ \
@@ -1952,8 +1951,9 @@
             system(video_command);  
             
         } else {
-            // && rm -rf ./hdr-video/temp-jpeg/           
-            sprintf(video_command, "convert -quality 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s-%s.mpeg \
+                   
+            sprintf(video_command, "convert -q 100 ./hdr-video/temp-jpeg/image*.jpeg ./hdr-video/%s-%s.mpeg \
+                    rm -rf ./hdr-video/temp-jpeg/  \
                     && echo '[HDR]: HDR Video saved to ./hdr-video/%s-%s.mpeg' ", 
                     time_stamp, tmo, time_stamp, tmo); 
             
