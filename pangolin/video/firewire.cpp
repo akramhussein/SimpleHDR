@@ -1883,8 +1883,8 @@
         if(!strcmp(format, "avi") || !strcmp(format, "AVI") ){
             
             // create command string: convert video, remove files and then echo completedy
-            sprintf(command, "mencoder \"mf://./video/jpeg/image*.jpeg\" -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
-                    && mencoder \"mf://./video/jpeg/image*.jpeg\" -o ./video/%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
+            sprintf(command, "mencoder \"mf://./video/jpeg/image*.jpeg\" -mf type=jpg -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
+                    && mencoder \"mf://./video/jpeg/image*.jpeg\" -mf type=jpg -o ./video/%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
                     && rm -rf  divx2pass.log ./video/jpeg/  \
                     && echo '[VIDEO]: Video saved to ./video/%s' > /dev/null 2>&1", 
                     time_stamp, time_stamp); 
@@ -1954,8 +1954,8 @@
         if(!format.compare("avi") || !format.compare("AVI") ){
 
             // create command string: convert video, remove files and then echo completedy
-            sprintf(video_command, "mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
-                                    && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15 -o ./hdr-video/%s-%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
+            sprintf(video_command, "mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15:type=jpg  -o /dev/null -ovc xvid -xvidencopts pass=1:bitrate=2160000 \
+                                    && mencoder \"mf://./hdr-video/temp-jpeg/image*.jpeg\" -mf fps=15:type=jpg -o ./hdr-video/%s-%s.avi -ovc xvid -xvidencopts pass=2:bitrate=2160000 \
                                     && rm -rf  divx2pass.log ./hdr-video/temp-jpeg/ \
                                     && echo '[HDR]: HDR Video saved to ./hdr-video/%s-%s.avi'", 
                                     time_stamp, tmo, time_stamp, tmo); 
