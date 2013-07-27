@@ -2,10 +2,12 @@ Simple HDR
 =========
 
 This project incorporates additional functionality to Pangolin developed by 
-Steven Lovegrove (@stevenlovegrove) to allow for greater control of firewire cameras 
-and to enable the capture HDR images and video.
+Steven Lovegrove (@stevenlovegrove) to allow for greater control of firewire 
+cameras and to enable the capture HDR images and video.
 
 An example of these additions can be found in the examples/SimpleHDR.
+
+Examples of HDR Images and Video can be found [here](http://www.akramhussein.co.uk/simplehdr)
 
 What is Pangolin
 ----------------
