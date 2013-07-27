@@ -1,5 +1,4 @@
-Simple HDR
-=========
+## Simple HDR
 
 This project incorporates additional functionality to Pangolin developed by 
 Steven Lovegrove (@stevenlovegrove) to allow for greater control of firewire 
@@ -7,10 +6,9 @@ cameras and to enable the capture HDR images and video.
 
 An example of these additions can be found in the examples/SimpleHDR.
 
-Examples of HDR Images and Video can be found [here](http://www.akramhussein.co.uk/simplehdr)
+Examples of HDR Images and Video can be found [here](http://www.akramhussein.co.uk/simplehdr).
 
-What is Pangolin
-----------------
+## What is Pangolin
 
 Pangolin is a lightweight rapid development library for managing OpenGL
 display / interaction and video input. At its heart is a simple OpenGl
@@ -23,8 +21,7 @@ The ethos of Pangolin is to reduce the boilerplate code that normally
 gets written to visualise and interact with (typically image and 3D
 based) systems, without compromising performance.
 
-Required Dependencies
----------------------
+## Required Dependencies
 
 __OpenGL__
 
@@ -86,8 +83,8 @@ _note: quite tricky to install on mac/win_
 * (deb) sudo apt-get install pfstools
 * (mac) http://sourceforge.net/projects/pfstools/files/
 
-Very Optional Dependencies
---------------------------
+## Very Optional Dependencies
+
 
 __CUDA Toolkit__ (>= 3.2)
 
