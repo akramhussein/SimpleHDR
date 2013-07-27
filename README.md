@@ -1,14 +1,10 @@
-Pangolin HDR
-============
+Simple HDR
+=========
 
 This project adds additional functionality to Pangolin (developed by 
-Steven Lovegrove) to capture HDR frames and video.
+Steven Lovegrove (@stevenlovegrove) to capture HDR images and video.
 
 An example of these additions can be found in the examples/SimpleHDR.
-
-__Added Features__
-
-* add notes here
 
 What is Pangolin
 ----------------
