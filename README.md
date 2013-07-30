@@ -6,6 +6,8 @@ cameras and to enable the capture of High Dynamic Range images and video.
 
 An example of these additions can be found in the examples/SimpleHDR.
 
+![Screenshot](http://24.media.tumblr.com/a2e64edf4614956968f013963d6af96b/tumblr_mqpruykidB1r2dbg2o1_1280.png)
+
 Examples of HDR images and video can be found [here](http://www.akramhussein.co.uk/simplehdr).
 
 ## What is Pangolin
